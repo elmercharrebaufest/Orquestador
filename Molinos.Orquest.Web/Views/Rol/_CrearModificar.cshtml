@@ -1,0 +1,47 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Web.Models.RolModel
+
+
+@Html.ValidationSummary(true)
+@Html.HiddenFor(model => model.Id)
+@Html.Hidden("permisos", "", new { id = "permisosFinales" })
+
+<div class="container-fluid" id="permisosViewModel">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Descripcion)
+                @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Descripcion, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                @Html.Label(Textos.Permiso)
+                @Html.DropDownList("Permisos", (IEnumerable<SelectListItem>)ViewBag.Permisos, new { id = "permiso", @class = "form-control", data_bind = "value: newPermisoId" })
+                @Html.ValidationMessage("Permisos", null, new { @class = "text-danger" })
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <button class="btn btn-primary col-12" type="button" data-bind="click: addPermiso">@Textos.Permiso_Agregar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">@Textos.Descripcion</th>
+                <th scope="col">@Textos.Eliminar</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: permisos">
+            <tr>
+                <td data-bind="text: Descripcion" />
+                <td><a href="#" data-bind="click: $root.removePermiso"><i class="fa fa-trash fa-lg"></i></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

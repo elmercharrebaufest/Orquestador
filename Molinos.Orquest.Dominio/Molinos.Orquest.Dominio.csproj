@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{84CC0EC6-299D-4C90-8C72-7F9202234AAD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Molinos.Orquest.Dominio</RootNamespace>
+    <AssemblyName>Molinos.Orquest.Dominio</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jenkins|AnyCPU'">
+    <OutputPath>bin\Jenkins\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.8.10.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.10\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Comandos\Comando.cs" />
+    <Compile Include="Comandos\ComandoCancelarSuscripcion.cs" />
+    <Compile Include="Comandos\ComandoDepurarSuscripciones.cs" />
+    <Compile Include="Comandos\ComandoEjecutar.cs" />
+    <Compile Include="Comandos\ComandoSuscribir.cs" />
+    <Compile Include="Comandos\EjecutarActivarDisplay.cs" />
+    <Compile Include="Comandos\EjecutarAperturaBarreraMaestro.cs" />
+    <Compile Include="Comandos\EjecutarComunicador.cs" />
+    <Compile Include="Comandos\EjecutarCierreBarrera.cs" />
+    <Compile Include="Comandos\EjecutarAperturaCortinaAgua.cs" />
+    <Compile Include="Comandos\EjecutarEjecutarQuery.cs" />
+    <Compile Include="Comandos\EjecutarObtenerDireccionViento.cs" />
+    <Compile Include="Comandos\EjecutarBorrarBalanzadasPorRango.cs" />
+    <Compile Include="Comandos\EjecutarConsultaBalanzadaPorRango.cs" />
+    <Compile Include="Comandos\EjecutarConsultaBalanzada.cs" />
+    <Compile Include="Comandos\EjecutarBorrarBalanzada.cs" />
+    <Compile Include="Comandos\EjecutarHabilitarTransito.cs" />
+    <Compile Include="Comandos\EjecutarImpresionTicket.cs" />
+    <Compile Include="Comandos\NotificarLecturaViandas.cs" />
+    <Compile Include="Comandos\EjecutarEstacionMeteorologica.cs" />
+    <Compile Include="Comandos\EjecutarAnalisis.cs" />
+    <Compile Include="Comandos\EjecutarObtenerUltimaFoto.cs" />
+    <Compile Include="Comandos\EjecutarEnviarMensaje.cs" />
+    <Compile Include="Comandos\EjecutarTomarFoto.cs" />
+    <Compile Include="Comandos\EjecutarAnalisisHumedad.cs" />
+    <Compile Include="Comandos\EjecutarAperturaBarrera.cs" />
+    <Compile Include="Comandos\EjecutarVerificacionDispositivo.cs" />
+    <Compile Include="ActualizarEstadoEventArgs.cs" />
+    <Compile Include="Dtos\CamaraDto.cs" />
+    <Compile Include="Dtos\EntradaDto.cs" />
+    <Compile Include="Dtos\DatosPersonalesQrDto.cs" />
+    <Compile Include="Dtos\EstadoMolinete.cs" />
+    <Compile Include="Dtos\HabilitarSalidaDto.cs" />
+    <Compile Include="Dtos\HabilitacionMolinete.cs" />
+    <Compile Include="Dtos\DispositivoDto.cs" />
+    <Compile Include="Dtos\ConsultaMolinete.cs" />
+    <Compile Include="Dtos\FotoConPatenteDto.cs" />
+    <Compile Include="Dtos\IntercomunicadorDispositivoDto.cs" />
+    <Compile Include="Dtos\MeteorologicaDto.cs" />
+    <Compile Include="Dtos\MonitoreoOrquestadorDto.cs" />
+    <Compile Include="Entidades\ConfigTag.cs" />
+    <Compile Include="Entidades\ConfigBalanzaPuerto.cs" />
+    <Compile Include="Entidades\ConfigComunicador.cs" />
+    <Compile Include="Entidades\ConfigCortinaAgua.cs" />
+    <Compile Include="Entidades\ConfigDisplay.cs" />
+    <Compile Include="Entidades\ConfigLectorQr.cs" />
+    <Compile Include="Entidades\ConfigMeteorologica.cs" />
+    <Compile Include="Entidades\ConfigBarrera.cs" />
+    <Compile Include="Consultas\DirOrden.cs" />
+    <Compile Include="Consultas\Expresiones.cs" />
+    <Compile Include="Consultas\ListaPaginada.cs" />
+    <Compile Include="Consultas\Paginacion.cs" />
+    <Compile Include="DepurarSuscripcionesEventArgs.cs" />
+    <Compile Include="DispositivoNoEncontradoException.cs" />
+    <Compile Include="DriverNoEncontradoException.cs" />
+    <Compile Include="Entidades\ConfigDispositivo.cs" />
+    <Compile Include="Entidades\ConfigCartelLed.cs" />
+    <Compile Include="Entidades\ConfigImpresoraHasar.cs" />
+    <Compile Include="Entidades\ConfigMolinete.cs" />
+    <Compile Include="Entidades\ConfigPuestoDeVianda.cs" />
+    <Compile Include="Entidades\ConfigPantalla.cs" />
+    <Compile Include="Entidades\ConfigNirs.cs" />
+    <Compile Include="Entidades\ConfigItc.cs" />
+    <Compile Include="Entidades\ConfigLectorTarjetas.cs" />
+    <Compile Include="Entidades\ConfigCamara.cs" />
+    <Compile Include="Entidades\ConfigPantallaPuestoDeVianda.cs" />
+    <Compile Include="Entidades\ConfigSensor.cs" />
+    <Compile Include="Entidades\Estado.cs" />
+    <Compile Include="Entidades\Firma.cs" />
+    <Compile Include="Entidades\RolPermisoOrquestador.cs" />
+    <Compile Include="Entidades\Rol.cs" />
+    <Compile Include="Entidades\Suscripcion.cs" />
+    <Compile Include="Entidades\Usuario.cs" />
+    <Compile Include="Enums\TipoAlerta.cs" />
+    <Compile Include="Enums\TipoComunicador.cs" />
+    <Compile Include="Enums\TipoQr.cs" />
+    <Compile Include="Helpers\Encriptador.cs" />
+    <Compile Include="Helpers\ExtensionesEnum.cs" />
+    <Compile Include="Helpers\ExtensionesSerializacion.cs" />
+    <Compile Include="Recursos\Textos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Textos.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resultados\ResultadoBorrarBalanzadasPorRango.cs" />
+    <Compile Include="Resultados\ResultadoConsultaBalanzadaPorRango.cs" />
+    <Compile Include="Resultados\ResultadoConsultaBalanzada.cs" />
+    <Compile Include="Resultados\ResultadoBorrarBalanzada.cs" />
+    <Compile Include="Resultados\ResultadoEjecutarQuery.cs" />
+    <Compile Include="Resultados\ResultadoMeteorologica.cs" />
+    <Compile Include="Resultados\ResultadoObtenerPatente.cs" />
+    <Compile Include="Resultados\ResultadoTomarFoto.cs" />
+    <Compile Include="Resultados\NotificacionEvento.cs" />
+    <Compile Include="Resultados\ResultadoOperacion.cs" />
+    <Compile Include="Seguridad\PermisosOrquestador.cs" />
+    <Compile Include="Constantes.cs" />
+    <Compile Include="SuscripcionNoEncontradaException.cs" />
+    <Compile Include="Resultados\Codigos.cs" />
+    <Compile Include="Resultados\Mensaje.cs" />
+    <Compile Include="Resultados\ResultadoCancelarSuscripcion.cs" />
+    <Compile Include="Resultados\ResultadoComando.cs" />
+    <Compile Include="Resultados\ResultadoEjecutar.cs" />
+    <Compile Include="Resultados\ResultadoSuscribir.cs" />
+    <Compile Include="Comandos\EjecutarCereoCabezal.cs" />
+    <Compile Include="Comandos\EjecutarPesaje.cs" />
+    <Compile Include="Entidades\Dispositivo.cs" />
+    <Compile Include="Entidades\ConfigCabezal.cs" />
+    <Compile Include="Entidades\ConfigHumedimetro.cs" />
+    <Compile Include="Entidades\Orquestador.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TipoDispositivoIncorrectoException.cs" />
+    <Compile Include="TipoDriverIncorrectoException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Recursos\Textos.en.resx" />
+    <EmbeddedResource Include="Recursos\Textos.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Textos.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

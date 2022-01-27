@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Import the customized-by-project targets -->
+  <Import Project="$(MSBuildProjectDirectory)\deploy.$(Environment).targets" />
+  <!-- Import the MSBuild Tasks -->
+  <Import Project="$(ExtensionTasksPath)\MSBuild.ExtensionPack.tasks"/>
+  
+
+  <Target Name="Deploy-Remoto">
+    <!-- check whether a service exists (this should return true in most cases) -->
+    <MSBuild.ExtensionPack.Computer.WindowsService TaskAction="CheckExists" ServiceName="$(OrquestadorService)"
+        RemoteUser="$(User)"
+        RemoteUserPassword="$(UserPassword)"
+        MachineName="$(RemoteMachine)">
+      <Output TaskParameter="Exists" PropertyName="DoesExist"/>
+    </MSBuild.ExtensionPack.Computer.WindowsService>
+
+    <MSBuild.ExtensionPack.Computer.WindowsService
+      Condition="'$(DoesExist)' == 'true'"
+      TaskAction="Stop" RetryAttempts="$(Reintentos)"
+      ServiceName="$(OrquestadorService)"
+      RemoteUser="$(User)"
+      RemoteUserPassword="$(UserPassword)"
+      MachineName="$(RemoteMachine)"/>
+
+    <MSBuild.ExtensionPack.Computer.WindowsService
+      Condition="'$(DoesExist)' == 'true'"
+      TaskAction="Uninstall" RetryAttempts="$(Reintentos)"
+      ServiceName="$(OrquestadorService)"
+      RemoteUser="$(User)"
+      RemoteUserPassword="$(UserPassword)"
+      MachineName="$(RemoteMachine)" />
+
+    <!-- Copy the Package's files to Output Directory -->
+    
+    <ItemGroup>
+      <SourceFilesServidor Include="$(PackageServidor)/**/*"/>
+    </ItemGroup>
+    <Copy SourceFiles="$(AppConfig)" DestinationFiles="$(PackageServidor)/$(Exe).config" />
+    
+    <Message Text="*** Deleting files from Output Directory ***"/>
+    <MSBuild.ExtensionPack.FileSystem.Folder TaskAction="RemoveContent" Path="$(DeployPath)" />
+    
+    <Message Text="*** Copying new files to Output Directory ***"/>
+    <Copy SourceFiles="@(SourceFilesServidor)"
+        DestinationFiles="@(SourceFilesServidor->'$(DeployPath)/%(RecursiveDir)%(Filename)%(Extension)')" />
+
+    <MSBuild.ExtensionPack.Computer.WindowsService
+      TaskAction="Install" RetryAttempts="$(Reintentos)"
+      ServiceName="$(OrquestadorService)"
+      User="$(User)"
+      Password="$(UserPassword)"
+      ServicePath="$(LocalPath)/$(Exe)"
+      RemoteUser="$(User)"
+      RemoteUserPassword="$(UserPassword)"
+      MachineName="$(RemoteMachine)" />
+
+    <MSBuild.ExtensionPack.Computer.WindowsService
+      TaskAction="SetAutomatic" RetryAttempts="$(Reintentos)"
+      ServiceName="$(OrquestadorService)"
+      RemoteUser="$(User)"
+      RemoteUserPassword="$(UserPassword)"
+      MachineName="$(RemoteMachine)"/>
+
+    <MSBuild.ExtensionPack.Computer.WindowsService
+      TaskAction="Start" RetryAttempts="$(Reintentos)"
+      ServiceName="$(OrquestadorService)"
+      RemoteUser="$(User)"
+      RemoteUserPassword="$(UserPassword)"
+      MachineName="$(RemoteMachine)" />
+
+  </Target>
+
+  <Target Name="Deploy-Local">
+    <!-- check whether a service exists (this should return true in most cases) -->
+    <MSBuild.ExtensionPack.Computer.WindowsService TaskAction="CheckExists" ServiceName="$(OrquestadorService)">
+      <Output TaskParameter="Exists" PropertyName="DoesExist"/>
+    </MSBuild.ExtensionPack.Computer.WindowsService>
+
+    <MSBuild.ExtensionPack.Computer.WindowsService
+      Condition="'$(DoesExist)' == 'true'"
+      TaskAction="Stop" RetryAttempts="$(Reintentos)"
+      ServiceName="$(OrquestadorService)" />
+
+    <MSBuild.ExtensionPack.Computer.WindowsService
+      Condition="'$(DoesExist)' == 'true'"
+      TaskAction="Uninstall" RetryAttempts="$(Reintentos)"
+      ServiceName="$(OrquestadorService)" />
+
+    <!-- Copy the Package's files to Output Directory -->
+    <ItemGroup>
+      <SourceFilesServidor Include="$(PackageServidor)/**/*"/>
+    </ItemGroup>
+    <Copy SourceFiles="$(AppConfig)" DestinationFiles="$(PackageServidor)/$(Exe).config" />
+    
+    <Message Text="*** Deleting files from Output Directory ***"/>
+    <MSBuild.ExtensionPack.FileSystem.Folder TaskAction="RemoveContent" Path="$(DeployPath)" />
+    
+    <Message Text="*** Copying files to Output Directory ***"/>
+    <Copy SourceFiles="@(SourceFilesServidor)"
+        DestinationFiles="@(SourceFilesServidor->'$(DeployPath)/%(RecursiveDir)%(Filename)%(Extension)')" />
+
+    <MSBuild.ExtensionPack.Computer.WindowsService
+      TaskAction="Install" User="$(User)" Password="$(UserPassword)" RetryAttempts="$(Reintentos)"
+      ServiceName="$(OrquestadorService)"
+      ServicePath="$(DeployPath)/$(Exe)"/>
+
+    <MSBuild.ExtensionPack.Computer.WindowsService
+      TaskAction="SetAutomatic" RetryAttempts="$(Reintentos)"
+      ServiceName="$(OrquestadorService)" />
+
+    <MSBuild.ExtensionPack.Computer.WindowsService
+      TaskAction="Start" RetryAttempts="$(Reintentos)"
+      ServiceName="$(OrquestadorService)" />
+
+
+  </Target>
+
+  <Target Name="Desinstalar-Local">
+    <!-- check whether a service exists (this should return true in most cases) -->
+    <MSBuild.ExtensionPack.Computer.WindowsService TaskAction="CheckExists" ServiceName="$(OrquestadorService)">
+      <Output TaskParameter="Exists" PropertyName="DoesExist"/>
+    </MSBuild.ExtensionPack.Computer.WindowsService>
+
+    <MSBuild.ExtensionPack.Computer.WindowsService
+      Condition="'$(DoesExist)' == 'true'"
+      TaskAction="Stop" RetryAttempts="$(Reintentos)"
+      ServiceName="$(OrquestadorService)" />
+
+    <MSBuild.ExtensionPack.Computer.WindowsService
+      Condition="'$(DoesExist)' == 'true'"
+      TaskAction="Uninstall" RetryAttempts="$(Reintentos)"
+      ServiceName="$(OrquestadorService)" />
+
+  </Target>
+
+
+</Project>

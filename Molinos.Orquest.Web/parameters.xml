@@ -1,0 +1,73 @@
+﻿<parameters>
+  <parameter name="FederationMetadataLocation Config">
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/appSettings/add[@key='ida:FederationMetadataLocation']
+                           /@value" />
+  </parameter>
+  <parameter name="Issuer Config">
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/appSettings/add[@key='ida:Issuer']
+                           /@value" />
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/system.identityModel.services/federationConfiguration/wsFederation/@issuer" />
+  </parameter>
+  <parameter name="IssuerTrust Identity Configuration">
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/system.identityModel/identityConfiguration/issuerNameRegistry/authority/@name" />
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/system.identityModel/identityConfiguration/issuerNameRegistry/authority/validIssuers/add/@name" />
+  </parameter>
+  <parameter name="RealmUrl Identity Configuration">
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/system.identityModel.services/federationConfiguration/wsFederation/@realm" />
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/system.identityModel.services/federationConfiguration/wsFederation/@reply" />
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/system.identityModel/identityConfiguration/audienceUris/add/@value" />
+  </parameter>
+  <parameter name="Thumbprint Identity Configuration">
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/system.identityModel/identityConfiguration/issuerNameRegistry/authority/keys/add/@thumbprint" />
+  </parameter>
+  <parameter name="CertificateValidation Identity Configuration">
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/system.identityModel/identityConfiguration/certificateValidation/@certificateValidationMode" />
+  </parameter>
+  <parameter name="UrlServicioNotificaciones Config">
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/appSettings/add[@key='UrlServicioNotificaciones']
+                           /@value" />
+  </parameter>
+  <parameter name="UrlServicioSuscriptor Config">
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/appSettings/add[@key='UrlServicioSuscriptor']
+                           /@value" />
+  </parameter>
+  <parameter name="Orquestador Service Endpoint Address">
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/system.serviceModel/client
+                           /endpoint[@name='Orquestador']
+                           /@address" />
+  </parameter>
+
+  <parameter name="OrquestadorService Config">
+    <parameterEntry kind="XmlFile" scope="Web.config"
+                    match="/configuration/appSettings/add[@key='OrquestadorService']
+                           /@value" />
+  </parameter>
+    <parameter name="HostServiciosWeb Config">
+      <parameterEntry kind="XmlFile" scope="Web.config"
+                      match="/configuration/appSettings/add[@key='HostServiciosWeb']
+                           /@value" />
+    </parameter>
+	<parameter name="ICWebServerUrl Config">
+		<parameterEntry kind="XmlFile" scope="Web.config"
+						match="/configuration/appSettings/add[@key='ICWebServerUrl']
+                           /@value" />
+	</parameter>
+	<parameter name="ICWSServerUrl Config">
+		<parameterEntry kind="XmlFile" scope="Web.config"
+						match="/configuration/appSettings/add[@key='ICWSServerUrl']
+                           /@value" />
+	</parameter>
+</parameters>

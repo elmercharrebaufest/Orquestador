@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[Firma]
+(
+	[Id] INT IDENTITY (1, 1) NOT NULL, 
+    [Logo] VARBINARY(MAX) NULL,
+    [Favicon] VARBINARY(MAX) NULL, 
+    CONSTRAINT [PK_dbo.Firma] PRIMARY KEY CLUSTERED ([Id] ASC),
+); 
+
+GO

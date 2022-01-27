@@ -1,0 +1,128 @@
+﻿@model Molinos.Orquest.Dominio.Entidades.ConfigCamara
+
+<script src="~/Scripts/jquery.Jcrop.js"></script>
+<link href="~/Content/jquery.Jcrop.css" rel="stylesheet" />
+<script src="~/Scripts/camara.js"></script>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Codigo)
+                @Html.TextBoxFor(model => model.Dispositivo.Codigo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Dispositivo.Codigo, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeoutLectura)
+                @Html.TextBoxFor(model => model.TimeoutLectura, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TimeoutLectura, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Descripcion)
+                @Html.TextBoxFor(model => model.Dispositivo.Descripcion, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Dispositivo.Descripcion, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Activo)
+                @Html.CheckBoxFor(m => m.Dispositivo.Activo, new { @checked = "checked" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DireccionIp)
+                @Html.TextBoxFor(model => model.DireccionIp, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DireccionIp, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Puerto)
+                @Html.TextBoxFor(model => model.Puerto, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Puerto, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.LongFrase)
+                @Html.TextBoxFor(model => model.LongFrase, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LongFrase, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.UrlStreaming)
+            @Html.TextBoxFor(model => model.UrlStreaming, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.Uri)
+            @Html.TextBoxFor(model => model.Uri, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Uri, null, new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row hidden" id="rowImg">
+        <div class="col-md-12 show container">
+            <img id="imagen" src="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            @Html.LabelFor(model => model.MargenDerecho)
+            @Html.TextBoxFor(model => model.MargenDerecho, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MargenDerecho, null, new { @class = "text-danger" })
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            @Html.LabelFor(model => model.MargenIzquierdo)
+            @Html.TextBoxFor(model => model.MargenIzquierdo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MargenIzquierdo, null, new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            @Html.LabelFor(model => model.MargenSuperior)
+            @Html.TextBoxFor(model => model.MargenSuperior, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MargenSuperior, null, new { @class = "text-danger" })
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            @Html.LabelFor(model => model.MargenInferior)
+            @Html.TextBoxFor(model => model.MargenInferior, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MargenInferior, null, new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            @Html.LabelFor(model => model.RotateFlipType)
+            @Html.EnumDropDownListFor(model => model.RotateFlipType, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RotateFlipType, null, new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            @Html.LabelFor(model => model.NombreUsuario)
+            @(Html.TextBoxFor(model => model.NombreUsuario, new { @class = "form-control" }))
+            @Html.ValidationMessageFor(model => model.NombreUsuario, null, new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            @Html.LabelFor(model => model.Contrasenia)
+            @(Html.TextBoxFor(model => model.Contrasenia, new { @class = "form-control" }))
+            @Html.ValidationMessageFor(model => model.Contrasenia, null, new { @class = "text-danger" })
+        </div>
+    </div>
+    @Html.Partial("_Configuracion", Model)
+
+</div>

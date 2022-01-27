@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit3TestAdapter.3.11.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.3.11.0\build\net35\NUnit3TestAdapter.props')" />
+  <Import Project="..\packages\NUnit.3.11.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.11.0\build\NUnit.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6E24351A-AD82-42C3-9825-E1D1D3C2C403}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Molinos.Orquest.Test</RootNamespace>
+    <AssemblyName>Molinos.Orquest.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jenkins|AnyCPU'">
+    <OutputPath>bin\Jenkins\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.8.10.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.10\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Logging">
+      <HintPath>..\packages\Ninject.Extensions.Logging.3.0.1.0\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\BalanzaPuertoControllerTest.cs" />
+    <Compile Include="Controllers\CortinaDeAguaControllerTest .cs" />
+    <Compile Include="Controllers\CabezalControllerTest.cs" />
+    <Compile Include="Controllers\CartelLedControllerTest.cs" />
+    <Compile Include="Controllers\ImpresoraHasarControllerTest.cs" />
+    <Compile Include="Controllers\LectorQrControllerTest.cs" />
+    <Compile Include="Controllers\MolineteControllerTest.cs" />
+    <Compile Include="Controllers\PruebaMolineteControllerTest.cs" />
+    <Compile Include="Controllers\PuestoDeViandaControllerTest.cs" />
+    <Compile Include="Controllers\PantallaControllerTest.cs" />
+    <Compile Include="Controllers\CamaraControllerTest.cs" />
+    <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="Controllers\MenuControllerTest.cs" />
+    <Compile Include="Controllers\MeteorologicaControllerTest.cs" />
+    <Compile Include="Controllers\NirsControllerTest.cs" />
+    <Compile Include="Controllers\PantallaPuestoDeViandaControllerTest.cs" />
+    <Compile Include="Controllers\SensorControllerTest.cs" />
+    <Compile Include="Controllers\FirmaControllerTest.cs" />
+    <Compile Include="Controllers\MonitoreoOrquestadorControllerTest.cs" />
+    <Compile Include="Controllers\PruebaConexionControllerTest.cs" />
+    <Compile Include="Controllers\RolControllerTest.cs" />
+    <Compile Include="Controllers\DisplayControllerTest.cs" />
+    <Compile Include="Controllers\UsuarioControllerTest.cs" />
+    <Compile Include="Controllers\SuscripcionControllerTest.cs" />
+    <Compile Include="Controllers\ItcControllerTest.cs" />
+    <Compile Include="Controllers\LectorTarjetasControllerTest.cs" />
+    <Compile Include="Controllers\BarreraControllerTest.cs" />
+    <Compile Include="Controllers\HumedimetroControllerTest.cs" />
+    <Compile Include="Controllers\PruebaItcControllerTest.cs" />
+    <Compile Include="Dominio\ExtensionesByteTest.cs" />
+    <Compile Include="FactoryConversor.cs" />
+    <Compile Include="Helpers\TestExtensionesHtml.cs" />
+    <Compile Include="Meta\ExistenciaUnitTestsTest.cs" />
+    <Compile Include="Mocks\NullLogger.cs" />
+    <Compile Include="Mocks\NullLoggerFactory.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarAperturaCortinaAguaTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarBorrarBalanzadaPorRangoTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarConsultaBalanzadaPorRangoTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarBorrarBalanzadaTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarConsultaBalanzadaTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarObtenerUltimaFotoTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarTomarFotoTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorComandoCancelarSuscripcionTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorComandoDepurarSuscripcionesTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorComandoSuscribirTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorDispositivoConcentradorTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarAnalisisHumedadTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarAperturaBarreraTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarPesajeTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorDispositivoTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarCereoCabezalTest.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarVerificacionDispositivoTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicios\AdministradorSuscripcionesTest.cs" />
+    <Compile Include="Servicios\DriverFactoryTest.cs" />
+    <Compile Include="Servicios\NamedLockerTest.cs" />
+    <Compile Include="Servicios\ProcesadorFactoryTest.cs" />
+    <Compile Include="Servicios\ProgramadorTareasTest.cs" />
+    <Compile Include="Servicios\ServicioOrquestadorTest.cs" />
+    <Compile Include="Servicios\ServicioOrquestsadorSAPTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Molinos.Orquest.Dominio\Molinos.Orquest.Dominio.csproj">
+      <Project>{84CC0EC6-299D-4C90-8C72-7F9202234AAD}</Project>
+      <Name>Molinos.Orquest.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.DriversImpl\Molinos.Orquest.DriversImpl.csproj">
+      <Project>{1ef9ac66-6c9b-43f5-b669-54fee8f12de0}</Project>
+      <Name>Molinos.Orquest.DriversImpl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.Drivers\Molinos.Orquest.Drivers.csproj">
+      <Project>{4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB}</Project>
+      <Name>Molinos.Orquest.Drivers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.Repositorio\Molinos.Orquest.Repositorio.csproj">
+      <Project>{17CBA400-3F4D-4EFC-81CB-A183E2507D45}</Project>
+      <Name>Molinos.Orquest.Repositorio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.Servicios\Molinos.Orquest.Servicios.csproj">
+      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
+      <Name>Molinos.Orquest.Servicios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.Web\Molinos.Orquest.Web.csproj">
+      <Project>{0d3d7c30-a4d1-42d5-8549-6f60d8ae72a0}</Project>
+      <Name>Molinos.Orquest.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

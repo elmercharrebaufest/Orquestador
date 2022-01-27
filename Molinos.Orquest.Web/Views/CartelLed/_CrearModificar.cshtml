@@ -1,0 +1,129 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+
+@model Molinos.Orquest.Web.Models.ConfigCartelLedModel
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Codigo)
+                @Html.TextBoxFor(model => model.Dispositivo.Codigo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Dispositivo.Codigo, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Descripcion)
+                @Html.TextBoxFor(model => model.Dispositivo.Descripcion, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Dispositivo.Descripcion, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DireccionIp)
+                @Html.TextBoxFor(model => model.DireccionIp, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DireccionIp, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Puerto)
+                @Html.TextBoxFor(model => model.Puerto, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Puerto, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeoutLectura)
+                @Html.TextBoxFor(model => model.TimeoutLectura, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TimeoutLectura, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.LongFrase)
+                @Html.TextBoxFor(model => model.LongFrase, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LongFrase, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Activo)
+                @Html.CheckBoxFor(m => m.Dispositivo.Activo, new { @checked = "checked" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tipografia)
+                @Html.DropDownListFor(m => m.Tipografia, new SelectList(ViewBag.Tipografiaid, "Value", "Text"), "Seleccione Tipografía", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Tipografia, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ControlBrillo)
+                @Html.DropDownListFor(m => m.ControlBrillo, new SelectList(ViewBag.Brillo, "Value", "Text"), "Seleccione Brillo", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ControlBrillo, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Efecto)
+                @Html.DropDownListFor(m => m.Efecto, new SelectList(ViewBag.Efectoid, "Value", "Text"), "Seleccione Efecto", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Efecto, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="range-field form-group">
+                @Html.LabelFor(model => model.VelocidadScroll)
+                @Html.TextBoxFor(m => m.VelocidadScroll, new { @class = "form-control", @type = "number", @value = "175", @min = "175", @max = "249", @step = "1", @id = "numero" })
+                @Html.ValidationMessageFor(model => model.VelocidadScroll, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    @*<div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="range-field form-group">
+                @Html.LabelFor(model => model.NumeroTrama)
+                @Html.TextBoxFor(m => m.NumeroTrama, new { @class = "form-control", @type = "number", @id = "numeroTrama" })
+                @Html.ValidationMessageFor(model => model.NumeroTrama, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="range-field form-group">
+                @Html.LabelFor(model => model.NumeroVariable)
+                @Html.TextBoxFor(m => m.NumeroVariable, new { @class = "form-control", @type = "number", @id = "numeroVariable" })
+                @Html.ValidationMessageFor(model => model.NumeroVariable, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="range-field form-group">
+                @Html.LabelFor(model => model.NumeroPrograma)
+                @Html.TextBoxFor(m => m.NumeroPrograma, new { @class = "form-control", @type = "number", @id = "numeroPrograma" })
+                @Html.ValidationMessageFor(model => model.NumeroPrograma, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>*@
+
+    @Html.Partial("_Configuracion", Model)
+</div>
+
+
+    <script type="text/javascript">
+        $("#numero").inputSpinner();
+    </script>

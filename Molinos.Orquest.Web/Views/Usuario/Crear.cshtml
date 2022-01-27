@@ -1,0 +1,15 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Dominio.Entidades.Usuario
+@{
+    Layout = null;
+    ViewBag.Title = Textos.Usuario_Crear;
+}
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/scripts/knockout-3.4.2.js"  type="text/javascript"></script>
+<script src="~/Scripts/usuario.CrearModificar.js"></script>
+
+@using (Ajax.BeginForm("Crear", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = Textos.Usuario_Crear }))
+{
+    @Html.Hidden("Id", 0, new {id = "Id"})
+    @Html.Partial("_CrearModificar", Model)
+}

@@ -1,0 +1,31 @@
+﻿@using Molinos.Orquest.Dominio.Consultas
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Dominio.Seguridad
+@using Molinos.Orquest.Web.Helpers
+@using Molinos.Orquest.Web.Models
+@using Molinos.Orquest.Web.Seguridad
+
+@{
+    Layout = null;
+    var items = (ListaPaginada<ConfigMolineteModel>)ViewBag.Items;
+}
+
+@Html.Grilla(items,
+    grilla => grilla.Columns(
+    //grilla.ColumnaEliminarModificarProbar(Html, "Molinete"),
+    grilla.ColumnaEliminarModificarProbar(Html, "Molinete"),
+    grilla.Columna("Dispositivo.Codigo", Textos.Codigo, c => c.Dispositivo.Codigo),
+    grilla.Columna("Dispositivo.Descripcion", Textos.Descripcion, c => c.Dispositivo.Descripcion),
+    grilla.Columna("DireccionUrl", Textos.Molinete_DireccionUrl),
+    grilla.Columna("TimeoutHabilitacion", Textos.Molinete_TimeoutHabilitacion),
+    grilla.Columna("IntervaloPooling", Textos.Molinete_IntervaloPooling)
+    ))
+
+@if (!PermisosHelper.Is(PermisosOrquestador.Molinete))
+{
+    <script type="text/javascript">
+        $(function() {
+            $(".ajax-editar-link, .ajax-borrar-link").hide();
+        })
+    </script>
+}

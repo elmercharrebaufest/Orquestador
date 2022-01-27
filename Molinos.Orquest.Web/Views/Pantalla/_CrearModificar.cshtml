@@ -1,0 +1,66 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+
+@model Molinos.Orquest.Web.Models.ConfigPantallaModel
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Codigo)
+                @Html.TextBoxFor(model => model.Dispositivo.Codigo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Dispositivo.Codigo, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Descripcion)
+                @Html.TextBoxFor(model => model.Dispositivo.Descripcion, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Dispositivo.Descripcion, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.UrlSCATO)
+                @Html.TextBoxFor(model => model.UrlSCATO, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UrlSCATO, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.UrlFTP)
+                @Html.TextBoxFor(model => model.UrlFTP, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UrlFTP, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.NombreUsuario)
+                @Html.TextBoxFor(model => model.NombreUsuario, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NombreUsuario, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Contrasenia)
+                @Html.TextBoxFor(model => model.Contrasenia, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Contrasenia, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TiempoDeRefresco)
+                @Html.TextBoxFor(model => model.TiempoDeRefresco, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TiempoDeRefresco, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Activo)
+                @Html.CheckBoxFor(m => m.Dispositivo.Activo, new { @checked = "checked" })
+            </div>
+        </div>
+    </div>
+    
+    @Html.Partial("_Configuracion", Model)
+</div>

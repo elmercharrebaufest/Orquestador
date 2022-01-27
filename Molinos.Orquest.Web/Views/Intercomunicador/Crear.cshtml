@@ -1,0 +1,13 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Web.Models.ConfigComunicadorModel
+
+@{
+    ViewBag.Title = Textos.Intercomunicador_crear;
+    Layout = null;
+}
+@Scripts.Render("~/bundles/jqueryval")
+@using (Ajax.BeginForm("Crear", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = Textos.Intercomunicador_crear }))
+{
+    @Html.ValidationSummary(true)
+    @Html.Partial("_CrearModificar", Model)           
+}

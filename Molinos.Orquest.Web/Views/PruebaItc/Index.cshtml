@@ -1,0 +1,176 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@using dtos = Molinos.Orquest.Dominio.Dtos
+@model Molinos.Orquest.Web.Models.PruebaItcModel
+
+@{
+    var titulo = Textos.PruebaItc_Titulo + ": " + Model.CodigoItc;
+    ViewBag.Title = titulo;
+    var errores = (IList<string>)ViewBag.Errores;
+    Func<string, string> textoDispositivo = texto => (texto == "no-conectado") ? @Textos.PruebaItc_NoConectado : texto;
+}
+
+<link href="~/Styles/area/shared/intercomunicadorDispositivo.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+<script src='~/signalr/js'></script>
+<script src="~/scripts/knockout-3.4.2.js" type="text/javascript"></script>
+@*<script src="~/Scripts/intercomunicador.js"></script>
+    <script src="~/Scripts/pruebaitc.ver.js"></script>*@
+<script src="~/Scripts/pruebaitc.ver.js"></script>
+<script src="~/Scripts/area/shared/intercomunicadorDispositivo.js"></script>
+
+<input id="codigoItc" type="hidden" value="@Model.CodigoItc" />
+
+<div id="pruebaItc" class="container content" data-codigo-itc="@Model.CodigoItc" data-url-desuscribir="@Url.Action("Desuscribir", new {codigoItc = Model.CodigoItc})">
+    <div class="row-fluid">
+        <div class="titSecciones span10">@titulo</div>
+        <div class="span2 right"><span id="estadoItc" class="label" data-url-estado="@Url.Action("ConsultarEstado", "PruebaItc")" data-codigo="@Model.CodigoItc" data-toggle="tooltip" title="@Textos.ConsultandoEstado">@Textos.ConsultandoEstado</span></div>
+    </div>
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_LecturaTarjetas</span>
+        <div class="row">
+            @foreach (var lector in Model.Lectores.OrderBy(x => x.Numero))
+            {
+                <div class="control-group col-6">
+                    <label class="control-label @lector.Codigo">@Textos.PruebaItc_Lector-@lector.Numero (@textoDispositivo(@lector.Codigo))</label>
+                    <div class="controls">
+                        <input id="@lector.Codigo" type="text" readonly="readonly" class="form-control" /><div id="stat-@lector.Codigo" class="alert alert-error hidden"><button type="button" class="close" data-dismiss="alert">&times;</button></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.LectorQr_Titulo</span>
+        <div class="row">
+            @foreach (var lector in Model.LectoresQr.OrderBy(x => x.Numero))
+            {
+                <div class="control-group col-6">
+                    <label class="control-label @lector.Codigo">@Textos.PruebaItc_Lector-@lector.Numero (@textoDispositivo(@lector.Codigo))</label>
+                    <div class="controls">
+                        <input id="@lector.Codigo" type="text" readonly="readonly" class="form-control" /><div id="stat-@lector.Numero" class="alert alert-error hidden"><button type="button" class="close" data-dismiss="alert">&times;</button></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_EstadoDeEntradas</span>
+        <div class="row">
+            @foreach (var sensor in Model.Sensores.OrderBy(x => x.Numero))
+            {
+                <div class="col-6">
+                    <span id="@sensor.Codigo" class="badge badge-entrada-itc-unknown">&nbsp;</span><span id="stat-@sensor.Codigo" class="alert alert-error hidden"></span>
+                    <label class="@sensor.Codigo">@Textos.PruebaItc_Entrada-@sensor.Numero (@textoDispositivo(@sensor.Codigo))</label>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_EstadoDeEntradas</span>
+        <div class="row">
+            @foreach (var sensor in Model.CortinaAgua.OrderBy(x => x.Numero))
+            {
+                <div class="col-6">
+                    <span id="@sensor.Codigo" class="badge badge-entrada-itc-unknown">&nbsp;</span><span id="stat-@sensor.Codigo" class="alert alert-error hidden"></span>
+                    <label class="@sensor.Codigo">@Textos.PruebaItc_Entrada-@sensor.Numero (@textoDispositivo(@sensor.Codigo))</label>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_ActivacionSalidas</span>
+        <div class="row fila-barrera">
+            @foreach (var barrera in Model.Barreras.OrderBy(x => x.Numero))
+            {
+                <div class="col-6">
+                    <button id="@barrera.Codigo" class="boton-barrera btn btn-secondary m-2 @barrera.Codigo" type="button" data-url-activacion="@Url.Action("ActivarSalida", new {codigo = barrera.Codigo})">@Textos.PruebaItc_Activar</button>
+                    <button id="@barrera.Codigo" class="boton-barrera btn btn-secondary m-2 @barrera.Codigo" type="button" data-url-activacion="@Url.Action("DesactivarSalida", new {codigo = barrera.Codigo})">@Textos.PruebaItc_Desactivar</button>
+                    <label class="@barrera.Codigo">@Textos.PruebaItc_Salida-@barrera.Numero (@textoDispositivo(@barrera.Codigo))</label>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_ActivacionDisplays</span>
+        <div class="row fila-barrera">
+            @foreach (var display in Model.Displays.OrderBy(x => x.Numero))
+            {
+                <div class="col-6">
+                    <button id="@display.Codigo" class="boton-barrera btn btn-secondary m-2 @display.Codigo" type="button" data-url-activacion="@Url.Action("ActivarDisplay", new {codigo = display.Codigo})">@Textos.PruebaItc_Activar</button>
+                    <label class="@display.Codigo">@Textos.PruebaItc_Salida-@display.Numero (@textoDispositivo(display.Codigo))</label>
+                </div>
+            }
+        </div>
+    </div>
+
+    @if (Model.Tags != null && Model.Tags.Count > 0)
+    {
+        <div class="prueba-itc-area bg-light">
+            <span class="prueba-itc-area-titulo">Prueba Tags</span>
+            <div class="row fila-barrera">
+                @foreach (var tag in Model.Tags.OrderBy(x => x.Codigo))
+                {
+                    <div class="col-6">
+                        <button id="@tag.Codigo" class="boton-tag btn btn-secondary m-2 @tag.Codigo" type="button" data-url-activacion="@Url.Action("EjecutarTag", new {codigo = tag.Codigo})">Ejecutar Query</button>
+                        <label class="@tag.Codigo">Prueba tag (@textoDispositivo(tag.Codigo))</label>
+                        <input id="result-@tag.Codigo" type="text" readonly="readonly" class="form-control" value="@tag.Numero" />
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @if (ViewBag.InterComunicadorDispositivoList.Count > 0)
+    {
+        <div class="prueba-itc-area bg-light">
+            <span class="prueba-itc-area-titulo">Prueba Comunicadores</span>
+            <div class="row-fluid">
+                <div class="row-fluid">
+                    @Html.Partial("~/Views/Shared/Intercomunicador/_Intercomunicador.cshtml")
+                </div>
+                <div class="row-fluid">
+                    @foreach (var interComunicadorDispositivo in ViewBag.InterComunicadorDispositivoList)
+                    {
+                        @Html.Partial("~/Views/Shared/Intercomunicador/_IntercomunicadorDispositivo.cshtml", (dtos.IntercomunicadorDispositivoDto)interComunicadorDispositivo)
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    @*@if (Model.Comunicadores != null && Model.Comunicadores.Count > 0)
+        {
+
+
+            <div class="prueba-itc-area bg-light">
+                <span class="prueba-itc-area-titulo">Prueba Comunicadores <i class="fa fa-microphone"></i> &nbsp;<select id="audio-source"></select></span>
+                <div style="visibility: hidden; position: absolute;">
+                    <video id="remote-player" autoplay playsinline></video>
+                </div>
+                <div class="row fila-barrera">
+
+                    @foreach (var com in Model.Comunicadores.OrderBy(x => x.Numero))
+                    {
+                        @Html.Partial("_Intercomunicador",com)
+                    }
+                </div>
+            </div>
+
+
+        }*@
+
+    @Html.Action("Index", "PruebaConexion", new { ip = Model.DireccionIpItc, puerto = Model.PuertoItc, codigo = Model.CodigoItc })
+    <div class="right margin">
+        @Html.ActionLink(Textos.Volver, "Index", "Itc", null, new { @class = "btn" })
+        @Html.ActionLink(Textos.PruebaItc_Resuscribir, "Index", new { id = ViewBag.IdItc }, new { id = "btn-recargar", @class = "btn btn-primary" })
+    </div>
+</div>
+<div id="alerta-error-itc" data-error-generico="@Textos.PruebaItc_ErrorSuscrbir" data-cantidad-errores="@errores.Count">
+    <div style="font-size: 12px;">
+        @foreach (var error in errores)
+        {
+            @error<br />
+        }
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Dominio.Entidades.ConfigDispositivo
+
+@*Solo aplica para la modificación*@
+@if (Model != null)
+{
+    @Html.HiddenFor(m => m.Dispositivo.Id)
+}
+
+@Html.Hidden("charValidationMessage", Textos.Char_ErrorCantidadGenerico)
+<div class="row">
+    <div class="col">
+        @if (ViewBag.PuedeSerConcentrador)
+        {
+         <div class="form-group">
+             @Html.LabelFor(model => model.Dispositivo.EsConcentrador)
+             @Html.CheckBoxFor(m => m.Dispositivo.EsConcentrador)
+         </div>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dispositivo.ConcentradorId)
+            @Html.DropDownListFor(model => model.Dispositivo.ConcentradorId, (IEnumerable<SelectListItem>)ViewBag.Concentradores, new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClaseDriver)
+            @Html.DropDownListFor(model => model.ClaseDriver, (IEnumerable<SelectListItem>)ViewBag.Drivers, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ClaseDriver, null, new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/scripts/crear_modificar.common.js"></script>

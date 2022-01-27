@@ -1,0 +1,69 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@{
+    Layout = null;
+    string ipDispositivo = ViewBag.IpDispositivo;
+    int puertoDispositivo = ViewBag.PuertoDispositivo;
+    string codigoItc = ViewBag.codigo;
+}
+<script src="~/Scripts/pruebaconexion.index.js"></script>
+<div class="row-fluid">
+    <div class="prueba-itc-area span6 bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.PruebaDePing</span>
+        <div class="row-fluid d-md-inline-flex mb-2 align-top pb-1 w-100">
+            <div class="align-self-center">
+                <a id="link-ping" href="@Url.Action("Ping", new {ip = ipDispositivo})" class="col-12 btn btn-outline-primary">@Textos.Iniciar</a>
+            </div>
+            <div id="resultado-ping" class="span10 resultado-prueba form-control" data-texto-carga="@Textos.Probando">
+            </div>
+        </div>
+    </div>
+    <div id="pruebaLoop" class="prueba-itc-area span6 bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.PruebaDeLoop</span>
+        <div class="row-fluid d-md-inline-flex align-top mb-2 w-100">
+            <div class="span3">
+                <a id="link-loop" href="@Url.Action("Loopback", new {ip = ipDispositivo, puerto = puertoDispositivo})" class="col-12 btn btn-outline-primary">@Textos.Iniciar</a>
+                <span style="font-size: 10px;line-height: 15px">@Textos.Repeticiones</span>
+                <input id="repeticiones" name="repeticiones" type="text" value="1" class=" form-control text-center numerico" />
+            </div>
+            <div id="resultado-loop" class="span10 resultado-prueba form-control w-100" data-texto-carga="@Textos.Probando">
+            </div>
+        </div>
+    </div>
+    <!--<div id="pruebaHistorian" class="prueba-itc-area span10 bg-light">
+        <span class="prueba-itc-area-titulo">Prueba Historian</span>
+        <div class="row-fluid d-md-inline-flex align-top mb-2 w-100">
+            <div class="span3">
+                <a class="col-12 btn btn-outline-primary" id="HistPress" >Probar</a>-->
+                @* <a id="link-hist" href="@Url.Action("HistTest",new {codigo = codigoItc, query = "#query" })" class="col-12 btn btn-outline-primary">Probar</a>*@
+
+            <!--</div>
+            <div id="query-Hist" class="span10">
+                <input type="text" id="query" name="query" class="span10 resultado-prueba form-control w-100" value="Query:"><br /><br />
+
+            </div>
+
+        </div>
+        <div id="resultado-Hist" class=" resultado-prueba-historian form-control " data-texto-carga="@Textos.Probando">
+
+        </div>
+    </div>-->
+</div>
+
+@*<script>
+     $('#HistPress').click(function () {
+        var url = '@Url.Action("HistTest", "PruebaConexion")';
+        var textValue = $('#query').val();
+        var codigo = '@(ViewBag.codigo)';
+        var div = $('#resultado-Hist')
+        div.html(div.data().textoCarga);
+        var href = url + '?codigo=' + codigo + '&query=' + textValue;
+        $.get(href, function (resultado) {
+            div.html(resultado);
+        });
+         console.log(textValue);
+
+        return false;
+
+    });
+
+</script>*@

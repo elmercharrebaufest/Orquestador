@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Molinos.Orquest.Dominio.Resultados" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Molinos.Orquest.Dominio.Resultados" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost/Orquest.ModuloALPR/ServicioALPR.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost/Orquest.ModuloALPR/ServicioALPR.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Molinos.Orquest.Dominio.Dtos" />
+  <xs:complexType name="ResultadoObtenerPatente">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultadoEjecutar">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Confianza" type="xs:float" />
+          <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:base64Binary" />
+          <xs:element minOccurs="0" name="Patente" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResultadoObtenerPatente" nillable="true" type="tns:ResultadoObtenerPatente" />
+  <xs:complexType name="ResultadoEjecutar">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultadoComando">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Valores" nillable="true" type="q1:ArrayOfKeyValueOfstringdecimal" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResultadoEjecutar" nillable="true" type="tns:ResultadoEjecutar" />
+  <xs:complexType name="ResultadoComando">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="tns:Mensaje" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResultadoComando" nillable="true" type="tns:ResultadoComando" />
+  <xs:complexType name="Mensaje">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Mensaje" nillable="true" type="tns:Mensaje" />
+  <xs:complexType name="ResultadoBorrarBalanzadasPorRango">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultadoEjecutar">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="IdBalanzadaInicio" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResultadoBorrarBalanzadasPorRango" nillable="true" type="tns:ResultadoBorrarBalanzadasPorRango" />
+  <xs:complexType name="ResultadoConsultaBalanzadaPorRango">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultadoEjecutar">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Balanzadas" nillable="true" type="tns:ArrayOfResultadoConsultaBalanzada" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResultadoConsultaBalanzadaPorRango" nillable="true" type="tns:ResultadoConsultaBalanzadaPorRango" />
+  <xs:complexType name="ArrayOfResultadoConsultaBalanzada">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ResultadoConsultaBalanzada" nillable="true" type="tns:ResultadoConsultaBalanzada" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfResultadoConsultaBalanzada" nillable="true" type="tns:ArrayOfResultadoConsultaBalanzada" />
+  <xs:complexType name="ResultadoConsultaBalanzada">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultadoEjecutar">
+        <xs:sequence>
+          <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ValoresBalanzada" nillable="true" type="q2:ArrayOfKeyValueOfstringstring" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResultadoConsultaBalanzada" nillable="true" type="tns:ResultadoConsultaBalanzada" />
+  <xs:complexType name="ResultadoBorrarBalanzada">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultadoEjecutar">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResultadoBorrarBalanzada" nillable="true" type="tns:ResultadoBorrarBalanzada" />
+  <xs:complexType name="ResultadoMeteorologica">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultadoEjecutar">
+        <xs:sequence>
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Molinos.Orquest.Dominio.Dtos" minOccurs="0" name="Imagenes" nillable="true" type="q3:ArrayOfMeteorologicaDto" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResultadoMeteorologica" nillable="true" type="tns:ResultadoMeteorologica" />
+  <xs:complexType name="ResultadoTomarFoto">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultadoEjecutar">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:base64Binary" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResultadoTomarFoto" nillable="true" type="tns:ResultadoTomarFoto" />
+  <xs:complexType name="ResultadoCancelarSuscripcion">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultadoComando">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResultadoCancelarSuscripcion" nillable="true" type="tns:ResultadoCancelarSuscripcion" />
+  <xs:complexType name="ResultadoSuscribir">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultadoComando">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="IdSuscripcion" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResultadoSuscribir" nillable="true" type="tns:ResultadoSuscribir" />
+</xs:schema>

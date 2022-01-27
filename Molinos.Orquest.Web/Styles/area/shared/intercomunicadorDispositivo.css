@@ -1,0 +1,103 @@
+﻿.comunicador .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+    .comunicador .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .comunicador .switch .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .comunicador .switch .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: #fff;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    .comunicador .switch input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    .comunicador .switch input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    .comunicador .switch input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    .comunicador .switch .slider.round {
+        border-radius: 34px;
+    }
+
+        .comunicador .switch .slider.round:before {
+            border-radius: 50%;
+        }
+
+.comunicador .button {
+    padding: 8px 16px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #999;
+    background-color: #04AA6D;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 6px #999;
+}
+
+    .comunicador .button:hover:enabled {
+        background-color: #3e8e41;
+    }
+
+    .comunicador .button:active:enabled {
+        background-color: #53cf57;
+        color: #fff;
+        box-shadow: 0 4px #666;
+        transform: translateY(4px);
+        animation: blink 1s infinite;
+    }
+
+.comunicador button:disabled, .comunicador button[disabled] {
+    background-color: #ccc;
+    color: #666;
+    cursor: default;
+}
+
+@keyframes blink {
+    0% {
+        color: #FFFFFF;
+    }
+
+    50% {
+        color: #FF7F50;
+    }
+
+    100% {
+        color: #FFFFFF;
+    }
+}

@@ -1,0 +1,19 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Web.Models.RolModel
+@{
+    ViewBag.Title = Textos.Rol_Modificar;
+    Layout = null;
+}
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/scripts/knockout-3.4.2.js"  type="text/javascript"></script>
+<script src="~/Scripts/rol.CrearModificar.js"></script>
+<style>
+    #dialogo-editar { 
+        top: 30%!important;
+    }
+</style>
+@using (Ajax.BeginForm("Modificar", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = Textos.Rol_Modificar }))
+{
+    @Html.HiddenFor(model => model.Id)
+    @Html.Partial("_CrearModificar", Model)           
+}

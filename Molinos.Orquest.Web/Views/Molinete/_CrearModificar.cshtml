@@ -1,0 +1,53 @@
+﻿@model Molinos.Orquest.Web.Models.ConfigMolineteModel
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Codigo)
+                @Html.TextBoxFor(model => model.Dispositivo.Codigo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Dispositivo.Codigo, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Descripcion)
+                @Html.TextBoxFor(model => model.Dispositivo.Descripcion, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Dispositivo.Descripcion, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.IntervaloPooling)
+                @Html.TextBoxFor(model => model.IntervaloPooling, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IntervaloPooling, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DireccionUrl)
+                @Html.TextBoxFor(model => model.DireccionUrl, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DireccionUrl, null, new { @class = "text-danger" })
+            </div>
+        </div> 
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeoutHabilitacion)
+                @Html.TextBoxFor(model => model.TimeoutHabilitacion, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TimeoutHabilitacion, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Activo)
+                @Html.CheckBoxFor(m => m.Dispositivo.Activo, new { @checked = "checked" })
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_Configuracion", Model)
+</div>

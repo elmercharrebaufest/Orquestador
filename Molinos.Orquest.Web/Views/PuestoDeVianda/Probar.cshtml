@@ -1,0 +1,53 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Web.Models.ConfigPuestoDeViandaModel
+
+@{
+    var titulo = Textos.PruebaPuestoDeVianda_Diagnostico + ": " + Model.Dispositivo.Codigo;
+    ViewBag.Title = titulo;
+}
+@*<script src="~/Scripts/pruebacabezal.index.js"></script>*@
+<div class="container content">
+    <div class="row-fluid">
+        <div class="h2">@titulo</div>
+    </div>
+
+    <div class="prueba-itc-area bg-light ">
+        <span class="prueba-itc-area-titulo">@Textos.ConfiguracionDispositivo</span>
+        <div class="row-fluid datos-dispositivo">
+            <div class="span7">
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Dispositivo.Codigo)
+                    @Html.DisplayFor(model => model.Dispositivo.Codigo)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Dispositivo.Descripcion)
+                    @Html.DisplayFor(model => model.Dispositivo.Descripcion)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.DireccionIp)
+                    @Html.DisplayFor(model => model.DireccionIp)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Puerto)
+                    @Html.DisplayFor(model => model.Puerto)
+                </div>
+            </div>
+            <div class="span5">
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.TimeoutLectura)
+                    @Html.DisplayFor(model => model.TimeoutLectura)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Dispositivo.Activo)
+                    @Html.DisplayFor(model => model.Dispositivo.Activo)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*@Html.Action("Index", "PruebaConexion", new { ip = Model.DireccionIp, puerto = Model.Puerto })*@
+
+    <div class="right margin">
+        @Html.ActionLink(Textos.Volver, "Index", null, new { @class = "col-12 col-sm-2 btn btn-primary" })
+    </div>
+</div>

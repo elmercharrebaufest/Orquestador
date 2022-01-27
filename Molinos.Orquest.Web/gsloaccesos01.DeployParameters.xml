@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="Scato/Orquest.web" />
+  <setParameter name="OrquestadorDb-Web.config Connection String" value="Data Source=SCATOAGLSPRD.molinosagro.ad;Initial Catalog=MOAOrquestador;Integrated Security=True" />
+  <setParameter name="FederationMetadataLocation Config" value="https://stspoc.molinos.com.ar/FederationMetadata/2007-06/FederationMetadata.xml" />
+  <setParameter name="CertificateValidation Identity Configuration" value="None" />
+
+  <setParameter name="UrlServicioNotificaciones Config" value="http://localhost:8085/Orquest.web/" />
+  <setParameter name="UrlServicioSuscriptor Config" value="http://localhost:8085/Orquest.web/ServicioHub/ServicioSuscriptor.svc" />
+  <setParameter name="Orquestador Service Endpoint Address" value="http://localhost:8082/ServicioOrquestador" />
+  <setParameter name="OrquestadorService Config" value="ACCESOS - Orquestador de Dispositivos" />
+  <setParameter name="HostServiciosWeb Config" value="GSLOACCESOS01" />
+</parameters>
+

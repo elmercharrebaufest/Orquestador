@@ -1,0 +1,1894 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0D3D7C30-A4D1-42D5-8549-6F60D8AE72A0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Molinos.Orquest.Web</RootNamespace>
+    <AssemblyName>Molinos.Orquest.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>3</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Chart.Mvc, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Chart.Mvc.1.0.0.2\lib\net45\Chart.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.8.10.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.10\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.2\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SqlServer, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SqlServer.2.4.0\lib\net45\Microsoft.AspNet.SignalR.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcWebGrid, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcWebGrid.1.0.13\lib\MvcWebGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Logging">
+      <HintPath>..\packages\Ninject.Extensions.Logging.3.0.1.0\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Logging.Log4Net">
+      <HintPath>..\packages\Ninject.Extensions.Logging.Log4net.3.0.1.0\lib\net45-full\Ninject.Extensions.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Wcf">
+      <HintPath>..\packages\Ninject.Extensions.Wcf.3.0.0.5\lib\net45-full\Ninject.Extensions.Wcf.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.identitymodel.services" />
+    <Reference Include="System.IdentityModel.Tokens.ValidatingIssuerNameRegistry">
+      <HintPath>..\packages\System.IdentityModel.Tokens.ValidatingIssuerNameRegistry.4.5.1\lib\net45\System.IdentityModel.Tokens.ValidatingIssuerNameRegistry.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers.Crypto, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Web.Helpers.Crypto.3.2.3\lib\net40\System.Web.Helpers.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AjaxEditSuccessResult.cs" />
+    <Compile Include="App_GlobalResources\Errores.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Errores.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Errores.en.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Errores.en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Errores.fr.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Errores.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\Log4NetConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Atributos\AjaxOnlyAttribute.cs" />
+    <Compile Include="Atributos\AutorizacionAttribute.cs" />
+    <Compile Include="Atributos\AvoidCacheFilterAttribute.cs" />
+    <Compile Include="Atributos\CharValidationAttribute.cs" />
+    <Compile Include="Atributos\FileSizeAttribute.cs" />
+    <Compile Include="Atributos\FileTypesAttribute.cs" />
+    <Compile Include="Controllers\IntercomunicadorController.cs" />
+    <Compile Include="Controllers\TagsHistorianController.cs" />
+    <Compile Include="Controllers\CartelLedController.cs" />
+    <Compile Include="Controllers\CortinaDeAguaController.cs" />
+    <Compile Include="Controllers\DisplayController.cs" />
+    <Compile Include="Controllers\LectorQrController.cs" />
+    <Compile Include="Controllers\MeteorologicaController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BalanzaPuertoController.cs" />
+    <Compile Include="Controllers\CabezalController.cs" />
+    <Compile Include="Controllers\BarreraController.cs" />
+    <Compile Include="Controllers\CamaraController.cs" />
+    <Compile Include="Controllers\FirmaController.cs" />
+    <Compile Include="Controllers\ImpresoraHasarController.cs" />
+    <Compile Include="Controllers\MolineteController.cs" />
+    <Compile Include="Controllers\PruebaMolineteController.cs" />
+    <Compile Include="Controllers\PuestoDeViandaController.cs" />
+    <Compile Include="Controllers\PantallaController.cs" />
+    <Compile Include="Controllers\NirsController.cs" />
+    <Compile Include="Controllers\PantallaPuestoDeViandaController.cs" />
+    <Compile Include="Controllers\PruebaConexionController.cs" />
+    <Compile Include="Controllers\RolController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\MonitoreoOrquestadorController.cs" />
+    <Compile Include="Controllers\SuscripcionController.cs" />
+    <Compile Include="Controllers\PruebaItcController.cs" />
+    <Compile Include="Controllers\SensorController.cs" />
+    <Compile Include="Controllers\ItcController.cs" />
+    <Compile Include="Controllers\LectorTarjetasController.cs" />
+    <Compile Include="Controllers\HumedimetroController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Conversiones\IConversor.cs" />
+    <Compile Include="Conversiones\Impl\ConversorAutoMapper.cs" />
+    <Compile Include="Conversiones\Impl\Perfiles\ConfigBalanzaPuertoMappingProfile.cs" />
+    <Compile Include="Conversiones\Impl\Perfiles\ConfigCabezalMappingProfile.cs" />
+    <Compile Include="Conversiones\Impl\Perfiles\ConfigNirsMappingProfile.cs" />
+    <Compile Include="Conversiones\Impl\Perfiles\ConfigHumedimetroMappingProfile.cs" />
+    <Compile Include="Conversiones\Impl\Perfiles\ConfigItcMappingProfile.cs" />
+    <Compile Include="Conversiones\Impl\Perfiles\FirmaMappingProfile.cs" />
+    <Compile Include="Conversiones\Impl\Perfiles\RolMappingProfile.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ExtensionesHtml.cs" />
+    <Compile Include="Helpers\ExtensionesSelectList.cs" />
+    <Compile Include="Helpers\ExtensionesWebGrid.cs" />
+    <Compile Include="Helpers\JsonpResult.cs" />
+    <Compile Include="IServicioDispositivos.cs" />
+    <Compile Include="Models\ConfigComunicadorModel.cs" />
+    <Compile Include="Models\ConfigTagModel.cs" />
+    <Compile Include="Models\ConfigImpresoraHasarModel.cs" />
+    <Compile Include="Models\ConfigBalanzaPuertoModel.cs" />
+    <Compile Include="Models\ConfigCartelLedModel.cs" />
+    <Compile Include="Models\ConfigCabezalModel.cs" />
+    <Compile Include="Models\ConfigMolineteModel.cs" />
+    <Compile Include="Models\ConfigPuestoDeViandaModel.cs" />
+    <Compile Include="Models\ConfigPantallaModel.cs" />
+    <Compile Include="Models\ConfigNirsModel.cs" />
+    <Compile Include="Models\ConfigHumedimetroModel.cs" />
+    <Compile Include="Models\ConfigItcModel.cs" />
+    <Compile Include="Models\ConfigPantallaPuestoDeViandaModel.cs" />
+    <Compile Include="Models\CookieUsuario.cs" />
+    <Compile Include="Models\FirmaModel.cs" />
+    <Compile Include="Models\PermisoModel.cs" />
+    <Compile Include="Models\PruebaDispositivoModel.cs" />
+    <Compile Include="Models\PruebaMolineteModel.cs" />
+    <Compile Include="Models\ResultadoPruebaModel.cs" />
+    <Compile Include="Models\RolModel.cs" />
+    <Compile Include="Models\PruebaItcModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seguridad\ClaimsTransformationHttpModule.cs" />
+    <Compile Include="Seguridad\PermisosHelper.cs" />
+    <Compile Include="Seguridad\OrquestadorClaimsAuthenticationManager.cs" />
+    <Compile Include="ServicioHub\HubClientFactory.cs" />
+    <Compile Include="ServicioHub\HubClient.cs" />
+    <Compile Include="ServicioHub\EstadoDispositivo.cs" />
+    <Compile Include="ServicioHub\LecturaQr.cs" />
+    <Compile Include="ServicioHub\LecturaEntrada.cs" />
+    <Compile Include="ServicioHub\IServicioSuscriptor.cs" />
+    <Compile Include="ServicioHub\LecturaTarjeta.cs" />
+    <Compile Include="ServicioHub\LecturaTarjetaMolinete.cs" />
+    <Compile Include="ServicioHub\NotificarLectura.cs" />
+    <Compile Include="ServicioHub\ServicioSuscriptor.svc.cs">
+      <DependentUpon>ServicioSuscriptor.svc</DependentUpon>
+    </Compile>
+    <Compile Include="ServicioHub\TransitoMolinete.cs" />
+    <Compile Include="SessionManager.cs" />
+    <Compile Include="App_Start\SignalRStartup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bfdev258.DeployParameters.xml" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\home.css" />
+    <Content Include="Content\images\barra-header.png" />
+    <Content Include="Content\images\fondo-header.png" />
+    <Content Include="Content\images\Jcrop.gif" />
+    <Content Include="Content\images\logo-molinos.png" />
+    <Content Include="Content\jquery.Jcrop.css" />
+    <Content Include="Content\jquery.Jcrop.min.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="gsloaccesos01.DeployParameters.xml" />
+    <Content Include="Scripts\area\shared\intercomunicadorDispositivo.js" />
+    <Content Include="Scripts\asignarpantallapuestodevianda.CrearModificar.js" />
+    <Content Include="Scripts\bootstrap-filestyle.min.js" />
+    <Content Include="Scripts\bootstrap-input-spinne.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\camara.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\cldr.js" />
+    <Content Include="Scripts\cldr\event.js" />
+    <Content Include="Scripts\cldr\supplemental.js" />
+    <Content Include="Scripts\cldr\unresolved.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\firma.Modificar.js" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\cldr\supplemental\aliases.json" />
+    <Content Include="Scripts\cldr\supplemental\calendarData.json" />
+    <Content Include="Scripts\cldr\supplemental\calendarPreferenceData.json" />
+    <Content Include="Scripts\cldr\supplemental\characterFallbacks.json" />
+    <Content Include="Scripts\cldr\supplemental\codeMappings.json" />
+    <Content Include="Scripts\cldr\supplemental\currencyData.json" />
+    <Content Include="Scripts\cldr\supplemental\dayPeriods.json" />
+    <Content Include="Scripts\cldr\supplemental\gender.json" />
+    <Content Include="Scripts\cldr\supplemental\languageData.json" />
+    <Content Include="Scripts\cldr\supplemental\languageGroups.json" />
+    <Content Include="Scripts\cldr\supplemental\languageMatching.json" />
+    <Content Include="Scripts\cldr\supplemental\likelySubtags.json" />
+    <Content Include="Scripts\cldr\supplemental\measurementData.json" />
+    <Content Include="Scripts\cldr\supplemental\metaZones.json" />
+    <Content Include="Scripts\cldr\supplemental\numberingSystems.json" />
+    <Content Include="Scripts\cldr\supplemental\ordinals.json" />
+    <Content Include="Scripts\cldr\supplemental\parentLocales.json" />
+    <Content Include="Scripts\cldr\supplemental\plurals.json" />
+    <Content Include="Scripts\cldr\supplemental\primaryZones.json" />
+    <Content Include="Scripts\cldr\supplemental\references.json" />
+    <Content Include="Scripts\cldr\supplemental\territoryContainment.json" />
+    <Content Include="Scripts\cldr\supplemental\territoryInfo.json" />
+    <Content Include="Scripts\cldr\supplemental\timeData.json" />
+    <Content Include="Scripts\cldr\supplemental\unitPreferenceData.json" />
+    <Content Include="Scripts\cldr\supplemental\weekData.json" />
+    <Content Include="Scripts\cldr\supplemental\windowsZones.json" />
+    <Content Include="Scripts\cldr\main\af\currencies.json" />
+    <Content Include="Scripts\cldr\main\af\numbers.json" />
+    <Content Include="Scripts\cldr\main\af-NA\currencies.json" />
+    <Content Include="Scripts\cldr\main\af-NA\numbers.json" />
+    <Content Include="Scripts\cldr\main\am\currencies.json" />
+    <Content Include="Scripts\cldr\main\am\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-AE\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-AE\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-BH\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-BH\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-DJ\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-DJ\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-DZ\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-DZ\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-EG\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-EG\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-EH\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-EH\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-ER\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-ER\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-IL\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-IL\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-IQ\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-IQ\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-JO\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-JO\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-KM\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-KM\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-KW\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-KW\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-LB\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-LB\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-LY\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-LY\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-MA\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-MA\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-MR\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-MR\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-OM\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-OM\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-PS\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-PS\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-QA\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-QA\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-SA\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-SA\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-SD\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-SD\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-SO\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-SO\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-SS\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-SS\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-SY\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-SY\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-TD\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-TD\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-TN\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-TN\numbers.json" />
+    <Content Include="Scripts\cldr\main\ar-YE\currencies.json" />
+    <Content Include="Scripts\cldr\main\ar-YE\numbers.json" />
+    <Content Include="Scripts\cldr\main\as\currencies.json" />
+    <Content Include="Scripts\cldr\main\as\numbers.json" />
+    <Content Include="Scripts\cldr\main\az\currencies.json" />
+    <Content Include="Scripts\cldr\main\az\numbers.json" />
+    <Content Include="Scripts\cldr\main\az-Latn\currencies.json" />
+    <Content Include="Scripts\cldr\main\az-Latn\numbers.json" />
+    <Content Include="Scripts\cldr\main\be\currencies.json" />
+    <Content Include="Scripts\cldr\main\be\numbers.json" />
+    <Content Include="Scripts\cldr\main\bg\currencies.json" />
+    <Content Include="Scripts\cldr\main\bg\numbers.json" />
+    <Content Include="Scripts\cldr\main\bn\currencies.json" />
+    <Content Include="Scripts\cldr\main\bn\numbers.json" />
+    <Content Include="Scripts\cldr\main\bn-IN\currencies.json" />
+    <Content Include="Scripts\cldr\main\bn-IN\numbers.json" />
+    <Content Include="Scripts\cldr\main\bs\currencies.json" />
+    <Content Include="Scripts\cldr\main\bs\numbers.json" />
+    <Content Include="Scripts\cldr\main\bs-Latn\currencies.json" />
+    <Content Include="Scripts\cldr\main\bs-Latn\numbers.json" />
+    <Content Include="Scripts\cldr\main\ca\currencies.json" />
+    <Content Include="Scripts\cldr\main\ca\numbers.json" />
+    <Content Include="Scripts\cldr\main\ca-AD\currencies.json" />
+    <Content Include="Scripts\cldr\main\ca-AD\numbers.json" />
+    <Content Include="Scripts\cldr\main\ca-ES-VALENCIA\currencies.json" />
+    <Content Include="Scripts\cldr\main\ca-ES-VALENCIA\numbers.json" />
+    <Content Include="Scripts\cldr\main\ca-FR\currencies.json" />
+    <Content Include="Scripts\cldr\main\ca-FR\numbers.json" />
+    <Content Include="Scripts\cldr\main\ca-IT\currencies.json" />
+    <Content Include="Scripts\cldr\main\ca-IT\numbers.json" />
+    <Content Include="Scripts\cldr\main\cs\currencies.json" />
+    <Content Include="Scripts\cldr\main\cs\numbers.json" />
+    <Content Include="Scripts\cldr\main\cy\currencies.json" />
+    <Content Include="Scripts\cldr\main\cy\numbers.json" />
+    <Content Include="Scripts\cldr\main\da\currencies.json" />
+    <Content Include="Scripts\cldr\main\da\numbers.json" />
+    <Content Include="Scripts\cldr\main\da-GL\currencies.json" />
+    <Content Include="Scripts\cldr\main\da-GL\numbers.json" />
+    <Content Include="Scripts\cldr\main\de\currencies.json" />
+    <Content Include="Scripts\cldr\main\de\numbers.json" />
+    <Content Include="Scripts\cldr\main\de-AT\currencies.json" />
+    <Content Include="Scripts\cldr\main\de-AT\numbers.json" />
+    <Content Include="Scripts\cldr\main\de-BE\currencies.json" />
+    <Content Include="Scripts\cldr\main\de-BE\numbers.json" />
+    <Content Include="Scripts\cldr\main\de-CH\currencies.json" />
+    <Content Include="Scripts\cldr\main\de-CH\numbers.json" />
+    <Content Include="Scripts\cldr\main\de-IT\currencies.json" />
+    <Content Include="Scripts\cldr\main\de-IT\numbers.json" />
+    <Content Include="Scripts\cldr\main\de-LI\currencies.json" />
+    <Content Include="Scripts\cldr\main\de-LI\numbers.json" />
+    <Content Include="Scripts\cldr\main\de-LU\currencies.json" />
+    <Content Include="Scripts\cldr\main\de-LU\numbers.json" />
+    <Content Include="Scripts\cldr\main\el\currencies.json" />
+    <Content Include="Scripts\cldr\main\el\numbers.json" />
+    <Content Include="Scripts\cldr\main\el-CY\currencies.json" />
+    <Content Include="Scripts\cldr\main\el-CY\numbers.json" />
+    <Content Include="Scripts\cldr\main\en\currencies.json" />
+    <Content Include="Scripts\cldr\main\en\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-001\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-001\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-150\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-150\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-AG\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-AG\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-AI\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-AI\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-AS\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-AS\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-AT\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-AT\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-AU\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-AU\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-BB\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-BB\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-BE\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-BE\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-BI\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-BI\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-BM\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-BM\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-BS\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-BS\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-BW\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-BW\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-BZ\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-BZ\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-CA\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-CA\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-CC\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-CC\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-CH\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-CH\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-CK\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-CK\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-CM\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-CM\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-CX\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-CX\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-CY\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-CY\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-DE\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-DE\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-DG\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-DG\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-DK\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-DK\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-DM\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-DM\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-ER\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-ER\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-FI\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-FI\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-FJ\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-FJ\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-FK\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-FK\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-FM\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-FM\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-GB\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-GB\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-GD\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-GD\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-GG\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-GG\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-GH\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-GH\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-GI\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-GI\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-GM\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-GM\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-GU\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-GU\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-GY\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-GY\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-HK\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-HK\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-IE\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-IE\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-IL\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-IL\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-IM\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-IM\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-IN\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-IN\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-IO\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-IO\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-JE\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-JE\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-JM\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-JM\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-KE\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-KE\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-KI\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-KI\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-KN\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-KN\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-KY\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-KY\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-LC\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-LC\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-LR\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-LR\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-LS\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-LS\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-MG\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-MG\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-MH\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-MH\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-MO\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-MO\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-MP\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-MP\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-MS\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-MS\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-MT\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-MT\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-MU\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-MU\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-MW\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-MW\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-MY\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-MY\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-NA\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-NA\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-NF\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-NF\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-NG\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-NG\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-NL\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-NL\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-NR\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-NR\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-NU\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-NU\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-NZ\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-NZ\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-PG\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-PG\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-PH\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-PH\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-PK\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-PK\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-PN\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-PN\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-PR\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-PR\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-PW\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-PW\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-RW\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-RW\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-SB\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-SB\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-SC\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-SC\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-SD\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-SD\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-SE\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-SE\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-SG\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-SG\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-SH\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-SH\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-SI\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-SI\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-SL\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-SL\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-SS\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-SS\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-SX\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-SX\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-SZ\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-SZ\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-TC\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-TC\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-TK\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-TK\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-TO\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-TO\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-TT\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-TT\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-TV\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-TV\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-TZ\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-TZ\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-UG\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-UG\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-UM\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-UM\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-US-POSIX\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-US-POSIX\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-VC\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-VC\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-VG\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-VG\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-VI\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-VI\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-VU\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-VU\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-WS\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-WS\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-ZA\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-ZA\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-ZM\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-ZM\numbers.json" />
+    <Content Include="Scripts\cldr\main\en-ZW\currencies.json" />
+    <Content Include="Scripts\cldr\main\en-ZW\numbers.json" />
+    <Content Include="Scripts\cldr\main\es\currencies.json" />
+    <Content Include="Scripts\cldr\main\es\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-419\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-419\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-AR\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-AR\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-BO\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-BO\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-BR\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-BR\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-BZ\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-BZ\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-CL\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-CL\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-CO\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-CO\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-CR\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-CR\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-CU\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-CU\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-DO\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-DO\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-EA\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-EA\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-EC\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-EC\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-GQ\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-GQ\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-GT\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-GT\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-HN\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-HN\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-IC\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-IC\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-MX\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-MX\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-NI\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-NI\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-PA\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-PA\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-PE\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-PE\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-PH\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-PH\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-PR\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-PR\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-PY\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-PY\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-SV\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-SV\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-US\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-US\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-UY\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-UY\numbers.json" />
+    <Content Include="Scripts\cldr\main\es-VE\currencies.json" />
+    <Content Include="Scripts\cldr\main\es-VE\numbers.json" />
+    <Content Include="Scripts\cldr\main\et\currencies.json" />
+    <Content Include="Scripts\cldr\main\et\numbers.json" />
+    <Content Include="Scripts\cldr\main\eu\currencies.json" />
+    <Content Include="Scripts\cldr\main\eu\numbers.json" />
+    <Content Include="Scripts\cldr\main\fa\currencies.json" />
+    <Content Include="Scripts\cldr\main\fa\numbers.json" />
+    <Content Include="Scripts\cldr\main\fa-AF\currencies.json" />
+    <Content Include="Scripts\cldr\main\fa-AF\numbers.json" />
+    <Content Include="Scripts\cldr\main\fi\currencies.json" />
+    <Content Include="Scripts\cldr\main\fi\numbers.json" />
+    <Content Include="Scripts\cldr\main\fil\currencies.json" />
+    <Content Include="Scripts\cldr\main\fil\numbers.json" />
+    <Content Include="Scripts\cldr\main\fo\currencies.json" />
+    <Content Include="Scripts\cldr\main\fo\numbers.json" />
+    <Content Include="Scripts\cldr\main\fo-DK\currencies.json" />
+    <Content Include="Scripts\cldr\main\fo-DK\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-BE\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-BE\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-BF\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-BF\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-BI\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-BI\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-BJ\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-BJ\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-BL\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-BL\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-CA\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-CA\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-CD\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-CD\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-CF\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-CF\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-CG\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-CG\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-CH\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-CH\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-CI\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-CI\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-CM\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-CM\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-DJ\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-DJ\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-DZ\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-DZ\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-GA\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-GA\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-GF\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-GF\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-GN\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-GN\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-GP\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-GP\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-GQ\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-GQ\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-HT\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-HT\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-KM\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-KM\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-LU\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-LU\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-MA\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-MA\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-MC\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-MC\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-MF\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-MF\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-MG\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-MG\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-ML\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-ML\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-MQ\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-MQ\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-MR\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-MR\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-MU\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-MU\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-NC\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-NC\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-NE\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-NE\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-PF\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-PF\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-PM\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-PM\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-RE\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-RE\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-RW\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-RW\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-SC\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-SC\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-SN\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-SN\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-SY\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-SY\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-TD\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-TD\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-TG\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-TG\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-TN\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-TN\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-VU\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-VU\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-WF\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-WF\numbers.json" />
+    <Content Include="Scripts\cldr\main\fr-YT\currencies.json" />
+    <Content Include="Scripts\cldr\main\fr-YT\numbers.json" />
+    <Content Include="Scripts\cldr\main\ga\currencies.json" />
+    <Content Include="Scripts\cldr\main\ga\numbers.json" />
+    <Content Include="Scripts\cldr\main\gl\currencies.json" />
+    <Content Include="Scripts\cldr\main\gl\numbers.json" />
+    <Content Include="Scripts\cldr\main\gu\currencies.json" />
+    <Content Include="Scripts\cldr\main\gu\numbers.json" />
+    <Content Include="Scripts\cldr\main\he\currencies.json" />
+    <Content Include="Scripts\cldr\main\he\numbers.json" />
+    <Content Include="Scripts\cldr\main\hi\currencies.json" />
+    <Content Include="Scripts\cldr\main\hi\numbers.json" />
+    <Content Include="Scripts\cldr\main\hr\currencies.json" />
+    <Content Include="Scripts\cldr\main\hr\numbers.json" />
+    <Content Include="Scripts\cldr\main\hr-BA\currencies.json" />
+    <Content Include="Scripts\cldr\main\hr-BA\numbers.json" />
+    <Content Include="Scripts\cldr\main\hu\currencies.json" />
+    <Content Include="Scripts\cldr\main\hu\numbers.json" />
+    <Content Include="Scripts\cldr\main\hy\currencies.json" />
+    <Content Include="Scripts\cldr\main\hy\numbers.json" />
+    <Content Include="Scripts\cldr\main\id\currencies.json" />
+    <Content Include="Scripts\cldr\main\id\numbers.json" />
+    <Content Include="Scripts\cldr\main\is\currencies.json" />
+    <Content Include="Scripts\cldr\main\is\numbers.json" />
+    <Content Include="Scripts\cldr\main\it\currencies.json" />
+    <Content Include="Scripts\cldr\main\it\numbers.json" />
+    <Content Include="Scripts\cldr\main\it-CH\currencies.json" />
+    <Content Include="Scripts\cldr\main\it-CH\numbers.json" />
+    <Content Include="Scripts\cldr\main\it-SM\currencies.json" />
+    <Content Include="Scripts\cldr\main\it-SM\numbers.json" />
+    <Content Include="Scripts\cldr\main\it-VA\currencies.json" />
+    <Content Include="Scripts\cldr\main\it-VA\numbers.json" />
+    <Content Include="Scripts\cldr\main\ja\currencies.json" />
+    <Content Include="Scripts\cldr\main\ja\numbers.json" />
+    <Content Include="Scripts\cldr\main\ka\currencies.json" />
+    <Content Include="Scripts\cldr\main\ka\numbers.json" />
+    <Content Include="Scripts\cldr\main\kk\currencies.json" />
+    <Content Include="Scripts\cldr\main\kk\numbers.json" />
+    <Content Include="Scripts\cldr\main\km\currencies.json" />
+    <Content Include="Scripts\cldr\main\km\numbers.json" />
+    <Content Include="Scripts\cldr\main\kn\currencies.json" />
+    <Content Include="Scripts\cldr\main\kn\numbers.json" />
+    <Content Include="Scripts\cldr\main\ko\currencies.json" />
+    <Content Include="Scripts\cldr\main\ko\numbers.json" />
+    <Content Include="Scripts\cldr\main\ko-KP\currencies.json" />
+    <Content Include="Scripts\cldr\main\ko-KP\numbers.json" />
+    <Content Include="Scripts\cldr\main\ky\currencies.json" />
+    <Content Include="Scripts\cldr\main\ky\numbers.json" />
+    <Content Include="Scripts\cldr\main\lo\currencies.json" />
+    <Content Include="Scripts\cldr\main\lo\numbers.json" />
+    <Content Include="Scripts\cldr\main\lt\currencies.json" />
+    <Content Include="Scripts\cldr\main\lt\numbers.json" />
+    <Content Include="Scripts\cldr\main\lv\currencies.json" />
+    <Content Include="Scripts\cldr\main\lv\numbers.json" />
+    <Content Include="Scripts\cldr\main\mk\currencies.json" />
+    <Content Include="Scripts\cldr\main\mk\numbers.json" />
+    <Content Include="Scripts\cldr\main\ml\currencies.json" />
+    <Content Include="Scripts\cldr\main\ml\numbers.json" />
+    <Content Include="Scripts\cldr\main\mn\currencies.json" />
+    <Content Include="Scripts\cldr\main\mn\numbers.json" />
+    <Content Include="Scripts\cldr\main\mr\currencies.json" />
+    <Content Include="Scripts\cldr\main\mr\numbers.json" />
+    <Content Include="Scripts\cldr\main\ms\currencies.json" />
+    <Content Include="Scripts\cldr\main\ms\numbers.json" />
+    <Content Include="Scripts\cldr\main\ms-BN\currencies.json" />
+    <Content Include="Scripts\cldr\main\ms-BN\numbers.json" />
+    <Content Include="Scripts\cldr\main\ms-SG\currencies.json" />
+    <Content Include="Scripts\cldr\main\ms-SG\numbers.json" />
+    <Content Include="Scripts\cldr\main\my\currencies.json" />
+    <Content Include="Scripts\cldr\main\my\numbers.json" />
+    <Content Include="Scripts\cldr\main\nb\currencies.json" />
+    <Content Include="Scripts\cldr\main\nb\numbers.json" />
+    <Content Include="Scripts\cldr\main\nb-SJ\currencies.json" />
+    <Content Include="Scripts\cldr\main\nb-SJ\numbers.json" />
+    <Content Include="Scripts\cldr\main\ne\currencies.json" />
+    <Content Include="Scripts\cldr\main\ne\numbers.json" />
+    <Content Include="Scripts\cldr\main\ne-IN\currencies.json" />
+    <Content Include="Scripts\cldr\main\ne-IN\numbers.json" />
+    <Content Include="Scripts\cldr\main\nl\currencies.json" />
+    <Content Include="Scripts\cldr\main\nl\numbers.json" />
+    <Content Include="Scripts\cldr\main\nl-AW\currencies.json" />
+    <Content Include="Scripts\cldr\main\nl-AW\numbers.json" />
+    <Content Include="Scripts\cldr\main\nl-BE\currencies.json" />
+    <Content Include="Scripts\cldr\main\nl-BE\numbers.json" />
+    <Content Include="Scripts\cldr\main\nl-BQ\currencies.json" />
+    <Content Include="Scripts\cldr\main\nl-BQ\numbers.json" />
+    <Content Include="Scripts\cldr\main\nl-CW\currencies.json" />
+    <Content Include="Scripts\cldr\main\nl-CW\numbers.json" />
+    <Content Include="Scripts\cldr\main\nl-SR\currencies.json" />
+    <Content Include="Scripts\cldr\main\nl-SR\numbers.json" />
+    <Content Include="Scripts\cldr\main\nl-SX\currencies.json" />
+    <Content Include="Scripts\cldr\main\nl-SX\numbers.json" />
+    <Content Include="Scripts\cldr\main\or\currencies.json" />
+    <Content Include="Scripts\cldr\main\or\numbers.json" />
+    <Content Include="Scripts\cldr\main\pa\currencies.json" />
+    <Content Include="Scripts\cldr\main\pa\numbers.json" />
+    <Content Include="Scripts\cldr\main\pa-Guru\currencies.json" />
+    <Content Include="Scripts\cldr\main\pa-Guru\numbers.json" />
+    <Content Include="Scripts\cldr\main\pl\currencies.json" />
+    <Content Include="Scripts\cldr\main\pl\numbers.json" />
+    <Content Include="Scripts\cldr\main\ps\currencies.json" />
+    <Content Include="Scripts\cldr\main\ps\numbers.json" />
+    <Content Include="Scripts\cldr\main\pt\currencies.json" />
+    <Content Include="Scripts\cldr\main\pt\numbers.json" />
+    <Content Include="Scripts\cldr\main\pt-AO\currencies.json" />
+    <Content Include="Scripts\cldr\main\pt-AO\numbers.json" />
+    <Content Include="Scripts\cldr\main\pt-CH\currencies.json" />
+    <Content Include="Scripts\cldr\main\pt-CH\numbers.json" />
+    <Content Include="Scripts\cldr\main\pt-CV\currencies.json" />
+    <Content Include="Scripts\cldr\main\pt-CV\numbers.json" />
+    <Content Include="Scripts\cldr\main\pt-GQ\currencies.json" />
+    <Content Include="Scripts\cldr\main\pt-GQ\numbers.json" />
+    <Content Include="Scripts\cldr\main\pt-GW\currencies.json" />
+    <Content Include="Scripts\cldr\main\pt-GW\numbers.json" />
+    <Content Include="Scripts\cldr\main\pt-LU\currencies.json" />
+    <Content Include="Scripts\cldr\main\pt-LU\numbers.json" />
+    <Content Include="Scripts\cldr\main\pt-MO\currencies.json" />
+    <Content Include="Scripts\cldr\main\pt-MO\numbers.json" />
+    <Content Include="Scripts\cldr\main\pt-MZ\currencies.json" />
+    <Content Include="Scripts\cldr\main\pt-MZ\numbers.json" />
+    <Content Include="Scripts\cldr\main\pt-PT\currencies.json" />
+    <Content Include="Scripts\cldr\main\pt-PT\numbers.json" />
+    <Content Include="Scripts\cldr\main\pt-ST\currencies.json" />
+    <Content Include="Scripts\cldr\main\pt-ST\numbers.json" />
+    <Content Include="Scripts\cldr\main\pt-TL\currencies.json" />
+    <Content Include="Scripts\cldr\main\pt-TL\numbers.json" />
+    <Content Include="Scripts\cldr\main\ro\currencies.json" />
+    <Content Include="Scripts\cldr\main\ro\numbers.json" />
+    <Content Include="Scripts\cldr\main\ro-MD\currencies.json" />
+    <Content Include="Scripts\cldr\main\ro-MD\numbers.json" />
+    <Content Include="Scripts\cldr\main\root\currencies.json" />
+    <Content Include="Scripts\cldr\main\root\numbers.json" />
+    <Content Include="Scripts\cldr\main\ru\currencies.json" />
+    <Content Include="Scripts\cldr\main\ru\numbers.json" />
+    <Content Include="Scripts\cldr\main\ru-BY\currencies.json" />
+    <Content Include="Scripts\cldr\main\ru-BY\numbers.json" />
+    <Content Include="Scripts\cldr\main\ru-KG\currencies.json" />
+    <Content Include="Scripts\cldr\main\ru-KG\numbers.json" />
+    <Content Include="Scripts\cldr\main\ru-KZ\currencies.json" />
+    <Content Include="Scripts\cldr\main\ru-KZ\numbers.json" />
+    <Content Include="Scripts\cldr\main\ru-MD\currencies.json" />
+    <Content Include="Scripts\cldr\main\ru-MD\numbers.json" />
+    <Content Include="Scripts\cldr\main\ru-UA\currencies.json" />
+    <Content Include="Scripts\cldr\main\ru-UA\numbers.json" />
+    <Content Include="Scripts\cldr\main\sd\currencies.json" />
+    <Content Include="Scripts\cldr\main\sd\numbers.json" />
+    <Content Include="Scripts\cldr\main\si\currencies.json" />
+    <Content Include="Scripts\cldr\main\si\numbers.json" />
+    <Content Include="Scripts\cldr\main\sk\currencies.json" />
+    <Content Include="Scripts\cldr\main\sk\numbers.json" />
+    <Content Include="Scripts\cldr\main\sl\currencies.json" />
+    <Content Include="Scripts\cldr\main\sl\numbers.json" />
+    <Content Include="Scripts\cldr\main\sq\currencies.json" />
+    <Content Include="Scripts\cldr\main\sq\numbers.json" />
+    <Content Include="Scripts\cldr\main\sq-MK\currencies.json" />
+    <Content Include="Scripts\cldr\main\sq-MK\numbers.json" />
+    <Content Include="Scripts\cldr\main\sq-XK\currencies.json" />
+    <Content Include="Scripts\cldr\main\sq-XK\numbers.json" />
+    <Content Include="Scripts\cldr\main\sr\currencies.json" />
+    <Content Include="Scripts\cldr\main\sr\numbers.json" />
+    <Content Include="Scripts\cldr\main\sr-Cyrl\currencies.json" />
+    <Content Include="Scripts\cldr\main\sr-Cyrl\numbers.json" />
+    <Content Include="Scripts\cldr\main\sr-Cyrl-BA\currencies.json" />
+    <Content Include="Scripts\cldr\main\sr-Cyrl-BA\numbers.json" />
+    <Content Include="Scripts\cldr\main\sr-Cyrl-ME\currencies.json" />
+    <Content Include="Scripts\cldr\main\sr-Cyrl-ME\numbers.json" />
+    <Content Include="Scripts\cldr\main\sr-Cyrl-XK\currencies.json" />
+    <Content Include="Scripts\cldr\main\sr-Cyrl-XK\numbers.json" />
+    <Content Include="Scripts\cldr\main\sr-Latn\currencies.json" />
+    <Content Include="Scripts\cldr\main\sr-Latn\numbers.json" />
+    <Content Include="Scripts\cldr\main\sr-Latn-BA\currencies.json" />
+    <Content Include="Scripts\cldr\main\sr-Latn-BA\numbers.json" />
+    <Content Include="Scripts\cldr\main\sr-Latn-ME\currencies.json" />
+    <Content Include="Scripts\cldr\main\sr-Latn-ME\numbers.json" />
+    <Content Include="Scripts\cldr\main\sr-Latn-XK\currencies.json" />
+    <Content Include="Scripts\cldr\main\sr-Latn-XK\numbers.json" />
+    <Content Include="Scripts\cldr\main\sv\currencies.json" />
+    <Content Include="Scripts\cldr\main\sv\numbers.json" />
+    <Content Include="Scripts\cldr\main\sv-AX\currencies.json" />
+    <Content Include="Scripts\cldr\main\sv-AX\numbers.json" />
+    <Content Include="Scripts\cldr\main\sv-FI\currencies.json" />
+    <Content Include="Scripts\cldr\main\sv-FI\numbers.json" />
+    <Content Include="Scripts\cldr\main\sw\currencies.json" />
+    <Content Include="Scripts\cldr\main\sw\numbers.json" />
+    <Content Include="Scripts\cldr\main\sw-CD\currencies.json" />
+    <Content Include="Scripts\cldr\main\sw-CD\numbers.json" />
+    <Content Include="Scripts\cldr\main\sw-KE\currencies.json" />
+    <Content Include="Scripts\cldr\main\sw-KE\numbers.json" />
+    <Content Include="Scripts\cldr\main\sw-UG\currencies.json" />
+    <Content Include="Scripts\cldr\main\sw-UG\numbers.json" />
+    <Content Include="Scripts\cldr\main\ta\currencies.json" />
+    <Content Include="Scripts\cldr\main\ta\numbers.json" />
+    <Content Include="Scripts\cldr\main\ta-LK\currencies.json" />
+    <Content Include="Scripts\cldr\main\ta-LK\numbers.json" />
+    <Content Include="Scripts\cldr\main\ta-MY\currencies.json" />
+    <Content Include="Scripts\cldr\main\ta-MY\numbers.json" />
+    <Content Include="Scripts\cldr\main\ta-SG\currencies.json" />
+    <Content Include="Scripts\cldr\main\ta-SG\numbers.json" />
+    <Content Include="Scripts\cldr\main\te\currencies.json" />
+    <Content Include="Scripts\cldr\main\te\numbers.json" />
+    <Content Include="Scripts\cldr\main\th\currencies.json" />
+    <Content Include="Scripts\cldr\main\th\numbers.json" />
+    <Content Include="Scripts\cldr\main\tk\currencies.json" />
+    <Content Include="Scripts\cldr\main\tk\numbers.json" />
+    <Content Include="Scripts\cldr\main\tr\currencies.json" />
+    <Content Include="Scripts\cldr\main\tr\numbers.json" />
+    <Content Include="Scripts\cldr\main\tr-CY\currencies.json" />
+    <Content Include="Scripts\cldr\main\tr-CY\numbers.json" />
+    <Content Include="Scripts\cldr\main\uk\currencies.json" />
+    <Content Include="Scripts\cldr\main\uk\numbers.json" />
+    <Content Include="Scripts\cldr\main\ur\currencies.json" />
+    <Content Include="Scripts\cldr\main\ur\numbers.json" />
+    <Content Include="Scripts\cldr\main\ur-IN\currencies.json" />
+    <Content Include="Scripts\cldr\main\ur-IN\numbers.json" />
+    <Content Include="Scripts\cldr\main\uz\currencies.json" />
+    <Content Include="Scripts\cldr\main\uz\numbers.json" />
+    <Content Include="Scripts\cldr\main\uz-Latn\currencies.json" />
+    <Content Include="Scripts\cldr\main\uz-Latn\numbers.json" />
+    <Content Include="Scripts\cldr\main\vi\currencies.json" />
+    <Content Include="Scripts\cldr\main\vi\numbers.json" />
+    <Content Include="Scripts\cldr\main\yue\currencies.json" />
+    <Content Include="Scripts\cldr\main\yue\numbers.json" />
+    <Content Include="Scripts\cldr\main\yue-Hant\currencies.json" />
+    <Content Include="Scripts\cldr\main\yue-Hant\numbers.json" />
+    <Content Include="Scripts\cldr\main\zh\currencies.json" />
+    <Content Include="Scripts\cldr\main\zh\numbers.json" />
+    <Content Include="Scripts\cldr\main\zh-Hans\currencies.json" />
+    <Content Include="Scripts\cldr\main\zh-Hans\numbers.json" />
+    <Content Include="Scripts\cldr\main\zh-Hans-HK\currencies.json" />
+    <Content Include="Scripts\cldr\main\zh-Hans-HK\numbers.json" />
+    <Content Include="Scripts\cldr\main\zh-Hans-MO\currencies.json" />
+    <Content Include="Scripts\cldr\main\zh-Hans-MO\numbers.json" />
+    <Content Include="Scripts\cldr\main\zh-Hans-SG\currencies.json" />
+    <Content Include="Scripts\cldr\main\zh-Hans-SG\numbers.json" />
+    <Content Include="Scripts\cldr\main\zh-Hant\currencies.json" />
+    <Content Include="Scripts\cldr\main\zh-Hant\numbers.json" />
+    <Content Include="Scripts\cldr\main\zh-Hant-HK\currencies.json" />
+    <Content Include="Scripts\cldr\main\zh-Hant-HK\numbers.json" />
+    <Content Include="Scripts\cldr\main\zh-Hant-MO\currencies.json" />
+    <Content Include="Scripts\cldr\main\zh-Hant-MO\numbers.json" />
+    <Content Include="Scripts\cldr\main\zu\currencies.json" />
+    <Content Include="Scripts\cldr\main\zu\numbers.json" />
+    <Content Include="Scripts\cldr\main\agq\currencies.json" />
+    <Content Include="Scripts\cldr\main\agq\numbers.json" />
+    <Content Include="Scripts\cldr\main\ak\currencies.json" />
+    <Content Include="Scripts\cldr\main\ak\numbers.json" />
+    <Content Include="Scripts\cldr\main\asa\currencies.json" />
+    <Content Include="Scripts\cldr\main\asa\numbers.json" />
+    <Content Include="Scripts\cldr\main\ast\currencies.json" />
+    <Content Include="Scripts\cldr\main\ast\numbers.json" />
+    <Content Include="Scripts\cldr\main\az-Cyrl\currencies.json" />
+    <Content Include="Scripts\cldr\main\az-Cyrl\numbers.json" />
+    <Content Include="Scripts\cldr\main\bas\currencies.json" />
+    <Content Include="Scripts\cldr\main\bas\numbers.json" />
+    <Content Include="Scripts\cldr\main\dje\currencies.json" />
+    <Content Include="Scripts\cldr\main\dje\numbers.json" />
+    <Content Include="Scripts\cldr\main\dsb\currencies.json" />
+    <Content Include="Scripts\cldr\main\dsb\numbers.json" />
+    <Content Include="Scripts\cldr\main\dua\currencies.json" />
+    <Content Include="Scripts\cldr\main\dua\numbers.json" />
+    <Content Include="Scripts\cldr\main\dyo\currencies.json" />
+    <Content Include="Scripts\cldr\main\dyo\numbers.json" />
+    <Content Include="Scripts\cldr\main\dz\currencies.json" />
+    <Content Include="Scripts\cldr\main\dz\numbers.json" />
+    <Content Include="Scripts\cldr\main\ebu\currencies.json" />
+    <Content Include="Scripts\cldr\main\ebu\numbers.json" />
+    <Content Include="Scripts\cldr\main\ee-TG\currencies.json" />
+    <Content Include="Scripts\cldr\main\ee-TG\numbers.json" />
+    <Content Include="Scripts\cldr\main\ee\currencies.json" />
+    <Content Include="Scripts\cldr\main\ee\numbers.json" />
+    <Content Include="Scripts\cldr\main\bem\currencies.json" />
+    <Content Include="Scripts\cldr\main\bem\numbers.json" />
+    <Content Include="Scripts\cldr\main\bez\currencies.json" />
+    <Content Include="Scripts\cldr\main\bez\numbers.json" />
+    <Content Include="Scripts\cldr\main\bm\currencies.json" />
+    <Content Include="Scripts\cldr\main\bm\numbers.json" />
+    <Content Include="Scripts\cldr\main\bo-IN\currencies.json" />
+    <Content Include="Scripts\cldr\main\bo-IN\numbers.json" />
+    <Content Include="Scripts\cldr\main\bo\currencies.json" />
+    <Content Include="Scripts\cldr\main\bo\numbers.json" />
+    <Content Include="Scripts\cldr\main\brx\currencies.json" />
+    <Content Include="Scripts\cldr\main\brx\numbers.json" />
+    <Content Include="Scripts\cldr\main\br\currencies.json" />
+    <Content Include="Scripts\cldr\main\br\numbers.json" />
+    <Content Include="Scripts\cldr\main\ccp-IN\currencies.json" />
+    <Content Include="Scripts\cldr\main\ccp-IN\numbers.json" />
+    <Content Include="Scripts\cldr\main\ccp\currencies.json" />
+    <Content Include="Scripts\cldr\main\ccp\numbers.json" />
+    <Content Include="Scripts\cldr\main\ce\currencies.json" />
+    <Content Include="Scripts\cldr\main\ce\numbers.json" />
+    <Content Include="Scripts\cldr\main\cgg\currencies.json" />
+    <Content Include="Scripts\cldr\main\cgg\numbers.json" />
+    <Content Include="Scripts\cldr\main\chr\currencies.json" />
+    <Content Include="Scripts\cldr\main\chr\numbers.json" />
+    <Content Include="Scripts\cldr\main\ckb-IR\currencies.json" />
+    <Content Include="Scripts\cldr\main\ckb-IR\numbers.json" />
+    <Content Include="Scripts\cldr\main\ckb\currencies.json" />
+    <Content Include="Scripts\cldr\main\ckb\numbers.json" />
+    <Content Include="Scripts\cldr\main\cu\currencies.json" />
+    <Content Include="Scripts\cldr\main\cu\numbers.json" />
+    <Content Include="Scripts\cldr\main\dav\currencies.json" />
+    <Content Include="Scripts\cldr\main\dav\numbers.json" />
+    <Content Include="Scripts\cldr\main\fur\currencies.json" />
+    <Content Include="Scripts\cldr\main\fur\numbers.json" />
+    <Content Include="Scripts\cldr\main\fy\currencies.json" />
+    <Content Include="Scripts\cldr\main\fy\numbers.json" />
+    <Content Include="Scripts\cldr\main\gd\currencies.json" />
+    <Content Include="Scripts\cldr\main\gd\numbers.json" />
+    <Content Include="Scripts\cldr\main\gsw-FR\currencies.json" />
+    <Content Include="Scripts\cldr\main\gsw-FR\numbers.json" />
+    <Content Include="Scripts\cldr\main\gsw-LI\currencies.json" />
+    <Content Include="Scripts\cldr\main\gsw-LI\numbers.json" />
+    <Content Include="Scripts\cldr\main\gsw\currencies.json" />
+    <Content Include="Scripts\cldr\main\gsw\numbers.json" />
+    <Content Include="Scripts\cldr\main\guz\currencies.json" />
+    <Content Include="Scripts\cldr\main\guz\numbers.json" />
+    <Content Include="Scripts\cldr\main\gv\currencies.json" />
+    <Content Include="Scripts\cldr\main\gv\numbers.json" />
+    <Content Include="Scripts\cldr\main\ha-GH\currencies.json" />
+    <Content Include="Scripts\cldr\main\ha-GH\numbers.json" />
+    <Content Include="Scripts\cldr\main\ha-NE\currencies.json" />
+    <Content Include="Scripts\cldr\main\ha-NE\numbers.json" />
+    <Content Include="Scripts\cldr\main\haw\currencies.json" />
+    <Content Include="Scripts\cldr\main\haw\numbers.json" />
+    <Content Include="Scripts\cldr\main\ha\currencies.json" />
+    <Content Include="Scripts\cldr\main\ha\numbers.json" />
+    <Content Include="Scripts\cldr\main\hsb\currencies.json" />
+    <Content Include="Scripts\cldr\main\hsb\numbers.json" />
+    <Content Include="Scripts\cldr\main\ia\currencies.json" />
+    <Content Include="Scripts\cldr\main\ia\numbers.json" />
+    <Content Include="Scripts\cldr\main\ig\currencies.json" />
+    <Content Include="Scripts\cldr\main\ig\numbers.json" />
+    <Content Include="Scripts\cldr\main\ii\currencies.json" />
+    <Content Include="Scripts\cldr\main\ii\numbers.json" />
+    <Content Include="Scripts\cldr\main\jgo\currencies.json" />
+    <Content Include="Scripts\cldr\main\jgo\numbers.json" />
+    <Content Include="Scripts\cldr\main\jmc\currencies.json" />
+    <Content Include="Scripts\cldr\main\jmc\numbers.json" />
+    <Content Include="Scripts\cldr\main\jv\currencies.json" />
+    <Content Include="Scripts\cldr\main\jv\numbers.json" />
+    <Content Include="Scripts\cldr\main\kab\currencies.json" />
+    <Content Include="Scripts\cldr\main\kab\numbers.json" />
+    <Content Include="Scripts\cldr\main\kam\currencies.json" />
+    <Content Include="Scripts\cldr\main\kam\numbers.json" />
+    <Content Include="Scripts\cldr\main\kde\currencies.json" />
+    <Content Include="Scripts\cldr\main\kde\numbers.json" />
+    <Content Include="Scripts\cldr\main\kea\currencies.json" />
+    <Content Include="Scripts\cldr\main\kea\numbers.json" />
+    <Content Include="Scripts\cldr\main\khq\currencies.json" />
+    <Content Include="Scripts\cldr\main\khq\numbers.json" />
+    <Content Include="Scripts\cldr\main\ki\currencies.json" />
+    <Content Include="Scripts\cldr\main\ki\numbers.json" />
+    <Content Include="Scripts\cldr\main\kkj\currencies.json" />
+    <Content Include="Scripts\cldr\main\kkj\numbers.json" />
+    <Content Include="Scripts\cldr\main\kln\currencies.json" />
+    <Content Include="Scripts\cldr\main\kln\numbers.json" />
+    <Content Include="Scripts\cldr\main\kl\currencies.json" />
+    <Content Include="Scripts\cldr\main\kl\numbers.json" />
+    <Content Include="Scripts\cldr\main\kok\currencies.json" />
+    <Content Include="Scripts\cldr\main\kok\numbers.json" />
+    <Content Include="Scripts\cldr\main\ksb\currencies.json" />
+    <Content Include="Scripts\cldr\main\ksb\numbers.json" />
+    <Content Include="Scripts\cldr\main\ksf\currencies.json" />
+    <Content Include="Scripts\cldr\main\ksf\numbers.json" />
+    <Content Include="Scripts\cldr\main\ksh\currencies.json" />
+    <Content Include="Scripts\cldr\main\ksh\numbers.json" />
+    <Content Include="Scripts\cldr\main\ks\currencies.json" />
+    <Content Include="Scripts\cldr\main\ks\numbers.json" />
+    <Content Include="Scripts\cldr\main\ku\currencies.json" />
+    <Content Include="Scripts\cldr\main\ku\numbers.json" />
+    <Content Include="Scripts\cldr\main\kw\currencies.json" />
+    <Content Include="Scripts\cldr\main\kw\numbers.json" />
+    <Content Include="Scripts\cldr\main\lag\currencies.json" />
+    <Content Include="Scripts\cldr\main\lag\numbers.json" />
+    <Content Include="Scripts\cldr\main\lb\currencies.json" />
+    <Content Include="Scripts\cldr\main\lb\numbers.json" />
+    <Content Include="Scripts\cldr\main\lg\currencies.json" />
+    <Content Include="Scripts\cldr\main\lg\numbers.json" />
+    <Content Include="Scripts\cldr\main\lkt\currencies.json" />
+    <Content Include="Scripts\cldr\main\lkt\numbers.json" />
+    <Content Include="Scripts\cldr\main\ln-AO\currencies.json" />
+    <Content Include="Scripts\cldr\main\ln-AO\numbers.json" />
+    <Content Include="Scripts\cldr\main\ln-CF\currencies.json" />
+    <Content Include="Scripts\cldr\main\ln-CF\numbers.json" />
+    <Content Include="Scripts\cldr\main\ln-CG\currencies.json" />
+    <Content Include="Scripts\cldr\main\ln-CG\numbers.json" />
+    <Content Include="Scripts\cldr\main\ln\currencies.json" />
+    <Content Include="Scripts\cldr\main\ln\numbers.json" />
+    <Content Include="Scripts\cldr\main\lrc-IQ\currencies.json" />
+    <Content Include="Scripts\cldr\main\lrc-IQ\numbers.json" />
+    <Content Include="Scripts\cldr\main\lrc\currencies.json" />
+    <Content Include="Scripts\cldr\main\lrc\numbers.json" />
+    <Content Include="Scripts\cldr\main\luo\currencies.json" />
+    <Content Include="Scripts\cldr\main\luo\numbers.json" />
+    <Content Include="Scripts\cldr\main\luy\currencies.json" />
+    <Content Include="Scripts\cldr\main\luy\numbers.json" />
+    <Content Include="Scripts\cldr\main\lu\currencies.json" />
+    <Content Include="Scripts\cldr\main\lu\numbers.json" />
+    <Content Include="Scripts\cldr\main\mas-TZ\currencies.json" />
+    <Content Include="Scripts\cldr\main\mas-TZ\numbers.json" />
+    <Content Include="Scripts\cldr\main\mas\currencies.json" />
+    <Content Include="Scripts\cldr\main\mas\numbers.json" />
+    <Content Include="Scripts\cldr\main\mer\currencies.json" />
+    <Content Include="Scripts\cldr\main\mer\numbers.json" />
+    <Content Include="Scripts\cldr\main\mfe\currencies.json" />
+    <Content Include="Scripts\cldr\main\mfe\numbers.json" />
+    <Content Include="Scripts\cldr\main\mgh\currencies.json" />
+    <Content Include="Scripts\cldr\main\mgh\numbers.json" />
+    <Content Include="Scripts\cldr\main\mgo\currencies.json" />
+    <Content Include="Scripts\cldr\main\mgo\numbers.json" />
+    <Content Include="Scripts\cldr\main\mg\currencies.json" />
+    <Content Include="Scripts\cldr\main\mg\numbers.json" />
+    <Content Include="Scripts\cldr\main\mi\currencies.json" />
+    <Content Include="Scripts\cldr\main\mi\numbers.json" />
+    <Content Include="Scripts\cldr\main\mt\currencies.json" />
+    <Content Include="Scripts\cldr\main\mt\numbers.json" />
+    <Content Include="Scripts\cldr\main\mua\currencies.json" />
+    <Content Include="Scripts\cldr\main\mua\numbers.json" />
+    <Content Include="Scripts\cldr\main\mzn\currencies.json" />
+    <Content Include="Scripts\cldr\main\mzn\numbers.json" />
+    <Content Include="Scripts\cldr\main\naq\currencies.json" />
+    <Content Include="Scripts\cldr\main\naq\numbers.json" />
+    <Content Include="Scripts\cldr\main\nds-NL\currencies.json" />
+    <Content Include="Scripts\cldr\main\nds-NL\numbers.json" />
+    <Content Include="Scripts\cldr\main\nds\currencies.json" />
+    <Content Include="Scripts\cldr\main\nds\numbers.json" />
+    <Content Include="Scripts\cldr\main\nd\currencies.json" />
+    <Content Include="Scripts\cldr\main\nd\numbers.json" />
+    <Content Include="Scripts\cldr\main\nmg\currencies.json" />
+    <Content Include="Scripts\cldr\main\nmg\numbers.json" />
+    <Content Include="Scripts\cldr\main\nnh\currencies.json" />
+    <Content Include="Scripts\cldr\main\nnh\numbers.json" />
+    <Content Include="Scripts\cldr\main\nn\currencies.json" />
+    <Content Include="Scripts\cldr\main\nn\numbers.json" />
+    <Content Include="Scripts\cldr\main\nus\currencies.json" />
+    <Content Include="Scripts\cldr\main\nus\numbers.json" />
+    <Content Include="Scripts\cldr\main\nyn\currencies.json" />
+    <Content Include="Scripts\cldr\main\nyn\numbers.json" />
+    <Content Include="Scripts\cldr\main\om-KE\currencies.json" />
+    <Content Include="Scripts\cldr\main\om-KE\numbers.json" />
+    <Content Include="Scripts\cldr\main\om\currencies.json" />
+    <Content Include="Scripts\cldr\main\om\numbers.json" />
+    <Content Include="Scripts\cldr\main\os-RU\currencies.json" />
+    <Content Include="Scripts\cldr\main\os-RU\numbers.json" />
+    <Content Include="Scripts\cldr\main\os\currencies.json" />
+    <Content Include="Scripts\cldr\main\os\numbers.json" />
+    <Content Include="Scripts\cldr\main\pa-Arab\currencies.json" />
+    <Content Include="Scripts\cldr\main\pa-Arab\numbers.json" />
+    <Content Include="Scripts\cldr\main\prg\currencies.json" />
+    <Content Include="Scripts\cldr\main\prg\numbers.json" />
+    <Content Include="Scripts\cldr\main\qu-BO\currencies.json" />
+    <Content Include="Scripts\cldr\main\qu-BO\numbers.json" />
+    <Content Include="Scripts\cldr\main\qu-EC\currencies.json" />
+    <Content Include="Scripts\cldr\main\qu-EC\numbers.json" />
+    <Content Include="Scripts\cldr\main\qu\currencies.json" />
+    <Content Include="Scripts\cldr\main\qu\numbers.json" />
+    <Content Include="Scripts\cldr\main\rm\currencies.json" />
+    <Content Include="Scripts\cldr\main\rm\numbers.json" />
+    <Content Include="Scripts\cldr\main\rn\currencies.json" />
+    <Content Include="Scripts\cldr\main\rn\numbers.json" />
+    <Content Include="Scripts\cldr\main\rof\currencies.json" />
+    <Content Include="Scripts\cldr\main\rof\numbers.json" />
+    <Content Include="Scripts\cldr\main\rwk\currencies.json" />
+    <Content Include="Scripts\cldr\main\rwk\numbers.json" />
+    <Content Include="Scripts\cldr\main\rw\currencies.json" />
+    <Content Include="Scripts\cldr\main\rw\numbers.json" />
+    <Content Include="Scripts\cldr\main\sah\currencies.json" />
+    <Content Include="Scripts\cldr\main\sah\numbers.json" />
+    <Content Include="Scripts\cldr\main\saq\currencies.json" />
+    <Content Include="Scripts\cldr\main\saq\numbers.json" />
+    <Content Include="Scripts\cldr\main\sbp\currencies.json" />
+    <Content Include="Scripts\cldr\main\sbp\numbers.json" />
+    <Content Include="Scripts\cldr\main\se-FI\currencies.json" />
+    <Content Include="Scripts\cldr\main\se-FI\numbers.json" />
+    <Content Include="Scripts\cldr\main\se-SE\currencies.json" />
+    <Content Include="Scripts\cldr\main\se-SE\numbers.json" />
+    <Content Include="Scripts\cldr\main\seh\currencies.json" />
+    <Content Include="Scripts\cldr\main\seh\numbers.json" />
+    <Content Include="Scripts\cldr\main\ses\currencies.json" />
+    <Content Include="Scripts\cldr\main\ses\numbers.json" />
+    <Content Include="Scripts\cldr\main\se\currencies.json" />
+    <Content Include="Scripts\cldr\main\se\numbers.json" />
+    <Content Include="Scripts\cldr\main\sg\currencies.json" />
+    <Content Include="Scripts\cldr\main\sg\numbers.json" />
+    <Content Include="Scripts\cldr\main\shi-Latn\currencies.json" />
+    <Content Include="Scripts\cldr\main\shi-Latn\numbers.json" />
+    <Content Include="Scripts\cldr\main\shi-Tfng\currencies.json" />
+    <Content Include="Scripts\cldr\main\shi-Tfng\numbers.json" />
+    <Content Include="Scripts\cldr\main\shi\currencies.json" />
+    <Content Include="Scripts\cldr\main\shi\numbers.json" />
+    <Content Include="Scripts\cldr\main\smn\currencies.json" />
+    <Content Include="Scripts\cldr\main\smn\numbers.json" />
+    <Content Include="Scripts\cldr\main\sn\currencies.json" />
+    <Content Include="Scripts\cldr\main\sn\numbers.json" />
+    <Content Include="Scripts\cldr\main\so-DJ\currencies.json" />
+    <Content Include="Scripts\cldr\main\so-DJ\numbers.json" />
+    <Content Include="Scripts\cldr\main\so-ET\currencies.json" />
+    <Content Include="Scripts\cldr\main\so-ET\numbers.json" />
+    <Content Include="Scripts\cldr\main\so-KE\currencies.json" />
+    <Content Include="Scripts\cldr\main\so-KE\numbers.json" />
+    <Content Include="Scripts\cldr\main\so\currencies.json" />
+    <Content Include="Scripts\cldr\main\so\numbers.json" />
+    <Content Include="Scripts\cldr\main\teo-KE\currencies.json" />
+    <Content Include="Scripts\cldr\main\teo-KE\numbers.json" />
+    <Content Include="Scripts\cldr\main\teo\currencies.json" />
+    <Content Include="Scripts\cldr\main\teo\numbers.json" />
+    <Content Include="Scripts\cldr\main\tg\currencies.json" />
+    <Content Include="Scripts\cldr\main\tg\numbers.json" />
+    <Content Include="Scripts\cldr\main\ti-ER\currencies.json" />
+    <Content Include="Scripts\cldr\main\ti-ER\numbers.json" />
+    <Content Include="Scripts\cldr\main\ti\currencies.json" />
+    <Content Include="Scripts\cldr\main\ti\numbers.json" />
+    <Content Include="Scripts\cldr\main\to\currencies.json" />
+    <Content Include="Scripts\cldr\main\to\numbers.json" />
+    <Content Include="Scripts\cldr\main\tt\currencies.json" />
+    <Content Include="Scripts\cldr\main\tt\numbers.json" />
+    <Content Include="Scripts\cldr\main\twq\currencies.json" />
+    <Content Include="Scripts\cldr\main\twq\numbers.json" />
+    <Content Include="Scripts\cldr\main\tzm\currencies.json" />
+    <Content Include="Scripts\cldr\main\tzm\numbers.json" />
+    <Content Include="Scripts\cldr\main\ug\currencies.json" />
+    <Content Include="Scripts\cldr\main\ug\numbers.json" />
+    <Content Include="Scripts\cldr\main\uz-Arab\currencies.json" />
+    <Content Include="Scripts\cldr\main\uz-Arab\numbers.json" />
+    <Content Include="Scripts\cldr\main\uz-Cyrl\currencies.json" />
+    <Content Include="Scripts\cldr\main\uz-Cyrl\numbers.json" />
+    <Content Include="Scripts\cldr\main\vai-Latn\currencies.json" />
+    <Content Include="Scripts\cldr\main\vai-Latn\numbers.json" />
+    <Content Include="Scripts\cldr\main\vai-Vaii\currencies.json" />
+    <Content Include="Scripts\cldr\main\vai-Vaii\numbers.json" />
+    <Content Include="Scripts\cldr\main\vai\currencies.json" />
+    <Content Include="Scripts\cldr\main\vai\numbers.json" />
+    <Content Include="Scripts\cldr\main\vo\currencies.json" />
+    <Content Include="Scripts\cldr\main\vo\numbers.json" />
+    <Content Include="Scripts\cldr\main\vun\currencies.json" />
+    <Content Include="Scripts\cldr\main\vun\numbers.json" />
+    <Content Include="Scripts\cldr\main\wae\currencies.json" />
+    <Content Include="Scripts\cldr\main\wae\numbers.json" />
+    <Content Include="Scripts\cldr\main\wo\currencies.json" />
+    <Content Include="Scripts\cldr\main\wo\numbers.json" />
+    <Content Include="Scripts\cldr\main\xh\currencies.json" />
+    <Content Include="Scripts\cldr\main\xh\numbers.json" />
+    <Content Include="Scripts\cldr\main\xog\currencies.json" />
+    <Content Include="Scripts\cldr\main\xog\numbers.json" />
+    <Content Include="Scripts\cldr\main\yav\currencies.json" />
+    <Content Include="Scripts\cldr\main\yav\numbers.json" />
+    <Content Include="Scripts\cldr\main\yi\currencies.json" />
+    <Content Include="Scripts\cldr\main\yi\numbers.json" />
+    <Content Include="Scripts\cldr\main\yo-BJ\currencies.json" />
+    <Content Include="Scripts\cldr\main\yo-BJ\numbers.json" />
+    <Content Include="Scripts\cldr\main\yo\currencies.json" />
+    <Content Include="Scripts\cldr\main\yo\numbers.json" />
+    <Content Include="Scripts\cldr\main\yue-Hans\currencies.json" />
+    <Content Include="Scripts\cldr\main\yue-Hans\numbers.json" />
+    <Content Include="Scripts\cldr\main\zgh\currencies.json" />
+    <Content Include="Scripts\cldr\main\zgh\numbers.json" />
+    <Content Include="Scripts\cldr\main\bs-Cyrl\currencies.json" />
+    <Content Include="Scripts\cldr\main\bs-Cyrl\numbers.json" />
+    <Content Include="Scripts\cldr\main\ewo\currencies.json" />
+    <Content Include="Scripts\cldr\main\ewo\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-BF\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-BF\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-CM\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-CM\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-GH\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-GH\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-GM\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-GM\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-GN\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-GN\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-GW\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-GW\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-LR\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-LR\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-MR\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-MR\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-NE\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-NE\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-NG\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-NG\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-SL\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn-SL\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff-Latn\numbers.json" />
+    <Content Include="Scripts\cldr\main\ff\currencies.json" />
+    <Content Include="Scripts\cldr\main\ff\numbers.json" />
+    <Content Include="Scripts\cldr\main\eo\currencies.json" />
+    <Content Include="Scripts\cldr\main\eo\numbers.json" />
+    <Content Include="libman.json" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\globalize.js" />
+    <Content Include="Scripts\globalize\currency.js" />
+    <Content Include="Scripts\globalize\date.js" />
+    <Content Include="Scripts\globalize\message.js" />
+    <Content Include="Scripts\globalize\number.js" />
+    <Content Include="Scripts\globalize\plural.js" />
+    <Content Include="Scripts\globalize\relative-time.js" />
+    <Content Include="Scripts\globalize\unit.js" />
+    <Content Include="Scripts\Home.js" />
+    <Content Include="Scripts\intercomunicador.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.Jcrop.js" />
+    <Content Include="Scripts\jquery.Jcrop.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.4.2.debug.js" />
+    <Content Include="Scripts\knockout-3.4.2.js" />
+    <Content Include="Scripts\nirs.index.js" />
+    <Content Include="Scripts\humedimetro.index.js" />
+    <Content Include="Scripts\monitoreoOrquestador.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\pruebacartelled.index.js" />
+    <Content Include="Scripts\pruebamolinete.js" />
+    <Content Include="Scripts\pruebapantalla.index.js" />
+    <Content Include="Scripts\pruebacamara.index.js" />
+    <Content Include="Scripts\pruebabalanzapuerto.index.js" />
+    <Content Include="Scripts\pruebanirs.index.js" />
+    <Content Include="Scripts\pruebahumedimetro.index.js" />
+    <Content Include="Scripts\itc.index.js" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Scripts\pruebaconexion.index.js" />
+    <Content Include="Scripts\pruebaitc.index.js" />
+    <Content Include="Scripts\pruebaitc.ver.js" />
+    <Content Include="Scripts\rol.CrearModificar.js" />
+    <Content Include="Scripts\tooltipOnList.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\usuario.CrearModificar.js" />
+    <Content Include="ServicioHub\ServicioSuscriptor.svc" />
+    <Content Include="Styles\area\shared\intercomunicadorDispositivo.css" />
+    <Content Include="vicscatoprod.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="sloscatoprod.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\crear_modificar.common.js" />
+    <Content Include="scatoqa.DeployParameters.xml" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="log4net.config" />
+    <Content Include="parameters.xml" />
+    <Content Include="Scripts\orquest.validate.js" />
+    <Content Include="Scripts\orquest.globalize.js" />
+    <Content Include="Scripts\orquest.common.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\_menu.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Scripts\pruebacabezal.index.js" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Barrera\_CrearModificar.cshtml" />
+    <Content Include="Views\Barrera\Crear.cshtml" />
+    <Content Include="Views\Barrera\Index.cshtml" />
+    <Content Include="Views\Barrera\Listar.cshtml" />
+    <Content Include="Views\Barrera\Modificar.cshtml" />
+    <Content Include="Views\Cabezal\_CrearModificar.cshtml" />
+    <Content Include="Views\Cabezal\Crear.cshtml" />
+    <Content Include="Views\Cabezal\Index.cshtml" />
+    <Content Include="Views\Cabezal\Listar.cshtml" />
+    <Content Include="Views\Cabezal\Modificar.cshtml" />
+    <Content Include="Views\Camara\_CrearModificar.cshtml" />
+    <Content Include="Views\Camara\Crear.cshtml" />
+    <Content Include="Views\Camara\Index.cshtml" />
+    <Content Include="Views\Camara\Listar.cshtml" />
+    <Content Include="Views\Camara\Modificar.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Humedimetro\_CrearModificar.cshtml" />
+    <Content Include="Views\Humedimetro\Crear.cshtml" />
+    <Content Include="Views\Humedimetro\Index.cshtml" />
+    <Content Include="Views\Humedimetro\Listar.cshtml" />
+    <Content Include="Views\Humedimetro\Modificar.cshtml" />
+    <Content Include="Views\Itc\_CrearModificar.cshtml" />
+    <Content Include="Views\Itc\Crear.cshtml" />
+    <Content Include="Views\Itc\Index.cshtml" />
+    <Content Include="Views\Itc\Listar.cshtml" />
+    <Content Include="Views\Itc\Modificar.cshtml" />
+    <Content Include="Views\LectorTarjetas\_CrearModificar.cshtml" />
+    <Content Include="Views\LectorTarjetas\Crear.cshtml" />
+    <Content Include="Views\LectorTarjetas\Index.cshtml" />
+    <Content Include="Views\LectorTarjetas\Listar.cshtml" />
+    <Content Include="Views\LectorTarjetas\Modificar.cshtml" />
+    <Content Include="Views\Meteorologica\_CrearModificar.cshtml" />
+    <Content Include="Views\Meteorologica\Crear.cshtml" />
+    <Content Include="Views\Meteorologica\Index.cshtml" />
+    <Content Include="Views\Meteorologica\Listar.cshtml" />
+    <Content Include="Views\Meteorologica\Modificar.cshtml" />
+    <Content Include="Views\PruebaConexion\Index.cshtml" />
+    <Content Include="Views\PruebaConexion\ResultadoPrueba.cshtml" />
+    <Content Include="Views\PruebaItc\Index.cshtml" />
+    <Content Include="Views\Rol\_CrearModificar.cshtml" />
+    <Content Include="Views\Rol\Crear.cshtml" />
+    <Content Include="Views\Rol\Index.cshtml" />
+    <Content Include="Views\Rol\Listar.cshtml" />
+    <Content Include="Views\Rol\Modificar.cshtml" />
+    <Content Include="Views\Rol\DisplayTemplates\RolPermisoOrquestador.cshtml" />
+    <Content Include="Views\Sensor\_CrearModificar.cshtml" />
+    <Content Include="Views\Sensor\Crear.cshtml" />
+    <Content Include="Views\Sensor\Index.cshtml" />
+    <Content Include="Views\Sensor\Listar.cshtml" />
+    <Content Include="Views\Sensor\Modificar.cshtml" />
+    <Content Include="Views\Shared\_Configuracion.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Suscripcion\Index.cshtml" />
+    <Content Include="Views\Suscripcion\Listar.cshtml" />
+    <Content Include="Views\Usuario\_CrearModificar.cshtml" />
+    <Content Include="Views\Usuario\Crear.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\Listar.cshtml" />
+    <Content Include="Views\Usuario\Modificar.cshtml" />
+    <Content Include="Views\Usuario\DisplayTemplates\Rol.cshtml" />
+    <Content Include="Scripts\pruebacabezal.index.js" />
+    <Content Include="Views\Camara\Probar.cshtml" />
+    <Content Include="Views\Meteorologica\Probar.cshtml" />
+    <Content Include="Views\BalanzaPuerto\_CrearModificar.cshtml" />
+    <Content Include="Views\BalanzaPuerto\Crear.cshtml" />
+    <Content Include="Views\BalanzaPuerto\Index.cshtml" />
+    <Content Include="Views\BalanzaPuerto\Listar.cshtml" />
+    <Content Include="Views\BalanzaPuerto\Modificar.cshtml" />
+    <Content Include="Views\BalanzaPuerto\Probar.cshtml" />
+    <Content Include="Views\Cabezal\Probar.cshtml" />
+    <Content Include="Views\Firma\Index.cshtml" />
+    <Content Include="Views\Humedimetro\Probar.cshtml" />
+    <Content Include="Views\MonitoreoOrquestador\Index.cshtml" />
+    <Content Include="Views\Firma\Index.cshtml" />
+    <Content Include="Views\Nirs\_CrearModificar.cshtml" />
+    <Content Include="Views\Nirs\Crear.cshtml" />
+    <Content Include="Views\Nirs\Index.cshtml" />
+    <Content Include="Views\Nirs\Listar.cshtml" />
+    <Content Include="Views\Nirs\Modificar.cshtml" />
+    <Content Include="Views\Nirs\Probar.cshtml" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Pantalla\_CrearModificar.cshtml" />
+    <Content Include="Views\Pantalla\Crear.cshtml" />
+    <Content Include="Views\Pantalla\Index.cshtml" />
+    <Content Include="Views\Pantalla\Listar.cshtml" />
+    <Content Include="Views\Pantalla\Modificar.cshtml" />
+    <Content Include="Views\Pantalla\Probar.cshtml" />
+    <Content Include="Views\CartelLed\Index.cshtml" />
+    <Content Include="Views\CartelLed\Listar.cshtml" />
+    <Content Include="Views\CartelLed\_CrearModificar.cshtml" />
+    <Content Include="Views\CartelLed\Crear.cshtml" />
+    <Content Include="Views\CartelLed\Modificar.cshtml" />
+    <Content Include="Views\CartelLed\Probar.cshtml" />
+    <Content Include="Scripts\plotly-latest.min.js" />
+    <Content Include="Views\PuestoDeVianda\Index.cshtml" />
+    <Content Include="Views\PuestoDeVianda\Listar.cshtml" />
+    <Content Include="Views\PuestoDeVianda\_CrearModificar.cshtml" />
+    <Content Include="Views\PuestoDeVianda\Crear.cshtml" />
+    <Content Include="Views\PuestoDeVianda\Modificar.cshtml" />
+    <Content Include="Views\PuestoDeVianda\Probar.cshtml" />
+    <Content Include="Views\PantallaPuestoDeVianda\Index.cshtml" />
+    <Content Include="Views\PantallaPuestoDeVianda\Listar.cshtml" />
+    <Content Include="Views\PantallaPuestoDeVianda\Crear.cshtml" />
+    <Content Include="Views\PantallaPuestoDeVianda\_CrearModificar.cshtml" />
+    <Content Include="Views\PantallaPuestoDeVianda\Modificar.cshtml" />
+    <Content Include="Views\PantallaPuestoDeVianda\Probar.cshtml" />
+    <Content Include="Views\ImpresoraHasar\_CrearModificar.cshtml" />
+    <Content Include="Views\ImpresoraHasar\Crear.cshtml" />
+    <Content Include="Views\ImpresoraHasar\Index.cshtml" />
+    <Content Include="Views\ImpresoraHasar\Listar.cshtml" />
+    <Content Include="Views\ImpresoraHasar\Modificar.cshtml" />
+    <Content Include="Views\ImpresoraHasar\Probar.cshtml" />
+    <Content Include="Views\LectorQr\Index.cshtml" />
+    <Content Include="Views\LectorQr\Listar.cshtml" />
+    <Content Include="Views\LectorQr\Crear.cshtml" />
+    <Content Include="Views\LectorQr\_CrearModificar.cshtml" />
+    <Content Include="Views\LectorQr\Modificar.cshtml" />
+    <Content Include="Views\Molinete\Index.cshtml" />
+    <Content Include="Views\Molinete\Listar.cshtml" />
+    <Content Include="Views\Molinete\Crear.cshtml" />
+    <Content Include="Views\Molinete\Modificar.cshtml" />
+    <Content Include="Views\Molinete\_CrearModificar.cshtml" />
+    <Content Include="Views\PruebaMolinete\Index.cshtml" />
+    <Content Include="Views\Display\Modificar.cshtml" />
+    <Content Include="Views\Display\_CrearModificar.cshtml" />
+    <Content Include="Views\Display\Crear.cshtml" />
+    <Content Include="Views\Display\Index.cshtml" />
+    <Content Include="Views\Display\Listar.cshtml" />
+    <Content Include="Views\CortinaDeAgua\Crear.cshtml" />
+    <Content Include="Views\CortinaDeAgua\Index.cshtml" />
+    <Content Include="Views\CortinaDeAgua\Listar.cshtml" />
+    <Content Include="Views\CortinaDeAgua\Modificar.cshtml" />
+    <Content Include="Views\CortinaDeAgua\_CrearModificar.cshtml" />
+    <Content Include="Views\TagsHistorian\_CrearModificar.cshtml" />
+    <Content Include="Views\TagsHistorian\Crear.cshtml" />
+    <Content Include="Views\TagsHistorian\Index.cshtml" />
+    <Content Include="Views\TagsHistorian\Listar.cshtml" />
+    <Content Include="Views\TagsHistorian\Modificar.cshtml" />
+    <Content Include="Views\TagsHistorian\Probar.cshtml" />
+    <Content Include="Views\Intercomunicador\_CrearModificar.cshtml" />
+    <Content Include="Views\Intercomunicador\Crear.cshtml" />
+    <Content Include="Views\Intercomunicador\Index.cshtml" />
+    <Content Include="Views\Intercomunicador\Listar.cshtml" />
+    <Content Include="Views\Intercomunicador\Modificar.cshtml" />
+    <Content Include="Views\Intercomunicador\Probar.cshtml" />
+    <Content Include="Views\Shared\Intercomunicador\_IntercomunicadorDispositivo.cshtml" />
+    <Content Include="Views\Shared\Intercomunicador\_Intercomunicador.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\themes\base\minified\images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Molinos.Orquest.Dependencias\Molinos.Orquest.Dependencias.csproj">
+      <Project>{85C3E535-5DC5-409E-A728-8384623BA40D}</Project>
+      <Name>Molinos.Orquest.Dependencias</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.Dominio\Molinos.Orquest.Dominio.csproj">
+      <Project>{84cc0ec6-299d-4c90-8c72-7f9202234aad}</Project>
+      <Name>Molinos.Orquest.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.DriversImpl\Molinos.Orquest.DriversImpl.csproj">
+      <Project>{1EF9AC66-6C9B-43F5-B669-54FEE8F12DE0}</Project>
+      <Name>Molinos.Orquest.DriversImpl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.Drivers\Molinos.Orquest.Drivers.csproj">
+      <Project>{4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB}</Project>
+      <Name>Molinos.Orquest.Drivers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.Repositorio\Molinos.Orquest.Repositorio.csproj">
+      <Project>{17cba400-3f4d-4efc-81cb-a183e2507d45}</Project>
+      <Name>Molinos.Orquest.Repositorio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.Servicios\Molinos.Orquest.Servicios.csproj">
+      <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
+      <Name>Molinos.Orquest.Servicios</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Errores.en.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Errores.en.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Errores.fr.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Errores.fr.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Errores.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Errores.designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jenkins|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59670</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/Molinos.Orquest.Web</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

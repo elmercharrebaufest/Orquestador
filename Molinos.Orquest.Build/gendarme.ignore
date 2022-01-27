@@ -1,0 +1,29 @@
+﻿R: Gendarme.Rules.Naming.AvoidDeepNamespaceHierarchyRule
+A: *
+
+R: Gendarme.Rules.Correctness.CheckParametersNullityInVisibleMethodsRule
+A: *
+
+R: Gendarme.Rules.Design.MarkAssemblyWithCLSCompliantRule
+A: *
+
+R: Gendarme.Rules.Design.InternalNamespacesShouldNotExposeTypesRule
+A: *
+
+R: Gendarme.Rules.Performance.AvoidRepetitiveCallsToPropertiesRule
+A: *
+
+R: Gendarme.Rules.Design.Generic.DoNotExposeNestedGenericSignaturesRule
+A: *
+
+R: Gendarme.Rules.Portability.MonoCompatibilityReviewRule
+A: *
+
+R: Gendarme.Rules.Design.Generic.DoNotExposeGenericListsRule
+A: *
+
+R: Gendarme.Rules.Maintainability.VariableNamesShouldNotMatchFieldNamesRule
+A: *
+
+R: Gendarme.Rules.Design.TypesWithDisposableFieldsShouldBeDisposableRule
+A: Molinos.Orquest.Repositorio

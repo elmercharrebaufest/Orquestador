@@ -1,0 +1,30 @@
+﻿@using Molinos.Orquest.Dominio.Consultas
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Dominio.Seguridad
+@using Molinos.Orquest.Web.Helpers
+@using Molinos.Orquest.Web.Models
+@using Molinos.Orquest.Web.Seguridad
+
+@{
+    Layout = null;
+    var items = (ListaPaginada<ConfigPantallaModel>) ViewBag.Items;
+}
+
+
+    @Html.Grilla(items,
+        grilla => grilla.Columns(
+        grilla.ColumnaEliminarModificarProbar(Html, "Pantalla"),
+        grilla.Columna("Dispositivo.Codigo", Textos.Codigo, c => c.Dispositivo.Codigo),
+        grilla.Columna("Dispositivo.Descripcion", Textos.Descripcion, c => c.Dispositivo.Descripcion),
+        grilla.Columna("UrlSCATO", Textos.Pantalla_UrlSCATO),
+        grilla.Columna("UrlFTP", Textos.Pantalla_UrlFTP),
+        grilla.Columna("TiempoDeRefresco", Textos.Pantalla_TiempoDeRefresco)))
+
+@if (!PermisosHelper.Is(PermisosOrquestador.Pantalla))
+{
+    <script type="text/javascript">
+        $(function() {
+            $(".ajax-editar-link, .ajax-borrar-link").hide();
+        })
+    </script>
+}

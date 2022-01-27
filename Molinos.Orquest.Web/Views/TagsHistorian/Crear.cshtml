@@ -1,0 +1,13 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Web.Models.ConfigTagModel
+
+@{
+    ViewBag.Title = "Crear Tag";
+    Layout = null;
+}
+@Scripts.Render("~/bundles/jqueryval")
+@using (Ajax.BeginForm("Crear", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = "Crear Tag" }))
+{
+    @Html.ValidationSummary(true)
+    @Html.Partial("_CrearModificar", Model)           
+}

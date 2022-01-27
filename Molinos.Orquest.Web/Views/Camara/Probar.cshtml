@@ -1,0 +1,74 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Dominio.Entidades.ConfigCamara
+
+@{
+    var titulo = Textos.PruebaCamara_Diagnostico + ": " + Model.Dispositivo.Codigo;
+    ViewBag.Title = titulo;
+}
+<script src="~/Scripts/pruebacamara.index.js"></script>
+<div id="links"
+     data-url-obtener-patente="@Url.Action("ObtenerFotoConPatente", "Camara")">
+</div>
+<div class="container content">
+    <div class="row">
+        <div class="h2">@titulo</div>
+    </div>
+
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.ConfiguracionDispositivo</span>
+        <div class="row datos-dispositivo">
+            <div class="span5">
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Dispositivo.Codigo)
+                    @Html.DisplayFor(model => model.Dispositivo.Codigo)
+                    @Html.HiddenFor(model => model.Dispositivo.Codigo)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Dispositivo.Descripcion)
+                    @Html.DisplayFor(model => model.Dispositivo.Descripcion)
+                </div>
+            </div>
+            <div class="span5">
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.TimeoutLectura)
+                    @Html.DisplayFor(model => model.TimeoutLectura)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Dispositivo.Activo)
+                    @Html.DisplayFor(model => model.Dispositivo.Activo)
+                </div>
+            </div>
+            <div class="span10">
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Uri)
+                    @Html.DisplayFor(model => model.Uri)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="prueba-itc-area  bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.ObtenerImagen</span>
+        <div class="row-fluid">
+            <div class="span2 mb-2">
+                <a id="link-camara" href="#" class="col-12 btn btn-outline-primary">@Textos.Refrescar</a>
+                @if (Model.ClaseDriver.Contains("ALPR"))
+                {
+                    <span id="patente" class="col-12 btn btn-outline-primary"></span>
+                }
+            </div>
+            @if (Model.ClaseDriver.Contains("ALPR"))
+            {
+                <img id="imagen-patente" src="" style="max-height: 520px; max-width: 520px; margin-left:50px; margin-bottom:50px" />
+            }
+            else
+            {
+                <img id="imagen-camara" src="@Url.Action("TomarFoto", new {  codigo = Model.Dispositivo.Codigo, timestamp = DateTime.Now.Millisecond })" data-url-foto="@Url.Action("TomarFoto", new { codigo = Model.Dispositivo.Codigo })" alt="@Textos.ObteniendoImagenError" style="max-height: 320px; max-width: 320px; margin-left:50px; margin-bottom:50px" />
+            }
+        </div>
+    </div>
+    <div class="right margin">
+        @Html.ActionLink(Textos.Volver, "Index", null, new { @class = "col-12 col-sm-2 btn btn-primary" })
+    </div>
+</div>
+
+

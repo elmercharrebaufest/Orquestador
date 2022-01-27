@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!-- Sets the default environment to 'dv' in case it was not set -->
+	<PropertyGroup>
+		<Environment Condition="'$(Environment)' == ''">dev</Environment>
+		<DebugSymbols>true</DebugSymbols>
+    <DebugType>true</DebugType>
+  </PropertyGroup>
+
+  <!-- Import the MSBuild Tasks -->
+	<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+	<!-- Import the customized-by-project targets -->
+	<Import Project="$(MSBuildProjectDirectory)\build.targets" />
+
+  <!-- Add Using to report generation -->
+  <UsingTask TaskName="ReportGenerator" AssemblyFile="$(ReportGeneratorTool)" />
+	
+	<!-- Build projects by calling the Project solution -->
+	<Target Name="Build">
+    <MSBuild Projects="$(ProjectSolution)" />
+  </Target>
+
+  <Target Name="CI">
+		<Message Text="*** Starting Continuos Integration Task. ***" />
+
+    <Message Text="*** Performing build ***" />
+  	<CallTarget Targets="Build"/>
+  		
+		<Message Text="*** Performing Testing ***" />
+	  <ItemGroup>
+      <UnitTestProjects Include="$(NUnitProject)"/>
+    </ItemGroup>
+    
+    <!--Build all the projects in UnitTestProjects--> 
+    <MSBuild Projects="$(UnitTestProjects)"/>
+     <!--Execute the test cases, if any fail so will the build-->
+    <!--<Message Text="*** Executing Unit Tests ***" />
+    <NUnit Assemblies="@(UnitTestProjects)" ToolPath="$(NUnitToolPath)" ProjectConfiguration="Jenkins" DisableShadowCopy="true"/>-->
+
+    <Message Text="*** Executing Unit Tests and Performing Test Coverage ***" />
+    <Exec Command="&quot;$(OpenCoverTool)&quot; -register:administrator -filter:&quot;$(OpenCoverFilter)&quot; -target:&quot;$(NUnitToolPath)\nunit-console.exe&quot; -targetargs:&quot;/nologo /noshadow /config:Jenkins $(NUnitProject)&quot; -output:coverage.xml" />
+
+    <!--Generate solution coverage report-->
+    <RemoveDir Directories="report" />
+    <ReportGenerator ReportFiles="coverage.xml" TargetDirectory="report/opencover" />  
+    
+    <!-- Copy the Package's files to Output Directory -->
+    <Message Text="*** Copying files to Output Directory ***"/>
+    <RemoveDir Directories="$(OutputDir)"/>
+    <MakeDir Directories="$(OutputDir)" />
+    <MakeDir Directories="$(OutputDir)/package" />
+    <MakeDir Directories="$(OutputDir)/package-web" />
+
+    <ItemGroup>
+      <SourceFilesServidor Include="$(PackageServidor)"/>
+      <SourceFilesWeb Include="$(PackageWeb)" />
+      <SourceFilesWeb Include="$(DeployParametersWeb)" />
+      <SourceFilesModuloALPR Include="$(PackageWebALPR)" />
+      <SourceFilesModuloALPR Include="$(DeployParametersModuloALPR)" />
+      <DeployScripts Include="$(MSBuildProjectDirectory)/Deploy/*" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(SourceFilesServidor)"
+      DestinationFiles="@(SourceFilesServidor->'$(OutputDir)\package\%(RecursiveDir)%(Filename)%(Extension)')" />
+    
+    <Copy SourceFiles="@(SourceFilesWeb)"
+      DestinationFiles="@(SourceFilesWeb->'$(OutputDir)\package-web\%(RecursiveDir)%(Filename)%(Extension)')" />
+
+    <Copy SourceFiles="@(SourceFilesModuloALPR)"
+      DestinationFiles="@(SourceFilesModuloALPR->'$(OutputDir)\package-ModuloALPR\%(RecursiveDir)%(Filename)%(Extension)')" />
+    
+    <Copy SourceFiles="@(DeployScripts)"
+      DestinationFiles="@(DeployScripts->'$(OutputDir)\%(Filename)%(Extension)')" />
+    
+    <!-- Finish Build-->
+    <Message Text="*** Build Finished ***" />
+	</Target>
+  
+</Project>

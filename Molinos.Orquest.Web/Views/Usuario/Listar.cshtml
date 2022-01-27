@@ -1,0 +1,31 @@
+﻿@using Molinos.Orquest.Dominio.Consultas
+@using Molinos.Orquest.Dominio.Entidades
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Web.Helpers
+@{
+                /**/
+
+                Layout = null;
+                var items = (ListaPaginada<Usuario>)ViewBag.Items;
+}
+
+<script src="~/Scripts/tooltipOnList.js" type="text/javascript"></script>
+<style>
+    .tip {
+        max-width: 500px;
+        white-space: normal;
+    }
+</style>
+
+@Html.Grilla(items,
+             grid => grid.Columns(
+                grid.ColumnaEliminarModificar(Html, "Usuario"),
+                grid.Columna("Nombre", Textos.Usuario_Nombre),
+                grid.Columna("Apellido", Textos.Usuario_Apellido),
+                grid.Columna("NombreUsuario", Textos.Usuario_NombreUsuario),
+                grid.Column(header: Textos.Rol_Titulo, format: (item =>
+                    {
+                        IEnumerable<Rol> rolesDto = (ICollection<Rol>)item.RolesAsociados;
+                        return Html.Raw("<div class = 'ellipsis-overflow mostrar-lista'>" + Html.DisplayFor(m => rolesDto).ToHtmlString()
+                                        + "<span class = 'tip'>" + Html.DisplayFor(m => rolesDto).ToHtmlString() + "</span>" + "</div>");
+                    }))))

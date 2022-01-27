@@ -1,0 +1,28 @@
+﻿@using Molinos.Orquest.Dominio.Consultas
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Dominio.Seguridad
+@using Molinos.Orquest.Web.Helpers
+@using Molinos.Orquest.Web.Models
+@using Molinos.Orquest.Web.Seguridad
+
+@{
+    Layout = null;
+    var items = (ListaPaginada<ConfigPuestoDeViandaModel>)ViewBag.Items;
+}
+
+@Html.Grilla(items,
+    grilla => grilla.Columns(
+    grilla.ColumnaEliminarModificarProbar(Html, "PuestoDeVianda"),
+    grilla.Columna("Dispositivo.Codigo", Textos.Codigo, c => c.Dispositivo.Codigo),
+    grilla.Columna("Dispositivo.Descripcion", Textos.Descripcion, c => c.Dispositivo.Descripcion),
+    grilla.Columna("Sector", Textos.PuestoDeVianda_Sector),
+    grilla.Columna("ClaseDriver", Textos.PuestoDeVianda_ClaseDriver, x => x.ClaseDriver.Split('.', ',')[3])))
+
+@if (!PermisosHelper.Is(PermisosOrquestador.PuestoDeVianda))
+{
+    <script type="text/javascript">
+        $(function() {
+            $(".ajax-editar-link, .ajax-borrar-link").hide();
+        })
+    </script>
+}

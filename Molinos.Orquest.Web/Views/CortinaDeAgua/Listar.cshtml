@@ -1,0 +1,22 @@
+﻿@using Molinos.Orquest.Dominio.Consultas
+@using Molinos.Orquest.Dominio.Entidades
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Web.Helpers
+
+@{
+    Layout = null;
+    var items = (ListaPaginada<ConfigCortinaAgua>) ViewBag.Items;
+}
+    @Html.Grilla(items,
+        grilla => grilla.Columns(
+        grilla.ColumnaEliminarModificar(Html, "CortinaDeAgua"),
+        grilla.Columna("Dispositivo.Codigo", Textos.Codigo, c => c.Dispositivo.Codigo),
+        grilla.Columna("Dispositivo.Descripcion", Textos.Descripcion, c => c.Dispositivo.Descripcion),
+        grilla.Columna("ClaseDriver", Textos.Cabezal_ClaseDriver, x => x.ClaseDriver.Split('.', ',')[3]),
+        grilla.Columna("Dispositivo.Concentrador.Codigo", Textos.Concentrador, x => x.Dispositivo.Concentrador != null ? x.Dispositivo.Concentrador.Codigo : ""),
+        grilla.Columna("NumeroSalida", Textos.CortinaAgua_NumeroSalida),
+        grilla.Columna("EstadoAbierta", Textos.CortinaAgua_EstadoAbierta, c => c.SenalDeActivacion),
+        grilla.Columna("DireccionVientoDesde",Textos.CortinaAgua_DireccionVientoDesde, c => c.DireccionDelVientoDesde),
+        grilla.Columna("DireccionVientoHasta",Textos.CortinaAgua_DireccionVientoHasta, c => c.DireccionDelVientoHasta),
+        grilla.Columna("TiempoActivacion", Textos.CortinaAgua_TiempoActivacion),
+        grilla.Columna("TiempoEsperaActivacion",Textos.CortinaAgua_TiempoEsperaActivacion, c=> c.TiempoDeEsperaActivacion)))

@@ -1,0 +1,697 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A1DA03B5-E24E-4468-9A55-53E97767AC36}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Molinos.Orquest.ModuloALPR</RootNamespace>
+    <AssemblyName>Molinos.Orquest.ModuloALPR</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jenkins|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.2\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Logging, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Logging.3.0.1.0\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Logging.Log4Net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Logging.Log4net.3.0.1.0\lib\net45-full\Ninject.Extensions.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Wcf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Wcf.3.0.0.5\lib\net45-full\Ninject.Extensions.Wcf.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.2\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivator, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ALPR\dll\alpr.exe" />
+    <Content Include="ALPR\dll\alprnet.dll" />
+    <Content Include="ALPR\dll\AlprNetGuiTest.exe" />
+    <Content Include="ALPR\dll\copyright.txt" />
+    <Content Include="ALPR\dll\cryptopp.dll" />
+    <Content Include="ALPR\dll\libalpredge.dll" />
+    <Content Include="ALPR\dll\libalpredgeavx.dll" />
+    <Content Include="ALPR\dll\libalpredgescalar.dll" />
+    <Content Include="ALPR\dll\libalprgpusupport.dll" />
+    <Content Include="ALPR\dll\libalprlc.dll" />
+    <Content Include="ALPR\dll\libalprlog.dll" />
+    <Content Include="ALPR\dll\libalprneural.dll" />
+    <Content Include="ALPR\dll\libalprneuralavx.dll" />
+    <Content Include="ALPR\dll\libalprneuralscalar.dll" />
+    <Content Include="ALPR\dll\libalprocr.dll" />
+    <Content Include="ALPR\dll\libalprocravx.dll" />
+    <Content Include="ALPR\dll\libalprocrscalar.dll" />
+    <Content Include="ALPR\dll\libalpropencv310.dll" />
+    <Content Include="ALPR\dll\libalprstream.dll" />
+    <Content Include="ALPR\dll\libalprsupport.dll" />
+    <Content Include="ALPR\dll\libboost_filesystem-mt.dll" />
+    <Content Include="ALPR\dll\libboost_system-mt.dll" />
+    <Content Include="ALPR\dll\libbz2.dll" />
+    <Content Include="ALPR\dll\libcurl-4.dll" />
+    <Content Include="ALPR\dll\libdl.dll" />
+    <Content Include="ALPR\dll\libeay32.dll" />
+    <Content Include="ALPR\dll\libexpat-1.dll" />
+    <Content Include="ALPR\dll\libffi-6.dll" />
+    <Content Include="ALPR\dll\libgcc_s_seh-1.dll" />
+    <Content Include="ALPR\dll\libgcrypt-20.dll" />
+    <Content Include="ALPR\dll\libgio-2.0-0.dll" />
+    <Content Include="ALPR\dll\libglib-2.0-0.dll" />
+    <Content Include="ALPR\dll\libgmodule-2.0-0.dll" />
+    <Content Include="ALPR\dll\libgmp-10.dll" />
+    <Content Include="ALPR\dll\libgnutls-30.dll" />
+    <Content Include="ALPR\dll\libgobject-2.0-0.dll" />
+    <Content Include="ALPR\dll\libgomp-1.dll" />
+    <Content Include="ALPR\dll\libgpg-error6-0.dll" />
+    <Content Include="ALPR\dll\libgstadaptivedemux-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstapp-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstaudio-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstbadvideo-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstbase-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstcodecparsers-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstisoff-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstmpegts-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstnet-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstpbutils-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstreamer-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstriff-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstrtp-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstrtsp-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstsdp-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgsttag-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgsturidownloader-1.0-0.dll" />
+    <Content Include="ALPR\dll\libgstvideo-1.0-0.dll" />
+    <Content Include="ALPR\dll\libhogweed-4.dll" />
+    <Content Include="ALPR\dll\libiconv-2.dll" />
+    <Content Include="ALPR\dll\libidn2-0.dll" />
+    <Content Include="ALPR\dll\libinference_engine.dll" />
+    <Content Include="ALPR\dll\libintl-8.dll" />
+    <Content Include="ALPR\dll\libjpeg-9.dll" />
+    <Content Include="ALPR\dll\liblmdb.dll" />
+    <Content Include="ALPR\dll\liblog4cplus.dll" />
+    <Content Include="ALPR\dll\liblzma-5.dll" />
+    <Content Include="ALPR\dll\libMKLDNNPlugin.dll" />
+    <Content Include="ALPR\dll\libneon-27.dll" />
+    <Content Include="ALPR\dll\libnettle-6.dll" />
+    <Content Include="ALPR\dll\libogg-0.dll" />
+    <Content Include="ALPR\dll\libopenalpr.dll" />
+    <Content Include="ALPR\dll\libopenalprjni.dll" />
+    <Content Include="ALPR\dll\libopenalprpy.dll" />
+    <Content Include="ALPR\dll\libopenblas.dll" />
+    <Content Include="ALPR\dll\libpcre-1.dll" />
+    <Content Include="ALPR\dll\libpng16-16.dll" />
+    <Content Include="ALPR\dll\libpugixml.dll" />
+    <Content Include="ALPR\dll\librollingdb.dll" />
+    <Content Include="ALPR\dll\librtmp-1.dll" />
+    <Content Include="ALPR\dll\libssh2-1.dll" />
+    <Content Include="ALPR\dll\libssp-0.dll" />
+    <Content Include="ALPR\dll\libstdc++-6.dll" />
+    <Content Include="ALPR\dll\libtag.dll" />
+    <Content Include="ALPR\dll\libtheoradec-1.dll" />
+    <Content Include="ALPR\dll\libtheoraenc-1.dll" />
+    <Content Include="ALPR\dll\libturbojpeg-0.dll" />
+    <Content Include="ALPR\dll\libunistring-2.dll" />
+    <Content Include="ALPR\dll\libvehicleclassifier.dll" />
+    <Content Include="ALPR\dll\libvehicleclassifierpy.dll" />
+    <Content Include="ALPR\dll\libwebp-5.dll" />
+    <Content Include="ALPR\dll\libwinpthread-1.dll" />
+    <Content Include="ALPR\dll\libxml2-2.dll" />
+    <Content Include="ALPR\dll\LICENSE.txt" />
+    <Content Include="ALPR\dll\Newtonsoft.Json.dll" />
+    <Content Include="ALPR\dll\openalpr-licensecheck.exe" />
+    <Content Include="ALPR\dll\openalpr-licenserequest.exe" />
+    <Content Include="ALPR\dll\openalpr-updatemaintenance.exe" />
+    <Content Include="ALPR\dll\opencv_ffmpeg310_64.dll" />
+    <Content Include="ALPR\dll\README.txt" />
+    <Content Include="ALPR\dll\runtime_data\postprocess\readme.txt">
+    </Content>
+    <Content Include="ALPR\dll\ssleay32.dll" />
+    <Content Include="ALPR\dll\VehicleClassifierNet.dll" />
+    <Content Include="ALPR\dll\VehicleClassifierNetTest.exe" />
+    <Content Include="ALPR\dll\vehicleclassifier_test.exe" />
+    <Content Include="ALPR\dll\zlib1.dll" />
+    <Content Include="bfdev258.DeployParameters.xml" />
+    <Content Include="Global.asax" />
+    <Content Include="GVICSCATOAPP04.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="GVICSCATOAPP03.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="GVICSCATOAPP02.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="GVICSCATOAPP01.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="GSLOSCATOAPP04.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="parameters.xml" />
+    <Content Include="SCATOQA.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="GSLOSCATOAPP03.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="GSLOSCATOAPP02.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="GSLOSCATOAPP01.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ServicioALPR.svc" />
+    <Content Include="GSLOSCATOAPP00.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ALPR\Alpr.cs" />
+    <Compile Include="ALPR\Models\AlprResponse.cs" />
+    <Compile Include="ALPR\Models\AlprResult.cs" />
+    <Compile Include="ALPR\Models\Candidate.cs" />
+    <Compile Include="ALPR\Models\Coordinate.cs" />
+    <Compile Include="ALPR\Models\RegionOfInterest.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="Behavior\InternacionalizacionBehavior.cs" />
+    <Compile Include="Behavior\InternacionalizacionInspector.cs" />
+    <Compile Include="Behavior\SimpleMessageInspector.cs" />
+    <Content Include="log4net.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\ServicioALPR.cs" />
+    <Compile Include="IServicioALPR.cs" />
+    <Compile Include="App_Start\Log4NetConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ALPR\dll\java_test.bat" />
+    <Content Include="ALPR\dll\libalprstream.lib" />
+    <Content Include="ALPR\dll\libopenalpr.lib" />
+    <Content Include="ALPR\dll\libvehicleclassifier.lib" />
+    <Content Include="ALPR\dll\license.conf" />
+    <Content Include="ALPR\dll\openalpr.conf" />
+    <Content Include="ALPR\dll\python_test.bat" />
+    <Content Include="ALPR\dll\runtime_data\cameras.yaml" />
+    <Content Include="ALPR\dll\runtime_data\config\ar.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\au.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\br.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\cn.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\eu.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\gb.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\gcc.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\id.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\in.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\jp.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\kr.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\middleeast.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\my.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\nz.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\ru.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\sg.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\th.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\us.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\config\za.conf">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\aunz\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\aunz\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\aunz\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\aunz\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\brar\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\brar\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\brar\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\brar\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\cn\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\cn\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\cn\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\cn\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\eu\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\eu\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\eu\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\eu\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\gb\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\gb\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\gb\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\gb\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\id\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\id\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\id\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\id\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\in\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\in\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\in\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\in\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\jp\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\jp\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\jp\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\jp\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\kr\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\kr\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\kr\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\kr\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\middleeast\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\middleeast\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\middleeast\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\middleeast\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\thmysg\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\thmysg\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\thmysg\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\thmysg\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\us\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\us\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\us\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\us\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\za\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\za\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\za\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\detector\za\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\aunz\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\aunz\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\aunz\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\aunz\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\aunz\province.labels">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\aunz\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\brar\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\brar\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\brar\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\brar\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\brar\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\cn\cf_m.enc" />
+    <Content Include="ALPR\dll\runtime_data\ocr\cn\cf_w.enc" />
+    <Content Include="ALPR\dll\runtime_data\ocr\cn\ov_m.enc" />
+    <Content Include="ALPR\dll\runtime_data\ocr\cn\ov_w.enc" />
+    <Content Include="ALPR\dll\runtime_data\ocr\cn\th_m.enc" />
+    <Content Include="ALPR\dll\runtime_data\ocr\eu\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\eu\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\eu\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\eu\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\eu\province.labels">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\eu\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\gb\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\gb\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\gb\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\gb\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\gb\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\gcc\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\gcc\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\gcc\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\gcc\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\gcc\province.labels">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\gcc\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\id\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\id\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\id\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\id\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\id\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\in\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\in\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\in\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\in\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\in\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\jp\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\jp\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\jp\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\jp\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\jp\province.labels">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\jp\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\kr\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\kr\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\kr\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\kr\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\kr\province.labels">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\kr\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\middleeast\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\middleeast\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\middleeast\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\middleeast\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\middleeast\province.labels">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\middleeast\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\ru\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\ru\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\ru\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\ru\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\ru\province.labels">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\ru\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\thmysg\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\thmysg\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\thmysg\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\thmysg\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\thmysg\province.labels">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\thmysg\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\us\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\us\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\us\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\us\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\us\province.labels">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\us\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\za\cf_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\za\cf_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\za\ov_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\za\ov_w.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\za\province.labels">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\ocr\za\th_m.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\postprocess\ar.patterns">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\postprocess\au.patterns">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\postprocess\br.patterns">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\postprocess\eu.patterns">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\postprocess\ru.patterns">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\postprocess\us.patterns">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\labels.bodytype">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\labels.color">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\labels.country">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\labels.make">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\labels.makemodel">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\labels.orientation">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\labels.year">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\mean">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\model.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\model_trt.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\ovemb.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\ovm.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\ovw.enc">
+    </Content>
+    <Content Include="ALPR\dll\runtime_data\vehicleclassifier\weights.enc">
+    </Content>
+    <None Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Molinos.Orquest.Dominio\Molinos.Orquest.Dominio.csproj">
+      <Project>{84CC0EC6-299D-4C90-8C72-7F9202234AAD}</Project>
+      <Name>Molinos.Orquest.Dominio</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58326</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/Orquest.ModuloALPR</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

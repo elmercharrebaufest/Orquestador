@@ -1,0 +1,7 @@
+﻿<parameters>
+    <parameter name="LicenciaALPR Config">
+      <parameterEntry kind="XmlFile" scope="Web.config"
+                      match="/configuration/appSettings/add[@key='LicenciaALPR']
+                           /@value" />
+    </parameter>
+</parameters>

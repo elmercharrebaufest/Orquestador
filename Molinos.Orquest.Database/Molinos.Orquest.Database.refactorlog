@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="58712816-f183-446f-902c-43ca6fef8896" ChangeDateTime="10/18/2018 19:26:39">
+    <Property Name="ElementName" Value="[dbo].[ConfigBalanzaPuerto].[CantLecPesoEstable]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigBalanzaPuerto]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CantIntentoBorrado" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9ca0ad3e-797a-47fa-b803-845fbda085d8" ChangeDateTime="10/18/2018 19:26:46">
+    <Property Name="ElementName" Value="[dbo].[ConfigBalanzaPuerto].[CantIntentoBorrado]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigBalanzaPuerto]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CantIntentosBorrado" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="67ef2b1c-b48e-4743-8abc-a4a24f26730f" ChangeDateTime="08/22/2019 17:37:30">
+    <Property Name="ElementName" Value="[dbo].[ConfigBarrera].[TiempoEsperaReintente]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigBarrera]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TiempoEsperaReintento" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="25f40820-b14a-4ec0-8757-5c3bd8548e8a" ChangeDateTime="09/09/2019 17:05:08">
+    <Property Name="ElementName" Value="[dbo].[ConfigPantalla].[UriSCATO]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigPantalla]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UrlSCATO" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="687bcc30-ee77-4019-9c93-faf3db9902f5" ChangeDateTime="09/09/2019 17:05:10">
+    <Property Name="ElementName" Value="[dbo].[ConfigPantalla].[UriFTP]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigPantalla]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UrlFTP" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="72630e96-dd3d-4f65-b709-f73837461109" ChangeDateTime="04/24/2020 18:53:50">
+    <Property Name="ElementName" Value="[dbo].[ConfigLectorQr].[Dire]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigLectorQr]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DireccionIp" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9b03b37c-2b90-4def-a187-62c3da6aa0fe" ChangeDateTime="10/26/2020 14:20:31">
+    <Property Name="ElementName" Value="[dbo].[ConfigCortinaAgua].[SensorId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigCortinaAgua]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Sensor_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7bf0a1da-c624-48d3-a861-5148fe7563ee" ChangeDateTime="10/26/2020 20:26:36">
+    <Property Name="ElementName" Value="[dbo].[ConfigCortinaAgua].[Sensor_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigCortinaAgua]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SensorId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2f25ecbd-5516-4046-9229-70f715f0d01f" ChangeDateTime="10/28/2020 15:47:40">
+    <Property Name="ElementName" Value="[dbo].[ConfigCortinaAgua].[DireccionDelViento]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigCortinaAgua]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DireccionDelVientoDesde" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f81f25f0-55d5-492e-b275-b2fad59296d1" ChangeDateTime="10/30/2020 18:38:24">
+    <Property Name="ElementName" Value="[dbo].[ConfigCortinaAgua].[EstacionId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigCortinaAgua]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Estacion_Id" />
+  </Operation>
+</Operations>

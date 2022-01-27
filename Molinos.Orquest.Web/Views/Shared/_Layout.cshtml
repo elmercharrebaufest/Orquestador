@@ -1,0 +1,183 @@
+﻿@using Molinos.Orquest.Dominio.Enums
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Web
+@{
+
+    var mensaje = (string)TempData["Alerta"];
+    var tipoMensaje = TempData["TipoAlerta"] as TipoAlerta?;
+    var clase = string.IsNullOrEmpty(mensaje) ? "d-none" : string.Empty;
+
+    if (tipoMensaje != null)
+    {
+        switch (tipoMensaje)
+        {
+            case TipoAlerta.Exito:
+                clase = "alert alert-success";
+                break;
+            case TipoAlerta.Advertencia:
+                clase = "alert alert-warning";
+                break;
+            case TipoAlerta.Error:
+                clase = "alert alert-error";
+                break;
+            case TipoAlerta.Informacion:
+                clase = "alert alert-info";
+                break;
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="SHORTCUT ICON" href="@Url.Action("Favicon","Firma")" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jquery-common")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/bootstrap")
+
+    <script src="~/Scripts/jquery.blockUI.js"></script>
+    <script type="text/javascript">
+        var ajaxEditSuccess = '@Html.Raw(AjaxEditSuccessResult.SuccessValue)';
+        $.when($.get("@Url.Content("~/Scripts/cldr/supplemental/likelySubtags.json")"),
+               $.get("@Url.Content("~/Scripts/cldr/main/"+@Culture+"/numbers.json")"),
+            $.get("@Url.Content("~/Scripts/cldr/supplemental/numberingSystems.json")"))
+            .done(function (resultSubtags, resultNumbers, numberingSystems) {
+                Globalize.load(resultSubtags[0], resultNumbers[0], numberingSystems[0]);
+                Globalize.locale("@Culture");
+            })
+        var btn = $.fn.button.noConflict(); // reverts $.fn.button to jqueryui btn
+        $.fn.btn = btn; // assigns bootstrap button functionality to $.fn.btn
+    </script>
+
+    @Scripts.Render("~/bundles/orquest-common")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    @Html.Action("Menu", "Menu")
+    <main role="main" class="container-fluid">
+        @RenderBody()
+    </main>
+    <!-- Start Modals -->
+    <div class="modal fade" id="alertaAdvertencia" tabindex="-1" role="dialog" aria-labelledby="alertaAdvertencia" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title alert alert-warning" id="alertaAdvertencia-title"><strong>@Textos.Advertencia</strong> @Textos.Error_Generico</h5>
+                </div>
+                <div id="alertaAdvertencia-body" class="modal-body">
+                    <h4>@Textos.Error_Generico</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="alertaAdvertencia-cerrar" class="btn btn-secondary" data-dismiss="modal">@Textos.Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="alertaExitosa" tabindex="-1" role="dialog" aria-labelledby="alertaExitosa" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title alert alert-success col-12" id="alertaExitosa-title"><strong>@Textos.Exitoso</strong></h5>
+                </div>
+                <div id="alertaExitosa-body" class="modal-body">
+                    <h4>@Textos.Exito_Generico</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="alertaExitosa-cerrar" class="btn btn-secondary" data-dismiss="modal">@Textos.Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="alertaCancelada" tabindex="-1" role="dialog" aria-labelledby="alertaCancelada" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title alert alert-success col-12" id="alertaCancelada-title"><strong>@Textos.Exitoso</strong></h5>
+                </div>
+                <div id="alertaCancelada-body" class="modal-body">
+                    <span>@Textos.CanceladoExitoso_Generico</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="alertaCancelada-cerrar" class="btn btn-secondary" data-dismiss="modal">@Textos.Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="alertaError" tabindex="-1" role="dialog" aria-labelledby="alertaError" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title alert alert-danger" id="alertaError-title"><strong>@Textos.Error</strong> @Textos.Error_Generico</h5>
+                </div>
+                <div id="alertaError-body" class="modal-body">
+                    <h4></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="alertaError-cerrar" class="btn btn-secondary" data-dismiss="modal">@Textos.Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="dialogo-borrar" tabindex="-1" role="dialog" aria-labelledby="dialogo-borrar" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dialogo-borrar-title">@Textos.Confirmacion</h5>
+                </div>
+                <div id="modal-borrar-body" class="modal-body">
+                    <h4>@Textos.ConfirmacionBorrado</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="dialogo-borrar-confirmar" class="btn btn-warning">@Textos.Eliminar</button>
+                    <button type="button" id="dialogo-borrar-cancelar" class="btn btn-secondary">@Textos.Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="dialogo-editar" tabindex="-1" role="dialog" aria-labelledby="dialogo-editar" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dialogo-editar-title">@Textos.Modificar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="modal-editar-body" class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="dialogo-editar-guardar" class="btn btn-primary">@Textos.Guardar</button>
+                    <button type="button" id="dialogo-editar-cancelar" class="btn btn-secondary">@Textos.Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="dialogo-ver" tabindex="-1" role="dialog" aria-labelledby="dialogo-ver" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dialogo-ver-title">@Textos.Modificar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="modal-ver-body" class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="dialogo-ver-ok" class="btn btn-secondary">@Textos.Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Modals -->
+    @Html.Hidden("Procesando", Textos.Procesando)
+    @Html.Hidden("PorFavorEspere", Textos.PorFavorEspere)
+    <div style="font-weight: bold; padding:10px;width: auto" id="loading" class="d-none centered"></div>
+</body>
+</html>

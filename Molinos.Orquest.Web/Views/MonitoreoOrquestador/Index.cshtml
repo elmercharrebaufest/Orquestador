@@ -1,0 +1,39 @@
+﻿@using Molinos.Orquest.Dominio.Dtos
+@using Molinos.Orquest.Dominio.Recursos
+@{
+    ViewBag.Title = Textos.MonitoreoOrquestador;
+    var servers = (List<MonitoreoOrquestadorDto>)ViewBag.Servers;
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/monitoreoOrquestador.js"></script>
+}
+@Html.Hidden("cantServers",servers.Count)
+
+<div class="p-2 bd-highlight">
+    <h2 class="h2">@Textos.MonitoreoOrquestador</h2>
+</div>
+<br/>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th style="width: 70px"></th>
+            <th>Nombre</th>
+            <th>Estado Actual</th>
+        </tr>
+    </thead>
+    @for (var s = 0; s < servers.Count; s++)
+    {
+        <tbody>
+            <tr>
+                <td><a class="iniciar" title="Iniciar" href="@Url.Action("Iniciar", "MonitoreoOrquestador",new{server = servers[s].Maquina},null)"><i class="fa fa-play"></i></a>
+                    <a class="detener" title="Detener" href="@Url.Action("Detener", "MonitoreoOrquestador",new{server = servers[s].Maquina},null)"><i class="fa fa-stop"></i></a>
+                </td>
+                <td>@Html.Label(servers[s].Maquina ?? "", new { @class = "maquinaNombre" })</td>
+                <td>
+                    <label id="estadoTxt @s"></label>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>

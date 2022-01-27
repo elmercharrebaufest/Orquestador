@@ -1,0 +1,12 @@
+﻿@model List<Molinos.Orquest.Web.Models.ResultadoPruebaModel>
+
+@{
+    Layout = null;
+}
+
+<ul class="response-list">
+    @foreach (var respuesta in Model)
+    {
+        <li class="@((respuesta.Error) ? "response-error" : "response-success")">@respuesta.Message</li>
+    }
+</ul>

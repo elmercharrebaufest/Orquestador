@@ -1,0 +1,119 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Web.Models.PruebaMolineteModel
+@{
+    var titulo = Textos.PruebaMolinete_Titulo + ": " + Model.CodigoMolinete;
+    ViewBag.Title = titulo;
+    var errores = (IList<string>)ViewBag.Errores;
+}
+
+<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+<script src='~/signalr/js'></script>
+<script src="~/Scripts/pruebamolinete.js"></script>
+
+<input id="codigoMolinete" type="hidden" value="@Model.CodigoMolinete" />
+
+<div id="pruebaMolinete" class="container content" data-codigo-molinete="@Model.CodigoMolinete" data-url-desuscribir="@Url.Action("Desuscribir", new {codigoMolinete = Model.CodigoMolinete})">
+    <div class="row-fluid">
+        <div class="titSecciones span10">@titulo</div>
+    </div>
+
+    <div class="prueba-itc-area bg-light ">
+        <span class="prueba-itc-area-titulo">@Textos.ConfiguracionDispositivo</span>
+        <div class="row-fluid datos-dispositivo">
+            <div class="span7">
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.CodigoMolinete)
+                    @Html.DisplayFor(model => model.CodigoMolinete)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.DireccionUrl)
+                    @Html.DisplayFor(model => model.DireccionUrl)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_LecturaTarjetas</span>
+        <div class="row-fluid">
+            <div class="control-group span6">
+                <label class="control-label">@Textos.PruebaMolinete_LecturaEntrada</label>
+                <div class="controls">
+                    <input id="Tarjetaentrada" type="text" readonly="readonly" class="form-control" /><div id="stat-@Model.CodigoMolinete" class="alert alert-error hidden"><button type="button" class="close" data-dismiss="alert">&times;</button></div>
+                </div>
+            </div>
+            <div class="control-group span6" style="padding-bottom:10px">
+                <label class="control-label">@Textos.PruebaMolinete_LecturaSalida</label>
+                <div class="controls">
+                    <input id="Tarjetasalida" type="text" readonly="readonly" class="form-control" /><span id="stat-@Model.CodigoMolinete" class="alert alert-error hidden"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_EstadoDeEntradas</span>
+        <div class="row-fluid">
+            <div class="span6">
+                <span id="Giroentrada" class="badge badge-molinete-unknown">&nbsp;</span><span id="stat-@Model.CodigoMolinete" class="alert alert-error hidden"></span>
+                <label class="@Model.CodigoMolinete">@Textos.PruebaMolinete_Entrada </label>
+            </div>
+            <div class="span6">
+                <span id="Girosalida" class="badge badge-molinete-unknown">&nbsp;</span><span id="stat-@Model.CodigoMolinete" class="alert alert-error hidden"></span>
+                <label class="@Model.CodigoMolinete">@Textos.PruebaMolinete_Salida </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.PruebaMolinete_HabilitarTransito</span>
+        <div class="row-fluid fila-barrera">
+            <div class="span6">
+                <button id="Entrada" class="boton-barrera btn btn-secondary m-2" type="button" data-url-activacion="@Url.Action("HabilitarTransito", new {codigo = Model.CodigoMolinete, direccion = "entrada"})">@Textos.PruebaMolinete_Habilitar_Entrada</button>
+            </div>
+            <div class="span6">
+                <button id="Salida" class="boton-barrera btn btn-secondary m-2" type="button" data-url-activacion="@Url.Action("HabilitarTransito", new {codigo = Model.CodigoMolinete, direccion = "salida"})">@Textos.PruebaMolinete_Habilitar_Salida</button>
+            </div>
+        </div>
+    </div>
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_LecturaTarjetas</span>
+        <div class="row-fluid">
+            @*<div class="control-group span6">
+                    <label class="control-label">@Textos.PruebaMolinete_LecturaEntrada</label>
+                    <div class="controls">
+                        <input id="LecturaDni" type="text" readonly="readonly" class="form-control" /><div id="stat-@Model.CodigoMolinete" class="alert alert-error hidden"><button type="button" class="close" data-dismiss="alert">&times;</button></div>
+                    </div>
+                </div>*@
+            <div class="control-group span6" style="padding-bottom:10px">
+                <label class="control-label">@Textos.PruebaMolinete_LecturaDni</label>
+                <div class="controls">
+                    <input id="LecturaDni" type="text" readonly="readonly" class="form-control" /><span id="stat-@Model.CodigoMolinete" class="alert alert-error hidden"></span>
+                </div>
+            </div>
+            <div class="span6">
+                <span id="Lectorentrada" class="badge badge-molinete-unknown">&nbsp;</span><span id="stat-@Model.CodigoMolinete" class="alert alert-error hidden"></span>
+                <label class="@Model.CodigoMolinete">@Textos.PruebaMolinete_DniLectorEntrada </label>
+            </div>
+            <div class="span6">
+                <span id="Lectorsalida" class="badge badge-molinete-unknown">&nbsp;</span><span id="stat-@Model.CodigoMolinete" class="alert alert-error hidden"></span>
+                <label class="@Model.CodigoMolinete">@Textos.PruebaMolinete_DniLectorSalida </label>
+            </div>
+        </div>
+    </div>
+    @{
+        var ip = (Uri.IsWellFormedUriString(Model.DireccionUrl, UriKind.Absolute)) ? new Uri(Model.DireccionUrl).Host : Model.DireccionUrl;
+    }
+    @Html.Action("Index", "PruebaConexion", new { ip = ip, puerto = 0 })
+
+    <div class="right margin">
+        @Html.ActionLink(Textos.Volver, "Index", "Molinete", null, new { @class = "btn" })
+        @Html.ActionLink(Textos.PruebaItc_Resuscribir, "Index", new { id = ViewBag.IdMolinete }, new { id = "btn-recargar", @class = "btn btn-primary" })
+    </div>
+</div>
+<div id="alerta-error-itc" data-error-generico="@Textos.PruebaItc_ErrorSuscrbir" data-cantidad-errores="@errores.Count">
+    <div style="font-size: 12px;">
+        @foreach (var error in errores)
+        {
+            @error<br />
+        }
+    </div>
+</div>

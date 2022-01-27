@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ff4484c5-88c0-4f62-baae-248bce31524e" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/Orquest.ModuloALPR/ServicioALPR.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ServicioALPR.disco" MetadataType="Disco" ID="a2edac86-b6ef-495e-8c49-92ed8e2df45e" SourceId="1" SourceUrl="http://localhost/Orquest.ModuloALPR/ServicioALPR.svc?disco" />
+    <MetadataFile FileName="ServicioALPR.wsdl" MetadataType="Wsdl" ID="34d4597e-669f-4560-b1be-4959ebc364c9" SourceId="1" SourceUrl="http://localhost/Orquest.ModuloALPR/ServicioALPR.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="ServicioALPR.xsd" MetadataType="Schema" ID="1d88357c-ebf1-44c7-aff3-a6416db32c57" SourceId="1" SourceUrl="http://localhost/Orquest.ModuloALPR/ServicioALPR.svc?xsd=xsd4" />
+    <MetadataFile FileName="ServicioALPR1.wsdl" MetadataType="Wsdl" ID="ee82be44-4a31-42c6-b086-9b511363d519" SourceId="1" SourceUrl="http://localhost/Orquest.ModuloALPR/ServicioALPR.svc?wsdl" />
+    <MetadataFile FileName="ServicioALPR1.xsd" MetadataType="Schema" ID="a3a2b551-7ad6-4f73-a824-bee7082adf03" SourceId="1" SourceUrl="http://localhost/Orquest.ModuloALPR/ServicioALPR.svc?xsd=xsd2" />
+    <MetadataFile FileName="ServicioALPR2.xsd" MetadataType="Schema" ID="dfd66c14-7126-4dd2-92c5-5419b5ac22c9" SourceId="1" SourceUrl="http://localhost/Orquest.ModuloALPR/ServicioALPR.svc?xsd=xsd3" />
+    <MetadataFile FileName="ServicioALPR3.xsd" MetadataType="Schema" ID="dadc59c7-3194-47eb-b751-17ab36d0794a" SourceId="1" SourceUrl="http://localhost/Orquest.ModuloALPR/ServicioALPR.svc?xsd=xsd0" />
+    <MetadataFile FileName="ServicioALPR4.xsd" MetadataType="Schema" ID="7e48f991-59c7-441f-8ae7-d5544d2db666" SourceId="1" SourceUrl="http://localhost/Orquest.ModuloALPR/ServicioALPR.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

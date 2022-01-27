@@ -1,0 +1,7 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/GeneratedCode/GeneratedFileMasks/=modernizr_002A/@EntryIndexedValue">modernizr*</s:String>
+	<s:String x:Key="/Default/CodeInspection/GeneratedCode/GeneratedFileMasks/=knockout_002A/@EntryIndexedValue">knockout*</s:String>
+	<s:String x:Key="/Default/CodeInspection/GeneratedCode/GeneratedFileMasks/=jquery_002E_002A/@EntryIndexedValue">jquery.*</s:String>
+	<s:String x:Key="/Default/CodeInspection/GeneratedCode/GeneratedFileMasks/=bootstrap_002A/@EntryIndexedValue">bootstrap*</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=0D3D7C30_002DA4D1_002D42D5_002D8549_002D6F60D8AE72A0_002Fd_003AScripts_002Fd_003Aglobalize/@EntryIndexedValue">0D3D7C30-A4D1-42D5-8549-6F60D8AE72A0/d:Scripts/d:globalize</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=0D3D7C30_002DA4D1_002D42D5_002D8549_002D6F60D8AE72A0_002Fd_003AContent/@EntryIndexedValue">0D3D7C30-A4D1-42D5-8549-6F60D8AE72A0/d:Content</s:String></wpf:ResourceDictionary>

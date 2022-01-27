@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{15B3E0D2-6217-493A-A690-158C497F5318}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Molinos.Orquest.Servicios</RootNamespace>
+    <AssemblyName>Molinos.Orquest.Servicios</AssemblyName>
+    <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <XsdCodeGenEnabled>True</XsdCodeGenEnabled>
+    <XsdCodeGenSerializerMode>XmlSerializer</XsdCodeGenSerializerMode>
+    <XsdCodeGenReuseTypesFlag>True</XsdCodeGenReuseTypesFlag>
+    <XsdCodeGenReuseTypesMode>All</XsdCodeGenReuseTypesMode>
+    <XsdCodeGenReferences />
+    <XsdCodeGenNamespaceMappings>%2a, Molinos.Orquest.Servicios.ContractTypes</XsdCodeGenNamespaceMappings>
+    <XsdCodeGenCollectionTypes>System.Array%3bSystem.Collections.Generic.Dictionary`2</XsdCodeGenCollectionTypes>
+    <XsdCodeGenExcludedTypes />
+    <XsdCodeGenImportXmlTypes>True</XsdCodeGenImportXmlTypes>
+    <XsdCodeGenGenerateSerializableTypes>True</XsdCodeGenGenerateSerializableTypes>
+    <XsdCodeGenGenerateInternalTypes>False</XsdCodeGenGenerateInternalTypes>
+    <XsdCodeGenEnableDataBinding>False</XsdCodeGenEnableDataBinding>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jenkins|AnyCPU'">
+    <OutputPath>bin\Jenkins\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.8.10.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.10\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Logging, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.Extensions.Logging.3.0.1.0\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IDriverFactory.cs" />
+    <Compile Include="Impl\AdministradorSuscripciones.cs" />
+    <Compile Include="Impl\ChannelExtensions.cs" />
+    <Compile Include="Impl\DriverFactory.cs" />
+    <Compile Include="Impl\NamedLocker.cs" />
+    <Compile Include="Impl\ProcesadorFactory.cs" />
+    <Compile Include="Impl\ProgramadorTareas.cs" />
+    <Compile Include="Impl\RepositorioFactory.cs" />
+    <Compile Include="Impl\ServicioOrquestador.cs" />
+    <Compile Include="Impl\ServicioRemotoFactory.cs" />
+    <Compile Include="Impl\ServicioOrquestadorSAP.cs" />
+    <Compile Include="Impl\ServicioSuscriptor.cs" />
+    <Compile Include="INamedLocker.cs" />
+    <Compile Include="IProcesadorFactory.cs" />
+    <Compile Include="IProgramadorTareas.cs" />
+    <Compile Include="IRepositorioFactory.cs" />
+    <Compile Include="IAdministradorSuscripciones.cs" />
+    <Compile Include="IServicioSuscriptor.cs" />
+    <Compile Include="IServicioOrquestador.cs" />
+    <Compile Include="IServicioRemotoFactory.cs" />
+    <Compile Include="IServicioOrquestadorSAP.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarComunicador.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarActivarDisplay.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarAperturaBarreraMaestro.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarCierreBarrera.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarAperturaCortinaAgua.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarBorrarBalanzadasPorRango.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarEjecutarQuery.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarObtenerDireccionViento.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarEnviarMensaje.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarConsultaBalanzadaPorRango.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarConsultaBalanzada.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarEstacionMeteorologica.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarBorrarBalanzada.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarAnalisis.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarHabilitarMolinete.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarObtenerUltimaFoto.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarImpresionTicket.cs" />
+    <Compile Include="Procesamiento\ProcesadorNotificarLecturaPuestoDeVianda.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarTomarFoto.cs" />
+    <Compile Include="Procesamiento\IProcesadorComando.cs" />
+    <Compile Include="Procesamiento\IProcesadorDispositivo.cs" />
+    <Compile Include="Procesamiento\ProcesadorComando.cs" />
+    <Compile Include="Procesamiento\ProcesadorComandoCancelarSuscripcion.cs" />
+    <Compile Include="Procesamiento\ProcesadorComandoDepurarSuscripciones.cs" />
+    <Compile Include="Procesamiento\ProcesadorComandoSuscribir.cs" />
+    <Compile Include="Procesamiento\ProcesadorDispositivo.cs" />
+    <Compile Include="Procesamiento\ProcesadorDispositivoFisico.cs" />
+    <Compile Include="Procesamiento\ProcesadorDispositivoConcentrador.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarAnalisisHumedad.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarAperturaBarrera.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarVerificacionDispositivo.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarCereoCabezal.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarPesaje.cs" />
+    <Compile Include="Procesamiento\ProcesadorException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Molinos.Orquest.Dominio\Molinos.Orquest.Dominio.csproj">
+      <Project>{84cc0ec6-299d-4c90-8c72-7f9202234aad}</Project>
+      <Name>Molinos.Orquest.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.DriversImpl\Molinos.Orquest.DriversImpl.csproj">
+      <Project>{1EF9AC66-6C9B-43F5-B669-54FEE8F12DE0}</Project>
+      <Name>Molinos.Orquest.DriversImpl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.Drivers\Molinos.Orquest.Drivers.csproj">
+      <Project>{4c2f6906-2c18-4a9e-8d38-3ecaacdfaafb}</Project>
+      <Name>Molinos.Orquest.Drivers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.Repositorio\Molinos.Orquest.Repositorio.csproj">
+      <Project>{17cba400-3f4d-4efc-81cb-a183e2507d45}</Project>
+      <Name>Molinos.Orquest.Repositorio</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <VSToolsPath Condition="'$(VSToolsPath)' == '' and '$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' != '11.0'">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio</VSToolsPath>
+    <WcfServiceModelTargetPath>$(VSToolsPath)\WCF</WcfServiceModelTargetPath>
+  </PropertyGroup>
+  <Import Project="$(WcfServiceModelTargetPath)\Microsoft.VisualStudio.ServiceModel.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{3D9AD99F-2412-4246-B90B-4EAA41C64699}">
+        <WcfProjectProperties>
+          <AutoStart>False</AutoStart>
+        </WcfProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

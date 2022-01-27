@@ -1,0 +1,13 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Web.Models.ConfigPuestoDeViandaModel
+
+@{
+    ViewBag.Title = Textos.PuestoDeVianda_Crear;
+    Layout = null;
+}
+@Scripts.Render("~/bundles/jqueryval")
+@using (Ajax.BeginForm("Crear", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = Textos.PuestoDeVianda_Crear }))
+{
+    @Html.ValidationSummary(true)
+    @Html.Partial("_CrearModificar", Model)
+}

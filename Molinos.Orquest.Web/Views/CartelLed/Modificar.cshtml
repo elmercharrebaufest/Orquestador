@@ -1,0 +1,16 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Web.Models.ConfigCartelLedModel
+@{
+    ViewBag.Title = Textos.Cartel_Led_Modificar;
+    Layout = null;
+}
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript" src="~/Scripts/bootstrap-input-spinne.js"></script>
+
+@using (Ajax.BeginForm("Modificar", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = Textos.Cartel_Led_Modificar }))
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+    @Html.Partial("_CrearModificar", Model)
+}
+

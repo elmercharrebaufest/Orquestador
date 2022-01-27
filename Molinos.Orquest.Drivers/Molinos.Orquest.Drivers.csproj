@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Molinos.Orquest.Drivers</RootNamespace>
+    <AssemblyName>Molinos.Orquest.Drivers</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jenkins|AnyCPU'">
+    <OutputPath>bin\Jenkins\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.8.10.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.10\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Logging">
+      <HintPath>..\packages\Ninject.Extensions.Logging.3.0.1.0\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConexionDispositivoDriverException.cs" />
+    <Compile Include="ComandoDriverException.cs" />
+    <Compile Include="IDriverBalanzaPuerto.cs" />
+    <Compile Include="IDriverComunicador.cs" />
+    <Compile Include="IDriverCortinaAgua.cs" />
+    <Compile Include="IDriverCartelLed.cs" />
+    <Compile Include="IDriverDisplay.cs" />
+    <Compile Include="IDriverImpresoraHasar.cs" />
+    <Compile Include="IDriverLectorQr.cs" />
+    <Compile Include="IDriverMolinete.cs" />
+    <Compile Include="IDriverPuestoDeVianda.cs" />
+    <Compile Include="IDriverPantalla.cs" />
+    <Compile Include="IDriverMeteorologica.cs" />
+    <Compile Include="DriverConMensajeException.cs" />
+    <Compile Include="IDriverNirs.cs" />
+    <Compile Include="IDriverPantallaPuestoDeVianda.cs" />
+    <Compile Include="IDriverSensor.cs" />
+    <Compile Include="IDriverCamara.cs" />
+    <Compile Include="DriverException.cs" />
+    <Compile Include="EventoDriverEventArgs.cs" />
+    <Compile Include="FormatoRespuestaDriverException.cs" />
+    <Compile Include="IDriver.cs" />
+    <Compile Include="IDriverBarrera.cs" />
+    <Compile Include="IDriverCabezal.cs" />
+    <Compile Include="IDriverHumedimetro.cs" />
+    <Compile Include="CodigosEventos.cs" />
+    <Compile Include="IDriverItc.cs" />
+    <Compile Include="IDriverLectorTarjetas.cs" />
+    <Compile Include="IDriverLogico.cs" />
+    <Compile Include="IDriverTag.cs" />
+    <Compile Include="LecturaEscrituraDriverException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Molinos.Orquest.Dominio\Molinos.Orquest.Dominio.csproj">
+      <Project>{84cc0ec6-299d-4c90-8c72-7f9202234aad}</Project>
+      <Name>Molinos.Orquest.Dominio</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

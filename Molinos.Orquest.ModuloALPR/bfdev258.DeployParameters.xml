@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="Scato/Orquest.ModuloALPR" />
+  <setParameter name="LicenciaALPR" value="SEpKS0xNTk3t6Ont7enn7Obm1e7i7Pf6z/L9/qWgoa6voa2pq6uvqpeYlZuTl5GRAiQLHbCEZo4Xhmh8WwEBNPAAUs2e/ZlHBFfQmrEBSDHQlgTV3HIUh0SxRqmNUP+tMdwQCJdoAV72iPM9R/xzoPukC4PI1PZMpVBAWzVM4tXxaslcZ4uKwW5tnLB7n0b5" />
+</parameters>

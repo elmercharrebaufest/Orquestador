@@ -1,0 +1,11 @@
+﻿
+
+namespace Molinos.Orquest.DriversImpl.ALPR.Models
+{
+    public class Candidate
+    {
+        public string plate { get; set; }
+        public float confidence { get; set; }
+        public bool matches_template { get; set; }
+    }
+}

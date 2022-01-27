@@ -1,0 +1,24 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@{
+    ViewBag.Title = Textos.Nirs_Administrar;
+}
+<div class="flex-row d-lg-flex align-items-center">
+    <div class="p-2 bd-highlight d-sm-flex">
+        <h2 class="h2">@Textos.Administracion_Nirs</h2>
+    </div>
+    @using (Ajax.BeginForm("Index", null, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "gridContainer" }, new { id = "search-form", @class = "d-sm-flex flex-fill align-items-center" }))
+    {
+        <div class="p-2 bd-highlight d-sm-inline-flex">
+            @Html.ActionLink(" ", "Crear", "Nirs", null, new { @class = "ajax-editar-link fa fa-plus btn btn-primary col-12 col-md " })
+        </div>
+        <div class="pt-3 bd-highlight input-group mb-3 d-sm-inline-flex align-items-center">
+            <input type="text" name="filtro" class="form-control" placeholder="Filtrar" />
+            <div class="input-group-prepend">
+                <button type="submit" class="btn btn-secondary">@Textos.Filtrar</button>
+            </div>
+        </div>
+    }
+</div>
+<div id="gridContainer" data-url-estado="@Url.Action("ConsultarEstado", "Nirs")">
+    @Html.Partial("Listar")
+</div>

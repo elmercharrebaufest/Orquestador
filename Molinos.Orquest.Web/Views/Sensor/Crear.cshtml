@@ -1,0 +1,13 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Dominio.Entidades.ConfigSensor
+
+@{
+    ViewBag.Title = Textos.Sensor_Crear;
+    Layout = null;
+}
+@Scripts.Render("~/bundles/jqueryval")
+@using (Ajax.BeginForm("Crear", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = Textos.Sensor_Crear }))
+{
+    @Html.ValidationSummary(true)
+    @Html.Partial("_CrearModificar", Model)           
+}

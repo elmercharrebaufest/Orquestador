@@ -1,0 +1,18 @@
+﻿@using Molinos.Orquest.Dominio.Consultas
+@using Molinos.Orquest.Dominio.Entidades
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Web.Helpers
+
+@{
+    Layout = null;
+    var items = (ListaPaginada<ConfigDisplay>)ViewBag.Items;
+}
+@Html.Grilla(items,
+    grilla => grilla.Columns(
+    grilla.ColumnaEliminarModificar(Html, "Display"),
+    grilla.Columna("Dispositivo.Codigo", Textos.Codigo, c => c.Dispositivo.Codigo),
+    grilla.Columna("Dispositivo.Descripcion", Textos.Descripcion, c => c.Dispositivo.Descripcion),
+    grilla.Columna("Url", Textos.Display_Url),
+    grilla.Columna("NumeroSalida", Textos.Display_NumeroSalida),
+    grilla.Columna("TiempoActivacion", Textos.Display_TiempoActivacion)))
+

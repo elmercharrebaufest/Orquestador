@@ -1,0 +1,97 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Web.Models.ConfigCartelLedModel
+
+@{
+    var titulo = Textos.PruebaCartel + ": " + Model.Dispositivo.Codigo;
+    ViewBag.Title = titulo;
+}
+<script src="~/Scripts/pruebacartelled.index.js"></script>
+<div class="container content">
+    <div class="row-fluid">
+        <div class="h2">@titulo</div>
+    </div>
+
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.ConfiguracionDispositivo</span>
+        <div class="row-fluid datos-dispositivo">
+            <div class="span7">
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Dispositivo.Codigo)
+                    @Html.DisplayFor(model => model.Dispositivo.Codigo)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Dispositivo.Descripcion)
+                    @Html.DisplayFor(model => model.Dispositivo.Descripcion)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.DireccionIp)
+                    @Html.DisplayFor(model => model.DireccionIp)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Tipografia)
+                    @Html.DisplayFor(model => model.Tipografia)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Efecto)
+                    @Html.DisplayFor(model => model.Efecto)
+                </div>
+
+            </div>
+            <div class="span5">
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.TimeoutLectura)
+                    @Html.DisplayFor(model => model.TimeoutLectura)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Dispositivo.Activo)
+                    @Html.DisplayFor(model => model.Dispositivo.Activo)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.Puerto)
+                    @Html.DisplayFor(model => model.Puerto)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.ControlBrillo)
+                    @Html.DisplayFor(model => model.ControlBrillo)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.VelocidadScroll)
+                    @Html.DisplayFor(model => model.VelocidadScroll)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.NumeroTrama)
+                    @Html.DisplayFor(model => model.NumeroTrama)
+                </div>
+                <div class="row-fluid">
+                    @Html.LabelFor(model => model.NumeroVariable)
+                    @Html.DisplayFor(model => model.NumeroVariable)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="prueba-itc-area bg-light">
+        <span class="prueba-itc-area-titulo">@Textos.EnviarMensaje</span>
+        <div class="row-fluid d-md-inline-flex mb-2 align-top pb-1 w-100">
+            <div class="align-self-center col-lg-2">
+                <a id="link" href="@Url.Action("Ejecutar", new {codigo = Model.Dispositivo.Codigo})" class="col-12 btn btn-outline-primary">@Textos.Iniciar</a>
+            </div>
+            <input class="span10 resultado-prueba form-control" maxlength="60" placeholder="@Textos.CartelLedMensaje" id="texto" />
+            <input class="span10 resultado-prueba form-control" maxlength="60" placeholder="@Textos.CartelLedNumeroPrograma" id="numeroPrograma" />
+            <input class="span10 resultado-prueba form-control" maxlength="60" placeholder="@Textos.CartelLedNumeroTrama" id="numeroTrama" />
+            <input class="span10 resultado-prueba form-control" maxlength="60" placeholder="@Textos.CartelLedNumeroVariable" id="numeroVariable" />
+
+        </div>
+
+        <div class="row-fluid d-md-inline-flex mb-2 align-top pb-1 w-100">
+            <span id="resultado-humedad" class="span10 resultado-prueba form-control" placeholder="@Textos.EsperandoRespuesta" style="margin-left:19%" disabled = "disabled" data-texto-carga="@Textos.Probando"></span>
+        </div>
+
+        
+
+
+    </div>
+    @Html.Action("Index", "PruebaConexion", new { ip = Model.DireccionIp, puerto = Model.Puerto })
+    <div class="right margin">
+        @Html.ActionLink(Textos.Volver, "Index", null, new { @class = "col-12 col-sm-2 btn btn-primary" })
+    </div>
+</div>

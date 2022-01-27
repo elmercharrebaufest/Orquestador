@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F19A407F-1AFE-44F0-B5D6-69874D631196}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Molinos.Orquest.Build</RootNamespace>
+    <AssemblyName>Molinos.Orquest.Build</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jenkins|AnyCPU'">
+    <OutputPath>bin\Jenkins\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.8.10.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.10\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="build.proj" />
+    <None Include="build.targets" />
+    <None Include="Deploy\deploy.GSLOSCATO00.targets" />
+    <None Include="Deploy\deploy.GSLOSCATO01.targets" />
+    <None Include="Deploy\deploy.GSLOSCATO02.targets" />
+    <None Include="Deploy\deploy.GSLOSCATO03.targets" />
+    <None Include="Deploy\deploy.GSLOSCATOAPP00.targets" />
+    <None Include="Deploy\deploy.GSLOSCATOAPP01.targets" />
+    <None Include="Deploy\deploy.GSLOSCATOAPP02.targets" />
+    <None Include="Deploy\deploy.GSLOSCATOQA01.targets" />
+    <None Include="Deploy\deploy.GVICRPTSRVQA01.targets" />
+    <None Include="Deploy\deploy.GSLOSCATOAPQ02.targets" />
+    <None Include="Deploy\deploy.GSLOACCESOS01.targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Deploy\deploy.GVICSCATOAPP04.targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Deploy\deploy.GVICSCATOAPP03.targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Deploy\deploy.GVICSCATOAPP02.targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Deploy\deploy.GVICSCATOAPP01.targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Deploy\deploy.GSLOSCATOAPP04.targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Deploy\deploy.GSLOSCATOAPP03.targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Deploy\deploy.GSLOSCATOAPQ00.targets" />
+    <None Include="Deploy\deploy.GSLOSCATOAPQ01.targets" />
+    <None Include="Deploy\deploy.molinos-dev.bat" />
+    <None Include="Deploy\deploy.molinos-dev.targets" />
+    <None Include="Deploy\deploy.bfdev260.targets" />
+    <None Include="Deploy\deploy.local.targets" />
+    <None Include="Deploy\deploy.molinos-qa.bat" />
+    <None Include="Deploy\deploy.molinos-qa.targets" />
+    <None Include="Deploy\deploy.proj" />
+    <None Include="Local.Desinstalar.bat" />
+    <None Include="gendarme.ignore" />
+    <None Include="Local.Instalar.bat" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

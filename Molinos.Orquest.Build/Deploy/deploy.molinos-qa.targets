@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <PropertyGroup>
+    <ExtensionTasksPath>$(MSBuildProjectDirectory)\ExtensionPack\4.0\</ExtensionTasksPath>
+
+    <Reintentos>1</Reintentos>
+    <PackageServidor>$(MSBuildProjectDirectory)\package</PackageServidor>
+    <AppConfig>$(MSBuildProjectDirectory)\package\App.Vicscatoqa.Config</AppConfig>
+
+    <Exe>Molinos.Orquest.Servidor.exe</Exe>
+    <OrquestadorService>SCATO - Orquestador de Dispositivos</OrquestadorService>
+
+    <User>molinosagro\GScatoSRV_qa</User>
+    <UserPassword>MOAscatoqa19</UserPassword>
+
+    <DeployPath>G:\Orquestador</DeployPath>
+
+  </PropertyGroup>
+  
+</Project>
+
+
+

@@ -1,0 +1,179 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.Repositorio", "Molinos.Orquest.Repositorio\Molinos.Orquest.Repositorio.csproj", "{17CBA400-3F4D-4EFC-81CB-A183E2507D45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.Dominio", "Molinos.Orquest.Dominio\Molinos.Orquest.Dominio.csproj", "{84CC0EC6-299D-4C90-8C72-7F9202234AAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.Servicios", "Molinos.Orquest.Servicios\Molinos.Orquest.Servicios.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.Test", "Molinos.Orquest.Test\Molinos.Orquest.Test.csproj", "{6E24351A-AD82-42C3-9825-E1D1D3C2C403}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.Servidor", "Molinos.Orquest.Servidor\Molinos.Orquest.Servidor.csproj", "{76B62B9D-F8B4-4C2C-BF64-D6FE6D130084}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.Dependencias", "Molinos.Orquest.Dependencias\Molinos.Orquest.Dependencias.csproj", "{85C3E535-5DC5-409E-A728-8384623BA40D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.Drivers", "Molinos.Orquest.Drivers\Molinos.Orquest.Drivers.csproj", "{4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5E6671CA-E30E-45EE-9947-0E26BB72241A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.DriversImpl", "Molinos.Orquest.DriversImpl\Molinos.Orquest.DriversImpl.csproj", "{1EF9AC66-6C9B-43F5-B669-54FEE8F12DE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.Build", "Molinos.Orquest.Build\Molinos.Orquest.Build.csproj", "{F19A407F-1AFE-44F0-B5D6-69874D631196}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Molinos.Orquest.Database", "Molinos.Orquest.Database\Molinos.Orquest.Database.sqlproj", "{9B3EEC62-E108-42BF-9574-08E82D1E1EBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.TestDriver", "Molinos.Orquest.TestDriver\Molinos.Orquest.TestDriver.csproj", "{65CC9AC3-1EFC-43E7-ACD5-92C9DE5941B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.Web", "Molinos.Orquest.Web\Molinos.Orquest.Web.csproj", "{0D3D7C30-A4D1-42D5-8549-6F60D8AE72A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.ModuloALPR", "Molinos.Orquest.ModuloALPR\Molinos.Orquest.ModuloALPR.csproj", "{A1DA03B5-E24E-4468-9A55-53E97767AC36}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Jenkins|Any CPU = Jenkins|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17CBA400-3F4D-4EFC-81CB-A183E2507D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17CBA400-3F4D-4EFC-81CB-A183E2507D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17CBA400-3F4D-4EFC-81CB-A183E2507D45}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{17CBA400-3F4D-4EFC-81CB-A183E2507D45}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
+		{17CBA400-3F4D-4EFC-81CB-A183E2507D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17CBA400-3F4D-4EFC-81CB-A183E2507D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84CC0EC6-299D-4C90-8C72-7F9202234AAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84CC0EC6-299D-4C90-8C72-7F9202234AAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84CC0EC6-299D-4C90-8C72-7F9202234AAD}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{84CC0EC6-299D-4C90-8C72-7F9202234AAD}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
+		{84CC0EC6-299D-4C90-8C72-7F9202234AAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84CC0EC6-299D-4C90-8C72-7F9202234AAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E24351A-AD82-42C3-9825-E1D1D3C2C403}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E24351A-AD82-42C3-9825-E1D1D3C2C403}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E24351A-AD82-42C3-9825-E1D1D3C2C403}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{6E24351A-AD82-42C3-9825-E1D1D3C2C403}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
+		{6E24351A-AD82-42C3-9825-E1D1D3C2C403}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E24351A-AD82-42C3-9825-E1D1D3C2C403}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76B62B9D-F8B4-4C2C-BF64-D6FE6D130084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B62B9D-F8B4-4C2C-BF64-D6FE6D130084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B62B9D-F8B4-4C2C-BF64-D6FE6D130084}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{76B62B9D-F8B4-4C2C-BF64-D6FE6D130084}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
+		{76B62B9D-F8B4-4C2C-BF64-D6FE6D130084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B62B9D-F8B4-4C2C-BF64-D6FE6D130084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85C3E535-5DC5-409E-A728-8384623BA40D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85C3E535-5DC5-409E-A728-8384623BA40D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85C3E535-5DC5-409E-A728-8384623BA40D}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{85C3E535-5DC5-409E-A728-8384623BA40D}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
+		{85C3E535-5DC5-409E-A728-8384623BA40D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85C3E535-5DC5-409E-A728-8384623BA40D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
+		{4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EF9AC66-6C9B-43F5-B669-54FEE8F12DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EF9AC66-6C9B-43F5-B669-54FEE8F12DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EF9AC66-6C9B-43F5-B669-54FEE8F12DE0}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{1EF9AC66-6C9B-43F5-B669-54FEE8F12DE0}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
+		{1EF9AC66-6C9B-43F5-B669-54FEE8F12DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EF9AC66-6C9B-43F5-B669-54FEE8F12DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F19A407F-1AFE-44F0-B5D6-69874D631196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F19A407F-1AFE-44F0-B5D6-69874D631196}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F19A407F-1AFE-44F0-B5D6-69874D631196}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{F19A407F-1AFE-44F0-B5D6-69874D631196}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
+		{F19A407F-1AFE-44F0-B5D6-69874D631196}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F19A407F-1AFE-44F0-B5D6-69874D631196}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B3EEC62-E108-42BF-9574-08E82D1E1EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B3EEC62-E108-42BF-9574-08E82D1E1EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B3EEC62-E108-42BF-9574-08E82D1E1EBC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9B3EEC62-E108-42BF-9574-08E82D1E1EBC}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{9B3EEC62-E108-42BF-9574-08E82D1E1EBC}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
+		{9B3EEC62-E108-42BF-9574-08E82D1E1EBC}.Jenkins|Any CPU.Deploy.0 = Jenkins|Any CPU
+		{9B3EEC62-E108-42BF-9574-08E82D1E1EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B3EEC62-E108-42BF-9574-08E82D1E1EBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B3EEC62-E108-42BF-9574-08E82D1E1EBC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{65CC9AC3-1EFC-43E7-ACD5-92C9DE5941B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65CC9AC3-1EFC-43E7-ACD5-92C9DE5941B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65CC9AC3-1EFC-43E7-ACD5-92C9DE5941B4}.Jenkins|Any CPU.ActiveCfg = Release|Any CPU
+		{65CC9AC3-1EFC-43E7-ACD5-92C9DE5941B4}.Jenkins|Any CPU.Build.0 = Release|Any CPU
+		{65CC9AC3-1EFC-43E7-ACD5-92C9DE5941B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65CC9AC3-1EFC-43E7-ACD5-92C9DE5941B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D3D7C30-A4D1-42D5-8549-6F60D8AE72A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D3D7C30-A4D1-42D5-8549-6F60D8AE72A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D3D7C30-A4D1-42D5-8549-6F60D8AE72A0}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{0D3D7C30-A4D1-42D5-8549-6F60D8AE72A0}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
+		{0D3D7C30-A4D1-42D5-8549-6F60D8AE72A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D3D7C30-A4D1-42D5-8549-6F60D8AE72A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1DA03B5-E24E-4468-9A55-53E97767AC36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1DA03B5-E24E-4468-9A55-53E97767AC36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1DA03B5-E24E-4468-9A55-53E97767AC36}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{A1DA03B5-E24E-4468-9A55-53E97767AC36}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
+		{A1DA03B5-E24E-4468-9A55-53E97767AC36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1DA03B5-E24E-4468-9A55-53E97767AC36}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D930471-83D4-4023-8A24-D4A55153D487}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 14
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://tfs-ms.baufest.com:8080/tfs/00tfs%20upgraded%20projects%20from%202005
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Molinos.Orquest.Repositorio\\Molinos.Orquest.Repositorio.csproj
+		SccProjectName1 = Molinos.Orquest.Repositorio
+		SccLocalPath1 = Molinos.Orquest.Repositorio
+		SccProjectUniqueName2 = Molinos.Orquest.Dominio\\Molinos.Orquest.Dominio.csproj
+		SccProjectName2 = Molinos.Orquest.Dominio
+		SccLocalPath2 = Molinos.Orquest.Dominio
+		SccProjectUniqueName3 = Molinos.Orquest.Servicios\\Molinos.Orquest.Servicios.csproj
+		SccProjectName3 = Molinos.Orquest.Servicios
+		SccLocalPath3 = Molinos.Orquest.Servicios
+		SccProjectUniqueName4 = Molinos.Orquest.Test\\Molinos.Orquest.Test.csproj
+		SccProjectName4 = Molinos.Orquest.Test
+		SccLocalPath4 = Molinos.Orquest.Test
+		SccProjectUniqueName5 = Molinos.Orquest.Servidor\\Molinos.Orquest.Servidor.csproj
+		SccProjectName5 = Molinos.Orquest.Servidor
+		SccLocalPath5 = Molinos.Orquest.Servidor
+		SccProjectUniqueName6 = Molinos.Orquest.Dependencias\\Molinos.Orquest.Dependencias.csproj
+		SccProjectName6 = Molinos.Orquest.Dependencias
+		SccLocalPath6 = Molinos.Orquest.Dependencias
+		SccProjectUniqueName7 = Molinos.Orquest.Drivers\\Molinos.Orquest.Drivers.csproj
+		SccProjectName7 = Molinos.Orquest.Drivers
+		SccLocalPath7 = Molinos.Orquest.Drivers
+		SccProjectUniqueName8 = Molinos.Orquest.DriversImpl\\Molinos.Orquest.DriversImpl.csproj
+		SccProjectName8 = Molinos.Orquest.DriversImpl
+		SccLocalPath8 = Molinos.Orquest.DriversImpl
+		SccProjectUniqueName9 = Molinos.Orquest.Build\\Molinos.Orquest.Build.csproj
+		SccProjectName9 = Molinos.Orquest.Build
+		SccLocalPath9 = Molinos.Orquest.Build
+		SccProjectUniqueName10 = Molinos.Orquest.Database\\Molinos.Orquest.Database.sqlproj
+		SccProjectName10 = Molinos.Orquest.Database
+		SccLocalPath10 = Molinos.Orquest.Database
+		SccProjectUniqueName11 = Molinos.Orquest.TestDriver\\Molinos.Orquest.TestDriver.csproj
+		SccProjectName11 = Molinos.Orquest.TestDriver
+		SccLocalPath11 = Molinos.Orquest.TestDriver
+		SccProjectUniqueName12 = Molinos.Orquest.Web\\Molinos.Orquest.Web.csproj
+		SccProjectName12 = Molinos.Orquest.Web
+		SccLocalPath12 = Molinos.Orquest.Web
+		SccProjectUniqueName13 = Molinos.Orquest.ModuloALPR\\Molinos.Orquest.ModuloALPR.csproj
+		SccProjectName13 = Molinos.Orquest.ModuloALPR
+		SccLocalPath13 = Molinos.Orquest.ModuloALPR
+	EndGlobalSection
+EndGlobal

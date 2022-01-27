@@ -1,0 +1,69 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Dominio.Entidades.Usuario
+
+<div id="links" data-url-obtener-roles="@Url.Action("ObtenerRoles", "Usuario")"></div>
+
+@Html.ValidationSummary(true)
+@Html.HiddenFor(model => model.Id)
+@Html.Hidden("roles", "", new { id = "rolesFinales" })
+@Html.Hidden("centros", "", new { id = "centrosFinales" })
+@if (Model != null && Model.Id != 0)
+{
+    @Html.HiddenFor(m => m.Nombre)
+    @Html.HiddenFor(m => m.Apellido)
+    @Html.HiddenFor(m => m.NombreUsuario)
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Nombre)
+                @(Model != null && Model.Id != 0 ? Html.DisplayFor(m => m.Nombre, new { @class = "form-control" }) :
+                                                   Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" }))
+                @Html.ValidationMessageFor(m => m.Nombre, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Apellido)
+                @(Model != null && Model.Id != 0 ? Html.DisplayFor(m => m.Apellido, new { @class = "form-control" }) :
+                                                    Html.TextBoxFor(m => m.Apellido, new { @class = "form-control" }))
+                @Html.ValidationMessageFor(m => m.Apellido, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.NombreUsuario)
+                @(Model != null && Model.Id != 0 ? Html.DisplayFor(m => m.NombreUsuario, new { @class = "form-control" }) :
+                                                    Html.TextBoxFor(m => m.NombreUsuario, new { @class = "form-control" }))
+                @Html.ValidationMessageFor(m => m.NombreUsuario, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                @Html.Label(Textos.Rol)
+                @Html.DropDownList("Roles", (IEnumerable<SelectListItem>)ViewBag.Roles, new { id = "rol", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.RolesAsociados, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <button class="btn btn-primary col-12" type="button" data-bind="click: addRol">@Textos.Rol_Agregar</button>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">@Textos.Descripcion</th>
+                <th scope="col">@Textos.Eliminar</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: roles">
+            <tr>
+                <td data-bind="text: Descripcion" />
+                <td><a href="#" data-bind="click: $root.removeRol"><i class="fa fa-trash fa-lg"></i></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

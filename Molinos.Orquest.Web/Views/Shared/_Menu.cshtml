@@ -1,0 +1,193 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Dominio.Seguridad
+@using Molinos.Orquest.Web.Seguridad
+@{
+    var idiomas = (IEnumerable<SelectListItem>)ViewBag.Idiomas;
+}
+
+<script>
+    $(document).keyup(function (e) {
+        if (e.keyCode == 27) {
+            $('#dialogo-editar').modal('hide');
+        }
+    });
+</script>
+
+<script type="text/javascript" src="~/scripts/_menu.js"></script>
+
+<nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand d-lg-none" href="#"><img src="@Url.Action("Logo","Firma")" alt="" /></a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        @if (PermisosHelper.Any())
+        {
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @Textos.Menu_Administracion
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li class="dropdown-submenu">
+                                <a href="#" class="dropdown-item dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Textos.Concentrador</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    @if (PermisosHelper.Is(PermisosOrquestador.Itc, PermisosOrquestador.PruebaItc))
+                                    {
+                                        <li>@Html.ActionLink(Textos.Concentrador, "Index", "Itc", null, new { @class = "dropdown-item" })</li>
+                                    }
+                                    @if (PermisosHelper.Is(PermisosOrquestador.LectorTarjetas))
+                                    {
+                                        <li>@Html.ActionLink(Textos.LectorTarjetas_Titulo, "Index", "LectorTarjetas", null, new { @class = "dropdown-item" })</li>
+                                    }
+                                    @if (PermisosHelper.Is(PermisosOrquestador.LectorQr, PermisosOrquestador.PruebaLectorQr))
+                                    {
+                                        <li>@Html.ActionLink(Textos.LectorQr_Titulo, "Index", "LectorQr", null, new { @class = "dropdown-item" })</li>
+                                    }
+                                    @if (PermisosHelper.Is(PermisosOrquestador.Barrera))
+                                    {
+                                        <li>@Html.ActionLink(Textos.Barrera_Titulo, "Index", "Barrera", null, new { @class = "dropdown-item" })</li>
+                                    }
+                                    @if (PermisosHelper.Is(PermisosOrquestador.Sensor))
+                                    {
+                                        <li>@Html.ActionLink(Textos.Sensor_Titulo, "Index", "Sensor", null, new { @class = "dropdown-item" })</li>
+                                    }
+                                    @if (PermisosHelper.Is(PermisosOrquestador.Display))
+                                    {
+                                        <li>@Html.ActionLink(Textos.Display_Titulo, "Index", "Display", null, new { @class = "dropdown-item" })</li>
+                                    }
+                                    @if (PermisosHelper.Is(PermisosOrquestador.CortinaAgua))
+                                    {
+                                        <li>@Html.ActionLink(Textos.CortinaAgua_Titulo, "Index", "CortinaDeAgua", null, new { @class = "dropdown-item" })</li>
+                                    }
+                                    @if (PermisosHelper.Is(PermisosOrquestador.Tags))
+                                    {
+                                        <li>@Html.ActionLink(Textos.Tags_Administrar, "Index", "TagsHistorian", null, new { @class = "dropdown-item" })</li>
+                                    }
+                                    @if (PermisosHelper.Is(PermisosOrquestador.Historian))
+                                    {
+                                        <li>@Html.ActionLink(Textos.Intercomunicador_Administrar, "Index", "Intercomunicador", null, new { @class = "dropdown-item" })</li>
+                                    }
+
+                                </ul>
+                            </li>
+                           
+                            @if (PermisosHelper.Is(PermisosOrquestador.Cabezal, PermisosOrquestador.PruebaCabezal))
+                            {
+                                <li>@Html.ActionLink(Textos.Cabezales_Titulo, "Index", "Cabezal", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.Humedimetro, PermisosOrquestador.PruebaHumedimetro))
+                            {
+                                <li>@Html.ActionLink(Textos.Humedimetro_Titulo, "Index", "Humedimetro", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.Camara, PermisosOrquestador.PruebaCamara))
+                            {
+                                <li>@Html.ActionLink(Textos.Camara_Titulo, "Index", "Camara", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.AbmMeteorologica))
+                            {
+                                <li>@Html.ActionLink(Textos.Meteorologica_Titulo, "Index", "Meteorologica", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.BalanzaPuerto))
+                            {
+                                <li>@Html.ActionLink(Textos.BalanzaPuerto_Administrar, "Index", "BalanzaPuerto", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.Nirs))
+                            {
+                                <li>@Html.ActionLink(Textos.Nirs_Administrar, "Index", "Nirs", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.CartelLed))
+                            {
+                                <li>@Html.ActionLink(Textos.Cartel_Led_Administrar, "Index", "CartelLed", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.Pantalla))
+                            {
+                                <li>@Html.ActionLink(Textos.Pantalla, "Index", "Pantalla", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.PuestoDeVianda))
+                            {
+                                <li> @Html.ActionLink(Textos.PuestoDeVianda_Titulo, "Index", "PuestoDeVianda", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.PantallaPuestoDeVianda))
+                            {
+                                <li>@Html.ActionLink(Textos.PantallaPuestoDeVianda_Titulo, "Index", "PantallaPuestoDeVianda", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.ImpresoraHasar))
+                            {
+                                <li>@Html.ActionLink(Textos.ImpresoraHasar_Administrar, "Index", "ImpresoraHasar", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.Molinete))
+                            {
+                                <li>@Html.ActionLink(Textos.Molinete_Titulo, "Index", "Molinete", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.Suscripcion))
+                            {
+                                <li>@Html.ActionLink(Textos.Suscripcion_Titulo, "Index", "Suscripcion", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.Usuario))
+                            {
+                                <li>@Html.ActionLink(Textos.Usuario_Titulo, "Index", "Usuario", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.Rol))
+                            {
+                                <li>@Html.ActionLink(Textos.Rol_Titulo, "Index", "Rol", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.AbmFirma))
+                            {
+                                <li>@Html.ActionLink(Textos.Firma_Titulo, "Index", "Firma", null, new { @class = "dropdown-item" })</li>
+                            }
+                            @if (PermisosHelper.Is(PermisosOrquestador.MonitoreoOrquestador))
+                            {
+                                <li>@Html.ActionLink(Textos.MonitoreoOrquestador, "Index", "MonitoreoOrquestador", null, new { @class = "dropdown-item" })</li>
+                            }
+
+                        </ul>
+                    </li>
+                </ul>
+                <a class="navbar-brand mr-auto d-none d-lg-block" href="@Url.Action("Index", "Home")"><img src="@Url.Action("Logo","Firma")" alt="" /></a>
+                <div class="dropdown">
+                    <ul class="navbar-nav nav-pills ml-3 mr-auto">
+                        <li class="nav-item dropdown">
+                            <a href="#" class="av-link dropdown-toggle btn-mini d-none d-lg-block" id="idiomaBoton" data-toggle="dropdown"><i class="fa fa-language fa-2x"></i><b class="caret"></b></a>
+                            <a class="nav-link dropdown-toggle d-lg-none" href="#" id="idiomaBoton" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Idioma
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right" id="idiomas">
+                                @foreach (var i in idiomas)
+                                {
+                                    <li data-idioma="@i.Text">@Html.ActionLink(i.Text, "ChangeCurrentCulture", null, new { LCID = Convert.ToInt32(i.Value) }, new { @class = " dropdown-item " })</li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <ul class="navbar-nav nav-pills ml-3 mr-auto">
+                        <li class="nav-item dropdow">
+                            <a href="#" class="av-link dropdown-toggle btn-mini d-none d-lg-block" id="Usuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i><b class="caret"></b></a>
+                            <a class="nav-link dropdown-toggle d-lg-none" href="#" id="Usuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Usuario
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right" id="Usuario">
+
+                                @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                                {
+
+                                    @Html.ActionLink("Actualizar Permisos", "BorrarPermisosCookie", "Home", new { @Class = "dropdown-item" })
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+</nav>
+
+
+
+
+
+

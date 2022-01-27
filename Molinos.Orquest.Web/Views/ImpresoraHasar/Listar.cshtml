@@ -1,0 +1,30 @@
+﻿@using Molinos.Orquest.Dominio.Consultas
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Dominio.Seguridad
+@using Molinos.Orquest.Web.Helpers
+@using Molinos.Orquest.Web.Models
+@using Molinos.Orquest.Web.Seguridad
+
+@{
+    Layout = null;
+    var items = (ListaPaginada<ConfigImpresoraHasarModel>)ViewBag.Items;
+}
+
+@Html.Grilla(items,
+    grilla => grilla.Columns(
+    grilla.ColumnaEliminarModificarProbar(Html, "ImpresoraHasar"),
+    grilla.Columna("Dispositivo.Codigo", Textos.Codigo, c => c.Dispositivo.Codigo),
+    grilla.Columna("Dispositivo.Descripcion", Textos.Descripcion, c => c.Dispositivo.Descripcion),
+    grilla.Columna("ClaseDriver", Textos.ClaseDriver, x => x.ClaseDriver.Split('.', ',')[3]),
+    grilla.Columna("DireccionIp", Textos.DireccionIp),
+    grilla.Columna("Puerto", Textos.Puerto),
+    grilla.Columna("TimeoutLectura", Textos.PuestoDeVianda_LecturaTimeout)))
+
+@if (!PermisosHelper.Is(PermisosOrquestador.ImpresoraHasar))
+{
+    <script type="text/javascript">
+        $(function() {
+            $(".ajax-editar-link, .ajax-borrar-link").hide();
+        })
+    </script>
+}

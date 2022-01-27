@@ -1,0 +1,18 @@
+﻿@using Molinos.Orquest.Dominio.Consultas
+@using Molinos.Orquest.Dominio.Entidades
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Web.Helpers
+
+@{
+    Layout = null;
+    var items = (ListaPaginada<Suscripcion>) ViewBag.Items;
+}
+    @Html.Grilla(items,
+        grilla => grilla.Columns(
+        grilla.ColumnaEliminar(Html, "Suscripcion"),
+        grilla.Columna("Dispositivo.Codigo", Textos.Codigo, c => c.Dispositivo.Codigo),
+        grilla.Columna("Dispositivo.Descripcion",  Textos.Descripcion, c => c.Dispositivo.Descripcion),
+        grilla.Columna("CodigoEvento", Textos.Suscripcion_CodigoEvento),
+        grilla.Columna("RutaAccesoSuscriptor", Textos.Suscripcion_RutaAccesoSuscriptor),
+        grilla.Columna("UltimaSuscripcion", Textos.Suscripcion_UltimaSuscripcion),
+        grilla.Columna("Persistente", Textos.Suscripcion_Persistente)))

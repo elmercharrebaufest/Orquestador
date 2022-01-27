@@ -1,0 +1,117 @@
+﻿@model Molinos.Orquest.Web.Models.ConfigBalanzaPuertoModel
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Codigo)
+                @Html.TextBoxFor(model => model.Dispositivo.Codigo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Dispositivo.Codigo, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Descripcion)
+                @Html.TextBoxFor(model => model.Dispositivo.Descripcion, new { @class = "form-control", maxlength = 10 })
+                @Html.ValidationMessageFor(model => model.Dispositivo.Descripcion, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DireccionIp)
+                @Html.TextBoxFor(model => model.DireccionIp, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DireccionIp, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Puerto)
+                @Html.TextBoxFor(model => model.Puerto, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Puerto, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ComandoConsulta)
+                @Html.TextBoxFor(model => model.ComandoConsulta, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ComandoConsulta, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ComandoBorrado)
+                @Html.TextBoxFor(model => model.ComandoBorrado, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ComandoBorrado, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PosDesde)
+                @Html.TextBoxFor(model => model.PosDesde, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PosDesde, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PosHasta)
+                @Html.TextBoxFor(model => model.PosHasta, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PosHasta, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeoutLectura)
+                @Html.TextBoxFor(model => model.TimeoutLectura, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TimeoutLectura, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CaracterIzquierdaACompletar)
+                @Html.TextBoxFor(model => model.CaracterIzquierdaACompletar, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CaracterIzquierdaACompletar, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.IntervaloPolling)
+                @Html.TextBoxFor(model => model.IntervaloPolling, new { @class = "form-control"})
+                @Html.ValidationMessageFor(model => model.IntervaloPolling, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.LongFrase)
+                @Html.TextBoxFor(model => model.LongFrase, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LongFrase, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CantidadCaracteresTotal)
+                @Html.TextBoxFor(model => model.CantidadCaracteresTotal, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CantidadCaracteresTotal, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Activo)
+                @Html.CheckBoxFor(m => m.Dispositivo.Activo, new { @checked = "checked" })
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_Configuracion", Model)
+</div>

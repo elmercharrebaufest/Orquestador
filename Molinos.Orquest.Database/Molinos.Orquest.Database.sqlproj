@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Molinos.Orquest.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{9b3eec62-e108-42bf-9574-08e82d1e1ebc}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql100DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Molinos.Orquest.Database</RootNamespace>
+    <AssemblyName>Molinos.Orquest.Database</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Jenkins|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\Post-Deployment" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\ConfigCabezal.sql" />
+    <Build Include="dbo\Tables\ConfigHumedimetro.sql" />
+    <Build Include="dbo\Tables\Orquestador.sql" />
+    <Build Include="dbo\Tables\Dispositivo.sql" />
+    <Build Include="dbo\Tables\ConfigDispositivo.sql" />
+    <Build Include="dbo\Tables\Usuario.sql" />
+    <Build Include="dbo\Tables\Suscripcion.sql" />
+    <Build Include="dbo\Tables\ConfigItc.sql" />
+    <Build Include="dbo\Tables\ConfigBarrera.sql" />
+    <Build Include="dbo\Tables\ConfigLectorTarjetas.sql" />
+    <Build Include="dbo\Tables\ConfigCamara.sql" />
+    <Build Include="dbo\Tables\ConfigSensor.sql" />
+    <Build Include="dbo\Tables\UsuarioRol.sql" />
+    <Build Include="dbo\Tables\Rol.sql" />
+    <Build Include="dbo\Tables\RolPermisosOrquestador.sql" />
+    <Build Include="dbo\Tables\ConfigNirs.sql" />
+    <Build Include="dbo\Tables\ConfigBalanzaPuerto.sql" />
+    <Build Include="dbo\Tables\ConfigMeteorologica.sql" />
+    <Build Include="dbo\Tables\ConfigPantalla.sql" />
+    <Build Include="dbo\Tables\ConfigCartelLed.sql" />
+    <Build Include="dbo\Tables\Estado.sql" />
+    <Build Include="dbo\Tables\ConfigPuestoDeVianda.sql" />
+    <Build Include="dbo\Tables\ConfigPantallaPuestoDeVianda.sql" />
+    <Build Include="dbo\Tables\ConfigImpresoraHasar.sql" />
+    <Build Include="dbo\Tables\ConfigLectorQr.sql" />
+    <Build Include="dbo\Tables\ConfigMolinete.sql" />
+    <Build Include="dbo\Tables\ConfigDisplay.sql" />
+    <Build Include="dbo\Tables\ConfigCortinaAgua.sql" />
+    <Build Include="dbo\Tables\ConfigComunicador.sql" />
+    <Build Include="dbo\Tables\ConfigTag.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Molinos.Orquest.Database.publish.xml" />
+    <None Include="Molinos.Orquest.Database.bfdev226.publish.xml" />
+    <None Include="Molinos.Orquest.Database.GVICSQLTEST2016.publish.xml" />
+    <None Include="Scripts\DispositivosPrueba.sql" />
+    <Build Include="dbo\Tables\Firma.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Post-Deployment\Datos Base.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Molinos.Orquest.Database.refactorlog" />
+  </ItemGroup>
+</Project>

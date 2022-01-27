@@ -1,0 +1,1437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ResultadoOK" xml:space="preserve">
+    <value>El comando se ejecutó exitosamente</value>
+  </data>
+  <data name="ResultadoDispositivoInexistente" xml:space="preserve">
+    <value>El dispositivo {0} no existe o no está habilitado</value>
+  </data>
+  <data name="ResultadoError" xml:space="preserve">
+    <value>Ocurrió un error al ejecutar el comando</value>
+  </data>
+  <data name="ResultadoDriverNoEncontrado" xml:space="preserve">
+    <value>No se encontró el driver '{0}' para el dispositivo {1}</value>
+  </data>
+  <data name="ResultadoTipoDriverIncorrecto" xml:space="preserve">
+    <value>El tipo del driver '{0}' no concuerda con el tipo de dispositivo {1}</value>
+  </data>
+  <data name="ResultadoTipoDispositivoIncorrecto" xml:space="preserve">
+    <value>El tipo de dispositivo '{0}' no concuerda con el comando que se quiere ejecutar: {1}</value>
+  </data>
+  <data name="ResultadoConexionDispositivo" xml:space="preserve">
+    <value>Falló la conexión al dispositivo {0}</value>
+  </data>
+  <data name="ResultadoErrorDriver" xml:space="preserve">
+    <value>Ocurrió un error al ejecutar el comando {0} en el dispositivo {1}</value>
+  </data>
+  <data name="ResultadoFormatoRespuestaDispositivo" xml:space="preserve">
+    <value>Formato de respuesta del dispositivo {0} incorrecto para el comando {1}</value>
+  </data>
+  <data name="ResultadoCabezalNoFuerzaCero" xml:space="preserve">
+    <value>El cabezal {0} no respondió al comando de cereo</value>
+  </data>
+  <data name="ResultadoPesoNoEstable" xml:space="preserve">
+    <value>No se pudo leer un peso estable en el cabezal {0}</value>
+  </data>
+  <data name="Cabezales_Titulo" xml:space="preserve">
+    <value>Cabezales</value>
+  </data>
+  <data name="Humedimetro_Titulo" xml:space="preserve">
+    <value>Humedímetros</value>
+  </data>
+  <data name="Menu_Administracion" xml:space="preserve">
+    <value>Administración</value>
+  </data>
+  <data name="Error_Generico" xml:space="preserve">
+    <value>Ha ocurrido un error. Por favor intente nuevamente más tarde.</value>
+  </data>
+  <data name="Exito_Generico" xml:space="preserve">
+    <value>La operación fue exitosa</value>
+  </data>
+  <data name="CanceladoExitoso_Generico" xml:space="preserve">
+    <value>La operación fue cancelada con éxito</value>
+  </data>
+  <data name="Confirmacion" xml:space="preserve">
+    <value>Confirmación</value>
+  </data>
+  <data name="ConfirmacionBorrado" xml:space="preserve">
+    <value>¿ Está seguro que desea eliminar éste elemento ?</value>
+  </data>
+  <data name="Eliminar" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Probar" xml:space="preserve">
+    <value>Probar</value>
+  </data>
+  <data name="Modificar" xml:space="preserve">
+    <value>Modificar</value>
+  </data>
+  <data name="Cancelar" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Guardar" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Filtrar" xml:space="preserve">
+    <value>Filtrar</value>
+  </data>
+  <data name="Cabezal_CodigoExistente" xml:space="preserve">
+    <value>Código existente</value>
+  </data>
+  <data name="Cabezal_Crear" xml:space="preserve">
+    <value>Crear Cabezal</value>
+  </data>
+  <data name="Cabezal_DescripcionExistente" xml:space="preserve">
+    <value>Descripción existente</value>
+  </data>
+  <data name="Cabezal_Modificar" xml:space="preserve">
+    <value>Modificar Cabezal</value>
+  </data>
+  <data name="Cabezal_LongFrase" xml:space="preserve">
+    <value>Longitud de Frase</value>
+  </data>
+  <data name="Cabezal_Nuevo" xml:space="preserve">
+    <value>Nuevo Cabezal</value>
+  </data>
+  <data name="Cabezal_PosDesde" xml:space="preserve">
+    <value>Pos. Desde</value>
+  </data>
+  <data name="Cabezal_PosHasta" xml:space="preserve">
+    <value>Pos. Hasta</value>
+  </data>
+  <data name="Cabezal_LecturaTimeout" xml:space="preserve">
+    <value>Timeout de Lectura (ms)</value>
+  </data>
+  <data name="Cabezal_DireccionIp" xml:space="preserve">
+    <value>Dirección IP</value>
+  </data>
+  <data name="Cabezal_Puerto" xml:space="preserve">
+    <value>Puerto</value>
+  </data>
+  <data name="Cabezal_ComandoPeso" xml:space="preserve">
+    <value>Comando Peso</value>
+  </data>
+  <data name="Cabezal_ComandoCereo" xml:space="preserve">
+    <value>Comando Cereo</value>
+  </data>
+  <data name="Cabezal_CarInicioFrase" xml:space="preserve">
+    <value>Caracter de inicio</value>
+  </data>
+  <data name="Cabezal_CantLecPesoEstable" xml:space="preserve">
+    <value>Cant. de Lecturas para Peso Estable</value>
+  </data>
+  <data name="Cabezal_MaxCantLecPesoEstable" xml:space="preserve">
+    <value>Máxima cant. de Lecturas</value>
+  </data>
+  <data name="Cabezal_IntLecPesoEstable" xml:space="preserve">
+    <value>Intervalo entre lecturas para Peso Estable</value>
+  </data>
+  <data name="Cabezal_IntLecCereo" xml:space="preserve">
+    <value>Intervalo de lectura luego de Cereo</value>
+  </data>
+  <data name="Cabezal_ClaseDriver" xml:space="preserve">
+    <value>Clase de Driver</value>
+  </data>
+  <data name="Codigo" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="Descripcion" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="Buscar" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="Cabezal_Administrar" xml:space="preserve">
+    <value>Cabezales</value>
+  </data>
+  <data name="Camara_Administrar" xml:space="preserve">
+    <value>Cámaras</value>
+  </data>
+  <data name="Administracion_Cabezales" xml:space="preserve">
+    <value>Administración de Cabezales</value>
+  </data>
+  <data name="Administracion_Camaras" xml:space="preserve">
+    <value>Administración de Cámaras</value>
+  </data>
+  <data name="Activo" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="Camara_CodigoExistente" xml:space="preserve">
+    <value>Código existente</value>
+  </data>
+  <data name="Camara_Crear" xml:space="preserve">
+    <value>Crear Cámara</value>
+  </data>
+  <data name="Camara_DescripcionExistente" xml:space="preserve">
+    <value>Descripción existente</value>
+  </data>
+  <data name="Camara_Modificar" xml:space="preserve">
+    <value>Modificar Cámara</value>
+  </data>
+  <data name="Camara_Nuevo" xml:space="preserve">
+    <value>Nueva Cámara</value>
+  </data>
+  <data name="Camara_Uri" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="Error_EliminarReferenciado" xml:space="preserve">
+    <value>El objeto esta siendo utilizado por otras entidades</value>
+  </data>
+  <data name="Error_ExcedeLargoMaximo" xml:space="preserve">
+    <value>El campo '{0}' excede el largo máximo</value>
+  </data>
+  <data name="Char_ErrorTipo" xml:space="preserve">
+    <value>El campo '{0}' debe ser de tipo caracter</value>
+  </data>
+  <data name="Char_ErrorCantidad" xml:space="preserve">
+    <value>El campo '{0}' debe contener un caracter</value>
+  </data>
+  <data name="Char_ErrorCantidadGenerico" xml:space="preserve">
+    <value>El campo debe contener un caracter</value>
+  </data>
+  <data name="Error_Requerido" xml:space="preserve">
+    <value>El Campo '{0}' es requerido</value>
+  </data>
+  <data name="Error_EliminarCabezalPorOrquestado" xml:space="preserve">
+    <value>El cabezal no puede ser eliminado porque está en uso por un Orquestador</value>
+  </data>
+  <data name="Error_EliminarHumedimetroPorOrquestado" xml:space="preserve">
+    <value>El humedímetro no puede ser eliminado porque está en uso por un Orquestador</value>
+  </data>
+  <data name="Error_EliminarBarreraPorOrquestado" xml:space="preserve">
+    <value>La Barrera/Semáforo no puede ser eliminada porque está en uso por un Orquestador</value>
+  </data>
+  <data name="Error_EliminarCamaraPorOrquestado" xml:space="preserve">
+    <value>La Cámara no puede ser eliminada porque está en uso por un Orquestador</value>
+  </data>
+  <data name="Humedimetro_CodigoExistente" xml:space="preserve">
+    <value>Código existente</value>
+  </data>
+  <data name="Humedimetro_Crear" xml:space="preserve">
+    <value>Crear Humedímetro</value>
+  </data>
+  <data name="Humedimetro_DescripcionExistente" xml:space="preserve">
+    <value>Descripción existente</value>
+  </data>
+  <data name="Humedimetro_Modificar" xml:space="preserve">
+    <value>Modificar Humedímetro</value>
+  </data>
+  <data name="Humedimetro_LongFrase" xml:space="preserve">
+    <value>Longitud de Frase</value>
+  </data>
+  <data name="Humedimetro_Nuevo" xml:space="preserve">
+    <value>Nuevo Humedímetro</value>
+  </data>
+  <data name="Humedimetro_LecturaTimeout" xml:space="preserve">
+    <value>Timeout de Lectura (ms)</value>
+  </data>
+  <data name="Humedimetro_DireccionIp" xml:space="preserve">
+    <value>Dirección IP</value>
+  </data>
+  <data name="Humedimetro_Puerto" xml:space="preserve">
+    <value>Puerto</value>
+  </data>
+  <data name="Humedimetro_ComandoHumedad" xml:space="preserve">
+    <value>Comando Humedad</value>
+  </data>
+  <data name="Humedimetro_DelimitadorCampos" xml:space="preserve">
+    <value>Delimitador de Campos</value>
+  </data>
+  <data name="Humedimetro_PosicionCampoHumedad" xml:space="preserve">
+    <value>Posición Campo Humedad</value>
+  </data>
+  <data name="Humedimetro_Administrar" xml:space="preserve">
+    <value>Humedímetros</value>
+  </data>
+  <data name="Administracion_Humedimetros" xml:space="preserve">
+    <value>Administración de Humedímetros</value>
+  </data>
+  <data name="ResultadoEventoNoSoportadoPorDriver" xml:space="preserve">
+    <value>El driver '{0}' del dispositivo '{1}' no soporta el evento '{2}'</value>
+  </data>
+  <data name="ResultadoSuscripcionInexistente" xml:space="preserve">
+    <value>No existe una suscripción con Id {0} para el dispositivo {1}</value>
+  </data>
+  <data name="ResultadoDispositovoTomado" xml:space="preserve">
+    <value>El dispositivo {0} se encuentra tomado y el comando '{1}' no es reenviable a otro orquestador</value>
+  </data>
+  <data name="Concentrador" xml:space="preserve">
+    <value>Concentrador / ITC</value>
+  </data>
+  <data name="EsConcentrador" xml:space="preserve">
+    <value>Es Concentrador</value>
+  </data>
+  <data name="NoTiene" xml:space="preserve">
+    <value>No Tiene</value>
+  </data>
+  <data name="ConcentradorError" xml:space="preserve">
+    <value>Un dispositivo concencetrador no puede tener un concentrador asignado</value>
+  </data>
+  <data name="Barrera_Administrar" xml:space="preserve">
+    <value>Barreras/Semáforos</value>
+  </data>
+  <data name="Administracion_Barreras" xml:space="preserve">
+    <value>Administración de Barreras/Semáforos</value>
+  </data>
+  <data name="Barrera_Modificar" xml:space="preserve">
+    <value>Modificar Barrera/Semáforo</value>
+  </data>
+  <data name="Barrera_Nuevo" xml:space="preserve">
+    <value>Nueva Barrera/Semáforo</value>
+  </data>
+  <data name="Barrera_NumeroSalida" xml:space="preserve">
+    <value>N° Salida</value>
+  </data>
+  <data name="Barrera_EstadoAbierta" xml:space="preserve">
+    <value>Señal de Activación</value>
+  </data>
+  <data name="Barrera_TiempoActivacion" xml:space="preserve">
+    <value>Tiempo de Activación</value>
+  </data>
+  <data name="Barrera_Crear" xml:space="preserve">
+    <value>Crear Barrera/Semáforo</value>
+  </data>
+  <data name="Error_SoloCeroUno" xml:space="preserve">
+    <value>El valor sólo puede ser 0 o 1</value>
+  </data>
+  <data name="Barrera_Titulo" xml:space="preserve">
+    <value>Barreras/Semáforos</value>
+  </data>
+  <data name="LectorTarjetas_Administrar" xml:space="preserve">
+    <value>Lector de Tarjetas</value>
+  </data>
+  <data name="Administracion_LectorTarjetas" xml:space="preserve">
+    <value>Administración de Lector de Tarjetas</value>
+  </data>
+  <data name="LectorTarjetas_Modificar" xml:space="preserve">
+    <value>Modificar Lector de Tarjetas</value>
+  </data>
+  <data name="LectorTarjetas_Nuevo" xml:space="preserve">
+    <value>Nuevo Lector de Tarjetas</value>
+  </data>
+  <data name="LectorTarjetas_Crear" xml:space="preserve">
+    <value>Crear Lector de Tarjetas</value>
+  </data>
+  <data name="LectorTarjetas_Titulo" xml:space="preserve">
+    <value>Lector de Tarjetas</value>
+  </data>
+  <data name="LectorTarjetas_Lector" xml:space="preserve">
+    <value>Lector</value>
+  </data>
+  <data name="Error_EliminarLectorDeTarjetasPorOrquestado" xml:space="preserve">
+    <value>El Lector de Tarjetas no puede ser eliminado porque está en uso por un Orquestador</value>
+  </data>
+  <data name="Itc_Administrar" xml:space="preserve">
+    <value>ITCs</value>
+  </data>
+  <data name="Administracion_Itcs" xml:space="preserve">
+    <value>Administración de ITCs</value>
+  </data>
+  <data name="Itc_Modificar" xml:space="preserve">
+    <value>Modificar ITC</value>
+  </data>
+  <data name="Itc_Nuevo" xml:space="preserve">
+    <value>Nuevo ITC</value>
+  </data>
+  <data name="Itc_Crear" xml:space="preserve">
+    <value>Crear ITC</value>
+  </data>
+  <data name="Itc_Titulo" xml:space="preserve">
+    <value>ITCs</value>
+  </data>
+  <data name="Itc_DelimitadorCampos" xml:space="preserve">
+    <value>Delimitador de Campos</value>
+  </data>
+  <data name="Error_EliminarItcPorOrquestado" xml:space="preserve">
+    <value>El Itc no puede ser eliminado porque está en uso por un Orquestador</value>
+  </data>
+  <data name="Itc_IntervaloPolling" xml:space="preserve">
+    <value>Intervalo Polling</value>
+  </data>
+  <data name="Itc_ComandoEstado" xml:space="preserve">
+    <value>Comando Estado</value>
+  </data>
+  <data name="Itc_ComandoTarjeta" xml:space="preserve">
+    <value>Comando Tarjeta</value>
+  </data>
+  <data name="Itc_ComandoActivarSalida" xml:space="preserve">
+    <value>Comando Activar Salida</value>
+  </data>
+  <data name="Itc_CarFinFrase" xml:space="preserve">
+    <value>Caracter de fin</value>
+  </data>
+  <data name="Itc_RespuestaExito" xml:space="preserve">
+    <value>Respuesta Exito</value>
+  </data>
+  <data name="Itc_RespuestaError" xml:space="preserve">
+    <value>Respuesta Error</value>
+  </data>
+  <data name="Cabezal_DigitosDecimales" xml:space="preserve">
+    <value>Cantidad de dígitos decimales</value>
+  </data>
+  <data name="Camara_Titulo" xml:space="preserve">
+    <value>Cámaras de Video</value>
+  </data>
+  <data name="NumeroEntrada" xml:space="preserve">
+    <value>N° Entrada</value>
+  </data>
+  <data name="Sensor_Administrar" xml:space="preserve">
+    <value>Sensores</value>
+  </data>
+  <data name="Administracion_Sensor" xml:space="preserve">
+    <value>Administración de Sensores</value>
+  </data>
+  <data name="Sensor_Nuevo" xml:space="preserve">
+    <value>Nuevo Sensor</value>
+  </data>
+  <data name="Sensor_Titulo" xml:space="preserve">
+    <value>Sensores</value>
+  </data>
+  <data name="Sensor_Crear" xml:space="preserve">
+    <value>Crear Sensor</value>
+  </data>
+  <data name="Sensor_Modificar" xml:space="preserve">
+    <value>Modificar Sensor</value>
+  </data>
+  <data name="Error_EliminarSensor" xml:space="preserve">
+    <value>El Sensor no puede ser eliminado porque está en uso por un Orquestador</value>
+  </data>
+  <data name="PruebaItc_Titulo" xml:space="preserve">
+    <value>Prueba Concentrador</value>
+  </data>
+  <data name="PruebaItc_Diagnostico" xml:space="preserve">
+    <value>Prueba ITCs</value>
+  </data>
+  <data name="PruebaItc_LecturaTarjetas" xml:space="preserve">
+    <value>Lecturas de Tarjetas</value>
+  </data>
+  <data name="PruebaItc_Entrada1" xml:space="preserve">
+    <value>Entrada 1</value>
+  </data>
+  <data name="PruebaItc_Entrada2" xml:space="preserve">
+    <value>Entrada 2</value>
+  </data>
+  <data name="PruebaItc_Entrada3" xml:space="preserve">
+    <value>Entrada 3</value>
+  </data>
+  <data name="PruebaItc_Entrada4" xml:space="preserve">
+    <value>Entrada 4</value>
+  </data>
+  <data name="PruebaItc_Salida1" xml:space="preserve">
+    <value>Salida 1</value>
+  </data>
+  <data name="PruebaItc_Salida2" xml:space="preserve">
+    <value>Salida 2</value>
+  </data>
+  <data name="PruebaItc_Salida3" xml:space="preserve">
+    <value>Salida 3</value>
+  </data>
+  <data name="PruebaItc_Salida4" xml:space="preserve">
+    <value>Salida 4</value>
+  </data>
+  <data name="PorFavorEspere" xml:space="preserve">
+    <value>Por favor espere...</value>
+  </data>
+  <data name="Procesando" xml:space="preserve">
+    <value>Procesando</value>
+  </data>
+  <data name="PruebaItc_ActivacionSalidas" xml:space="preserve">
+    <value>Activación de Salidas</value>
+  </data>
+  <data name="PruebaItc_Activar" xml:space="preserve">
+    <value>Activar</value>
+  </data>
+  <data name="PruebaItc_ErrorServicio" xml:space="preserve">
+    <value>Ocurrió un error al acceder al servicio del orquestador de dispositivos</value>
+  </data>
+  <data name="PruebaItc_EstadoDeEntradas" xml:space="preserve">
+    <value>Estado de Entradas</value>
+  </data>
+  <data name="PruebaItc_Lector1" xml:space="preserve">
+    <value>Lector 1</value>
+  </data>
+  <data name="PruebaItc_Lector2" xml:space="preserve">
+    <value>Lector 2</value>
+  </data>
+  <data name="PruebaItc_ErrorSuscrbir" xml:space="preserve">
+    <value>Ocurrieron errores en la suscripción a eventos:</value>
+  </data>
+  <data name="PruebaItc_NoConectado" xml:space="preserve">
+    <value>n/c</value>
+  </data>
+  <data name="PruebaItc_Resuscribir" xml:space="preserve">
+    <value>Resuscribir Eventos</value>
+  </data>
+  <data name="LectorTarjetas_LectorEnUso" xml:space="preserve">
+    <value>El lector de tarjetas {0} del ITC ya está en uso en otro dispositivo</value>
+  </data>
+  <data name="Barrera_SalidaEnUso" xml:space="preserve">
+    <value>La salida {0} del ITC ya está en uso en otro dispositivo</value>
+  </data>
+  <data name="Sensor_EntradaEnUso" xml:space="preserve">
+    <value>La entrada {0} del ITC ya está en uso en otro dispositivo</value>
+  </data>
+  <data name="Administracion_Suscripciones" xml:space="preserve">
+    <value>Administración de Suscripciones</value>
+  </data>
+  <data name="Suscripciones_Administrar" xml:space="preserve">
+    <value>Suscripciones</value>
+  </data>
+  <data name="Suscripcion_CodigoEvento" xml:space="preserve">
+    <value>Código de Evento</value>
+  </data>
+  <data name="Suscripcion_Persistente" xml:space="preserve">
+    <value>Persistente</value>
+  </data>
+  <data name="Suscripcion_RutaAccesoSuscriptor" xml:space="preserve">
+    <value>Ruta de acceso</value>
+  </data>
+  <data name="Suscripcion_UltimaSuscripcion" xml:space="preserve">
+    <value>última suscripción</value>
+  </data>
+  <data name="ConfigDispositivo_ErrorCambioCodigo" xml:space="preserve">
+    <value>No se puede cambiar el código de un dispositivo que tiene suscripciones activas</value>
+  </data>
+  <data name="ConfigDispositivo_ErrorCambioCodigoTomado" xml:space="preserve">
+    <value>No se puede cambiar el código de un dispositivo tomado. Verifique que no tenga suscripciones activas.</value>
+  </data>
+  <data name="Suscripcion_Titulo" xml:space="preserve">
+    <value>Suscripciones</value>
+  </data>
+  <data name="ResultadoLecturaEscritura" xml:space="preserve">
+    <value>El dispositivo {0} no puede escribir en la ruta especificada</value>
+  </data>
+  <data name="Itc_EstadoDispositivo" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="Conectado" xml:space="preserve">
+    <value>Conectado</value>
+  </data>
+  <data name="Desconectado" xml:space="preserve">
+    <value>Desconectado</value>
+  </data>
+  <data name="Administracion_Usuarios" xml:space="preserve">
+    <value>Administración de Usuarios</value>
+  </data>
+  <data name="Rol" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="Rol_Agregar" xml:space="preserve">
+    <value>Agregar</value>
+  </data>
+  <data name="Rol_Titulo" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="Usuario_Administrar" xml:space="preserve">
+    <value>Usuarios</value>
+  </data>
+  <data name="Usuario_Apellido" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="Usuario_Crear" xml:space="preserve">
+    <value>Crear Usuario</value>
+  </data>
+  <data name="Usuario_Modificar" xml:space="preserve">
+    <value>Modificar Usuario</value>
+  </data>
+  <data name="Usuario_Nombre" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Usuario_NombreUsuario" xml:space="preserve">
+    <value>Nombre de Usuario</value>
+  </data>
+  <data name="Usuario_Nuevo" xml:space="preserve">
+    <value>Nuevo Usuario</value>
+  </data>
+  <data name="Usuario_Titulo" xml:space="preserve">
+    <value>Usuarios</value>
+  </data>
+  <data name="Usuario_NombreUsuarioExistente" xml:space="preserve">
+    <value>Nombre de Usuario existente</value>
+  </data>
+  <data name="Administracion_Roles" xml:space="preserve">
+    <value>Administración de Roles</value>
+  </data>
+  <data name="Permiso" xml:space="preserve">
+    <value>Permiso</value>
+  </data>
+  <data name="Permiso_Agregar" xml:space="preserve">
+    <value>Agregar</value>
+  </data>
+  <data name="Rol_Crear" xml:space="preserve">
+    <value>Crear Rol</value>
+  </data>
+  <data name="Rol_Existente" xml:space="preserve">
+    <value>Rol existente</value>
+  </data>
+  <data name="Rol_Modificar" xml:space="preserve">
+    <value>Modificar Rol</value>
+  </data>
+  <data name="Rol_Nuevo" xml:space="preserve">
+    <value>Nuevo Rol</value>
+  </data>
+  <data name="Rol_RolSinPermisos" xml:space="preserve">
+    <value>Debe agregar al menos un permiso para guardar el Rol</value>
+  </data>
+  <data name="Permisos_Titulo" xml:space="preserve">
+    <value>Permisos</value>
+  </data>
+  <data name="Rol_NombreRol" xml:space="preserve">
+    <value>Nombre de Rol</value>
+  </data>
+  <data name="ServicioOrquestador" xml:space="preserve">
+    <value>Servicio Orquestador</value>
+  </data>
+  <data name="ConsultandoEstado" xml:space="preserve">
+    <value>Consultando...</value>
+  </data>
+  <data name="Camara_TimeoutLectura" xml:space="preserve">
+    <value>Timeout de Lectura (ms)</value>
+  </data>
+  <data name="Menu_Diagnostico" xml:space="preserve">
+    <value>Diagnóstico</value>
+  </data>
+  <data name="PruebaCabezal_Diagnostico" xml:space="preserve">
+    <value>Prueba Cabezales</value>
+  </data>
+  <data name="PruebaHumedimetro_Diagnostico" xml:space="preserve">
+    <value>Prueba Humedímetro</value>
+  </data>
+  <data name="Iniciar" xml:space="preserve">
+    <value>Iniciar</value>
+  </data>
+  <data name="Probando" xml:space="preserve">
+    <value>Probando...</value>
+  </data>
+  <data name="PruebaDeLoop" xml:space="preserve">
+    <value>Prueba de Loop</value>
+  </data>
+  <data name="PruebaDePing" xml:space="preserve">
+    <value>Prueba de Ping</value>
+  </data>
+  <data name="Volver" xml:space="preserve">
+    <value>Volver</value>
+  </data>
+  <data name="ConfiguracionDispositivo" xml:space="preserve">
+    <value>Configuración del Dispositivo</value>
+  </data>
+  <data name="ObtenerAnalisisHumedad" xml:space="preserve">
+    <value>Obtener Análisis de Humedad</value>
+  </data>
+  <data name="ObtenerPeso" xml:space="preserve">
+    <value>Obtener Peso</value>
+  </data>
+  <data name="ErrorDeConexion" xml:space="preserve">
+    <value>Error de conexión: {0}</value>
+  </data>
+  <data name="PruebaExitosa" xml:space="preserve">
+    <value>Prueba exitosa</value>
+  </data>
+  <data name="PruebaFallida" xml:space="preserve">
+    <value>Prueba fallida</value>
+  </data>
+  <data name="Repeticiones" xml:space="preserve">
+    <value>Repeticiones:</value>
+  </data>
+  <data name="ObtenerImagen" xml:space="preserve">
+    <value>Obtener Imagen</value>
+  </data>
+  <data name="PruebaCamara_Diagnostico" xml:space="preserve">
+    <value>Prueba Cámara</value>
+  </data>
+  <data name="Refrescar" xml:space="preserve">
+    <value>Refrescar</value>
+  </data>
+  <data name="ObteniendoImagen" xml:space="preserve">
+    <value>Obteniendo Imagen</value>
+  </data>
+  <data name="ObteniendoImagenError" xml:space="preserve">
+    <value>No se pudo obtener la imagen</value>
+  </data>
+  <data name="ResultadoSinLecturaDeHumedad" xml:space="preserve">
+    <value>El dispositivo {0} no posee una nueva lectura</value>
+  </data>
+  <data name="MonitoreoOrquestador" xml:space="preserve">
+    <value>Monitoreo Servicio Orquestador</value>
+  </data>
+  <data name="Detener" xml:space="preserve">
+    <value>Detener</value>
+  </data>
+  <data name="ResultadoComando" xml:space="preserve">
+    <value>El Comando enviado no posee campos obligatorios {0}</value>
+  </data>
+  <data name="Empresa_Administrar" xml:space="preserve">
+    <value>Administrar Empresa</value>
+  </data>
+  <data name="Icono" xml:space="preserve">
+    <value>Icono</value>
+  </data>
+  <data name="Logo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="Error_ActualizarGenerico" xml:space="preserve">
+    <value>Ha ocurrido un error al actualizar los datos</value>
+  </data>
+  <data name="Error_Excede_Espacio" xml:space="preserve">
+    <value>El archivo excede el tamaño máximo de {0} bytes</value>
+  </data>
+  <data name="Error_Formato_Archivo" xml:space="preserve">
+    <value>Formato de archivo inválido. Solo los siguientes tipos '{0}' son válidos</value>
+  </data>
+  <data name="Error_Imagen_Grande" xml:space="preserve">
+    <value>La imagen {0} sobrepasa las medidas {1}x{2}px maximos permitidos.</value>
+  </data>
+  <data name="Firma_Titulo" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="Icono_Requerido" xml:space="preserve">
+    <value>El Icono es requerido</value>
+  </data>
+  <data name="Logo_Requerido" xml:space="preserve">
+    <value>El Logo es requerido</value>
+  </data>
+  <data name="Administracion_Nirs" xml:space="preserve">
+    <value>Administración de NIRS</value>
+  </data>
+  <data name="Error_EliminarNirsPorOrquestador" xml:space="preserve">
+    <value>El NIRS no puede ser eliminado porque está en uso por un Orquestador</value>
+  </data>
+  <data name="Nirs_Administrar" xml:space="preserve">
+    <value>NIRS</value>
+  </data>
+  <data name="Nirs_Crear" xml:space="preserve">
+    <value>Crear NIRS</value>
+  </data>
+  <data name="Nirs_Modificar" xml:space="preserve">
+    <value>Modificar NIRS</value>
+  </data>
+  <data name="Nirs_Nuevo" xml:space="preserve">
+    <value>Nuevo NIRS</value>
+  </data>
+  <data name="Advertencia" xml:space="preserve">
+    <value>Advertencia:</value>
+  </data>
+  <data name="Cerrar" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error:</value>
+  </data>
+  <data name="Exitoso" xml:space="preserve">
+    <value>Éxito!</value>
+  </data>
+  <data name="ContraseniaError" xml:space="preserve">
+    <value>La Contraseña es Invalida</value>
+  </data>
+  <data name="Error_PasswordIncorrecto" xml:space="preserve">
+    <value>Contraseña Incorrecta</value>
+  </data>
+  <data name="Contrasenia" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="NombreUsuario" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="TitleLogin" xml:space="preserve">
+    <value>Ingreso al Sistema Externo</value>
+  </data>
+  <data name="ConfirmarPassword" xml:space="preserve">
+    <value>Confirmar Contraseña</value>
+  </data>
+  <data name="Error_OrquestadorEndPoint" xml:space="preserve">
+    <value>No se pudo comunicar con el servicio, por favor intentar mas tarde y si el error persiste informar con soporte.</value>
+  </data>
+  <data name="ResultadoBalanzadaNoEncontrada" xml:space="preserve">
+    <value>No se encontró la balanzada {0}</value>
+  </data>
+  <data name="Error_EliminarMeteorologicaPorOrquestador" xml:space="preserve">
+    <value>La Estación Meteorológica no puede ser eliminada porque está en uso por un Orquestador</value>
+  </data>
+  <data name="ObtenerGraficosMeteorologicos" xml:space="preserve">
+    <value>ObtenerGraficosMeteorologicos</value>
+  </data>
+  <data name="NumeroSalidaMeteorologica" xml:space="preserve">
+    <value>NumeroSalidaMeteorologica</value>
+  </data>
+  <data name="BalanzaPuerto_CantIntentos" xml:space="preserve">
+    <value>Cant. Intentos</value>
+  </data>
+  <data name="BalanzaPuerto_IntEspera" xml:space="preserve">
+    <value>Intervalo de Polling(ms)</value>
+  </data>
+  <data name="BalanzaPuerto_ComandoConsulta" xml:space="preserve">
+    <value>Comando Consulta</value>
+  </data>
+  <data name="BalanzaPuerto_ComandoBorradoPorRango" xml:space="preserve">
+    <value>Comando Borrado Por Rango</value>
+  </data>
+  <data name="BalanzaPuerto_CantidadCaracteresTotal" xml:space="preserve">
+    <value>Cantidad Total de Caracteres Comando</value>
+  </data>
+  <data name="BalanzaPuerto_CaracterIzquierdaACompletar" xml:space="preserve">
+    <value>Caracter de padding</value>
+  </data>
+  <data name="BalanzaPuerto_IntervaloPolling" xml:space="preserve">
+    <value>Intervalo Polling</value>
+  </data>
+  <data name="BalanzaPuerto_CantIntentosBorrado" xml:space="preserve">
+    <value>Cant. Intentos Borrado Balanzada</value>
+  </data>
+  <data name="BalanzaPuerto_ComandoConsultaPorRango" xml:space="preserve">
+    <value>Comando Consulta Por Rango</value>
+  </data>
+  <data name="BalanzaPuerto_PruebaBalanzadaBorrado" xml:space="preserve">
+    <value>Balanzada</value>
+  </data>
+  <data name="BalanzaPuerto_PruebaBalanzadaFin" xml:space="preserve">
+    <value>Balanzada Fin</value>
+  </data>
+  <data name="BalanzaPuerto_Administrar" xml:space="preserve">
+    <value>Balanza Puerto</value>
+  </data>
+  <data name="Administracion_BalanzaPuerto" xml:space="preserve">
+    <value>Administración de Balanza Puerto</value>
+  </data>
+  <data name="BalanzaPuerto_Crear" xml:space="preserve">
+    <value>Crear Balanza Puerto</value>
+  </data>
+  <data name="BalanzaPuerto_Modificar" xml:space="preserve">
+    <value>Modificar Balanza Puerto</value>
+  </data>
+  <data name="BalanzaPuerto_Nuevo" xml:space="preserve">
+    <value>Nueva Balanza Puerto</value>
+  </data>
+  <data name="PruebaBalanzaPuerto_Diagnostico" xml:space="preserve">
+    <value>Prueba Balanza Puerto</value>
+  </data>
+  <data name="BalanzaPuerto_CarInicioFrase" xml:space="preserve">
+    <value>Caracter de inicio</value>
+  </data>
+  <data name="BalanzaPuerto_ClaseDriver" xml:space="preserve">
+    <value>Clase de Driver</value>
+  </data>
+  <data name="BalanzaPuerto_CodigoExistente" xml:space="preserve">
+    <value>Código existente</value>
+  </data>
+  <data name="BalanzaPuerto_DireccionIp" xml:space="preserve">
+    <value>Direccion IP</value>
+  </data>
+  <data name="BalanzaPuerto_DescripcionExistente" xml:space="preserve">
+    <value>Descripción existente</value>
+  </data>
+  <data name="BalanzaPuerto_LecturaTimeout" xml:space="preserve">
+    <value>Timeout de Lectura (ms)</value>
+  </data>
+  <data name="BalanzaPuerto_LongFrase" xml:space="preserve">
+    <value>Longitud de Frase</value>
+  </data>
+  <data name="BalanzaPuerto_PosDesde" xml:space="preserve">
+    <value>Pos. Desde</value>
+  </data>
+  <data name="BalanzaPuerto_PosHasta" xml:space="preserve">
+    <value>Pos. Hasta</value>
+  </data>
+  <data name="BalanzaPuerto_Puerto" xml:space="preserve">
+    <value>Puerto</value>
+  </data>
+  <data name="BalanzaPuerto_Titulo" xml:space="preserve">
+    <value>Balanzas Puerto</value>
+  </data>
+  <data name="Meteorologica_Administrar" xml:space="preserve">
+    <value>Estación Meteorológica Administrar</value>
+  </data>
+  <data name="Meteorologica_Titulo" xml:space="preserve">
+    <value>Estaciones Meterológicas</value>
+  </data>
+  <data name="Meteorologica_Crear" xml:space="preserve">
+    <value>Crear Estación</value>
+  </data>
+  <data name="Meteorologica_Modificar" xml:space="preserve">
+    <value>Modificar Estación</value>
+  </data>
+  <data name="Meteorologica_Nuevo" xml:space="preserve">
+    <value>Nueva Estación</value>
+  </data>
+  <data name="Administracion_Meteorologica" xml:space="preserve">
+    <value>Administración Meteorologica</value>
+  </data>
+  <data name="Ruta" xml:space="preserve">
+    <value>Ruta</value>
+  </data>
+  <data name="PruebaMeteorologica_Diagnostico" xml:space="preserve">
+    <value>Prueba Meteorológica Diagnóstico</value>
+  </data>
+  <data name="Humedimetro_CaracteresBorrar" xml:space="preserve">
+    <value>Caracteres a borrar del nombre</value>
+  </data>
+  <data name="BalanzaPuerto_PruebaBalanzadaInicio" xml:space="preserve">
+    <value>Balanzada Inicio</value>
+  </data>
+  <data name="BalanzaPuerto_ComandoBorrado" xml:space="preserve">
+    <value>Comando Borrado</value>
+  </data>
+  <data name="Nirs_Diagnostico" xml:space="preserve">
+    <value>Prueba NIRS</value>
+  </data>
+  <data name="ObtenerAnalisis" xml:space="preserve">
+    <value>Obtener Analisis</value>
+  </data>
+  <data name="Nirs_Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Camara_Margen_Derecho" xml:space="preserve">
+    <value>Margen derecho</value>
+  </data>
+  <data name="Camara_Margen_Inferior" xml:space="preserve">
+    <value>Margen Inferior</value>
+  </data>
+  <data name="Camara_Margen_Izquierdo" xml:space="preserve">
+    <value>Margen Izquierdo</value>
+  </data>
+  <data name="Camara_Margen_Superior" xml:space="preserve">
+    <value>Margen Superior</value>
+  </data>
+  <data name="Camara_Rotacion" xml:space="preserve">
+    <value>Rotación</value>
+  </data>
+  <data name="Nombre_Usuario" xml:space="preserve">
+    <value>Nombre de Usuario</value>
+  </data>
+  <data name="Sensor" xml:space="preserve">
+    <value>Sensor</value>
+  </data>
+  <data name="Barrera_TiempoEsperaReintento" xml:space="preserve">
+    <value>Tiempo de Espera para Reintento (Segundos)</value>
+  </data>
+  <data name="Barrera_TiempoMaximoEsperaReintento" xml:space="preserve">
+    <value>Tiempo de Espera Maximo para Reintentos (Minutos)</value>
+  </data>
+  <data name="Error_RangoNumerico" xml:space="preserve">
+    <value>El campo {0} debe estar entre {1} y {2}.</value>
+  </data>
+  <data name="Pantalla_TiempoDeRefresco" xml:space="preserve">
+    <value>Tiempo de Refresco (segundos)</value>
+  </data>
+  <data name="Administracion_Pantalla" xml:space="preserve">
+    <value>Administracion de Pantalla</value>
+  </data>
+  <data name="Pantalla_UrlFTP" xml:space="preserve">
+    <value>Url FTP</value>
+  </data>
+  <data name="Pantalla_UrlSCATO" xml:space="preserve">
+    <value>Url SCATO</value>
+  </data>
+  <data name="Pantalla_Administrar" xml:space="preserve">
+    <value>Administrar Pantalla</value>
+  </data>
+  <data name="Pantalla_Crear" xml:space="preserve">
+    <value>Crear Pantalla</value>
+  </data>
+  <data name="Pantalla_Modificar" xml:space="preserve">
+    <value>Modificar Pantalla</value>
+  </data>
+  <data name="Pantalla" xml:space="preserve">
+    <value>Pantalla</value>
+  </data>
+  <data name="Administracion_CartelLed" xml:space="preserve">
+    <value>Administración de Carteles Led</value>
+  </data>
+  <data name="Cartel_Led_Administrar" xml:space="preserve">
+    <value>Cartel Led</value>
+  </data>
+  <data name="Cartel_Led_DireccionIp" xml:space="preserve">
+    <value>Dirección IP</value>
+  </data>
+  <data name="Cartel_Led_Puerto" xml:space="preserve">
+    <value>Puerto</value>
+  </data>
+  <data name="Cartel_Led_Crear" xml:space="preserve">
+    <value>Crear Cartel Led</value>
+  </data>
+  <data name="Cartel_Led_Modificar" xml:space="preserve">
+    <value>Modificar Carta Led</value>
+  </data>
+  <data name="Error_Eliminar_Cartel_Led" xml:space="preserve">
+    <value>El Cartel Led no puede ser eliminado porque está en uso por un Orquestador</value>
+  </data>
+  <data name="CartelLedMensaje" xml:space="preserve">
+    <value>Mensaje</value>
+  </data>
+  <data name="EnviarMensaje" xml:space="preserve">
+    <value>Enviar Mensaje </value>
+  </data>
+  <data name="Cartel_Brillo" xml:space="preserve">
+    <value>Brillo</value>
+  </data>
+  <data name="Cartel_Efecto" xml:space="preserve">
+    <value>Efecto</value>
+  </data>
+  <data name="Cartel_Tipografia" xml:space="preserve">
+    <value>Tipografía</value>
+  </data>
+  <data name="Cartel_VelocidadScroll" xml:space="preserve">
+    <value>Velocidad Scroll</value>
+  </data>
+  <data name="Cartel_Texto" xml:space="preserve">
+    <value>Texto</value>
+  </data>
+  <data name="PruebaCartel" xml:space="preserve">
+    <value>Prueba de Cartel Led</value>
+  </data>
+  <data name="EsperandoRespuesta" xml:space="preserve">
+    <value>(respuesta)</value>
+  </data>
+  <data name="PuestoDeVianda_DireccionIp" xml:space="preserve">
+    <value>Dirección IP</value>
+  </data>
+  <data name="PuestoDeVianda_LecturaTimeout" xml:space="preserve">
+    <value>Timeout de Lectura (ms)</value>
+  </data>
+  <data name="PuestoDeVianda_Puerto" xml:space="preserve">
+    <value>Puerto</value>
+  </data>
+  <data name="DireccionIp" xml:space="preserve">
+    <value>Dirección IP</value>
+  </data>
+  <data name="Error_EliminarPuestoDeViandaPorOrquestado" xml:space="preserve">
+    <value>El puesto de vianda no puede ser eliminado porque está en uso por un Orquestador</value>
+  </data>
+  <data name="Administracion_PuestoDeVianda" xml:space="preserve">
+    <value>Administración de Puestos De Vianda</value>
+  </data>
+  <data name="PuestoDeVianda_Administrar" xml:space="preserve">
+    <value>Puestos de vianda</value>
+  </data>
+  <data name="PuestoDeVianda_ClaseDriver" xml:space="preserve">
+    <value>Clase de Driver</value>
+  </data>
+  <data name="PuestoDeVianda_Crear" xml:space="preserve">
+    <value>Crear Puesto de vianda</value>
+  </data>
+  <data name="PuestoDeVianda_Modificar" xml:space="preserve">
+    <value>Modificar Puesto de vianda</value>
+  </data>
+  <data name="PruebaPuestoDeVianda_Diagnostico" xml:space="preserve">
+    <value>Prueba Puesto de Vianda</value>
+  </data>
+  <data name="PuestoDeVianda_Titulo" xml:space="preserve">
+    <value>Puestos de vianda</value>
+  </data>
+  <data name="Error_EliminarPantallaPuestoDeViandaPorOrquestado" xml:space="preserve">
+    <value>La pantalla del puesto de viandano puede ser eliminado porque está en uso por un Orquestador</value>
+  </data>
+  <data name="Administracion_PantallaPuestoDeVianda" xml:space="preserve">
+    <value>Administración de Pantallas para puestos de vianda</value>
+  </data>
+  <data name="PantallaPuestoDeVianda_Administrar" xml:space="preserve">
+    <value>Pantallas para puestos de vianda</value>
+  </data>
+  <data name="PantallaPuestoDeVianda_Crear" xml:space="preserve">
+    <value>Crear Pantalla puesto de vianda</value>
+  </data>
+  <data name="PantallaPuestoDeVianda_Modificar" xml:space="preserve">
+    <value>Modificar Pantalla puesto de vianda</value>
+  </data>
+  <data name="PruebaPantallaPuestoDeVianda_Diagnostico" xml:space="preserve">
+    <value>Prueba Pantalla Puesto de Vianda</value>
+  </data>
+  <data name="PantallasPuestoDeVianda_Titulo" xml:space="preserve">
+    <value>Pantallas Asignadas</value>
+  </data>
+  <data name="PantallaPuestoDeVianda_Titulo" xml:space="preserve">
+    <value>Pantallas puesto de vianda</value>
+  </data>
+  <data name="PuestoDeVianda_Pantallas" xml:space="preserve">
+    <value>Pantallas</value>
+  </data>
+  <data name="PuestoDeVianda_Sector" xml:space="preserve">
+    <value>Sector del Puesto</value>
+  </data>
+  <data name="PuestoDeVianda" xml:space="preserve">
+    <value>Puesto De Vianda</value>
+  </data>
+  <data name="LecturaTimeout" xml:space="preserve">
+    <value>Timeout de Lectura (ms)</value>
+  </data>
+  <data name="Puerto" xml:space="preserve">
+    <value>Puerto</value>
+  </data>
+  <data name="ImpresoraHasar_Administrar" xml:space="preserve">
+    <value>Impresoras Hasar</value>
+  </data>
+  <data name="PruebaImpresoraHasar_Diagnostico" xml:space="preserve">
+    <value>Prueba Impresora Hasar</value>
+  </data>
+  <data name="Administracion_ImpresoraHasar" xml:space="preserve">
+    <value>Impresora Hasar</value>
+  </data>
+  <data name="ClaseDriver" xml:space="preserve">
+    <value>Driver</value>
+  </data>
+  <data name="ImpresoraHasar_Crear" xml:space="preserve">
+    <value>Crear Impresora</value>
+  </data>
+  <data name="ImpresoraHasar_Modificar" xml:space="preserve">
+    <value>Modificar Impresora</value>
+  </data>
+  <data name="Administracion_LectorQr" xml:space="preserve">
+    <value>Administración de Lectores Qr</value>
+  </data>
+  <data name="Error_EliminarLectorQrPorOrquestado" xml:space="preserve">
+    <value>El Lector Qr no puede ser eliminado porque está en uso por un Orquestador</value>
+  </data>
+  <data name="LectorQr_Administrar" xml:space="preserve">
+    <value>Lectores Qr</value>
+  </data>
+  <data name="LectorQr_ClaseDriver" xml:space="preserve">
+    <value>Clase de Driver</value>
+  </data>
+  <data name="LectorQr_Crear" xml:space="preserve">
+    <value>Crear Lector Qr</value>
+  </data>
+  <data name="LectorQr_DireccionIp" xml:space="preserve">
+    <value>Dirección IP</value>
+  </data>
+  <data name="LectorQr_Modificar" xml:space="preserve">
+    <value>Modificar Lector Qr</value>
+  </data>
+  <data name="LectorQr_Puerto" xml:space="preserve">
+    <value>Puerto</value>
+  </data>
+  <data name="PruebaLectorQr_Diagnostico" xml:space="preserve">
+    <value>Prueba Lector Qr</value>
+  </data>
+  <data name="LectorQr_Titulo" xml:space="preserve">
+    <value>Lectores Qr</value>
+  </data>
+  <data name="Administracion_Molinete" xml:space="preserve">
+    <value>Administración de Molinetes</value>
+  </data>
+  <data name="Error_EliminarMolinetePorOrquestado" xml:space="preserve">
+    <value>El Molinete no puede ser eliminado porque está en uso por un Orquestador</value>
+  </data>
+  <data name="Molinete_Administrar" xml:space="preserve">
+    <value>Molinetes</value>
+  </data>
+  <data name="Molinete_DireccionUrl" xml:space="preserve">
+    <value>Dirección Url</value>
+  </data>
+  <data name="Molinete_Crear" xml:space="preserve">
+    <value>Crear Molinete</value>
+  </data>
+  <data name="Molinete_Modificar" xml:space="preserve">
+    <value>Modificar Molinete</value>
+  </data>
+  <data name="Molinete_Titulo" xml:space="preserve">
+    <value>Molinetes</value>
+  </data>
+  <data name="Molinete_IntervaloPooling" xml:space="preserve">
+    <value>Intervalo de Pooling (ms.)</value>
+  </data>
+  <data name="Molinete_TimeoutHabilitacion" xml:space="preserve">
+    <value>Timeout Habilitación (s.)</value>
+  </data>
+  <data name="PruebaMolinete_Habilitar" xml:space="preserve">
+    <value>Habilitar</value>
+  </data>
+  <data name="PruebaMolinete_HabilitarTransito" xml:space="preserve">
+    <value>Habilitar Transito</value>
+  </data>
+  <data name="PruebaMolinete_Titulo" xml:space="preserve">
+    <value>Prueba Molinete</value>
+  </data>
+  <data name="PruebaMolinete_Habilitar_Entrada" xml:space="preserve">
+    <value>Habilitar Entrada</value>
+  </data>
+  <data name="PruebaMolinete_Habilitar_Salida" xml:space="preserve">
+    <value>Habilitar Salida</value>
+  </data>
+  <data name="PruebaMolinete_Entrada" xml:space="preserve">
+    <value>Se giro el molinete de Entrada</value>
+  </data>
+  <data name="PruebaMolinete_LecturaEntrada" xml:space="preserve">
+    <value>Lectura Sentido Entrada</value>
+  </data>
+  <data name="PruebaMolinete_LecturaSalida" xml:space="preserve">
+    <value>Lectura Sentido Salida</value>
+  </data>
+  <data name="PruebaMolinete_Salida" xml:space="preserve">
+    <value>Se giro el molinete de Salida</value>
+  </data>
+  <data name="PruebaMolinete_DniLectorEntrada" xml:space="preserve">
+    <value>Lector Entrada</value>
+  </data>
+  <data name="PruebaMolinete_DniLectorSalida" xml:space="preserve">
+    <value>Lector Salida</value>
+  </data>
+  <data name="PruebaMolinete_LecturaDni" xml:space="preserve">
+    <value>Lectura Dni</value>
+  </data>
+  <data name="Administracion_Displays" xml:space="preserve">
+    <value>Administración de Displays</value>
+  </data>
+  <data name="Display_Administrar" xml:space="preserve">
+    <value>Displays</value>
+  </data>
+  <data name="Display_Crear" xml:space="preserve">
+    <value>Crear Display</value>
+  </data>
+  <data name="Display_Modificar" xml:space="preserve">
+    <value>Modificar Display</value>
+  </data>
+  <data name="Display_Nuevo" xml:space="preserve">
+    <value>Nuevo Display</value>
+  </data>
+  <data name="Display_NumeroSalida" xml:space="preserve">
+    <value>N° Salida</value>
+  </data>
+  <data name="Display_Titulo" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="Error_EliminarDisplayPorOrquestado" xml:space="preserve">
+    <value>El Display no puede ser eliminado porque está en uso por un Orquestador</value>
+  </data>
+  <data name="Display_SalidaEnUso" xml:space="preserve">
+    <value>La salida {0} del Display ya está en uso en otro dispositivo</value>
+  </data>
+  <data name="UrlStreaming" xml:space="preserve">
+    <value>URL Streaming</value>
+  </data>
+  <data name="PruebaItc_Entrada" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="PruebaItc_Lector" xml:space="preserve">
+    <value>Lector</value>
+  </data>
+  <data name="PruebaItc_Salida" xml:space="preserve">
+    <value>Salida</value>
+  </data>
+  <data name="Display_TiempoActivacion" xml:space="preserve">
+    <value>Tiempo de Activación</value>
+  </data>
+  <data name="PruebaItc_ActivacionDisplays" xml:space="preserve">
+    <value>Activación de Displays</value>
+  </data>
+  <data name="Cartel_NumeroTrama" xml:space="preserve">
+    <value>Paso</value>
+  </data>
+  <data name="Cartel_NumeroVariable" xml:space="preserve">
+    <value>Variable N°</value>
+  </data>
+  <data name="Error_FormatoNumeroLed" xml:space="preserve">
+    <value>Debe tener 2 digitos, ejemplo: "03"</value>
+  </data>
+  <data name="Display_Url" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="Cartel_NumeroPrograma" xml:space="preserve">
+    <value>Número Programa</value>
+  </data>
+  <data name="Administracion_CortinaAgua" xml:space="preserve">
+    <value>Administrar Cortina de Agua</value>
+  </data>
+  <data name="CortinaAgua_Administrar" xml:space="preserve">
+    <value>Cortina de Agua</value>
+  </data>
+  <data name="CortinaAgua_Titulo" xml:space="preserve">
+    <value>Cortina de Agua</value>
+  </data>
+  <data name="CortinaAgua_Crear" xml:space="preserve">
+    <value>Crear Cortina de Agua</value>
+  </data>
+  <data name="CortinaAgua_DireccionVientoDesde" xml:space="preserve">
+    <value>Direccion del Viento Desde</value>
+  </data>
+  <data name="CortinaAgua_EstadoAbierta" xml:space="preserve">
+    <value>Señal de Activacion</value>
+  </data>
+  <data name="CortinaAgua_NumeroSalida" xml:space="preserve">
+    <value>N° Salida</value>
+  </data>
+  <data name="CortinaAgua_TiempoActivacion" xml:space="preserve">
+    <value>Tiempo de Activacion</value>
+  </data>
+  <data name="CortinaAgua_TiempoEsperaActivacion" xml:space="preserve">
+    <value>Tiempo de espera de Activacion</value>
+  </data>
+  <data name="CortinaAgua_Modificar" xml:space="preserve">
+    <value>Modificar Cortina de Agua</value>
+  </data>
+  <data name="CortinaAgua_DireccionVientoHasta" xml:space="preserve">
+    <value>Direccion del Viento Hasta</value>
+  </data>
+  <data name="CortinaAgua_IntervaloPooling" xml:space="preserve">
+    <value>Intervalo de Pooling (ms.)</value>
+  </data>
+  <data name="Error_DireccionVientoDesde" xml:space="preserve">
+    <value>La direccion del viento desde debe ser menor a la direccion del viento hasta</value>
+  </data>
+  <data name="Error_DireccionVientoHasta" xml:space="preserve">
+    <value>La direccion del viento hasta debe ser mayor a la direccion del viento desde</value>
+  </data>
+  <data name="Estacion" xml:space="preserve">
+    <value>Estacion Meteorologica</value>
+  </data>
+  <data name="Error_ObtenerDireccionViento" xml:space="preserve">
+    <value>-1</value>
+  </data>
+  <data name="CartelLedNumeroPrograma" xml:space="preserve">
+    <value>Número Programa</value>
+  </data>
+  <data name="CartelLedNumeroTrama" xml:space="preserve">
+    <value>Número Trama</value>
+  </data>
+  <data name="CartelLedNumeroVariable" xml:space="preserve">
+    <value>Número Variable</value>
+  </data>
+  <data name="PruebaItc_Desactivar" xml:space="preserve">
+    <value>Desactivar</value>
+  </data>
+  <data name="Error_EliminarCortinaAguaPorOrquestado" xml:space="preserve">
+    <value>La Cortina de Agua no puede ser eliminada porque está en uso por un Orquestador</value>
+  </data>
+  <data name="Historian_Administrar" xml:space="preserve">
+    <value>Historian</value>
+  </data>
+  <data name="Tags_Administrar" xml:space="preserve">
+    <value>Tags Historian</value>
+  </data>
+  <data name="Administracion_Tags" xml:space="preserve">
+    <value>Administracion de Tags Historian</value>
+  </data>
+  <data name="Comunicador_Administrar" xml:space="preserve">
+    <value>Comunicador</value>
+  </data>
+  <data name="Intercomunicador_Administrar" xml:space="preserve">
+    <value>Intercomunicador</value>
+  </data>
+  <data name="Intercomunicador_crear" xml:space="preserve">
+    <value>Crear Intercomunicador</value>
+  </data>
+  <data name="Intercomunicador_Modificar" xml:space="preserve">
+    <value>Modificar Intercomunicador</value>
+  </data>
+  <data name="Prueba_Comunicador" xml:space="preserve">
+    <value>Pruebas de Intercomunicador</value>
+  </data>
+</root>

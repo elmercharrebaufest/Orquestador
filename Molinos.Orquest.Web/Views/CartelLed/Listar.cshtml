@@ -1,0 +1,36 @@
+﻿@using Molinos.Orquest.Dominio.Consultas
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Dominio.Seguridad
+@using Molinos.Orquest.Web.Helpers
+@using Molinos.Orquest.Web.Models
+@using Molinos.Orquest.Web.Seguridad
+
+@{
+    Layout = null;
+    var items = (ListaPaginada<ConfigCartelLedModel>)ViewBag.Items;
+}
+@*<script type="text/javascript" src="~/Scripts/nirs.index.js"></script>*@
+
+@Html.Grilla(items,
+    grilla => grilla.Columns(
+    grilla.ColumnaEliminarModificarProbar(Html, "CartelLed"),
+    grilla.Columna("Dispositivo.Codigo", Textos.Codigo, c => c.Dispositivo.Codigo),
+    grilla.Columna("Dispositivo.Descripcion", Textos.Descripcion, c => c.Dispositivo.Descripcion),
+    grilla.Columna("DireccionIp", Textos.Cartel_Led_DireccionIp),
+    grilla.Columna("Puerto", Textos.Cartel_Led_Puerto),
+    grilla.Columna("Tipografia", Textos.Cartel_Tipografia),
+    grilla.Columna("ControlBrillo", Textos.Cartel_Brillo),
+    grilla.Columna("Efecto", Textos.Cartel_Efecto),
+    grilla.Columna("VelocidadScroll", Textos.Cartel_VelocidadScroll),
+    grilla.Columna("NumeroTrama", Textos.Cartel_NumeroTrama),
+    grilla.Columna("NumeroVariable", Textos.Cartel_NumeroVariable)
+    ))
+
+@*@if (!PermisosHelper.Is(PermisosOrquestador.Nirs))
+{
+    <script type="text/javascript">
+        $(function() {
+            $(".ajax-editar-link, .ajax-borrar-link").hide();
+        })
+    </script>
+}*@

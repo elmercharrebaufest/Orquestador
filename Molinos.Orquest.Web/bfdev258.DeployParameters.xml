@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="Scato/Orquest.web" />
+  <setParameter name="OrquestadorDb-Web.config Connection String" value="Data Source=bfdev226;Initial Catalog=Orquestador;Integrated Security=True" />
+  <setParameter name="FederationMetadataLocation Config" value="https://bfdev271/FederationMetadata/2007-06/FederationMetadata.xml" />
+  <setParameter name="Issuer Config" value="https://bfdev271.baunet.local/adfs/ls/" />
+  <setParameter name="IssuerTrust Identity Configuration" value="http://BFDEV271.baunet.local/adfs/services/trust" />
+  <setParameter name="RealmUrl Identity Configuration" value="http://bfdev269/Orquest.web/" />
+  <setParameter name="Thumbprint Identity Configuration" value="F697F6452419F239D76D2D1A6126F7CD11744B9F" />
+  <setParameter name="CertificateValidation Identity Configuration" value="None" />
+
+  <setParameter name="UrlServicioNotificaciones Config" value="http://bfdev269/Orquest.web/" />
+  <setParameter name="UrlServicioSuscriptor Config" value="http://bfdev269/Orquest.web/ServicioHub/ServicioSuscriptor.svc" />
+  <setParameter name="Orquestador Service Endpoint Address" value="http://bfdev260:8080/ServicioOrquestador" />
+
+</parameters>
