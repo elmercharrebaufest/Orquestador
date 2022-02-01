@@ -171,6 +171,8 @@ namespace Molinos.Orquest.Web.Controllers
                     viejo.Concentrador = repositorio.Obtener<Dispositivo>(model.Dispositivo.ConcentradorId);
                     var configComunicador = (ConfigComunicador)viejo.Configuracion;
                     configComunicador.NumeroSalida = model.NumeroSalida;
+                    configComunicador.PuertoDeAudio = model.PuertoDeAudio;
+                    configComunicador.TiempoMaximoEjecucion = model.TiempoMaximoEjecucion;
 
                     repositorio.GuardarCambios();
                     RecargarConfiguracion(model.Dispositivo.Codigo);
