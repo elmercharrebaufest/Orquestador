@@ -807,7 +807,17 @@ namespace Molinos.Orquest.Servicios.Impl
 
         public void PrenderApagarDispositivo(string codigoDispositivo, bool activar, string server)
         {
-            Ejecutar(new EjecutarComunicador { CodigoDispositivo = codigoDispositivo, Activar = activar, Tipo = Dominio.Enums.TipoComunicador.Both, ServerComunicador = server });
+            Ejecutar(new EjecutarComunicador { CodigoDispositivo = codigoDispositivo, Activar = activar, Tipo = Dominio.Enums.TipoComunicador.Mic, ServerComunicador = server });
+            Ejecutar(new EjecutarComunicador { CodigoDispositivo = codigoDispositivo, Activar = activar, Tipo = Dominio.Enums.TipoComunicador.Speaker, ServerComunicador = server });
+        }
+
+        public int? ObtenerIntercomunicadorPuertoDeAudio(string codigoDispositivo)
+        {
+            using (var repositorio = factoryRepositorio.Repositorio())
+            {
+                var resultado = repositorio.Obtener<ConfigComunicador>(m => m.Dispositivo.Codigo == codigoDispositivo);
+                return resultado.PuertoDeAudio;
+            }
         }
     }
 }

@@ -102,5 +102,8 @@ namespace Molinos.Orquest.Servicios
 
         [OperationContract]
         void PrenderApagarDispositivo(string codigoDispositivo, bool activar, string server);
+
+        [OperationContract]
+        int? ObtenerIntercomunicadorPuertoDeAudio(string codigoDispositivo);
     }
 }

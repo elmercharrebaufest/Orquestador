@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Molinos.Orquest.Dominio.Recursos;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Molinos.Orquest.Dominio.Recursos;
 
 namespace Molinos.Orquest.Dominio.Entidades
 {
@@ -12,6 +12,6 @@ namespace Molinos.Orquest.Dominio.Entidades
         public virtual int NumeroSalida { get; set; }
 
         public virtual int? TiempoMaximoEjecucion { get; set; }
-
+        public virtual int? PuertoDeAudio { get; set; }
     }
 }

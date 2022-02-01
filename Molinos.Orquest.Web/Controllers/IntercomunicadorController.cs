@@ -214,8 +214,7 @@ namespace Molinos.Orquest.Web.Controllers
         public ActionResult Probar(int id)
         {
             var comunicador = conversor.Convertir<ConfigComunicador, ConfigComunicadorModel>(repositorio.Obtener<ConfigComunicador>(id));
-            var intercomunicadorConfig = GetIntercomunicadorDispositivoConfig(comunicador.Dispositivo.Codigo);
-            intercomunicadorConfig.UniqueId = comunicador.Dispositivo.Codigo.ToString();
+            var intercomunicadorConfig = GetIntercomunicadorDispositivoConfig(comunicador.Dispositivo.Codigo, comunicador.PuertoDeAudio);
             ViewBag.InterComunicadorDispositivo = intercomunicadorConfig;
             return View(comunicador);
         }
@@ -243,15 +242,17 @@ namespace Molinos.Orquest.Web.Controllers
         public ActionResult PrenderApagarDispositivo(string codigoDispositivo, bool activar)
         {
             var urlServer = new Uri(ConfigurationManager.AppSettings["ICWebServerUrl"]);
-            var resultado = servicio.Ejecutar(new EjecutarComunicador { CodigoDispositivo = codigoDispositivo, Activar = activar, Tipo = Dominio.Enums.TipoComunicador.Both, ServerComunicador = urlServer.Host });
-            return Json(resultado);
+            servicio.PrenderApagarDispositivo(codigoDispositivo, activar, urlServer.Host);
+            return Json(true);
         }
 
-        private IntercomunicadorDispositivoDto GetIntercomunicadorDispositivoConfig(string codigoComunicador)
+        private IntercomunicadorDispositivoDto GetIntercomunicadorDispositivoConfig(string codigoComunicador, int? puertoAudio)
         {
             var intercomunicadorDispositivo = new IntercomunicadorDispositivoDto
             {
+                UniqueId = codigoComunicador,
                 Codigo = codigoComunicador,
+                AudioPort = (puertoAudio.HasValue) ? puertoAudio.Value.ToString() : string.Empty,
                 ICPCConfig = ConfigurationManager.AppSettings["ICPCConfig"],
                 ICWebServerUrl = ConfigurationManager.AppSettings["ICWebServerUrl"],
                 ICWSServerUrl = ConfigurationManager.AppSettings["ICWSServerUrl"],

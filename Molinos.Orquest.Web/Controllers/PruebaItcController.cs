@@ -41,7 +41,7 @@ namespace Molinos.Orquest.Web.Controllers
                 var displays = repositorio.Listar<ConfigDisplay, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroSalida.ToString() }).ToList();
                 var cortinaAgua = repositorio.Listar<ConfigCortinaAgua, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroSalida.ToString() }).ToList();
                 var tags = repositorio.Listar<ConfigTag, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.Query.ToString() }).ToList();
-                var comunicadores = repositorio.Listar<ConfigComunicador, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroSalida.ToString() }).ToList();
+                var comunicadores = repositorio.Listar<ConfigComunicador, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroSalida.ToString(),PuertoDeAudio = x.PuertoDeAudio }).ToList();
 
                 var errores = new List<string>();
                 var configItc = (ConfigItc) dispositivo.Configuracion;
@@ -91,8 +91,7 @@ namespace Molinos.Orquest.Web.Controllers
                 var intercomunicadorDispositivoList = new List<IntercomunicadorDispositivoDto>();
                 foreach (var comunicador in comunicadores.OrderBy(q=>q.Numero))
                 {
-                    var intercomunicadorConfig = GetIntercomunicadorDispositivoConfig(comunicador.Codigo);
-                    intercomunicadorConfig.UniqueId = comunicador.Numero.ToString();
+                    var intercomunicadorConfig = GetIntercomunicadorDispositivoConfig(comunicador.Codigo, comunicador.PuertoDeAudio);
                     intercomunicadorDispositivoList.Add(intercomunicadorConfig);
                 }
                 ViewBag.InterComunicadorDispositivoList = intercomunicadorDispositivoList;
@@ -303,12 +302,14 @@ namespace Molinos.Orquest.Web.Controllers
             return Json(resultado);
         }
 
-        private IntercomunicadorDispositivoDto GetIntercomunicadorDispositivoConfig(string codigoComunicador)
+        private IntercomunicadorDispositivoDto GetIntercomunicadorDispositivoConfig(string codigoComunicador,int? puertoAudio)
         {
 
             var intercomunicadorDispositivo = new IntercomunicadorDispositivoDto
             {
+                UniqueId = codigoComunicador,
                 Codigo = codigoComunicador,
+                AudioPort = (puertoAudio.HasValue)? puertoAudio.Value.ToString() : string.Empty,
                 ICPCConfig = ConfigurationManager.AppSettings["ICPCConfig"],
                 ICWebServerUrl = ConfigurationManager.AppSettings["ICWebServerUrl"],
                 ICWSServerUrl = ConfigurationManager.AppSettings["ICWSServerUrl"],

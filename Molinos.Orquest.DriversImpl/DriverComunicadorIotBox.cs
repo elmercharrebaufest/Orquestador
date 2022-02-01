@@ -38,7 +38,7 @@ namespace Molinos.Orquest.DriversImpl
         public void ActivarMic()
         {
             Log.Info("Activando Mic: Comunicador={0}", configComunicador.Dispositivo.Codigo);
-            var url = string.Format("rtp://{0}:1234/{1}{2}", Server, configComunicador.Dispositivo.Codigo, Constantes.IntercomunicadorDireccion.HaciaLaWeb);
+            var url = string.Format("rtp://{0}:{1}/{2}{3}", Server, configComunicador.PuertoDeAudio, configComunicador.Dispositivo.Codigo, Constantes.IntercomunicadorDireccion.HaciaLaWeb);
             var comando = string.Format(FORMATO_COMANDO, MIC, url, ON);
             var tiempoEjecucion = (configComunicador.TiempoMaximoEjecucion.HasValue) ? configComunicador.TiempoMaximoEjecucion.ToString() : "0";
             driverItc.ActivarSalida(configComunicador.NumeroSalida, comando, tiempoEjecucion, true);
@@ -47,7 +47,7 @@ namespace Molinos.Orquest.DriversImpl
         public void ActivarSpeaker()
         {
             Log.Info("Activando Speaker: Comunicador={0}", configComunicador.Dispositivo.Codigo);
-            var url = string.Format("rtsp://{0}/{2}{1}", Server, configComunicador.Dispositivo.Codigo, Constantes.IntercomunicadorDireccion.DesdeLaWeb);
+            var url = string.Format("rtsp://{0}/{2}{1}", Server, configComunicador.Dispositivo.Codigo + "-" + configComunicador.PuertoDeAudio, Constantes.IntercomunicadorDireccion.DesdeLaWeb);
             var comando = string.Format(FORMATO_COMANDO, SPEAKER, url, ON);
             var tiempoEjecucion = (configComunicador.TiempoMaximoEjecucion.HasValue) ? configComunicador.TiempoMaximoEjecucion.ToString() : "0";
             driverItc.ActivarSalida(configComunicador.NumeroSalida, comando, tiempoEjecucion, true);
@@ -56,7 +56,7 @@ namespace Molinos.Orquest.DriversImpl
         public void DesactivarMic()
         {
             Log.Info("Desactivando Mic: Comunicador={0}", configComunicador.Dispositivo.Codigo);
-            var url = string.Format("rtp://{0}:1234/{1}{2}", Server, configComunicador.Dispositivo.Codigo, Constantes.IntercomunicadorDireccion.HaciaLaWeb);
+            var url = string.Format("rtp://{0}:{1}/{2}{3}", Server, configComunicador.PuertoDeAudio, configComunicador.Dispositivo.Codigo, Constantes.IntercomunicadorDireccion.HaciaLaWeb);
             var comando = string.Format(FORMATO_COMANDO, MIC, url, OFF);
             var tiempoEjecucion = (configComunicador.TiempoMaximoEjecucion.HasValue) ? configComunicador.TiempoMaximoEjecucion.ToString() : "0";
             driverItc.ActivarSalida(configComunicador.NumeroSalida, comando, tiempoEjecucion, true);
@@ -65,7 +65,7 @@ namespace Molinos.Orquest.DriversImpl
         public void DesactivarSpeaker()
         {
             Log.Info("Desactivando Speaker: Comunicador={0}", configComunicador.Dispositivo.Codigo);
-            var url = string.Format("rtsp://{0}/{2}{1}", Server, configComunicador.Dispositivo.Codigo, Constantes.IntercomunicadorDireccion.DesdeLaWeb);
+            var url = string.Format("rtsp://{0}/{2}{1}", Server, configComunicador.Dispositivo.Codigo + "-" + configComunicador.PuertoDeAudio, Constantes.IntercomunicadorDireccion.DesdeLaWeb);
             var comando = string.Format(FORMATO_COMANDO, SPEAKER, url, OFF);
             var tiempoEjecucion = (configComunicador.TiempoMaximoEjecucion.HasValue) ? configComunicador.TiempoMaximoEjecucion.ToString() : "0";
             driverItc.ActivarSalida(configComunicador.NumeroSalida, comando, tiempoEjecucion, true);

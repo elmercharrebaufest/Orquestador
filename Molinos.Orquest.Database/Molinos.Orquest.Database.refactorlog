@@ -70,4 +70,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Estacion_Id" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="650ed794-f713-4ddf-9741-f76aea6de19e" ChangeDateTime="01/27/2022 19:55:19">
+    <Property Name="ElementName" Value="[dbo].[ConfigComunicador].[PuertoDeSonido]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigComunicador]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PuertoDeAudio" />
+  </Operation>
 </Operations>

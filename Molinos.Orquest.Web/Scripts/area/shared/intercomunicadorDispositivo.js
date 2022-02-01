@@ -38,7 +38,6 @@ IntercomunicadorDispositivoVM.prototype = {
                                 self.vm.mainModule.models.configuration.websocket.close();
                                 self.vm.mainModule.models.configuration.websocket = null;
                             }
-
                             self.vm.mainModule.models.configuration.websocket = new WebSocket(server + "/sign_in?channel=" + localName);
                             self.vm.mainModule.models.configuration.websocket.onopen = function (e) {
                                 self.trace("Signalling server connected");
@@ -526,7 +525,7 @@ IntercomunicadorDispositivoVM.prototype = {
                         try {
                             self.vm.mainModule.models.configuration.request = new XMLHttpRequest();
                             self.vm.mainModule.models.configuration.request.onreadystatechange = self.vm.mainModule.methods.signInSpeakCallback;
-                            var uri = self.vmData.ICWebServerUrl + "/sign_in?channel=" + self.vmData.PublishingPathSpeak + "&publish=true";
+                            var uri = self.vmData.ICWebServerUrl + "/sign_in?channel=" + self.vmData.PublishingPathSpeak + '-' + self.vmData.AudioPort + "&publish=true";
                             self.trace("Connect to " + uri);
                             self.vm.mainModule.models.configuration.request.open("GET", uri, true);
                             self.vm.mainModule.models.configuration.request.send();
