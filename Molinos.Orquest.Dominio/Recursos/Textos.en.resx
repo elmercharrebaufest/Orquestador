@@ -768,4 +768,10 @@
   <data name="Cartel_Led_Administrador" xml:space="preserve">
     <value>Led Poster</value>
   </data>
+  <data name="Intercomunicador_TiempoMaximoEjecucion" xml:space="preserve">
+    <value>Maximum Execution Time</value>
+  </data>
+  <data name="Intercomunicador_PuertoAudio" xml:space="preserve">
+    <value>Audio port</value>
+  </data>
 </root>
