@@ -91,6 +91,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="DriverBalanzaPuerto.cs" />
+    <Compile Include="DriverSensorGeneralIotBox.cs" />
     <Compile Include="DriverTag.cs" />
     <Compile Include="DriverComunicadorIotBox.cs" />
     <Compile Include="DriverBarreraPlc.cs" />

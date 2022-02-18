@@ -9,16 +9,17 @@
     Func<string, string> textoDispositivo = texto => (texto == "no-conectado") ? @Textos.PruebaItc_NoConectado : texto;
 }
 
-<link href="~/Styles/area/shared/intercomunicadorDispositivo.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        window.hubReady = $.connection.hub.start();
+    });
+</script>
 
 <script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
 <script src='~/signalr/js'></script>
 <script src="~/scripts/knockout-3.4.2.js" type="text/javascript"></script>
-@*<script src="~/Scripts/intercomunicador.js"></script>
-    <script src="~/Scripts/pruebaitc.ver.js"></script>*@
 <script src="~/Scripts/pruebaitc.ver.js"></script>
-<script src="~/Scripts/area/shared/intercomunicadorDispositivo.js"></script>
-
 <input id="codigoItc" type="hidden" value="@Model.CodigoItc" />
 
 <div id="pruebaItc" class="container content" data-codigo-itc="@Model.CodigoItc" data-url-desuscribir="@Url.Action("Desuscribir", new {codigoItc = Model.CodigoItc})">
@@ -138,27 +139,6 @@
             </div>
         </div>
     }
-
-    @*@if (Model.Comunicadores != null && Model.Comunicadores.Count > 0)
-        {
-
-
-            <div class="prueba-itc-area bg-light">
-                <span class="prueba-itc-area-titulo">Prueba Comunicadores <i class="fa fa-microphone"></i> &nbsp;<select id="audio-source"></select></span>
-                <div style="visibility: hidden; position: absolute;">
-                    <video id="remote-player" autoplay playsinline></video>
-                </div>
-                <div class="row fila-barrera">
-
-                    @foreach (var com in Model.Comunicadores.OrderBy(x => x.Numero))
-                    {
-                        @Html.Partial("_Intercomunicador",com)
-                    }
-                </div>
-            </div>
-
-
-        }*@
 
     @Html.Action("Index", "PruebaConexion", new { ip = Model.DireccionIpItc, puerto = Model.PuertoItc, codigo = Model.CodigoItc })
     <div class="right margin">

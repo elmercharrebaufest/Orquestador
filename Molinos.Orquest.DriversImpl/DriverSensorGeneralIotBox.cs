@@ -1,0 +1,87 @@
+﻿using Molinos.Orquest.Dominio.Entidades;
+using Molinos.Orquest.Dominio.Resultados;
+using Molinos.Orquest.Drivers;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+namespace Molinos.Orquest.DriversImpl
+{
+    public class DriverSensorGeneralIotBox : DriverBase, IDriverSensor, IDriverLogico
+    {
+        private string codigoDispositivo;
+        private ConfigSensor configSensor;
+        private IDriverItc driverItc;
+        private string entrada;
+
+        private readonly List<string> eventosSoportados = new List<string> {
+            CodigosEventos.CambioEstadoIntercomunicador
+        };
+
+        public override IEnumerable<string> EventosSoportados
+        {
+            get
+            {
+                return eventosSoportados;
+            }
+        }
+
+        public override Type TipoDispositivo
+        {
+            get { return typeof(ConfigSensor); }
+        }
+
+        public override void Inicializar(string codigo, ConfigDispositivo configuracion)
+        {
+            codigoDispositivo = codigo;
+            configSensor = (ConfigSensor)configuracion;
+            entrada = configSensor.NumeroEntrada.ToString(CultureInfo.InvariantCulture);
+        }
+
+        public override void VerificarDispositivo()
+        {
+            driverItc.VerificarDispositivo();
+        }
+
+        public IDriver DriverFisico
+        {
+            set
+            {
+                driverItc = (IDriverItc)value;
+                driverItc.EventoDriver += OnEventoDriverFisico;
+            }
+        }
+
+        private void OnEventoDriverFisico(object sender, EventoDriverEventArgs evento)
+        {
+            var notificacion = evento.Notificacion;
+            var codigoEvento = string.Empty;
+            var accion = notificacion.Datos["Accion"];
+            switch (accion)
+            {
+                case "CambioEstadoIntercomunicador":
+                    codigoEvento = CodigosEventos.CambioEstadoIntercomunicador;
+                    break;
+
+                default:
+                    break;
+            }
+
+            var nuevoEvento = new EventoDriverEventArgs
+            {
+                Notificacion = new NotificacionEvento
+                {
+                    CodigoDispositivo = codigoDispositivo,
+                    CodigoEvento = codigoEvento,
+                    Datos = notificacion.Datos,
+                }
+            };
+            OnEventoDriver(nuevoEvento);
+        }
+
+        public override void InformarEstado()
+        {
+            driverItc.InformarEstado();
+        }
+    }
+}

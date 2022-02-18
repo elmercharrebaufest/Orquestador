@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using Molinos.Orquest.Dominio;
 
 namespace Molinos.Orquest.Web.ServicioHub
 {
@@ -34,11 +35,13 @@ namespace Molinos.Orquest.Web.ServicioHub
         {
             Groups.Add(Context.ConnectionId, codigoItc);
         }
+
         //TODO: Deprecar
         public void EscucharMolinete(string codigoMolinete)
         {
             Groups.Add(Context.ConnectionId, codigoMolinete);
         }
+
         //TODO: Deprecar
         public void NotificarLecturaTarjetaMolinete(LecturaTarjetaMolinete lectura)
         {
@@ -47,6 +50,7 @@ namespace Molinos.Orquest.Web.ServicioHub
                 Clients.Group(lectura.CodigoMolinete).actualizarLecturaTarjeta(lectura);
             }
         }
+
         //TODO: Deprecar
         public void NotificarTransitoMolinete(TransitoMolinete lectura)
         {
@@ -55,6 +59,7 @@ namespace Molinos.Orquest.Web.ServicioHub
                 Clients.Group(lectura.CodigoMolinete).actualizarTransitoMolinete(lectura);
             }
         }
+
         //TODO: Deprecar
         public void NotificarLecturaDni(LecturaQr lectura)
         {
@@ -62,9 +67,9 @@ namespace Molinos.Orquest.Web.ServicioHub
             {
                 Clients.Group(lectura.CodigoMolinete).actualizarLecturaDni(lectura);
                 Clients.Group(lectura.CodigoItc).actualizarLecturaQr(lectura);
-
             }
         }
+
         public void NotificarLecturaCPE(LecturaQr lectura)
         {
             if (Clients != null)
@@ -72,6 +77,18 @@ namespace Molinos.Orquest.Web.ServicioHub
                 Clients.Group(lectura.CodigoItc).actualizarLecturaQr(lectura);
             }
         }
-    }
 
+        public void UnirseAGrupo(string codigoGrupo)
+        {
+            Groups.Add(Context.ConnectionId, codigoGrupo);
+        }
+
+        public void NotificarCambioEstadoIntercomunicador(EstadoIntercomunicador estado)
+        {
+            if (Clients != null)
+            {
+                Clients.Group(Constantes.NotificacionGrupos.Intercomunicador).actualizarEstadoIntercomunicador(estado);
+            }
+        }
+    }
 }
