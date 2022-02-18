@@ -1,18 +1,20 @@
 ﻿@model Molinos.Orquest.Dominio.Dtos.IntercomunicadorDispositivoDto
 @using Newtonsoft.Json
 
-<div class="col-6" id="containerIntercom_@Model.UniqueId">
-    <label>Intercomunicador: @Model.Codigo</label>
-    <div class="comunicador">
-        <div class="span4">
-            <label class="switch intercomunicador" style="margin-right: 1em;">
-                <input type="checkbox" id="btnActivar_@Model.UniqueId" class="intercomunicador">
-                <span class="slider round intercomunicador"></span>
-            </label>
-            <button class="button intercomunicador" id="btnMicrofono_@Model.UniqueId"><i class="fa fa-microphone-slash intercomunicador"></i></button>
-        </div>
-        <div class="span2">
-            <div class="intercomunicador intercomunicadorEstado deviceStatus_@Model.Codigo"></div>
+<div class="row-fluid" id="containerIntercom_@Model.UniqueId">
+    <div class="span7">
+        <label>Intercomunicador: @Model.Codigo</label>
+        <div class="comunicador">
+            <div class="span4">
+                <label class="switch intercomunicador" style="margin-right: 1em;">
+                    <input type="checkbox" id="btnActivar_@Model.UniqueId" class="intercomunicador">
+                    <span class="slider round intercomunicador"></span>
+                </label>
+                <button class="button intercomunicador" id="btnMicrofono_@Model.UniqueId"><i class="fa fa-microphone-slash intercomunicador"></i></button>
+            </div>
+            <div class="span2">
+                <div class="intercomunicador intercomunicadorEstado deviceStatus_@Model.Codigo"></div>
+            </div>
         </div>
     </div>
 </div>
