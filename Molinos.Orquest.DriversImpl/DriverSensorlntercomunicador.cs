@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace Molinos.Orquest.DriversImpl
 {
-    public class DriverSensorGeneralIotBox : DriverBase, IDriverSensor, IDriverLogico
+    public class DriverSensorlntercomunicador : DriverBase, IDriverSensor, IDriverLogico
     {
         private string codigoDispositivo;
         private ConfigSensor configSensor;
@@ -55,24 +55,13 @@ namespace Molinos.Orquest.DriversImpl
         private void OnEventoDriverFisico(object sender, EventoDriverEventArgs evento)
         {
             var notificacion = evento.Notificacion;
-            var codigoEvento = string.Empty;
-            var accion = notificacion.Datos["Accion"];
-            switch (accion)
-            {
-                case "CambioEstadoIntercomunicador":
-                    codigoEvento = CodigosEventos.CambioEstadoIntercomunicador;
-                    break;
-
-                default:
-                    break;
-            }
 
             var nuevoEvento = new EventoDriverEventArgs
             {
                 Notificacion = new NotificacionEvento
                 {
                     CodigoDispositivo = codigoDispositivo,
-                    CodigoEvento = codigoEvento,
+                    CodigoEvento = CodigosEventos.CambioEstadoIntercomunicador,
                     Datos = notificacion.Datos,
                 }
             };
