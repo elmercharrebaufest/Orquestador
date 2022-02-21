@@ -5,7 +5,7 @@
     var titulo = "Prueba de Tag" + ": " + Model.Dispositivo.Codigo;
     ViewBag.Title = titulo;
 }
-<script src="~/Scripts/pruebacabezal.index.js"></script>
+<script src="~/Scripts/pruebatag.index.js"></script>
 <div class="container content">
     <div class="row-fluid">
         <div class="h2">@titulo</div>
@@ -45,6 +45,8 @@
         <span class="prueba-itc-area-titulo">Probar Tag</span>
         <div class="row-fluid d-md-flex">
             <div class="align-self-center">
+                <button id="boton-tag" class="boton-tag btn btn-secondary m-2 " type="button" data-url-activacion="@Url.Action("EjecutarTag","PruebaItcController", new {codigo = Model.Dispositivo.Codigo})">Ejecutar Query</button>
+
                 @*<a id="link-peso" href="@Url.Action("ObtenerPeso", new {codigo = Model.Dispositivo.Codigo})" class="col-12 btn btn-outline-primary">@Textos.Iniciar</a>*@
             </div>
             <div id="resultado-peso" class="span10 resultado-prueba form-control w-100" data-texto-carga="@Textos.Probando">
