@@ -1584,6 +1584,7 @@
     <Content Include="Scripts\pruebaitc.ver.js" />
     <Content Include="Scripts\rol.CrearModificar.js" />
     <Content Include="Scripts\tooltipOnList.js" />
+    <Content Include="Scripts\pruebatag.index.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
