@@ -12,10 +12,14 @@ namespace Molinos.Orquest.DriversImpl
         private string codigoDispositivo;
         private ConfigSensor configSensor;
         private IDriverItc driverItc;
-        private string estadoAnterior = string.Empty;
+        //private string estadoAnterior = string.Empty;
         private string entrada;
-        private readonly List<string> eventosSoportados = new List<string> {CodigosEventos.EntradaActivada, CodigosEventos.EntradaDesactivada, 
-            CodigosEventos.ErrorConexionDispositivo, CodigosEventos.ConexionDispositivoCorrecta, CodigosEventos.CambioEstadoSensor};
+        private readonly List<string> eventosSoportados = new List<string> {CodigosEventos.EntradaActivada
+            ,CodigosEventos.EntradaDesactivada
+            ,CodigosEventos.ErrorConexionDispositivo
+            ,CodigosEventos.ConexionDispositivoCorrecta
+            ,CodigosEventos.CambioEstadoSensor
+            ,CodigosEventos.CambioEstadoIntercomunicador};
 
         public override IEnumerable<string> EventosSoportados
         {
@@ -63,14 +67,14 @@ namespace Molinos.Orquest.DriversImpl
                 {
                     codigoEvento = InvertirEventoActivacion(codigoEvento);
                 }
-                if (codigoEvento == CodigosEventos.EntradaActivada || codigoEvento == CodigosEventos.EntradaDesactivada)
-                {
-                    //if(codigoEvento == estadoAnterior)
-                    //{
-                    //    return;
-                    //}
-                    estadoAnterior = codigoEvento;
-                }
+                //if (codigoEvento == CodigosEventos.EntradaActivada || codigoEvento == CodigosEventos.EntradaDesactivada)
+                //{
+                //    if (codigoEvento == estadoAnterior)
+                //    {
+                //        return;
+                //    }
+                //    estadoAnterior = codigoEvento;
+                //}
 
                 var nuevoEvento = new EventoDriverEventArgs
                 {

@@ -1434,4 +1434,10 @@
   <data name="Prueba_Comunicador" xml:space="preserve">
     <value>Pruebas de Intercomunicador</value>
   </data>
+  <data name="Intercomunicador_TiempoMaximoEjecucion" xml:space="preserve">
+    <value>Tiempo Máximo Ejecución</value>
+  </data>
+  <data name="Intercomunicador_PuertoAudio" xml:space="preserve">
+    <value>Puerto de Audio</value>
+  </data>
 </root>

@@ -16,16 +16,15 @@
 }
 
 var verLogs = [];
-
 $(function () {
     $("#btn-recargar").click(function () {
         BlockUI();
     });
     
     $(".no-conectado").addClass("disabled").attr("disabled", "disabled");
-   
+
     var notificador = $.connection.notificarLectura;
-       
+
     notificador.client.actualizarLecturaTarjeta = function (lectura) {
         $('#' + lectura.CodigoDispositivo).val(lectura.Valor);
     };
@@ -54,10 +53,10 @@ $(function () {
             MostrarAlertaError("Falló conexión con el dispositivo ITC: " + estado.Mensaje);
         }
     };
-    
-    $.connection.hub.start().done(function () {
+
+    window.hubReady.done(function () {
         notificador.server.escucharItc($('#pruebaItc').data().codigoItc);
-    });
+    })
 
     $(".boton-barrera").click(function() {
         var self = $(this);

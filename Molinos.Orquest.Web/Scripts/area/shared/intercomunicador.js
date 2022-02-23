@@ -2,14 +2,8 @@
     this.containerId = config.containerId;
     this.generalIds = config.generalIds;
     this.vmData = config.vmData;
-    this.labels = config.labels;
-    this.messages = config.messages;
     this.constants = config.constants;
-    this.models = config.models;
-    this.generalUrls = config.generalUrls;
-    this.aucDataSourceUrls = config.aucDataSourceUrls;
 }
-
 
 IntercomunicadorDispositivoVM.prototype = {
     onReady: function () {
@@ -26,7 +20,6 @@ IntercomunicadorDispositivoVM.prototype = {
                 states: {
                     microfonoActivado: false
                 },
-                actions: {},
                 methods: {
                     connectListen: function () {
                         self.vm.mainModule.methods.signInListen(self.vmData.ICWSServerUrl, self.vmData.PublishingPathListen);
@@ -609,21 +602,20 @@ IntercomunicadorDispositivoVM.prototype = {
                         devices: [],
                         debugLog: [],
                     }
-                },
-                events: {},
-                validations: {},
+                }
             },
         };
 
-        self.inicializar();
+        self.init();
     },
     trace: function (message) {
         console.log(message);
         let self = this;
         self.vm.mainModule.models.configuration.debugLog.push(message);
     },
-    inicializar: function () {
+    init: function () {
         let self = this;
+
         self.vm.mainModule.methods.getMicDevices();
         self.vm.mainModule.selectors.btnActivar.off();
         self.vm.mainModule.selectors.btnMicrofono.prop('disabled', !self.vm.mainModule.selectors.btnActivar.prop('checked'));
@@ -671,3 +663,20 @@ IntercomunicadorDispositivoVM.prototype = {
         });
     }
 }
+
+var notificadorLectura = $.connection.notificarLectura; //EN EL ORQUESTADOR notificarLectura PARA LA WEB notificaLectura
+$(function () {
+    window.hubReady.done(function () {
+        notificadorLectura.server.unirseAGrupo("Intercomunicador");
+    })
+});
+
+notificadorLectura.client.actualizarEstadoIntercomunicador = function (data) {
+    if (data.Speaker == true) {
+        $(".deviceStatus_" + data.CodigoDispositivo).removeClass("apagado");
+        $(".deviceStatus_" + data.CodigoDispositivo).addClass("prendido");
+    } else {
+        $(".deviceStatus_" + data.CodigoDispositivo).removeClass("prendido");
+        $(".deviceStatus_" + data.CodigoDispositivo).addClass("apagado");
+    }
+};

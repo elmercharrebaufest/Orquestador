@@ -7,10 +7,14 @@
     ViewBag.Title = titulo;
 }
 
-<link href="~/Styles/area/shared/intercomunicadorDispositivo.css" rel="stylesheet" />
-
+<script type="text/javascript">
+    $(function () {
+        window.hubReady = $.connection.hub.start();
+    });
+</script>
+<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+<script src='~/signalr/js'></script>
 <script src="~/Scripts/pruebacabezal.index.js"></script>
-<script src="~/Scripts/area/shared/intercomunicadorDispositivo.js"></script>
 <div class="container content">
     <div class="row-fluid">
         <div class="h2">@titulo</div>
@@ -64,7 +68,7 @@
 
     }
     @*Html.Action("Index", "PruebaConexion", new {ip = Model.DireccionIp, puerto = Model.Puerto})*@
-        <div class="right margin">
-            @Html.ActionLink(Textos.Volver, "Index", null, new { @class = "col-12 col-sm-2 btn btn-primary" })
-        </div>
+    <div class="right margin">
+        @Html.ActionLink(Textos.Volver, "Index", null, new { @class = "col-12 col-sm-2 btn btn-primary" })
     </div>
+</div>

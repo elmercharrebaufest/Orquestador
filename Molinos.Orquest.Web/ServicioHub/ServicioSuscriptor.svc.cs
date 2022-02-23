@@ -103,6 +103,18 @@ namespace Molinos.Orquest.Web.ServicioHub
                             Lector = notificacion.Datos["Lector"]
                         });
                     }
+                    else if (notificacion.CodigoEvento == CodigosEventos.CambioEstadoIntercomunicador)
+                    {
+                        log.Debug("Informando estado dispositivo...");
+                        var estados = notificacion.Datos["Dato"].Split(';');
+                        hubClient.Invoke("NotificarCambioEstadoIntercomunicador", new EstadoIntercomunicador
+                        {
+                            CodigoItc = codigoItc,
+                            CodigoDispositivo = notificacion.CodigoDispositivo,
+                            Mic = estados[0].ToLower() == "true",
+                            Speaker = estados[1].ToLower() == "true",
+                        });
+                    }
                 }
             }
             catch (Exception ex)

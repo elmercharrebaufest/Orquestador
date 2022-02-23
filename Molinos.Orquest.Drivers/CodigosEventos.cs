@@ -20,5 +20,7 @@
         public const string NuevoTransito = "NuevoTransito";
         //TODO: deprecar
         public const string PulsadorEmergenciaUtilizado = "PulsadorEmergenciaUtilizado";
+
+        public const string CambioEstadoIntercomunicador = "CambioEstadoIntercomunicador";
     }
 }
