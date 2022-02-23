@@ -233,6 +233,7 @@
     <Content Include="ALPR\dll\zlib1.dll" />
     <Content Include="bfdev258.DeployParameters.xml" />
     <Content Include="Global.asax" />
+    <Content Include="GSLOSCATO01.DeployParameters.xml" />
     <Content Include="GVICSCATOAPP04.DeployParameters.xml">
       <SubType>Designer</SubType>
     </Content>
