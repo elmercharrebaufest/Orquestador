@@ -390,7 +390,7 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="gsloaccesos01.DeployParameters.xml" />
-    <Content Include="Scripts\area\shared\intercomunicadorDispositivo.js" />
+    <Content Include="Scripts\area\shared\intercomunicador.js" />
     <Content Include="Scripts\asignarpantallapuestodevianda.CrearModificar.js" />
     <Content Include="Scripts\bootstrap-filestyle.min.js" />
     <Content Include="Scripts\bootstrap-input-spinne.js" />
@@ -1542,7 +1542,6 @@
     <Content Include="Scripts\globalize\relative-time.js" />
     <Content Include="Scripts\globalize\unit.js" />
     <Content Include="Scripts\Home.js" />
-    <Content Include="Scripts\intercomunicador.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -1590,7 +1589,7 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\usuario.CrearModificar.js" />
     <Content Include="ServicioHub\ServicioSuscriptor.svc" />
-    <Content Include="Styles\area\shared\intercomunicadorDispositivo.css" />
+    <Content Include="Styles\area\shared\intercomunicador.css" />
     <Content Include="vicscatoprod.DeployParameters.xml">
       <SubType>Designer</SubType>
     </Content>

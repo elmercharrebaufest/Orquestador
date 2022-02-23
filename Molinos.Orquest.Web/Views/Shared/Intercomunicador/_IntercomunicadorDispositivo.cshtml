@@ -1,18 +1,20 @@
 ﻿@model Molinos.Orquest.Dominio.Dtos.IntercomunicadorDispositivoDto
-
 @using Newtonsoft.Json
-<div class="col-6" id="containerIntercom_@Model.UniqueId">
-    <label>Intercomunicador: @Model.Codigo</label>
-    <div class="comunicador">
-        <label class="switch" style="margin-right: 1em;">
-            <input type="checkbox" id="btnActivar_@Model.UniqueId">
-            <span class="slider round"></span>
-        </label>
-        <button class="button" id="btnMicrofono_@Model.UniqueId"><i class="fa fa-microphone-slash"></i></button>
+
+<div class="row-fluid" id="containerIntercom_@Model.UniqueId">
+    <div class="span7">
+        <label>Intercomunicador: @Model.Codigo</label>
+        <div class="comunicador">
+            <div class="span4">
+                <label class="switch intercomunicador" style="margin-right: 1em;">
+                    <input type="checkbox" id="btnActivar_@Model.UniqueId" class="intercomunicador">
+                    <span class="slider round intercomunicador"></span>
+                </label>
+                <button class="button intercomunicador" id="btnMicrofono_@Model.UniqueId"><i class="fa fa-microphone-slash intercomunicador"></i></button>
+            </div>
+        </div>
     </div>
 </div>
-
-
 <script>
     var intercomunicadorConfig_@Model.UniqueId = {
         containerId: "containerIntercom_@Model.UniqueId",
@@ -23,11 +25,6 @@
             audioSource: "audio-source",
         },
         vmData: @(Html.Raw(JsonConvert.SerializeObject(Model, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }))),
-        labels: {},
-        messages: {},
-        models: {},
-        aucDataSourceUrls: {},
-        generalUrls: {},
     };
 
     var intercomunicadorDispositivoVM_@Model.UniqueId = new IntercomunicadorDispositivoVM(intercomunicadorConfig_@Model.UniqueId);

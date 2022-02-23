@@ -1,12 +1,11 @@
-﻿using System.Globalization;
-using System.Linq;
-using System.Resources;
-using System.Web.Mvc;
-using Molinos.Orquest.Dominio.Recursos;
+﻿using Molinos.Orquest.Dominio.Recursos;
 using Molinos.Orquest.Web.Helpers;
 using Molinos.Orquest.Web.Models;
 using Ninject.Extensions.Logging;
-
+using System.Globalization;
+using System.Linq;
+using System.Resources;
+using System.Web.Mvc;
 
 namespace Molinos.Orquest.Web.Controllers
 {
@@ -51,15 +50,14 @@ namespace Molinos.Orquest.Web.Controllers
             var culture = CultureInfo.GetCultureInfo(lcid);
             SessionManager.CurrentCulture = culture;
             //
-            // Cache the new current culture into the user HTTP session. 
+            // Cache the new current culture into the user HTTP session.
             //
             var cookie = new CookieUsuario();
             cookie.ActualizarValor("CurrentCulture", lcid.ToString(CultureInfo.InvariantCulture));
             //
-            // Redirect to the same page from where the request was made! 
+            // Redirect to the same page from where the request was made!
             //
             return Redirect(Request.UrlReferrer.ToString());
         }
-
     }
 }

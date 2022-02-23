@@ -88,6 +88,24 @@
     cursor: default;
 }
 
+.intercomunicadorEstado {
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+    background-color: #999999;
+    border: solid;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+    .intercomunicadorEstado.prendido {
+        background-color: #60F200;
+    }
+
+    .intercomunicadorEstado.apagado {
+        background-color: #EF0001;
+    }
+
 @keyframes blink {
     0% {
         color: #FFFFFF;

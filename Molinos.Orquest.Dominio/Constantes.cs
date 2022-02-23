@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-namespace Molinos.Orquest.Dominio
+﻿namespace Molinos.Orquest.Dominio
 {
     public static class Constantes
     {
@@ -9,6 +6,11 @@ namespace Molinos.Orquest.Dominio
         {
             public const string HaciaLaWeb = "2web";
             public const string DesdeLaWeb = "web2";
+        }
+
+        public struct NotificacionGrupos
+        {
+            public const string Intercomunicador = "Intercomunicador";
         }
     }
 }

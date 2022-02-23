@@ -2158,6 +2158,24 @@ namespace Molinos.Orquest.Dominio.Recursos {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Puerto de Audio.
+        /// </summary>
+        public static string Intercomunicador_PuertoAudio {
+            get {
+                return ResourceManager.GetString("Intercomunicador_PuertoAudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tiempo Máximo Ejecución.
+        /// </summary>
+        public static string Intercomunicador_TiempoMaximoEjecucion {
+            get {
+                return ResourceManager.GetString("Intercomunicador_TiempoMaximoEjecucion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ITCs.
         /// </summary>
         public static string Itc_Administrar {
