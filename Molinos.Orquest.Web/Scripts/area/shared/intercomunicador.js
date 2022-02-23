@@ -664,19 +664,19 @@ IntercomunicadorDispositivoVM.prototype = {
     }
 }
 
-var notificadorLectura = $.connection.notificarLectura; //EN EL ORQUESTADOR notificarLectura PARA LA WEB notificaLectura
-$(function () {
-    window.hubReady.done(function () {
-        notificadorLectura.server.unirseAGrupo("Intercomunicador");
-    })
-});
+//var notificadorLectura = $.connection.notificarLectura; //EN EL ORQUESTADOR notificarLectura PARA LA WEB notificaLectura
+//$(function () {
+//    window.hubReady.done(function () {
+//        notificadorLectura.server.unirseAGrupo("Intercomunicador");
+//    })
+//});
 
-notificadorLectura.client.actualizarEstadoIntercomunicador = function (data) {
-    if (data.Speaker == true) {
-        $(".deviceStatus_" + data.CodigoDispositivo).removeClass("apagado");
-        $(".deviceStatus_" + data.CodigoDispositivo).addClass("prendido");
-    } else {
-        $(".deviceStatus_" + data.CodigoDispositivo).removeClass("prendido");
-        $(".deviceStatus_" + data.CodigoDispositivo).addClass("apagado");
-    }
-};
+//notificadorLectura.client.actualizarEstadoIntercomunicador = function (data) {
+//    if (data.Speaker == true) {
+//        $(".deviceStatus_" + data.CodigoDispositivo).removeClass("apagado");
+//        $(".deviceStatus_" + data.CodigoDispositivo).addClass("prendido");
+//    } else {
+//        $(".deviceStatus_" + data.CodigoDispositivo).removeClass("prendido");
+//        $(".deviceStatus_" + data.CodigoDispositivo).addClass("apagado");
+//    }
+//};
