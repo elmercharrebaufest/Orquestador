@@ -35,6 +35,7 @@ namespace Molinos.Orquest.DriversImpl
 
         public override void Inicializar(string codigo, ConfigDispositivo configuracion)
         {
+            Log.Debug("DriverSensorIntercomunicador Inicializar");
             codigoDispositivo = codigo;
             configSensor = (ConfigSensor)configuracion;
             entrada = configSensor.NumeroEntrada.ToString(CultureInfo.InvariantCulture);
@@ -56,8 +57,12 @@ namespace Molinos.Orquest.DriversImpl
 
         private void OnEventoDriverFisico(object sender, EventoDriverEventArgs evento)
         {
+            Log.Debug("DriverSensorIntercomunicador OnEventoDriverFisico");
+            
             var notificacion = evento.Notificacion;
 
+            Log.Debug("DriverSensorIntercomunicador Codigo:" + codigoDispositivo);
+            Log.Debug("DriverSensorIntercomunicador Datos: " + string.Join(Environment.NewLine, notificacion.Datos));
             var nuevoEvento = new EventoDriverEventArgs
             {
                 Notificacion = new NotificacionEvento

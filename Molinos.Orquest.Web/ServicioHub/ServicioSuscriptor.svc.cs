@@ -105,8 +105,10 @@ namespace Molinos.Orquest.Web.ServicioHub
                     }
                     else if (notificacion.CodigoEvento == CodigosEventos.CambioEstadoIntercomunicador)
                     {
-                        log.Debug("Informando estado dispositivo...");
+                        log.Debug("Informando estado dispositivo... CambioEstadoIntercomunicador");
                         var estados = notificacion.Datos["Dato"].Split(';');
+                        log.Debug("Informando estado dispositivo... Mic" + estados[0].ToLower());
+                        log.Debug("Informando estado dispositivo... Speaker" + estados[1].ToLower());
                         hubClient.Invoke("NotificarCambioEstadoIntercomunicador", new EstadoIntercomunicador
                         {
                             CodigoItc = codigoItc,
