@@ -15,7 +15,8 @@ namespace Molinos.Orquest.DriversImpl
         private string entrada;
 
         private readonly List<string> eventosSoportados = new List<string> {
-            CodigosEventos.CambioEstadoIntercomunicador
+            CodigosEventos.EntradaActivada
+            ,CodigosEventos.CambioEstadoIntercomunicador
             ,CodigosEventos.ErrorConexionDispositivo
             ,CodigosEventos.ConexionDispositivoCorrecta
         };
@@ -58,7 +59,7 @@ namespace Molinos.Orquest.DriversImpl
         private void OnEventoDriverFisico(object sender, EventoDriverEventArgs evento)
         {
             Log.Info("DriverSensorIntercomunicador OnEventoDriverFisico");
-            
+
             var notificacion = evento.Notificacion;
 
             Log.Info("DriverSensorIntercomunicador Codigo:" + codigoDispositivo);
