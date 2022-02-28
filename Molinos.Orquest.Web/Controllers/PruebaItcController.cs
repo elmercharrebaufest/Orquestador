@@ -35,13 +35,14 @@ namespace Molinos.Orquest.Web.Controllers
                 log.Debug("Obteniendo dispositivos...");
                 var dispositivo = repositorio.Obtener<Dispositivo>(id);
                 var barreras = repositorio.Listar<ConfigBarrera, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroSalida.ToString() }).ToList();
-                var sensores = repositorio.Listar<ConfigSensor, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroEntrada.ToString() }).ToList();
+                var sensores = repositorio.Listar<ConfigSensor, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroEntrada.ToString() ,Driver = x.ClaseDriver }).ToList();
                 var lectores = repositorio.Listar<ConfigLectorTarjetas, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.Lector }).ToList();
                 var lectoresQr = repositorio.Listar<ConfigLectorQr, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.Lector }).ToList();
                 var displays = repositorio.Listar<ConfigDisplay, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroSalida.ToString() }).ToList();
                 var cortinaAgua = repositorio.Listar<ConfigCortinaAgua, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroSalida.ToString() }).ToList();
                 var tags = repositorio.Listar<ConfigTag, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.Query.ToString() }).ToList();
                 var comunicadores = repositorio.Listar<ConfigComunicador, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroSalida.ToString(),PuertoDeAudio = x.PuertoDeAudio }).ToList();
+                var intercomunicadorDispositivos = new List<IntercomunicadorDispositivoDto>();
 
                 var errores = new List<string>();
                 var configItc = (ConfigItc) dispositivo.Configuracion;
@@ -76,11 +77,24 @@ namespace Molinos.Orquest.Web.Controllers
                 log.Debug("Suscribiendo eventos de entradas");
                 foreach (var sensor in sensores)
                 {
-                    Suscribir(sensor.Codigo, CodigosEventos.EntradaActivada, urlSuscriptor, errores);
-                    Suscribir(sensor.Codigo, CodigosEventos.EntradaDesactivada, urlSuscriptor, errores);
-                    Suscribir(sensor.Codigo, CodigosEventos.ErrorConexionDispositivo, urlSuscriptor, errores);
-                    Suscribir(sensor.Codigo, CodigosEventos.ConexionDispositivoCorrecta, urlSuscriptor, errores);
+
+                    switch (sensor.Driver)
+                    {
+                        case Constantes.Drivers.DriverSensorIntercomunicador:
+                            Suscribir(sensor.Codigo, CodigosEventos.CambioEstadoIntercomunicador, urlSuscriptor, errores);
+                            Suscribir(sensor.Codigo, CodigosEventos.ErrorConexionDispositivo, urlSuscriptor, errores);
+                            Suscribir(sensor.Codigo, CodigosEventos.ConexionDispositivoCorrecta, urlSuscriptor, errores);
+                            break;
+                        default:
+                            Suscribir(sensor.Codigo, CodigosEventos.EntradaActivada, urlSuscriptor, errores);
+                            Suscribir(sensor.Codigo, CodigosEventos.EntradaDesactivada, urlSuscriptor, errores);
+                            Suscribir(sensor.Codigo, CodigosEventos.ErrorConexionDispositivo, urlSuscriptor, errores);
+                            Suscribir(sensor.Codigo, CodigosEventos.ConexionDispositivoCorrecta, urlSuscriptor, errores);
+                            break;
+                    }
                 }
+                model.Sensores = sensores.Where(q => q.Driver != Constantes.Drivers.DriverSensorIntercomunicador).ToList();
+
                 foreach (var cortinaAg in cortinaAgua)
                 {
                     Suscribir(cortinaAg.Codigo, CodigosEventos.EntradaActivada, urlSuscriptor, errores);
@@ -88,13 +102,13 @@ namespace Molinos.Orquest.Web.Controllers
                     Suscribir(cortinaAg.Codigo, CodigosEventos.ConexionDispositivoCorrecta, urlSuscriptor, errores);
                 }
 
-                var intercomunicadorDispositivoList = new List<IntercomunicadorDispositivoDto>();
+             
                 foreach (var comunicador in comunicadores.OrderBy(q=>q.Numero))
                 {
                     var intercomunicadorConfig = GetIntercomunicadorDispositivoConfig(comunicador.Codigo, comunicador.PuertoDeAudio);
-                    intercomunicadorDispositivoList.Add(intercomunicadorConfig);
+                    intercomunicadorDispositivos.Add(intercomunicadorConfig);
                 }
-                ViewBag.InterComunicadorDispositivoList = intercomunicadorDispositivoList;
+                ViewBag.InterComunicadorDispositivoList = intercomunicadorDispositivos;
                 ViewBag.Errores = errores;
                 ViewBag.IdItc = id;
                 ViewBag.ServerIp = GetIPAddress();

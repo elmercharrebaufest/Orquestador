@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace Molinos.Orquest.DriversImpl
 {
-    public class DriverSensorlntercomunicador : DriverBase, IDriverSensor, IDriverLogico
+    public class DriverSensorIntercomunicador : DriverBase, IDriverSensor, IDriverLogico
     {
         private string codigoDispositivo;
         private ConfigSensor configSensor;
@@ -16,6 +16,8 @@ namespace Molinos.Orquest.DriversImpl
 
         private readonly List<string> eventosSoportados = new List<string> {
             CodigosEventos.CambioEstadoIntercomunicador
+            ,CodigosEventos.ErrorConexionDispositivo
+            ,CodigosEventos.ConexionDispositivoCorrecta
         };
 
         public override IEnumerable<string> EventosSoportados
