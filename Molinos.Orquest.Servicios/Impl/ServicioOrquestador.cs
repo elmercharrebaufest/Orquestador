@@ -48,6 +48,7 @@ namespace Molinos.Orquest.Servicios.Impl
 
         public void Iniciar(string nombreMaquina, string urlServicio)
         {
+            
             NombreMaquina = nombreMaquina;
             UrlServicio = urlServicio;
             log.Debug("Inicializando orquestador. Servidor: {0} Url: {1}", nombreMaquina, urlServicio);

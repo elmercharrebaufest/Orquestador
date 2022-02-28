@@ -18,8 +18,7 @@ namespace Molinos.Orquest.DriversImpl
             ,CodigosEventos.EntradaDesactivada
             ,CodigosEventos.ErrorConexionDispositivo
             ,CodigosEventos.ConexionDispositivoCorrecta
-            ,CodigosEventos.CambioEstadoSensor
-            ,CodigosEventos.CambioEstadoIntercomunicador};
+            ,CodigosEventos.CambioEstadoSensor};
 
         public override IEnumerable<string> EventosSoportados
         {
