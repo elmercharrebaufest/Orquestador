@@ -113,7 +113,7 @@ namespace Molinos.Orquest.Test.Controllers
             repositorioMock.Setup(x => x.Listar(It.IsAny<Expression<Func<ConfigDisplay, bool>>>(), It.IsAny<Expression<Func<ConfigDisplay, PruebaDispositivoModel>>>())).Returns(new List<PruebaDispositivoModel> { new PruebaDispositivoModel { Codigo = configLectorQr.Dispositivo.Codigo, Numero = configLectorQr.Lector.ToString() } });
             repositorioMock.Setup(x => x.Listar(It.IsAny<Expression<Func<ConfigCortinaAgua, bool>>>(), It.IsAny<Expression<Func<ConfigCortinaAgua, PruebaDispositivoModel>>>())).Returns(new List<PruebaDispositivoModel> { new PruebaDispositivoModel { Codigo = configLectorQr.Dispositivo.Codigo, Numero = configLectorQr.Lector.ToString() } });
             repositorioMock.Setup(x => x.Listar(It.IsAny<Expression<Func<ConfigTag, bool>>>(), It.IsAny<Expression<Func<ConfigTag, PruebaDispositivoModel>>>())).Returns(new List<PruebaDispositivoModel>());
-            repositorioMock.Setup(x => x.Listar(It.IsAny<Expression<Func<ConfigComunicador, bool>>>(), It.IsAny<Expression<Func<ConfigComunicador, PruebaDispositivoModel>>>())).Returns(new List<PruebaDispositivoModel>());
+            repositorioMock.Setup(x => x.Listar(It.IsAny<Expression<Func<ConfigComunicador, bool>>>(), It.IsAny<Expression<Func<ConfigComunicador, PruebaIntercomunicadorModel>>>())).Returns(new List<PruebaIntercomunicadorModel>());
 
             servicioMock.Setup(s => s.Suscribir(It.IsAny<ComandoSuscribir>())).Returns(new ResultadoSuscribir
                 {
