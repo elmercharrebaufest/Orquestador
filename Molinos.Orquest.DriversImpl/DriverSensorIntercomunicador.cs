@@ -16,8 +16,7 @@ namespace Molinos.Orquest.DriversImpl
         private string entrada;
 
         private readonly List<string> eventosSoportados = new List<string> {
-            CodigosEventos.EntradaActivada
-            ,CodigosEventos.CambioEstadoIntercomunicador
+            CodigosEventos.CambioEstadoIntercomunicador
             ,CodigosEventos.ErrorConexionDispositivo
             ,CodigosEventos.ConexionDispositivoCorrecta
         };
