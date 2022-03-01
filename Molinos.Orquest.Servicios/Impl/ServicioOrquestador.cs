@@ -812,12 +812,20 @@ namespace Molinos.Orquest.Servicios.Impl
             Ejecutar(new EjecutarComunicador { CodigoDispositivo = codigoDispositivo, Activar = activar, Tipo = Dominio.Enums.TipoComunicador.Speaker, ServerComunicador = server });
         }
 
-        public int? ObtenerIntercomunicadorPuertoDeAudio(string codigoDispositivo)
+        public IntercomunicadorDispositivoBaseDto ObtenerIntercomunicadorPuertoDeAudio(string codigoDispositivo)
         {
             using (var repositorio = factoryRepositorio.Repositorio())
             {
-                var resultado = repositorio.Obtener<ConfigComunicador>(m => m.Dispositivo.Codigo == codigoDispositivo);
-                return resultado.PuertoDeAudio;
+                var intercomunicadorDto = new IntercomunicadorDispositivoBaseDto();
+                var resultado = repositorio.Obtener<ConfigComunicador, IntercomunicadorDispositivoBaseDto>(x => 
+                x.Dispositivo.Codigo == codigoDispositivo, x => new IntercomunicadorDispositivoBaseDto
+                {
+                    Codigo = x.Dispositivo.Codigo
+                    ,PuertoDeAudio = x.PuertoDeAudio
+                    ,Sensor = x.Sensor.Codigo
+                });
+                //var resultado = repositorio.Obtener<ConfigComunicador, IntercomunicadorDispositivoBaseDto>(m => m.Dispositivo.Codigo == codigoDispositivo);
+                return resultado;
             }
         }
     }
