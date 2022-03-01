@@ -82,8 +82,8 @@ namespace Molinos.Orquest.Web.Controllers
                     {
                         case Constantes.Drivers.DriverSensorIntercomunicador:
                             Suscribir(sensor.Codigo, CodigosEventos.CambioEstadoIntercomunicador, urlSuscriptor, errores);
-                            //Suscribir(sensor.Codigo, CodigosEventos.ErrorConexionDispositivo, urlSuscriptor, errores);
-                            //Suscribir(sensor.Codigo, CodigosEventos.ConexionDispositivoCorrecta, urlSuscriptor, errores);
+                            Suscribir(sensor.Codigo, CodigosEventos.ErrorConexionDispositivo, urlSuscriptor, errores);
+                            Suscribir(sensor.Codigo, CodigosEventos.ConexionDispositivoCorrecta, urlSuscriptor, errores);
                             break;
 
                         default:
