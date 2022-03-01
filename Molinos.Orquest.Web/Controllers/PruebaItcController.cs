@@ -320,7 +320,7 @@ namespace Molinos.Orquest.Web.Controllers
                 UniqueId = codigoComunicador,
                 Codigo = codigoComunicador,
                 Sensor = codigoSensor,
-                AudioPort = (puertoAudio.HasValue) ? puertoAudio.Value.ToString() : string.Empty,
+                PuertoDeAudio = puertoAudio,
                 ICPCConfig = ConfigurationManager.AppSettings["ICPCConfig"],
                 ICWebServerUrl = ConfigurationManager.AppSettings["ICWebServerUrl"],
                 ICWSServerUrl = ConfigurationManager.AppSettings["ICWSServerUrl"],
