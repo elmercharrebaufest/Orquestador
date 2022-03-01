@@ -672,6 +672,7 @@ $(function () {
 });
 
 notificadorLectura.client.actualizarEstadoIntercomunicador = function (data) {
+    //CodigoDispositivo es el codigo del Sensor
     if (data.Speaker == true) {
         $(".deviceStatus_" + data.CodigoDispositivo).removeClass("apagado");
         $(".deviceStatus_" + data.CodigoDispositivo).addClass("prendido");

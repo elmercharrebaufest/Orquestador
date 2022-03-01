@@ -41,7 +41,7 @@ namespace Molinos.Orquest.Web.Controllers
                 var displays = repositorio.Listar<ConfigDisplay, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroSalida.ToString() }).ToList();
                 var cortinaAgua = repositorio.Listar<ConfigCortinaAgua, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroSalida.ToString() }).ToList();
                 var tags = repositorio.Listar<ConfigTag, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.Query.ToString() }).ToList();
-                var comunicadores = repositorio.Listar<ConfigComunicador, PruebaDispositivoModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaDispositivoModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroSalida.ToString(), PuertoDeAudio = x.PuertoDeAudio }).ToList();
+                var comunicadores = repositorio.Listar<ConfigComunicador, PruebaIntercomunicadorModel>(x => x.Dispositivo.Concentrador.Id == id, x => new PruebaIntercomunicadorModel { Codigo = x.Dispositivo.Codigo, Numero = x.NumeroSalida.ToString(), PuertoDeAudio = x.PuertoDeAudio, Sensor = x.Sensor.Codigo }).ToList();
                 var intercomunicadorDispositivos = new List<IntercomunicadorDispositivoDto>();
 
                 var errores = new List<string>();
@@ -58,7 +58,7 @@ namespace Molinos.Orquest.Web.Controllers
                     Displays = displays,
                     CortinaAgua = cortinaAgua,
                     Tags = tags,
-                    Comunicadores = comunicadores
+                    //Comunicadores = comunicadores
                 };
                 log.Debug("Suscribiendo eventos de lectores");
                 var urlSuscriptor = ConfigurationManager.AppSettings["UrlServicioSuscriptor"];
@@ -77,7 +77,6 @@ namespace Molinos.Orquest.Web.Controllers
                 log.Debug("Suscribiendo eventos de entradas");
                 foreach (var sensor in sensores)
                 {
-                    log.Info("El Driver del Intercomunicador es:" + sensor.Driver);
                     switch (sensor.Driver)
                     {
                         case Constantes.Drivers.DriverSensorIntercomunicador:
@@ -105,7 +104,7 @@ namespace Molinos.Orquest.Web.Controllers
 
                 foreach (var comunicador in comunicadores.OrderBy(q => q.Numero))
                 {
-                    var intercomunicadorConfig = GetIntercomunicadorDispositivoConfig(comunicador.Codigo, comunicador.PuertoDeAudio);
+                    var intercomunicadorConfig = GetIntercomunicadorDispositivoConfig(comunicador.Codigo, comunicador.Sensor, comunicador.PuertoDeAudio);
                     intercomunicadorDispositivos.Add(intercomunicadorConfig);
                 }
                 ViewBag.InterComunicadorDispositivoList = intercomunicadorDispositivos;
@@ -314,12 +313,13 @@ namespace Molinos.Orquest.Web.Controllers
             return Json(resultado);
         }
 
-        private IntercomunicadorDispositivoDto GetIntercomunicadorDispositivoConfig(string codigoComunicador, int? puertoAudio)
+        private IntercomunicadorDispositivoDto GetIntercomunicadorDispositivoConfig(string codigoComunicador, string codigoSensor, int? puertoAudio)
         {
             var intercomunicadorDispositivo = new IntercomunicadorDispositivoDto
             {
                 UniqueId = codigoComunicador,
                 Codigo = codigoComunicador,
+                Sensor = codigoSensor,
                 AudioPort = (puertoAudio.HasValue) ? puertoAudio.Value.ToString() : string.Empty,
                 ICPCConfig = ConfigurationManager.AppSettings["ICPCConfig"],
                 ICWebServerUrl = ConfigurationManager.AppSettings["ICWebServerUrl"],

@@ -1,0 +1,13 @@
+﻿@model Molinos.Orquest.Web.Models.ConfigComunicadorModel
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sensor_Id)
+            @Html.DropDownListFor(model => model.Sensor_Id, (IEnumerable<SelectListItem>)ViewBag.Sensores, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Sensor_Id, null, new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
