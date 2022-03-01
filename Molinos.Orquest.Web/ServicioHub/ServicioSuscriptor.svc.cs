@@ -5,6 +5,7 @@ using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
 using Molinos.Orquest.Servicios;
+using Newtonsoft.Json;
 using Ninject.Extensions.Logging;
 
 namespace Molinos.Orquest.Web.ServicioHub
@@ -29,13 +30,17 @@ namespace Molinos.Orquest.Web.ServicioHub
         {
             try
             {
+       
+                log.Info("Evento recibido Recibir :", JsonConvert.SerializeObject(notificacion, Formatting.Indented));
                 log.Debug("Evento recibido: {0}", notificacion);
                 using (var repositorio = factoryRepo.Repositorio())
                 {
+                    log.Info("1");
                     var codigoItc = repositorio.Obtener<Dispositivo, string>(x => x.Codigo == notificacion.CodigoDispositivo, x => x.Concentrador.Codigo);
 
                     if (notificacion.CodigoEvento == CodigosEventos.LecturaTarjetaRecibida)
                     {
+                        log.Info("2");
                         log.Debug("Informando lectura de tarjeta...");
                         hubClient.Invoke("NotificarLecturaTarjeta", new LecturaTarjeta
                         {
@@ -47,6 +52,7 @@ namespace Molinos.Orquest.Web.ServicioHub
                     else if (notificacion.CodigoEvento == CodigosEventos.EntradaActivada
                                 || notificacion.CodigoEvento == CodigosEventos.EntradaDesactivada)
                     {
+                        log.Info("3");
                         log.Debug("Informando lectura de entrada...");
                         hubClient.Invoke("NotificarLecturaEntrada", new LecturaEntrada
                         {
@@ -58,6 +64,7 @@ namespace Molinos.Orquest.Web.ServicioHub
                     else if (notificacion.CodigoEvento == CodigosEventos.ErrorConexionDispositivo
                         || notificacion.CodigoEvento == CodigosEventos.ConexionDispositivoCorrecta)
                     {
+                        log.Info("4");
                         log.Debug("Informando estado dispositivo...");
                         hubClient.Invoke("NotificarEstadoDispositivo", new EstadoDispositivo
                         {
@@ -70,6 +77,7 @@ namespace Molinos.Orquest.Web.ServicioHub
                     //TODO: Deprecar
                     else if (notificacion.CodigoEvento == CodigosEventos.LecturaTarjetaMolinete)
                     {
+                        log.Info("5");
                         log.Debug("Informando estado dispositivo...");
                         hubClient.Invoke("NotificarLecturaTarjetaMolinete", new LecturaTarjetaMolinete
                         {
@@ -81,6 +89,7 @@ namespace Molinos.Orquest.Web.ServicioHub
                     //TODO: Deprecar
                     else if (notificacion.CodigoEvento == CodigosEventos.NuevoTransito)
                     {
+                        log.Info("6");
                         log.Debug("Informando estado dispositivo...");
                         hubClient.Invoke("NotificarTransitoMolinete", new TransitoMolinete
                         {
@@ -93,6 +102,7 @@ namespace Molinos.Orquest.Web.ServicioHub
                     }
                     else if (notificacion.CodigoEvento == CodigosEventos.LecturaQr)
                     {
+                        log.Info("7");
                         log.Debug("Informando estado dispositivo...");
                         hubClient.Invoke("NotificarLecturaDni", new LecturaQr
                         {
@@ -105,6 +115,7 @@ namespace Molinos.Orquest.Web.ServicioHub
                     }
                     else if (notificacion.CodigoEvento == CodigosEventos.CambioEstadoIntercomunicador)
                     {
+                        log.Info("8");
                         log.Info("Informando estado dispositivo... CambioEstadoIntercomunicador");
                         var estados = notificacion.Datos["Dato"].Split(';');
                         log.Info("Informando estado dispositivo... Mic" + estados[0].ToLower());

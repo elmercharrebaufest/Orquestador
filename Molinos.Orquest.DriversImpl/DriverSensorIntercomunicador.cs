@@ -1,6 +1,7 @@
 ﻿using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -63,7 +64,7 @@ namespace Molinos.Orquest.DriversImpl
             var notificacion = evento.Notificacion;
 
             Log.Info("DriverSensorIntercomunicador Codigo:" + codigoDispositivo);
-            Log.Info("DriverSensorIntercomunicador Datos: " + string.Join(Environment.NewLine, notificacion.Datos));
+            Log.Info("DriverSensorIntercomunicador Datos: " + JsonConvert.SerializeObject(notificacion, Formatting.Indented));
             var nuevoEvento = new EventoDriverEventArgs
             {
                 Notificacion = new NotificacionEvento
