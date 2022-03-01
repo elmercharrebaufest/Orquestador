@@ -152,11 +152,8 @@ namespace Molinos.Orquest.DriversImpl
 
                     try
                     {
-                        Log.Info("Intercomunicador DriverIotBox response0");
-                        Log.Info("Intercomunicador DriverIotBox response1:" + response);
                         if (response != null && response != "\"ok\"")
                         {
-                            Log.Info("Intercomunicador DriverIotBox response2:" + response);
                             respuesta = JsonConvert.DeserializeObject<List<EntradaDto>>(response);
                             if (respuesta[0].Dato == "pingResponse")
                             {

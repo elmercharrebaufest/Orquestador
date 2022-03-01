@@ -305,6 +305,7 @@
     <Compile Include="Models\FirmaModel.cs" />
     <Compile Include="Models\PermisoModel.cs" />
     <Compile Include="Models\PruebaDispositivoModel.cs" />
+    <Compile Include="Models\PruebaIntercomunicadorModel.cs" />
     <Compile Include="Models\PruebaMolineteModel.cs" />
     <Compile Include="Models\ResultadoPruebaModel.cs" />
     <Compile Include="Models\RolModel.cs" />
@@ -1781,6 +1782,7 @@
     <Content Include="Views\Intercomunicador\Probar.cshtml" />
     <Content Include="Views\Shared\Intercomunicador\_IntercomunicadorDispositivo.cshtml" />
     <Content Include="Views\Shared\Intercomunicador\_Intercomunicador.cshtml" />
+    <Content Include="Views\Intercomunicador\_SensorDeEstado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

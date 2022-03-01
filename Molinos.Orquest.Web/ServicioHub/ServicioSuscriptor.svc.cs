@@ -40,8 +40,6 @@ namespace Molinos.Orquest.Web.ServicioHub
 
                     if (notificacion.CodigoEvento == CodigosEventos.LecturaTarjetaRecibida)
                     {
-                        log.Info("2");
-                        log.Debug("Informando lectura de tarjeta...");
                         hubClient.Invoke("NotificarLecturaTarjeta", new LecturaTarjeta
                         {
                             CodigoItc = codigoItc,
@@ -52,8 +50,6 @@ namespace Molinos.Orquest.Web.ServicioHub
                     else if (notificacion.CodigoEvento == CodigosEventos.EntradaActivada
                                 || notificacion.CodigoEvento == CodigosEventos.EntradaDesactivada)
                     {
-                        log.Info("3");
-                        log.Debug("Informando lectura de entrada...");
                         hubClient.Invoke("NotificarLecturaEntrada", new LecturaEntrada
                         {
                             CodigoItc = codigoItc,
@@ -64,8 +60,6 @@ namespace Molinos.Orquest.Web.ServicioHub
                     else if (notificacion.CodigoEvento == CodigosEventos.ErrorConexionDispositivo
                         || notificacion.CodigoEvento == CodigosEventos.ConexionDispositivoCorrecta)
                     {
-                        log.Info("4");
-                        log.Debug("Informando estado dispositivo...");
                         hubClient.Invoke("NotificarEstadoDispositivo", new EstadoDispositivo
                         {
                             CodigoItc = codigoItc,
@@ -77,8 +71,6 @@ namespace Molinos.Orquest.Web.ServicioHub
                     //TODO: Deprecar
                     else if (notificacion.CodigoEvento == CodigosEventos.LecturaTarjetaMolinete)
                     {
-                        log.Info("5");
-                        log.Debug("Informando estado dispositivo...");
                         hubClient.Invoke("NotificarLecturaTarjetaMolinete", new LecturaTarjetaMolinete
                         {
                             CodigoMolinete = notificacion.CodigoDispositivo,
@@ -89,8 +81,6 @@ namespace Molinos.Orquest.Web.ServicioHub
                     //TODO: Deprecar
                     else if (notificacion.CodigoEvento == CodigosEventos.NuevoTransito)
                     {
-                        log.Info("6");
-                        log.Debug("Informando estado dispositivo...");
                         hubClient.Invoke("NotificarTransitoMolinete", new TransitoMolinete
                         {
                             CodigoMolinete = notificacion.CodigoDispositivo,
@@ -102,8 +92,6 @@ namespace Molinos.Orquest.Web.ServicioHub
                     }
                     else if (notificacion.CodigoEvento == CodigosEventos.LecturaQr)
                     {
-                        log.Info("7");
-                        log.Debug("Informando estado dispositivo...");
                         hubClient.Invoke("NotificarLecturaDni", new LecturaQr
                         {
                             CodigoItc = codigoItc,
@@ -115,11 +103,7 @@ namespace Molinos.Orquest.Web.ServicioHub
                     }
                     else if (notificacion.CodigoEvento == CodigosEventos.CambioEstadoIntercomunicador)
                     {
-                        log.Info("8");
-                        log.Info("Informando estado dispositivo... CambioEstadoIntercomunicador");
                         var estados = notificacion.Datos["Dato"].Split(';');
-                        log.Info("Informando estado dispositivo... Mic" + estados[0].ToLower());
-                        log.Info("Informando estado dispositivo... Speaker" + estados[1].ToLower());
                         hubClient.Invoke("NotificarCambioEstadoIntercomunicador", new EstadoIntercomunicador
                         {
                             CodigoItc = codigoItc,

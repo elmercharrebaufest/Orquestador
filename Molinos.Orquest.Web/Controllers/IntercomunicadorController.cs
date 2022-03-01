@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
@@ -26,7 +27,7 @@ using System.Web.Mvc;
 
 namespace Molinos.Orquest.Web.Controllers
 {
-    [Autorizacion(PermisosOrquestador.Historian)]
+    [Autorizacion(PermisosOrquestador.Comunicador)]
     public class IntercomunicadorController : BaseController
     {
         private readonly IConversor conversor;
@@ -78,28 +79,26 @@ namespace Molinos.Orquest.Web.Controllers
             return View("Listar", (object)filtro);
         }
 
-        private void ListQuery(string filtro, int pagina, string ordenarPor, DirOrden dirOrden)
-        {
-            Expression<Func<ConfigComunicador, bool>> expresionFiltro = null;
-            if (!string.IsNullOrEmpty(filtro))
-            {
-                filtro = filtro.Trim();
-                expresionFiltro = x => x.Dispositivo.Codigo.Contains(filtro) || x.Dispositivo.Descripcion.Contains(filtro) || x.ClaseDriver.Contains(filtro);
-            }
-            var paginacion = new Paginacion(ordenarPor, dirOrden, pagina, 8);
-            var consulta = conversor.ConvertirListaPaginada<ConfigComunicador, ConfigComunicadorModel>(repositorio.Listar(expresionFiltro, paginacion));
-            ViewBag.Items = consulta;
-        }
-
-        [Autorizacion(PermisosOrquestador.Historian)]
+        [Autorizacion(PermisosOrquestador.Comunicador)]
         public ActionResult Crear()
         {
+            ViewBag.Sensores = new List<SelectListItem>();
             SetearVistaConfiguracion(drivers);
             return View();
         }
 
+        [Autorizacion(PermisosOrquestador.Comunicador)]
+        public ActionResult Modificar(int id)
+        {
+            var comunicador = conversor.Convertir<ConfigComunicador, ConfigComunicadorModel>(repositorio.Obtener<ConfigComunicador>(id));
+            comunicador.Dispositivo.ConcentradorId = comunicador.Dispositivo.Concentrador != null ? comunicador.Dispositivo.Concentrador.Id : 0;
+            ViewBag.Sensores = ObtenerSensores(comunicador.Dispositivo.ConcentradorId);
+            SetearVistaConfiguracion(drivers);
+            return View(comunicador);
+        }
+
         [HttpPost]
-        [Autorizacion(PermisosOrquestador.Historian)]
+        [Autorizacion(PermisosOrquestador.Comunicador)]
         public ActionResult Crear(ConfigComunicadorModel model)
         {
             if (!model.Dispositivo.EsConcentrador && model.Dispositivo.ConcentradorId > 0)
@@ -127,34 +126,8 @@ namespace Molinos.Orquest.Web.Controllers
             return View(model);
         }
 
-        [Autorizacion(PermisosOrquestador.Historian)]
-        public ActionResult Modificar(int id)
-        {
-            var comunicador = conversor.Convertir<ConfigComunicador, ConfigComunicadorModel>(repositorio.Obtener<ConfigComunicador>(id));
-            comunicador.Dispositivo.ConcentradorId = comunicador.Dispositivo.Concentrador != null ? comunicador.Dispositivo.Concentrador.Id : 0;
-
-            SetearVistaConfiguracion(drivers);
-            return View(comunicador);
-        }
-
-        private string CaracterValido(string carInicioFrase)
-        {
-            var ascii = Encoding.ASCII;
-            var asciiBytes = ascii.GetBytes(carInicioFrase.ToCharArray());
-            var asciiChars = new char[ascii.GetCharCount(asciiBytes, 0, asciiBytes.Length)];
-            ascii.GetChars(asciiBytes, 0, asciiBytes.Length, asciiChars, 0);
-            if (asciiChars.Length > 0)
-            {
-                if (asciiChars[0] >= 0 && asciiChars[0] <= 31)
-                {
-                    return Server.UrlEncode(carInicioFrase);
-                }
-            }
-            return carInicioFrase;
-        }
-
         [HttpPost]
-        [Autorizacion(PermisosOrquestador.Historian)]
+        [Autorizacion(PermisosOrquestador.Comunicador)]
         public ActionResult Modificar(ConfigComunicadorModel model)
         {
             if (ModelState.IsValid)
@@ -173,6 +146,7 @@ namespace Molinos.Orquest.Web.Controllers
                     configComunicador.NumeroSalida = model.NumeroSalida;
                     configComunicador.PuertoDeAudio = model.PuertoDeAudio;
                     configComunicador.TiempoMaximoEjecucion = model.TiempoMaximoEjecucion;
+                    configComunicador.SensorId = model.Sensor_Id;
 
                     repositorio.GuardarCambios();
                     RecargarConfiguracion(model.Dispositivo.Codigo);
@@ -184,7 +158,7 @@ namespace Molinos.Orquest.Web.Controllers
         }
 
         [HttpPost]
-        [Autorizacion(PermisosOrquestador.Historian)]
+        [Autorizacion(PermisosOrquestador.Comunicador)]
         public ActionResult Eliminar(int id)
         {
             var contenido = "true";
@@ -215,8 +189,17 @@ namespace Molinos.Orquest.Web.Controllers
 
         public ActionResult Probar(int id)
         {
+
+            var urlSuscriptor = ConfigurationManager.AppSettings["UrlServicioSuscriptor"];
             var comunicador = conversor.Convertir<ConfigComunicador, ConfigComunicadorModel>(repositorio.Obtener<ConfigComunicador>(id));
-            var intercomunicadorConfig = GetIntercomunicadorDispositivoConfig(comunicador.Dispositivo.Codigo, comunicador.PuertoDeAudio);
+            var sensor = repositorio.Obtener<Dispositivo>(x => x.Id == comunicador.Sensor_Id);
+            var errores = new List<string>();
+
+            Suscribir(sensor.Codigo, CodigosEventos.CambioEstadoIntercomunicador, urlSuscriptor, errores);
+            Suscribir(sensor.Codigo, CodigosEventos.ErrorConexionDispositivo, urlSuscriptor, errores);
+            Suscribir(sensor.Codigo, CodigosEventos.ConexionDispositivoCorrecta, urlSuscriptor, errores);
+
+            var intercomunicadorConfig = GetIntercomunicadorDispositivoConfig(comunicador.Dispositivo.Codigo, sensor.Codigo, comunicador.PuertoDeAudio);
             ViewBag.InterComunicadorDispositivo = intercomunicadorConfig;
             return View(comunicador);
         }
@@ -240,6 +223,16 @@ namespace Molinos.Orquest.Web.Controllers
             return View("~/Views/PruebaConexion/ResultadoPrueba.cshtml", resultados);
         }
 
+        [AjaxOnly]
+        public ActionResult ObtenerSensoresPorConcentrador(int concentradorId)
+        {
+            var sensores = repositorio.Listar<ConfigSensor>(q => q.Dispositivo.Concentrador.Id == concentradorId)
+                .Select(d => new SelectListItem { Text = d.Dispositivo.Descripcion, Value = d.Dispositivo.Id.ToString(CultureInfo.InvariantCulture) }).ToList();
+
+            ViewBag.Sensores = sensores;
+            return View("_SensorDeEstado");
+        }
+
         [HttpPost]
         public ActionResult PrenderApagarDispositivo(string codigoDispositivo, bool activar)
         {
@@ -248,22 +241,67 @@ namespace Molinos.Orquest.Web.Controllers
             return Json(true);
         }
 
-        private IntercomunicadorDispositivoDto GetIntercomunicadorDispositivoConfig(string codigoComunicador, int? puertoAudio)
+        private IntercomunicadorDispositivoDto GetIntercomunicadorDispositivoConfig(string codigoComunicador, string codigoSensor, int? puertoAudio)
         {
             var intercomunicadorDispositivo = new IntercomunicadorDispositivoDto
             {
                 UniqueId = codigoComunicador,
                 Codigo = codigoComunicador,
+                Sensor = codigoSensor,
                 AudioPort = (puertoAudio.HasValue) ? puertoAudio.Value.ToString() : string.Empty,
                 ICPCConfig = ConfigurationManager.AppSettings["ICPCConfig"],
                 ICWebServerUrl = ConfigurationManager.AppSettings["ICWebServerUrl"],
                 ICWSServerUrl = ConfigurationManager.AppSettings["ICWSServerUrl"],
-                DeviceActivationUrl = Url.Action("PrenderApagarDispositivo", "Intercomunicador"),
+                DeviceActivationUrl = Url.Action("PrenderApagarDispositivo", "PruebaItc"),
                 PublishingPathListen = codigoComunicador + Constantes.IntercomunicadorDireccion.HaciaLaWeb,
                 PublishingPathSpeak = Constantes.IntercomunicadorDireccion.DesdeLaWeb + codigoComunicador,
             };
 
             return intercomunicadorDispositivo;
+        }
+
+        private void ListQuery(string filtro, int pagina, string ordenarPor, DirOrden dirOrden)
+        {
+            Expression<Func<ConfigComunicador, bool>> expresionFiltro = null;
+            if (!string.IsNullOrEmpty(filtro))
+            {
+                filtro = filtro.Trim();
+                expresionFiltro = x => x.Dispositivo.Codigo.Contains(filtro) || x.Dispositivo.Descripcion.Contains(filtro) || x.ClaseDriver.Contains(filtro);
+            }
+            var paginacion = new Paginacion(ordenarPor, dirOrden, pagina, 8);
+            var consulta = conversor.ConvertirListaPaginada<ConfigComunicador, ConfigComunicadorModel>(repositorio.Listar(expresionFiltro, paginacion));
+            ViewBag.Items = consulta;
+        }
+
+        private List<SelectListItem> ObtenerSensores(int concentradorId) {
+            var sensores = repositorio.Listar<ConfigSensor>(q => q.Dispositivo.Concentrador.Id == concentradorId)
+                  .Select(d => new SelectListItem { Text = d.Dispositivo.Descripcion, Value = d.Dispositivo.Id.ToString(CultureInfo.InvariantCulture) }).ToList();
+            return sensores;
+        }
+
+        private void Suscribir(string codigoDisp, string codigoEvento, string urlSuscriptor, List<string> errores)
+        {
+            try
+            {
+                var resultado = servicio.Suscribir(new ComandoSuscribir
+                {
+                    CodigoDispositivo = codigoDisp,
+                    CodigoEvento = codigoEvento,
+                    RutaAccesoSuscriptor = urlSuscriptor
+                });
+
+                if (resultado.Mensaje.Codigo != 0)
+                {
+                    var mensaje = String.Format("{0}: {1}-{2}", codigoDisp, resultado.Mensaje.Codigo, resultado.Mensaje.Descripcion);
+                    log.Warn(mensaje);
+                    errores.Add(mensaje);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "No se pudo acceder al orquestador de dispositivos");
+                errores.Add(String.Format("{0}: {1}", codigoDisp, Textos.PruebaItc_ErrorServicio));
+            }
         }
     }
 }
