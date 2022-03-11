@@ -19,6 +19,7 @@ namespace Molinos.Orquest.Servicios.Procesamiento
 
         protected override ResultadoEjecutar Ejecutar(EjecutarAperturaBarrera comando, Dispositivo dispositivo, IDriver driver)
         {
+            Log.Info("Comando Apertura Barrera Garita : " + comando.ToString());
             ((IDriverBarrera)driver).Abrir();
             return new ResultadoEjecutar { Mensaje = Mensaje.ResultadoOK() };
         }
