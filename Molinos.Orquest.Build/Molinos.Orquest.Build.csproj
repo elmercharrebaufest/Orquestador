@@ -70,6 +70,12 @@
     <None Include="Deploy\deploy.GSLOACCESOS01.targets">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Deploy\deploy.GSLOSCATOOPSQA00.targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Deploy\deploy.GSLOSCATOOPS00.targets">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Deploy\deploy.GVICSCATOAPP04.targets">
       <SubType>Designer</SubType>
     </None>
