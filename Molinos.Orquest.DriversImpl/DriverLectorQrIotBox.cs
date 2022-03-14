@@ -183,14 +183,22 @@ namespace Molinos.Orquest.DriversImpl
         }
         private void ProcesarQrDni(string respuesta, Dictionary<string, string> datosPersonales)
         {
-            var datosLectura = respuesta.Split('"').Count() == 9 ? respuesta.Split('"') : respuesta.Split('@');
+            var datosLectura = respuesta.Split('"').Count() >= 8 ? respuesta.Split('"') : respuesta.Split('@');
 
-            if (datosLectura.Count() == 9)
+            if (datosLectura.Count() >= 8)
             {
                 datosPersonales.Add("Dni", datosLectura[4]);
                 datosPersonales.Add("Nombre", datosLectura[2]);
                 datosPersonales.Add("Apellido", datosLectura[1]);
-                datosPersonales.Add("Cuit", datosLectura[8]);
+                if (datosLectura.Count() == 9)
+                {
+                    datosPersonales.Add("Cuit", datosLectura[8]);
+                }
+                else
+                {
+                    datosPersonales.Add("Cuit", "000");
+
+                }
                 datosPersonales.Add("TipoDeQr", TipoQr.Dni.ToString());
             }
         }
