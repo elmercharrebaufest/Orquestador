@@ -30,6 +30,7 @@ namespace Molinos.Orquest.ModuloALPR.Impl
             var licencia = ConfigurationManager.AppSettings["LicenciaALPR"];
             var rutaImagenes = ConfigurationManager.AppSettings["RutaImagenes"];
             var guardarImagenes = ConfigurationManager.AppSettings["GuardarImagenes"];
+            var guidRequest = Guid.NewGuid().ToString();
 
             lock (LockObject)
             {
@@ -57,7 +58,7 @@ namespace Molinos.Orquest.ModuloALPR.Impl
 
                                     if(guardarImagenes.ToLower() == "true")
                                     {
-                                        imagenCortada.Save(string.Format("{0}/{1}.jpeg",rutaImagenes, DateTime.Now.ToString("yyyyMMdd_HHmmssfff")), ImageFormat.Jpeg);
+                                        imagenCortada.Save(string.Format("{0}/{1}_{2}.jpeg",rutaImagenes, DateTime.Now.ToString("yyyyMMdd_HHmmssfff"), guidRequest), ImageFormat.Jpeg);
                                     }
 
                                     var results = alpr.Recognize(ms.ToArray());
@@ -80,7 +81,7 @@ namespace Molinos.Orquest.ModuloALPR.Impl
                 }
             }
 
-            log.Info($"Patente reconocida {resultado.Patente} ");
+            log.Info($"Patente reconocida ({guidRequest}) {resultado.Patente} ");
             return resultado;
         }
 
