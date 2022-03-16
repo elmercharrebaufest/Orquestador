@@ -10,6 +10,7 @@ using NUnit.Framework;
 using Ninject;
 using Ninject.Extensions.Logging;
 using Ninject.Planning.Bindings;
+using System.Threading;
 
 namespace Molinos.Orquest.Test.Servicios
 {
@@ -220,7 +221,11 @@ namespace Molinos.Orquest.Test.Servicios
         {
             return 999;
         }
-
+        public decimal? ObtenerPH(DateTime? fechaDeInicio = null)
+        {
+            Thread.Sleep(100);
+            return DateTime.Now.Millisecond % 100;
+        }
         public virtual void Dispose()
         {
         }

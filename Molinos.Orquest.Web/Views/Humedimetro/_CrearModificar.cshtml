@@ -65,19 +65,30 @@
                 @Html.ValidationMessageFor(model => model.PosicionCampoHumedad, null, new { @class = "text-danger" })
             </div>
         </div>
+      
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PosicionCampoPesoHectolitrico)
+                @Html.TextBoxFor(model => model.PosicionCampoPesoHectolitrico, new { @class = "form-control", maxlength = 1 })
+                @Html.ValidationMessageFor(model => model.PosicionCampoPesoHectolitrico, null, new { @class = "text-danger" })
+            </div>
+        </div>
+      
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeoutLectura)
+                @Html.TextBoxFor(model => model.TimeoutLectura, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TimeoutLectura, null, new { @class = "text-danger" })
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.Dispositivo.Activo)
                 @Html.CheckBoxFor(model => model.Dispositivo.Activo, new { @checked = "checked" })
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.TimeoutLectura)
-                @Html.TextBoxFor(model => model.TimeoutLectura, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TimeoutLectura, null, new { @class = "text-danger" })
             </div>
         </div>
     </div>

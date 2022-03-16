@@ -73,5 +73,35 @@ namespace Molinos.Orquest.DriversImpl
                 throw new DriverException(string.Format("Error al conectarse al dispositivo {0}", configHumedimetro), e);
             }
         }
+
+        public decimal? ObtenerPH(DateTime? fechaDeInicio = null)
+        {
+            try
+            {
+                using (var cliente = new TcpCommandClient(configHumedimetro.DireccionIp, configHumedimetro.Puerto, configHumedimetro.LongFrase, configHumedimetro.TimeoutLectura, Log))
+                {
+                    var frase = cliente.LeerRespuesta(0, configHumedimetro.LongFrase);
+                    Log.Info("Captura de PH - " + configHumedimetro.Dispositivo.Codigo + " - '" + (frase != null ? frase.Replace("\r", "") : "No Responde") + "'");
+                    var stringPH = frase.Split(new[] { configHumedimetro.DelimitadorCampos }, StringSplitOptions.None)[configHumedimetro.PosicionCampoPesoHectolitrico];
+                    return decimal.Parse(stringPH, CultureInfo.InvariantCulture);
+                }
+            }
+            catch (SocketException e)
+            {
+                throw new ConexionDispositivoDriverException(string.Format("Falló la conexión al dispositivo {0}", codigoHumedimetro), e);
+            }
+            catch (IOException e)
+            {
+                throw new ConexionDispositivoDriverException(string.Format("Falló la conexión al dispositivo {0}", codigoHumedimetro), e);
+            }
+            catch (FormatException e)
+            {
+                throw new FormatoRespuestaDriverException(string.Format("Formato de respuesta del dispositivo {0}", codigoHumedimetro), e);
+            }
+            catch (Exception e)
+            {
+                throw new DriverException(string.Format("Error al conectarse al dispositivo {0}", configHumedimetro), e);
+            }
+        }
     }
 }
