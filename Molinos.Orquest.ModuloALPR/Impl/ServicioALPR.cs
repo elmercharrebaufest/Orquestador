@@ -28,6 +28,9 @@ namespace Molinos.Orquest.ModuloALPR.Impl
             String config_file = Path.Combine(AssemblyDirectory + "\\..\\ALPR\\dll", "openalpr.conf");
             String runtime_data_dir = Path.Combine(AssemblyDirectory + "\\..\\ALPR\\dll", "runtime_data");
             var licencia = ConfigurationManager.AppSettings["LicenciaALPR"];
+            var rutaImagenes = ConfigurationManager.AppSettings["RutaImagenes"];
+            var guardarImagenes = ConfigurationManager.AppSettings["GuardarImagenes"];
+            var guidRequest = Guid.NewGuid().ToString();
 
             lock (LockObject)
             {
@@ -52,9 +55,21 @@ namespace Molinos.Orquest.ModuloALPR.Impl
                                 using (var ms = new MemoryStream())
                                 {
                                     imagenCortada.Save(ms, ImageFormat.Jpeg);
+
+                                    if(guardarImagenes.ToLower() == "true")
+                                    {
+                                        imagenCortada.Save(string.Format("{0}/{1}_{2}.jpeg",rutaImagenes, DateTime.Now.ToString("yyyyMMdd_HHmmssfff"), guidRequest), ImageFormat.Jpeg);
+                                    }
+
                                     var results = alpr.Recognize(ms.ToArray());
                                     if (results.results.Any() && results.results.First().candidates.Any())
                                     {
+                                        if(results.results.First().candidates.Count > 1)
+                                        {
+                                            var patentes = results.results.First().candidates.Select(x => x.plate);
+                                            log.Info(string.Format("Se reconocio más de una patente: ", string.Join(",",patentes.ToArray())));
+                                        }
+
                                         var reconocimiento = results.results.First().candidates.First();
                                         resultado.Patente = reconocimiento.plate.PadRight(12).Trim();
                                         resultado.Confianza = reconocimiento.confidence;
@@ -66,7 +81,7 @@ namespace Molinos.Orquest.ModuloALPR.Impl
                 }
             }
 
-            log.Info($"Patente reconocida {resultado.Patente} ");
+            log.Info($"Patente reconocida ({guidRequest}) {resultado.Patente} ");
             return resultado;
         }
 
