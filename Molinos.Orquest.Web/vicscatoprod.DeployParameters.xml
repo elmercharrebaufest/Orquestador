@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <setParameter name="IIS Web Application Name" value="Scato/Orquest.web" />
-  <setParameter name="OrquestadorDb-Web.config Connection String" value="Data Source=GVICSQLAPP2016.molinosagro.ad;Initial Catalog=MOAOrquestador;Integrated Security=True" />
-  <setParameter name="FederationMetadataLocation Config" value="https://pasa.molinos.com.ar/FederationMetadata/2007-06/FederationMetadata.xml" />
-  <setParameter name="CertificateValidation Identity Configuration" value="None" />
+	<setParameter name="IIS Web Application Name" value="Scato/Orquest.web" />
+	<setParameter name="OrquestadorDb-Web.config Connection String" value="Data Source=GVICSQLAPP2016.molinosagro.ad;Initial Catalog=MOAOrquestador;Integrated Security=True" />
+	<setParameter name="FederationMetadataLocation Config" value="https://pasa.molinos.com.ar/FederationMetadata/2007-06/FederationMetadata.xml" />
+	<setParameter name="CertificateValidation Identity Configuration" value="None" />
 
-  <setParameter name="UrlServicioNotificaciones Config" value="http://scato.molinosagro.com.ar/Orquest.web/" />
-  <setParameter name="UrlServicioSuscriptor Config" value="http://localhost/Orquest.web/ServicioHub/ServicioSuscriptor.svc" />
-  <setParameter name="Orquestador Service Endpoint Address" value="http://localhost:8080/ServicioOrquestador" />
-  <setParameter name="OrquestadorService Config" value="SCATO - Orquestador de Dispositivos" />
+	<setParameter name="UrlServicioNotificaciones Config" value="http://scato.molinosagro.com.ar/Orquest.web/" />
+	<setParameter name="UrlServicioSuscriptor Config" value="http://localhost/Orquest.web/ServicioHub/ServicioSuscriptor.svc" />
+	<setParameter name="Orquestador Service Endpoint Address" value="http://localhost:8080/ServicioOrquestador" />
+	<setParameter name="OrquestadorService Config" value="SCATO - Orquestador de Dispositivos" />
 	<setParameter name="HostServiciosWeb Config" value="GVICSCATOAPP01;GVICSCATOAPP02;GVICSCATOAPP02;GVICSCATOAPP03" />
-	
+	<setParameter name="ICWebServerUrl Config" value="https://GSLOSCATOAPP03.molinosagro.ad:8889/rtc" />
+	<setParameter name="ICWSServerUrl Config" value="wss://GSLOSCATOAPP03.molinosagro.ad:8889/rtc" />
 </parameters>
