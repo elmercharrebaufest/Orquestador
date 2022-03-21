@@ -60,6 +60,7 @@
     <None Include="Deploy\deploy.GSLOSCATO00.targets" />
     <None Include="Deploy\deploy.GSLOSCATO01.targets" />
     <None Include="Deploy\deploy.GSLOSCATO02.targets" />
+    <None Include="Deploy\deploy.GSLOSCATO04.targets" />
     <None Include="Deploy\deploy.GSLOSCATO03.targets" />
     <None Include="Deploy\deploy.GSLOSCATOAPP00.targets" />
     <None Include="Deploy\deploy.GSLOSCATOAPP01.targets" />
