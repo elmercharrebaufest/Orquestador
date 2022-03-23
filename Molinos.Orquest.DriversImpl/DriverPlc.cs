@@ -159,12 +159,14 @@ namespace Molinos.Orquest.DriversImpl
                                 Log.Debug("Actualizar Entrada Activada: PLC={0} Entrada={1} Valor={2}", codigoPlc, entrada, valorBite);
 
                                 NotificarEventoEntrada(entrada, CodigosEventos.EntradaActivada);
+                                NotificarEventoEntrada(0, CodigosEventos.CambioEstadoSensor, valorBite.ToString());
                             }
                             //chequeamos al cambio de estado de activada a desactivada
                             if (!valorBite && estadoAnterior != null && estadoAnterior.Length >= byteIndex && estadoAnterior[byteIndex].BitAt(bitIndex))
                             {
                                 Log.Debug("Actualizar  Entrada Desactivada: PLC={0} Entrada={1} Valor={2}", codigoPlc, entrada, valorBite);
                                 NotificarEventoEntrada(entrada, CodigosEventos.EntradaDesactivada);
+                                NotificarEventoEntrada(0, CodigosEventos.CambioEstadoSensor, valorBite.ToString());
                             }
                             entrada++;
                         }
