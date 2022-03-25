@@ -78,5 +78,17 @@ namespace Molinos.Orquest.Web.ServicioHub
             }
         }
 
+        public void UnirseAGrupo(string codigoGrupo)
+        {
+            Groups.Add(Context.ConnectionId, codigoGrupo);
+        }
+
+        public void NotificarCambioEstadoIntercomunicador(EstadoIntercomunicador estado)
+        {
+            if (Clients != null)
+            {
+                Clients.Group(Constantes.NotificacionGrupos.Intercomunicador).actualizarEstadoIntercomunicador(estado);
+            }
+        }
     }
 }

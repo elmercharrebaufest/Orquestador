@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using Molinos.Orquest.Dominio.Entidades;
+﻿using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace Molinos.Orquest.DriversImpl
 {
@@ -12,14 +12,13 @@ namespace Molinos.Orquest.DriversImpl
         private string codigoDispositivo;
         private ConfigSensor configSensor;
         private IDriverItc driverItc;
-        //private string estadoAnterior = string.Empty;
         private string entrada;
+
         private readonly List<string> eventosSoportados = new List<string> {CodigosEventos.EntradaActivada
             ,CodigosEventos.EntradaDesactivada
             ,CodigosEventos.ErrorConexionDispositivo
             ,CodigosEventos.ConexionDispositivoCorrecta
-            ,CodigosEventos.CambioEstadoSensor
-            ,CodigosEventos.CambioEstadoIntercomunicador};
+            ,CodigosEventos.CambioEstadoSensor};
 
         public override IEnumerable<string> EventosSoportados
         {
@@ -36,6 +35,7 @@ namespace Molinos.Orquest.DriversImpl
 
         public override void Inicializar(string codigo, ConfigDispositivo configuracion)
         {
+            Log.Info("DriverSensorIotBox Inicializar");
             codigoDispositivo = codigo;
             configSensor = (ConfigSensor)configuracion;
             entrada = configSensor.NumeroEntrada.ToString(CultureInfo.InvariantCulture);
@@ -67,15 +67,6 @@ namespace Molinos.Orquest.DriversImpl
                 {
                     codigoEvento = InvertirEventoActivacion(codigoEvento);
                 }
-                //if (codigoEvento == CodigosEventos.EntradaActivada || codigoEvento == CodigosEventos.EntradaDesactivada)
-                //{
-                //    if (codigoEvento == estadoAnterior)
-                //    {
-                //        return;
-                //    }
-                //    estadoAnterior = codigoEvento;
-                //}
-
                 var nuevoEvento = new EventoDriverEventArgs
                 {
                     Notificacion = new NotificacionEvento
@@ -105,13 +96,13 @@ namespace Molinos.Orquest.DriversImpl
         private bool EsEventoParaDispositivo(NotificacionEvento notificacion)
         {
             return eventosSoportados.Contains(notificacion.CodigoEvento)
-                && (notificacion.Datos == null || !notificacion.Datos.ContainsKey("Entrada") 
+                && (notificacion.Datos == null || !notificacion.Datos.ContainsKey("Entrada")
                             || notificacion.Datos["Entrada"] == entrada);
         }
 
         private string ConvertirEvento(NotificacionEvento notificacion)
         {
-            if(notificacion.Datos.ContainsKey("Dato"))
+            if (notificacion.Datos.ContainsKey("Dato"))
             {
                 notificacion.CodigoEvento = notificacion.Datos["Dato"] == "true" ? CodigosEventos.EntradaActivada : CodigosEventos.EntradaDesactivada;
             }

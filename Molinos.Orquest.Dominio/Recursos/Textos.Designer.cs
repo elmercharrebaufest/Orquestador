@@ -2059,6 +2059,15 @@ namespace Molinos.Orquest.Dominio.Recursos {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Posición Campo PH.
+        /// </summary>
+        public static string Humedimetro_PosicionCampoPesoHectolitrico {
+            get {
+                return ResourceManager.GetString("Humedimetro_PosicionCampoPesoHectolitrico", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Puerto.
         /// </summary>
         public static string Humedimetro_Puerto {
@@ -2163,6 +2172,15 @@ namespace Molinos.Orquest.Dominio.Recursos {
         public static string Intercomunicador_PuertoAudio {
             get {
                 return ResourceManager.GetString("Intercomunicador_PuertoAudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor de Estado.
+        /// </summary>
+        public static string Intercomunicador_SensorDeEstado {
+            get {
+                return ResourceManager.GetString("Intercomunicador_SensorDeEstado", resourceCulture);
             }
         }
         

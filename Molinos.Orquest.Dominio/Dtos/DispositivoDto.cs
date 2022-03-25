@@ -10,7 +10,6 @@ namespace Molinos.Orquest.Dominio.Dtos
         public string Sector { get; set; }
         public bool Activo { get; set; }
         public bool EstadoCorrecto { get; set; }
-
         public bool EsConcentrador { get; set; }
     }
 }

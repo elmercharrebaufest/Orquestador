@@ -22,8 +22,9 @@ namespace Molinos.Orquest.Servicios.Procesamiento
                 throw new ComandoDriverException();
             }
             var humedad = ((IDriverHumedimetro) driver).ObtenerHumedad(comando.FechaDeInicio);
-            return humedad.HasValue ? 
-                new ResultadoEjecutar { Mensaje = Mensaje.ResultadoOK() }.Agregar("AnalisisHumedad", humedad.Value):
+            var PH = ((IDriverHumedimetro)driver).ObtenerPH(comando.FechaDeInicio);
+            return humedad.HasValue || PH.HasValue ? 
+                new ResultadoEjecutar { Mensaje = Mensaje.ResultadoOK() }.Agregar("AnalisisHumedad", humedad.Value).Agregar("PH",PH.Value):
                 new ResultadoEjecutar 
                 {
                     Mensaje = new Mensaje(Codigos.SinLecturaDeHumedad, Textos.ResultadoSinLecturaDeHumedad, comando.CodigoDispositivo)

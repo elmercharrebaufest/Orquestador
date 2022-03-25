@@ -18,6 +18,7 @@ namespace Molinos.Orquest.DriversImpl
         private bool pingOK;
         private bool conectado;
         private decimal? ultimaHumedadMedida;
+        public decimal? UltimaPesoHectolitricoMedida;
         private DateTime? fechaDeMuestra;
         private TcpCommandClient cliente;
         private readonly object lockObject = new object();
@@ -44,6 +45,7 @@ namespace Molinos.Orquest.DriversImpl
                             if (!cliente.Conectado || (pingOK && !conectado ))
                             {
                                 ultimaHumedadMedida = null;
+                                UltimaPesoHectolitricoMedida = null;
                                 fechaDeMuestra = null;
                                 cliente.ReConectar();
                                 conectado = true;
@@ -58,10 +60,12 @@ namespace Molinos.Orquest.DriversImpl
                                 {
                                     throw new FormatException(frase);
                                 }
-                                var stringHumedad = arrayHumedad[configHumedimetro.PosicionCampoHumedad];
+                                string stringHumedad = arrayHumedad[configHumedimetro.PosicionCampoHumedad];
+                                string stringPH = arrayHumedad[configHumedimetro.PosicionCampoPesoHectolitrico];
                                 lock (lockObject)
                                 {
                                     ultimaHumedadMedida = decimal.Parse(stringHumedad, CultureInfo.InvariantCulture);
+                                    UltimaPesoHectolitricoMedida = decimal.Parse(stringPH, CultureInfo.InvariantCulture);
                                     fechaDeMuestra = DateTime.Now;
                                 }
                             }
@@ -123,6 +127,26 @@ namespace Molinos.Orquest.DriversImpl
                 
             }
             return ultimaHumedad;
+        }
+
+        public decimal? ObtenerPH(DateTime? fechaDeInicio = null)
+        {
+            {
+                if (cliente.Conectado == false) throw new ConexionDispositivoDriverException();
+
+                decimal? UltimoPesoHectolitrico = null;
+                lock (lockObject)
+                {
+                    if (fechaDeInicio.HasValue && fechaDeMuestra.HasValue && fechaDeMuestra > fechaDeInicio)
+                    {
+                        UltimoPesoHectolitrico = UltimaPesoHectolitricoMedida;
+                        UltimaPesoHectolitricoMedida = null;
+                        fechaDeMuestra = null;
+                    }
+
+                }
+                return UltimoPesoHectolitrico;
+            }
         }
 
         public override bool MantenerConectado()

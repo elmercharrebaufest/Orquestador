@@ -5,6 +5,7 @@ using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
 using Molinos.Orquest.Servicios;
+using Newtonsoft.Json;
 using Ninject.Extensions.Logging;
 
 namespace Molinos.Orquest.Web.ServicioHub
@@ -29,6 +30,7 @@ namespace Molinos.Orquest.Web.ServicioHub
         {
             try
             {
+       
                 log.Debug("Evento recibido: {0}", notificacion);
                 using (var repositorio = factoryRepo.Repositorio())
                 {
@@ -36,7 +38,6 @@ namespace Molinos.Orquest.Web.ServicioHub
 
                     if (notificacion.CodigoEvento == CodigosEventos.LecturaTarjetaRecibida)
                     {
-                        log.Debug("Informando lectura de tarjeta...");
                         hubClient.Invoke("NotificarLecturaTarjeta", new LecturaTarjeta
                         {
                             CodigoItc = codigoItc,
@@ -47,7 +48,6 @@ namespace Molinos.Orquest.Web.ServicioHub
                     else if (notificacion.CodigoEvento == CodigosEventos.EntradaActivada
                                 || notificacion.CodigoEvento == CodigosEventos.EntradaDesactivada)
                     {
-                        log.Debug("Informando lectura de entrada...");
                         hubClient.Invoke("NotificarLecturaEntrada", new LecturaEntrada
                         {
                             CodigoItc = codigoItc,
@@ -58,7 +58,6 @@ namespace Molinos.Orquest.Web.ServicioHub
                     else if (notificacion.CodigoEvento == CodigosEventos.ErrorConexionDispositivo
                         || notificacion.CodigoEvento == CodigosEventos.ConexionDispositivoCorrecta)
                     {
-                        log.Debug("Informando estado dispositivo...");
                         hubClient.Invoke("NotificarEstadoDispositivo", new EstadoDispositivo
                         {
                             CodigoItc = codigoItc,
@@ -70,7 +69,6 @@ namespace Molinos.Orquest.Web.ServicioHub
                     //TODO: Deprecar
                     else if (notificacion.CodigoEvento == CodigosEventos.LecturaTarjetaMolinete)
                     {
-                        log.Debug("Informando estado dispositivo...");
                         hubClient.Invoke("NotificarLecturaTarjetaMolinete", new LecturaTarjetaMolinete
                         {
                             CodigoMolinete = notificacion.CodigoDispositivo,
@@ -81,7 +79,6 @@ namespace Molinos.Orquest.Web.ServicioHub
                     //TODO: Deprecar
                     else if (notificacion.CodigoEvento == CodigosEventos.NuevoTransito)
                     {
-                        log.Debug("Informando estado dispositivo...");
                         hubClient.Invoke("NotificarTransitoMolinete", new TransitoMolinete
                         {
                             CodigoMolinete = notificacion.CodigoDispositivo,
@@ -93,7 +90,6 @@ namespace Molinos.Orquest.Web.ServicioHub
                     }
                     else if (notificacion.CodigoEvento == CodigosEventos.LecturaQr)
                     {
-                        log.Debug("Informando estado dispositivo...");
                         hubClient.Invoke("NotificarLecturaDni", new LecturaQr
                         {
                             CodigoItc = codigoItc,
@@ -101,6 +97,17 @@ namespace Molinos.Orquest.Web.ServicioHub
                             CodigoMolinete = notificacion.CodigoDispositivo,
                             QR = notificacion.Datos["QR"],
                             Lector = notificacion.Datos["Lector"]
+                        });
+                    }
+                    else if (notificacion.CodigoEvento == CodigosEventos.CambioEstadoIntercomunicador)
+                    {
+                        var estados = notificacion.Datos["Dato"].Split(';');
+                        hubClient.Invoke("NotificarCambioEstadoIntercomunicador", new EstadoIntercomunicador
+                        {
+                            CodigoItc = codigoItc,
+                            CodigoDispositivo = notificacion.CodigoDispositivo,
+                            Mic = estados[0].ToLower() == "true",
+                            Speaker = estados[1].ToLower() == "true",
                         });
                     }
                 }

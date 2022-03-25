@@ -1440,4 +1440,10 @@
   <data name="Intercomunicador_PuertoAudio" xml:space="preserve">
     <value>Puerto de Audio</value>
   </data>
+  <data name="Intercomunicador_SensorDeEstado" xml:space="preserve">
+    <value>Sensor de Estado</value>
+  </data>
+  <data name="Humedimetro_PosicionCampoPesoHectolitrico" xml:space="preserve">
+    <value>Posición Campo PH</value>
+  </data>
 </root>

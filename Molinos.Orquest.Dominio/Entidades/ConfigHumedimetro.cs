@@ -19,5 +19,7 @@ namespace Molinos.Orquest.Dominio.Entidades
         public virtual string DelimitadorCampos { get; set; }
         [Required]
         public virtual int PosicionCampoHumedad { get; set; }
+
+        public virtual int PosicionCampoPesoHectolitrico { get; set; }
     }
 }

@@ -12,5 +12,10 @@
         {
             public const string Intercomunicador = "Intercomunicador";
         }
+
+        public struct Drivers
+        {
+            public const string DriverSensorIntercomunicador = "Molinos.Orquest.DriversImpl.DriverSensorIntercomunicador, Molinos.Orquest.DriversImpl";
+        }
     }
 }
