@@ -131,6 +131,7 @@ namespace Molinos.Orquest.DriversImpl
 
         public decimal? ObtenerPH(DateTime? fechaDeInicio = null)
         {
+            Log.Info("Captura de PH - Metodo ObtenerPH - DriverHumedimetroContinuo2");
             {
                 if (cliente.Conectado == false) throw new ConexionDispositivoDriverException();
 

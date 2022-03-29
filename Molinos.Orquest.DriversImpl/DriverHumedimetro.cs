@@ -76,6 +76,7 @@ namespace Molinos.Orquest.DriversImpl
 
         public decimal? ObtenerPH(DateTime? fechaDeInicio = null)
         {
+            Log.Info("Captura de PH - Metodo ObtenerPH - DriverHumedimetro");
             try
             {
                 using (var cliente = new TcpCommandClient(configHumedimetro.DireccionIp, configHumedimetro.Puerto, configHumedimetro.LongFrase, configHumedimetro.TimeoutLectura, Log))
