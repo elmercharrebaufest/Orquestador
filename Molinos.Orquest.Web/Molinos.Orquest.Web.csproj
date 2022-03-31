@@ -275,6 +275,7 @@
     <Compile Include="Conversiones\Impl\ConversorAutoMapper.cs" />
     <Compile Include="Conversiones\Impl\Perfiles\ConfigBalanzaPuertoMappingProfile.cs" />
     <Compile Include="Conversiones\Impl\Perfiles\ConfigCabezalMappingProfile.cs" />
+    <Compile Include="Conversiones\Impl\Perfiles\ConfigComunicadorMappingProfile.cs" />
     <Compile Include="Conversiones\Impl\Perfiles\ConfigNirsMappingProfile.cs" />
     <Compile Include="Conversiones\Impl\Perfiles\ConfigHumedimetroMappingProfile.cs" />
     <Compile Include="Conversiones\Impl\Perfiles\ConfigItcMappingProfile.cs" />
