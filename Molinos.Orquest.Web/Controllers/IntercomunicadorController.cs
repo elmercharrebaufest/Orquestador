@@ -117,6 +117,10 @@ namespace Molinos.Orquest.Web.Controllers
                     {
                         model.Dispositivo.Concentrador = repositorio.Obtener<Dispositivo>(model.Dispositivo.ConcentradorId);
                     }
+                    if(!(model.Sensor_Id is null) && model.Sensor_Id > 0)
+                    {
+                        model.Sensor = repositorio.Obtener<Dispositivo>(model.Sensor_Id);
+                    }
                     repositorio.Agregar(conversor.Convertir<ConfigComunicadorModel, ConfigComunicador>(model));
                     repositorio.GuardarCambios();
                     return new AjaxEditSuccessResult();
