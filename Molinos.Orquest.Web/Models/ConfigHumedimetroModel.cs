@@ -31,5 +31,9 @@ namespace Molinos.Orquest.Web.Models
         [Display(ResourceType = typeof(Textos), Name = "Humedimetro_PosicionCampoHumedad")]
         [Required(ErrorMessageResourceType = typeof(Textos), ErrorMessageResourceName = "Error_Requerido")]
         public int PosicionCampoHumedad { get; set; }
+
+        [Display(ResourceType = typeof(Textos), Name = "Humedimetro_PosicionCampoPesoHectolitrico")]
+        [Required(ErrorMessageResourceType = typeof(Textos), ErrorMessageResourceName = "Error_Requerido")]
+        public int PosicionCampoPesoHectolitrico{ get; set; }
     }
 }

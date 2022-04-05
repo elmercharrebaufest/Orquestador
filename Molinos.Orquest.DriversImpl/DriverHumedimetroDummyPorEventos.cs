@@ -60,6 +60,13 @@ namespace Molinos.Orquest.DriversImpl
             return DateTime.Now.Millisecond % 100;
         }
 
+        public decimal? ObtenerPH(DateTime? fechaDeInicio = null)
+        {
+            Log.Info("Captura de PH - Metodo ObtenerPH - DriverHumedimetroDummyPorEventos");
+            Thread.Sleep(100);
+            return DateTime.Now.Millisecond % 100;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

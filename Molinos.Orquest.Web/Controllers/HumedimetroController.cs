@@ -135,6 +135,7 @@ namespace Molinos.Orquest.Web.Controllers
                     configHumedimetro.DelimitadorCampos = Server.UrlDecode(model.DelimitadorCampos);
                     configHumedimetro.LongFrase = model.LongFrase;
                     configHumedimetro.PosicionCampoHumedad = model.PosicionCampoHumedad;
+                    configHumedimetro.PosicionCampoPesoHectolitrico = model.PosicionCampoPesoHectolitrico;
                     configHumedimetro.DireccionIp = model.DireccionIp;
                     configHumedimetro.LongFrase = model.LongFrase;
                     configHumedimetro.Puerto = model.Puerto;
@@ -193,6 +194,10 @@ namespace Molinos.Orquest.Web.Controllers
                 resultados.Add(resultado.Mensaje.Codigo == Codigos.OK
                                    ? new ResultadoPruebaModel(resultado.Valores["AnalisisHumedad"].ToString(CultureInfo.CurrentUICulture), false)
                                    : new ResultadoPruebaModel(resultado.Mensaje.ToString(), true));
+
+                resultados.Add(resultado.Mensaje.Codigo == Codigos.OK
+                               ? new ResultadoPruebaModel(resultado.Valores["PH"].ToString(CultureInfo.CurrentUICulture), false)
+                               : new ResultadoPruebaModel(resultado.Mensaje.ToString(), true));
             }
             catch (Exception e)
             {

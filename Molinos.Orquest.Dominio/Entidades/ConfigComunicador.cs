@@ -13,5 +13,9 @@ namespace Molinos.Orquest.Dominio.Entidades
 
         public virtual int? TiempoMaximoEjecucion { get; set; }
         public virtual int? PuertoDeAudio { get; set; }
+
+        [Column("Sensor_Id")]
+        public virtual int? SensorId { get; set; }
+        public virtual Dispositivo Sensor { get; set; }
     }
 }

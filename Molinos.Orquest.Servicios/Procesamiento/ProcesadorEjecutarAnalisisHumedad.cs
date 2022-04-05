@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using Molinos.Orquest.Dominio.Comandos;
 using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Recursos;
@@ -21,9 +22,23 @@ namespace Molinos.Orquest.Servicios.Procesamiento
             {
                 throw new ComandoDriverException();
             }
-            var humedad = ((IDriverHumedimetro) driver).ObtenerHumedad(comando.FechaDeInicio);
+            var humedad = ((IDriverHumedimetro)driver).ObtenerHumedad(comando.FechaDeInicio);
+
+            var activarLecturaPH = ConfigurationManager.AppSettings["ActivarLecturaPH"];
+
+            if (!string.IsNullOrEmpty(activarLecturaPH) && activarLecturaPH == "1")
+            {
+                var PH = ((IDriverHumedimetro)driver).ObtenerPH(comando.FechaDeInicio);
+                return humedad.HasValue || PH.HasValue ?
+                new ResultadoEjecutar { Mensaje = Mensaje.ResultadoOK() }.Agregar("AnalisisHumedad", humedad.Value).Agregar("PH", PH.Value) :
+                new ResultadoEjecutar
+                {
+                    Mensaje = new Mensaje(Codigos.SinLecturaDeHumedad, Textos.ResultadoSinLecturaDeHumedad, comando.CodigoDispositivo)
+                };
+            }
+
             return humedad.HasValue ? 
-                new ResultadoEjecutar { Mensaje = Mensaje.ResultadoOK() }.Agregar("AnalisisHumedad", humedad.Value):
+                new ResultadoEjecutar { Mensaje = Mensaje.ResultadoOK() }.Agregar("AnalisisHumedad", humedad.Value) :
                 new ResultadoEjecutar 
                 {
                     Mensaje = new Mensaje(Codigos.SinLecturaDeHumedad, Textos.ResultadoSinLecturaDeHumedad, comando.CodigoDispositivo)
