@@ -39,6 +39,7 @@ namespace Molinos.Orquest.DriversImpl
 
         public decimal? ObtenerPH(DateTime? fechaDeInicio = null)
         {
+            Log.Info("Captura de PH - Metodo ObtenerPH - DriverHumedimetroDummy");
             string[] frase = {"", "10/03/22", "01:57:57", "11.7", "70.6", "21.5", "24.2", "22.6", "SOJA ARG", "S/N: 1716-32552", "2", "785", "2301", "215", "070815" };
             var arrayPH = frase;
             if (arrayPH.Length != 15)

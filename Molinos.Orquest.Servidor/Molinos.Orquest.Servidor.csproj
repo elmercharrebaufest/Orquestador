@@ -134,19 +134,16 @@
     <None Include="App.GSLOSCATO03.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="App.GSLOSCATOOPS00.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="App.GSLOSCATOOPSQA00.config">
+	  <None Include="App.GSLOSCATO04.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="App.GVICSCATOAPP.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="App.GSLOSCATOAPP04.config">
+    <None Include="App.Jenkins.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="App.Jenkins.config">
+	<None Include="App.GSLOSCATOAPP04.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="App.GSLOSCATOAPP03.config">

@@ -62,6 +62,7 @@ namespace Molinos.Orquest.DriversImpl
 
         public decimal? ObtenerPH(DateTime? fechaDeInicio = null)
         {
+            Log.Info("Captura de PH - Metodo ObtenerPH - DriverHumedimetroDummyPorEventos");
             Thread.Sleep(100);
             return DateTime.Now.Millisecond % 100;
         }

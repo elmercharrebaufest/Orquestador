@@ -1,12 +1,12 @@
 ﻿@using Molinos.Orquest.Dominio.Recursos
 @model Molinos.Orquest.Web.Models.ConfigTagModel
 @{
-    ViewBag.Title = "Modificar Tags";
+    ViewBag.Title = Textos.Cabezal_Modificar;
     Layout = null;
 }
 @Scripts.Render("~/bundles/jqueryval")
 
-@using (Ajax.BeginForm("Modificar", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = "Modificar Tags" }))
+@using (Ajax.BeginForm("Modificar", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = Textos.Cabezal_Modificar }))
 {
     @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model.Id)

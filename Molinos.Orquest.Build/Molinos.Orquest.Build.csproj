@@ -60,6 +60,7 @@
     <None Include="Deploy\deploy.GSLOSCATO00.targets" />
     <None Include="Deploy\deploy.GSLOSCATO01.targets" />
     <None Include="Deploy\deploy.GSLOSCATO02.targets" />
+    <None Include="Deploy\deploy.GSLOSCATO04.targets" />
     <None Include="Deploy\deploy.GSLOSCATO03.targets" />
     <None Include="Deploy\deploy.GSLOSCATOAPP00.targets" />
     <None Include="Deploy\deploy.GSLOSCATOAPP01.targets" />
@@ -68,12 +69,6 @@
     <None Include="Deploy\deploy.GVICRPTSRVQA01.targets" />
     <None Include="Deploy\deploy.GSLOSCATOAPQ02.targets" />
     <None Include="Deploy\deploy.GSLOACCESOS01.targets">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Deploy\deploy.GSLOSCATOOPSQA00.targets">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Deploy\deploy.GSLOSCATOOPS00.targets">
       <SubType>Designer</SubType>
     </None>
     <None Include="Deploy\deploy.GVICSCATOAPP04.targets">
