@@ -21,6 +21,5 @@ namespace Molinos.Orquest.Web.Models
         [Required(ErrorMessageResourceType = typeof(Textos), ErrorMessageResourceName = "Error_Requerido")]
         [Display(ResourceType = typeof(Textos), Name = "Intercomunicador_SensorDeEstado")]
         public int? Sensor_Id { get; set; }
-        public Dispositivo Sensor { get; set; }
     }
 }
