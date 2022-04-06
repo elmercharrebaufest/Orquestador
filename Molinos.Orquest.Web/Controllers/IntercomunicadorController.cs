@@ -194,12 +194,16 @@ namespace Molinos.Orquest.Web.Controllers
             var comunicador = conversor.Convertir<ConfigComunicador, ConfigComunicadorModel>(repositorio.Obtener<ConfigComunicador>(id));
             var sensor = repositorio.Obtener<Dispositivo>(x => x.Id == comunicador.Sensor_Id);
             var errores = new List<string>();
+            var codigoSensor = string.Empty;
+            if (sensor != null)
+            {
+                codigoSensor = sensor.Codigo;
+                Suscribir(codigoSensor, CodigosEventos.CambioEstadoIntercomunicador, urlSuscriptor, errores);
+                Suscribir(codigoSensor, CodigosEventos.ErrorConexionDispositivo, urlSuscriptor, errores);
+                Suscribir(codigoSensor, CodigosEventos.ConexionDispositivoCorrecta, urlSuscriptor, errores);
+            }
 
-            Suscribir(sensor.Codigo, CodigosEventos.CambioEstadoIntercomunicador, urlSuscriptor, errores);
-            Suscribir(sensor.Codigo, CodigosEventos.ErrorConexionDispositivo, urlSuscriptor, errores);
-            Suscribir(sensor.Codigo, CodigosEventos.ConexionDispositivoCorrecta, urlSuscriptor, errores);
-
-            var intercomunicadorConfig = GetIntercomunicadorDispositivoConfig(comunicador.Dispositivo.Codigo, sensor.Codigo, comunicador.PuertoDeAudio);
+            var intercomunicadorConfig = GetIntercomunicadorDispositivoConfig(comunicador.Dispositivo.Codigo, codigoSensor, comunicador.PuertoDeAudio);
             ViewBag.InterComunicadorDispositivo = intercomunicadorConfig;
             return View(comunicador);
         }
@@ -273,7 +277,8 @@ namespace Molinos.Orquest.Web.Controllers
             ViewBag.Items = consulta;
         }
 
-        private List<SelectListItem> ObtenerSensores(int concentradorId) {
+        private List<SelectListItem> ObtenerSensores(int concentradorId)
+        {
             var sensores = repositorio.Listar<ConfigSensor>(q => q.Dispositivo.Concentrador.Id == concentradorId)
                   .Select(d => new SelectListItem { Text = d.Dispositivo.Descripcion, Value = d.Dispositivo.Id.ToString(CultureInfo.InvariantCulture) }).ToList();
             return sensores;
