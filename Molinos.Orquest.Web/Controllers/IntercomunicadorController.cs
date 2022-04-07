@@ -122,6 +122,7 @@ namespace Molinos.Orquest.Web.Controllers
                     return new AjaxEditSuccessResult();
                 }
             }
+            ViewBag.Sensores = ObtenerSensores(model.Dispositivo.ConcentradorId);
             SetearVistaConfiguracion(drivers);
             return View(model);
         }
@@ -153,6 +154,7 @@ namespace Molinos.Orquest.Web.Controllers
                     return new AjaxEditSuccessResult();
                 }
             }
+            ViewBag.Sensores = ObtenerSensores(model.Dispositivo.ConcentradorId);
             SetearVistaConfiguracion(drivers);
             return View(model);
         }
