@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Molinos.Orquest.Dominio;
+﻿using Molinos.Orquest.Dominio;
+using Molinos.Orquest.Dominio.Dtos;
 using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Drivers;
 using Molinos.Orquest.Servicios.Impl;
 using Molinos.Orquest.Test.Mocks;
-using NUnit.Framework;
 using Ninject;
 using Ninject.Extensions.Logging;
-using Ninject.Planning.Bindings;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Molinos.Orquest.Test.Servicios
@@ -17,7 +17,6 @@ namespace Molinos.Orquest.Test.Servicios
     [TestFixture]
     public class DriverFactoryTest
     {
-        
         [Test]
         public void TestDriverExistente()
         {
@@ -27,53 +26,15 @@ namespace Molinos.Orquest.Test.Servicios
             var target = new DriverFactory(kernel, new NullLogger());
 
             var dispositivo = new Dispositivo
-                {
-                    Codigo = "BALEM01",
-                    Configuracion = new ConfigCabezal {ClaseDriver = typeof (DriverCabezalMock).AssemblyQualifiedName}
-                };
-                 
-            var driver = target.Driver<IDriverCabezal>(dispositivo);
-            Assert.That(driver, Is.Not.Null);
-            Assert.That(driver, Is.InstanceOf<DriverCabezalMock>());
-            Assert.That(((DriverCabezalMock) driver).Configurado, Is.True);
-        }
-
-        [Test]
-        public void TestDriverSubclaseDispExistente()
-        {
-            var kernel = new StandardKernel();
-            kernel.Bind<ILoggerFactory>().To<NullLoggerFactory>();
-
-            var target = new DriverFactory(kernel, new NullLogger());
-
-            var dispositivo = new Dispositivo
-                {
-                    Codigo = "BALEM01",
-                    Configuracion = new SubclaseConfigCabezal { ClaseDriver = typeof(DriverCabezalMock).AssemblyQualifiedName }
-                };
+            {
+                Codigo = "BALEM01",
+                Configuracion = new ConfigCabezal { ClaseDriver = typeof(DriverCabezalMock).AssemblyQualifiedName }
+            };
 
             var driver = target.Driver<IDriverCabezal>(dispositivo);
             Assert.That(driver, Is.Not.Null);
             Assert.That(driver, Is.InstanceOf<DriverCabezalMock>());
             Assert.That(((DriverCabezalMock)driver).Configurado, Is.True);
-        }
-
-        [Test]
-        public void TestDriverNoExistente()
-        {
-            var kernel = new StandardKernel();
-            kernel.Bind<ILoggerFactory>().To<NullLoggerFactory>();
-
-            var target = new DriverFactory(kernel, new NullLogger());
-
-            
-            var dispositivo = new Dispositivo
-                {
-                    Codigo = "BALEM01",
-                    Configuracion = new ConfigCabezal {ClaseDriver = "MyNamespace.MyDriver"}
-                };
-
-            Assert.That(() => target.Driver<IDriverCabezal>(dispositivo), Throws.InstanceOf<DriverNoEncontradoException>());
         }
 
         [Test]
@@ -83,11 +44,11 @@ namespace Molinos.Orquest.Test.Servicios
             kernel.Bind<ILoggerFactory>().To<NullLoggerFactory>();
 
             var target = new DriverFactory(kernel, new NullLogger());
-                        var dispositivo = new Dispositivo
-                {
-                    Codigo = "BALEM01",
-                    Configuracion = new ConfigHumedimetro {ClaseDriver = typeof (DriverCabezalMock).AssemblyQualifiedName}
-                };
+            var dispositivo = new Dispositivo
+            {
+                Codigo = "BALEM01",
+                Configuracion = new ConfigHumedimetro { ClaseDriver = typeof(DriverCabezalMock).AssemblyQualifiedName }
+            };
 
             Assert.That(() => target.Driver<IDriverCabezal>(dispositivo), Throws.InstanceOf<TipoDispositivoIncorrectoException>());
         }
@@ -100,67 +61,75 @@ namespace Molinos.Orquest.Test.Servicios
 
             var target = new DriverFactory(kernel, new NullLogger());
             var dispositivo = new Dispositivo
-                {
-                    Codigo = "BALEM01",
-                    Configuracion =  new ConfigCabezal { ClaseDriver = typeof(DriverHumedimetroMock).AssemblyQualifiedName }
-                };
+            {
+                Codigo = "BALEM01",
+                Configuracion = new ConfigCabezal { ClaseDriver = typeof(DriverHumedimetroMock).AssemblyQualifiedName }
+            };
 
             Assert.That(() => target.Driver<IDriverCabezal>(dispositivo), Throws.InstanceOf<TipoDriverIncorrectoException>());
         }
+
+        [Test]
+        public void TestDriverNoExistente()
+        {
+            var kernel = new StandardKernel();
+            kernel.Bind<ILoggerFactory>().To<NullLoggerFactory>();
+
+            var target = new DriverFactory(kernel, new NullLogger());
+
+            var dispositivo = new Dispositivo
+            {
+                Codigo = "BALEM01",
+                Configuracion = new ConfigCabezal { ClaseDriver = "MyNamespace.MyDriver" }
+            };
+
+            Assert.That(() => target.Driver<IDriverCabezal>(dispositivo), Throws.InstanceOf<DriverNoEncontradoException>());
+        }
+
+        [Test]
+        public void TestDriverSubclaseDispExistente()
+        {
+            var kernel = new StandardKernel();
+            kernel.Bind<ILoggerFactory>().To<NullLoggerFactory>();
+
+            var target = new DriverFactory(kernel, new NullLogger());
+
+            var dispositivo = new Dispositivo
+            {
+                Codigo = "BALEM01",
+                Configuracion = new SubclaseConfigCabezal { ClaseDriver = typeof(DriverCabezalMock).AssemblyQualifiedName }
+            };
+
+            var driver = target.Driver<IDriverCabezal>(dispositivo);
+            Assert.That(driver, Is.Not.Null);
+            Assert.That(driver, Is.InstanceOf<DriverCabezalMock>());
+            Assert.That(((DriverCabezalMock)driver).Configurado, Is.True);
+        }
     }
 
-    class SubclaseConfigCabezal : ConfigCabezal
+    internal class DriverCabezalMock : IDriverCabezal
     {
-        
-    }
-
-    class DriverCabezalMock : IDriverCabezal
-    {
-        public bool Configurado { get; set; }
-
         public event EventHandler<EventoDriverEventArgs> EventoDriver;
 
-        public bool MantenerConectado()
+        public bool Configurado { get; set; }
+        public IEnumerable<string> EventosSoportados
         {
-            return false;
+            get { return Enumerable.Empty<string>(); }
         }
+
+        public ILogger Log { get; set; }
 
         public Type TipoDispositivo
         {
             get { return typeof(ConfigCabezal); }
         }
 
-        public IEnumerable<string> EventosSoportados
-        {
-            get { return Enumerable.Empty<string>(); }
-        }
-
-        public void HabilitarEventos()
-        {
-        }
-
         public void DeshabilitarEventos()
         {
         }
 
-        public void Inicializar(string codigo, ConfigDispositivo configuracion)
+        public void Dispose()
         {
-            Configurado = true;
-        }
-
-        public void VerificarDispositivo()
-        {
-        }
-
-        public void InformarEstado()
-        {
-        }
-
-        public ILogger Log { get; set; }
-
-        public decimal? ObtenerPeso()
-        {
-            return 1234;
         }
 
         public bool ForzarCero()
@@ -168,37 +137,11 @@ namespace Molinos.Orquest.Test.Servicios
             return false;
         }
 
-        public void Dispose()
-        {
-        }
-    }
-
-    class DriverHumedimetroMock : IDriverHumedimetro
-    {
-        public bool Configurado { get; set; }
-
-        public bool MantenerConectado()
-        {
-            return false;
-        }
-
-        public event EventHandler<EventoDriverEventArgs> EventoDriver;
-
-        public Type TipoDispositivo
-        {
-            get { return typeof(ConfigHumedimetro); }
-        }
-
-        public IEnumerable<string> EventosSoportados
-        {
-            get { return Enumerable.Empty<string>(); }
-        }
-
         public void HabilitarEventos()
         {
         }
 
-        public void DeshabilitarEventos()
+        public void InformarEstado()
         {
         }
 
@@ -207,7 +150,47 @@ namespace Molinos.Orquest.Test.Servicios
             Configurado = true;
         }
 
+        public bool MantenerConectado()
+        {
+            return false;
+        }
+        public decimal? ObtenerPeso()
+        {
+            return 1234;
+        }
+
         public void VerificarDispositivo()
+        {
+        }
+    }
+
+    internal class DriverHumedimetroMock : IDriverHumedimetro
+    {
+        public event EventHandler<EventoDriverEventArgs> EventoDriver;
+
+        public bool Configurado { get; set; }
+
+        public IEnumerable<string> EventosSoportados
+        {
+            get { return Enumerable.Empty<string>(); }
+        }
+
+        public ILogger Log { get; set; }
+
+        public Type TipoDispositivo
+        {
+            get { return typeof(ConfigHumedimetro); }
+        }
+
+        public void DeshabilitarEventos()
+        {
+        }
+
+        public virtual void Dispose()
+        {
+        }
+
+        public void HabilitarEventos()
         {
         }
 
@@ -215,19 +198,37 @@ namespace Molinos.Orquest.Test.Servicios
         {
         }
 
-        public ILogger Log { get; set; }
+        public void Inicializar(string codigo, ConfigDispositivo configuracion)
+        {
+            Configurado = true;
+        }
 
+        public bool MantenerConectado()
+        {
+            return false;
+        }
         public decimal? ObtenerHumedad(DateTime? fechaDeInicio = null)
         {
             return 999;
         }
-        public decimal? ObtenerPH(DateTime? fechaDeInicio = null)
+
+        public HumedimetroResultadoDto ObtenerHumedadPH(DateTime? fechaDeInicio = null)
         {
             Thread.Sleep(100);
-            return DateTime.Now.Millisecond % 100;
+            var humedimetro = new HumedimetroResultadoDto
+            {
+                Humedad = DateTime.Now.Millisecond % 100,
+                PH = DateTime.Now.Millisecond % 100
+            };
+            return humedimetro;
         }
-        public virtual void Dispose()
+
+        public void VerificarDispositivo()
         {
         }
+    }
+
+    internal class SubclaseConfigCabezal : ConfigCabezal
+    {
     }
 }

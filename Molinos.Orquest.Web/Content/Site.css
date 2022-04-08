@@ -624,6 +624,7 @@ ul.response-list {
 li.response-success {
     color: #468847;
     line-height: 14px;
+    margin-bottom: 5px;
 }
 
 li.response-error {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq.Expressions;
-using System.Text;
-using System.Web.Mvc;
-using Molinos.Orquest.Dominio.Comandos;
+﻿using Molinos.Orquest.Dominio.Comandos;
 using Molinos.Orquest.Dominio.Consultas;
 using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Recursos;
@@ -18,6 +12,12 @@ using Molinos.Orquest.Web.Conversiones;
 using Molinos.Orquest.Web.Models;
 using Molinos.Scato.Dominio.Consultas;
 using Ninject.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq.Expressions;
+using System.Text;
+using System.Web.Mvc;
 
 namespace Molinos.Orquest.Web.Controllers
 {
@@ -103,10 +103,11 @@ namespace Molinos.Orquest.Web.Controllers
         private string CaracterValido(string delimitadorCampos)
         {
             var ascii = Encoding.ASCII;
-            var asciiBytes = ascii.GetBytes(delimitadorCampos.ToCharArray()); 
+            var asciiBytes = ascii.GetBytes(delimitadorCampos.ToCharArray());
             var asciiChars = new char[ascii.GetCharCount(asciiBytes, 0, asciiBytes.Length)];
             ascii.GetChars(asciiBytes, 0, asciiBytes.Length, asciiChars, 0);
-            if (asciiChars.Length > 0){
+            if (asciiChars.Length > 0)
+            {
                 if (asciiChars[0] >= 0 && asciiChars[0] <= 31)
                 {
                     return Server.UrlEncode(delimitadorCampos);
@@ -130,7 +131,7 @@ namespace Molinos.Orquest.Web.Controllers
                     viejo.Activo = model.Dispositivo.Activo;
                     viejo.EsConcentrador = model.Dispositivo.EsConcentrador;
                     viejo.Concentrador = repositorio.Obtener<Dispositivo>(model.Dispositivo.ConcentradorId);
-                    var configHumedimetro = (ConfigHumedimetro) viejo.Configuracion;
+                    var configHumedimetro = (ConfigHumedimetro)viejo.Configuracion;
                     configHumedimetro.ComandoHumedad = model.ComandoHumedad;
                     configHumedimetro.DelimitadorCampos = Server.UrlDecode(model.DelimitadorCampos);
                     configHumedimetro.LongFrase = model.LongFrase;
@@ -190,14 +191,24 @@ namespace Molinos.Orquest.Web.Controllers
             var resultados = new List<ResultadoPruebaModel>();
             try
             {
-                var resultado = servicio.Ejecutar(new EjecutarAnalisisHumedad { CodigoDispositivo = codigo, FechaDeInicio = new DateTime(fecha)});
-                resultados.Add(resultado.Mensaje.Codigo == Codigos.OK
-                                   ? new ResultadoPruebaModel(resultado.Valores["AnalisisHumedad"].ToString(CultureInfo.CurrentUICulture), false)
-                                   : new ResultadoPruebaModel(resultado.Mensaje.ToString(), true));
+                var resultado = servicio.Ejecutar(new EjecutarAnalisisHumedad { CodigoDispositivo = codigo, FechaDeInicio = new DateTime(fecha) });
 
-                resultados.Add(resultado.Mensaje.Codigo == Codigos.OK
-                               ? new ResultadoPruebaModel(resultado.Valores["PH"].ToString(CultureInfo.CurrentUICulture), false)
-                               : new ResultadoPruebaModel(resultado.Mensaje.ToString(), true));
+                if (resultado.Mensaje.Codigo == Codigos.OK)
+                {
+                    if (resultado.Valores.ContainsKey("AnalisisHumedad"))
+                    {
+                        resultados.Add(new ResultadoPruebaModel("Humedad: " + resultado.Valores["AnalisisHumedad"].ToString(CultureInfo.CurrentUICulture), false));
+                    }
+
+                    if (resultado.Valores.ContainsKey("PH"))
+                    {
+                        resultados.Add(new ResultadoPruebaModel("PH: " + resultado.Valores["PH"].ToString(CultureInfo.CurrentUICulture), false));
+                    }
+                }
+                else
+                {
+                    resultados.Add(new ResultadoPruebaModel(resultado.Mensaje.ToString(), true));
+                }
             }
             catch (Exception e)
             {

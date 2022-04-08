@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Molinos.Orquest.Dominio.Dtos;
 using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
@@ -10,20 +11,18 @@ namespace Molinos.Orquest.DriversImpl
 {
     public class DriverHumedimetroDummyPorEventos : DriverBase, IDriverHumedimetro
     {
-        private bool eventosActivos = false;
         private string codigoDispositivo;
+        private bool eventosActivos = false;
+        public override IEnumerable<string> EventosSoportados
+        {
+            //No soporta eventos
+            get { return new List<string> { CodigosEventos.HumedadRecibida }; }
+        }
 
         public override Type TipoDispositivo
         {
             get { return typeof(ConfigHumedimetro); }
         }
-
-        public override IEnumerable<string> EventosSoportados
-        {
-            //No soporta eventos
-            get { return new List<string> {CodigosEventos.HumedadRecibida}; }
-        }
-
         public override void Inicializar(string codigo, ConfigDispositivo configuracion)
         {
             codigoDispositivo = codigo;
@@ -50,23 +49,20 @@ namespace Molinos.Orquest.DriversImpl
             });
         }
 
-        public override void VerificarDispositivo()
-        {
-        }
-
         public decimal? ObtenerHumedad(DateTime? fechaDeInicio = null)
         {
             Thread.Sleep(100);
             return DateTime.Now.Millisecond % 100;
         }
 
-        public decimal? ObtenerPH(DateTime? fechaDeInicio = null)
+        public HumedimetroResultadoDto ObtenerHumedadPH(DateTime? fechaDeInicio = null)
         {
-            Log.Info("Captura de PH - Metodo ObtenerPH - DriverHumedimetroDummyPorEventos");
-            Thread.Sleep(100);
-            return DateTime.Now.Millisecond % 100;
+            return null;
         }
 
+        public override void VerificarDispositivo()
+        {
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

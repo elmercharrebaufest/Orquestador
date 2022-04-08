@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Molinos.Orquest.DriversImpl
 {
-    public class DriverHumedimetroContinuo2 : DriverBase, IDriverHumedimetro
+    public class DriverHumedimetroPHContinuo : DriverBase, IDriverHumedimetro
     {
         private readonly object lockObject = new object();
         private TcpCommandClient cliente;
@@ -22,7 +22,7 @@ namespace Molinos.Orquest.DriversImpl
         private bool pingOK;
         private bool tomaHumedad;
         private decimal? ultimaHumedadMedida;
-
+        private decimal? ultimaPHMedida;
         public override Type TipoDispositivo
         {
             get { return typeof(ConfigHumedimetro); }
@@ -44,11 +44,13 @@ namespace Molinos.Orquest.DriversImpl
                         if (!cliente.Conectado || (pingOK && !conectado))
                         {
                             ultimaHumedadMedida = null;
+                            ultimaPHMedida = null;
                             fechaDeMuestra = null;
                             cliente.ReConectar();
                             conectado = true;
                         }
                         var frase = cliente.LeerRespuestaHasta(10, configHumedimetro.LongFrase);
+                        //string frase = " ,29/03/22,14:20:14,11.9,70.7,30.3,28.9,29.7,SOJA ARG,S/N: 1716-32552, 2, 895,2305, 303,070815";
                         if (frase != null)
                         {
                             Log.Info("Captura de Humedad - " + configHumedimetro.Dispositivo.Codigo + " - '" + frase.Replace("\r", "") + "'");
@@ -58,10 +60,12 @@ namespace Molinos.Orquest.DriversImpl
                             {
                                 throw new FormatException(frase);
                             }
-                            var stringHumedad = arrayHumedad[configHumedimetro.PosicionCampoHumedad];
+                            string stringHumedad = arrayHumedad[configHumedimetro.PosicionCampoHumedad];
+                            string stringPH = arrayHumedad[configHumedimetro.PosicionCampoPesoHectolitrico];
                             lock (lockObject)
                             {
                                 ultimaHumedadMedida = decimal.Parse(stringHumedad, CultureInfo.InvariantCulture);
+                                ultimaPHMedida = decimal.Parse(stringPH, CultureInfo.InvariantCulture);
                                 fechaDeMuestra = DateTime.Now;
                             }
                         }
@@ -72,9 +76,9 @@ namespace Molinos.Orquest.DriversImpl
                         conectado = false;
                         Thread.Sleep(1000);
                     }
-                    catch (IOException)
+                    catch (IOException e)
                     {
-                        //Log.Error(e, "Falló la conexión al dispositivo {0}", codigoHumedimetro);3
+                        Log.Error(e, "Error I/O al conectarse al dispositivo {0}", codigoHumedimetro);
                         conectado = false;
                     }
                     catch (FormatException e)
@@ -84,8 +88,8 @@ namespace Molinos.Orquest.DriversImpl
                     catch (Exception e)
                     {
                         Log.Error(e, "Error al conectarse al dispositivo {0}", configHumedimetro);
-                        Thread.Sleep(1000);
                         conectado = false;
+                        Thread.Sleep(1000);
                     }
                 }
             });
@@ -106,24 +110,27 @@ namespace Molinos.Orquest.DriversImpl
 
         public decimal? ObtenerHumedad(DateTime? fechaDeInicio = null)
         {
-            if (cliente.Conectado == false) throw new ConexionDispositivoDriverException();
-
-            decimal? ultimaHumedad = null;
-            lock (lockObject)
-            {
-                if (fechaDeInicio.HasValue && fechaDeMuestra.HasValue && fechaDeMuestra > fechaDeInicio)
-                {
-                    ultimaHumedad = ultimaHumedadMedida;
-                    ultimaHumedadMedida = null;
-                    fechaDeMuestra = null;
-                }
-            }
-            return ultimaHumedad;
+            return null;
         }
 
         public HumedimetroResultadoDto ObtenerHumedadPH(DateTime? fechaDeInicio = null)
         {
-            return null;
+            var humedimetroResultado = new HumedimetroResultadoDto();
+            lock (lockObject)
+            {
+                if (fechaDeInicio.HasValue && fechaDeMuestra.HasValue && fechaDeMuestra > fechaDeInicio)
+                {
+                    humedimetroResultado = new HumedimetroResultadoDto
+                    {
+                        Humedad = Convert.ToDecimal(ultimaHumedadMedida),
+                        PH = Convert.ToDecimal(ultimaPHMedida)
+                    };
+                    ultimaHumedadMedida = null;
+                    ultimaPHMedida = null;
+                    fechaDeMuestra = null;
+                }
+            }
+            return humedimetroResultado;
         }
 
         public override void VerificarDispositivo()
@@ -133,7 +140,6 @@ namespace Molinos.Orquest.DriversImpl
                 throw new DriverException(string.Format("Error al conectarse al dispositivo {0}", configHumedimetro));
             }
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -163,6 +169,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (Exception e)
                     {
+                        Log.Error(e, "Error validaction de conexion");
                     }
                 }
             }

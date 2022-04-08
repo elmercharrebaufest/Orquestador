@@ -1,23 +1,24 @@
-﻿using System;
+﻿using Molinos.Orquest.Dominio.Dtos;
+using Molinos.Orquest.Dominio.Entidades;
+using Molinos.Orquest.Drivers;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-using Molinos.Orquest.Dominio.Entidades;
-using Molinos.Orquest.Drivers;
 
 namespace Molinos.Orquest.DriversImpl
 {
     public class DriverHumedimetroContinuo : DriverBase, IDriverHumedimetro
     {
+        private readonly object lockObject = new object();
+        private TcpCommandClient cliente;
         private string codigoHumedimetro;
         private ConfigHumedimetro configHumedimetro;
+        private DateTime? fechaDeMuestra;
         private bool tomaHumedad;
         private decimal? ultimaHumedadMedida;
-        private DateTime? fechaDeMuestra;
-        private TcpCommandClient cliente;
-        private readonly object lockObject = new object();
 
         public override Type TipoDispositivo
         {
@@ -82,12 +83,9 @@ namespace Molinos.Orquest.DriversImpl
             });
         }
 
-        public override void VerificarDispositivo()
+        public override bool MantenerConectado()
         {
-            if (cliente == null || !cliente.Conectado)
-            {
-                throw new DriverException(string.Format("Error al conectarse al dispositivo {0}", configHumedimetro));
-            }
+            return true;
         }
 
         public decimal? ObtenerHumedad(DateTime? fechaDeInicio = null)
@@ -103,45 +101,21 @@ namespace Molinos.Orquest.DriversImpl
                     ultimaHumedadMedida = null;
                     fechaDeMuestra = null;
                 }
-
             }
             return ultimaHumedad;
         }
 
-        public decimal? ObtenerPH(DateTime? fechaDeInicio = null)
+        public HumedimetroResultadoDto ObtenerHumedadPH(DateTime? fechaDeInicio = null)
         {
-            Log.Info("Captura de PH - Metodo ObtenerPH - DriverHumedimetroContinuo");
-            try
-            {
-                using (var cliente = new TcpCommandClient(configHumedimetro.DireccionIp, configHumedimetro.Puerto, configHumedimetro.LongFrase, configHumedimetro.TimeoutLectura, Log))
-                {
-                    var frase = cliente.LeerRespuesta(0, configHumedimetro.LongFrase);
-                    Log.Info("Captura de PH - " + configHumedimetro.Dispositivo.Codigo + " - '" + (frase != null ? frase.Replace("\r", "") : "No Responde") + "'");
-                    var stringPH = frase.Split(new[] { configHumedimetro.DelimitadorCampos }, StringSplitOptions.None)[configHumedimetro.PosicionCampoPesoHectolitrico];
-                    return decimal.Parse(stringPH, CultureInfo.InvariantCulture);
-                }
-            }
-            catch (SocketException e)
-            {
-                throw new ConexionDispositivoDriverException(string.Format("Falló la conexión al dispositivo {0}", codigoHumedimetro), e);
-            }
-            catch (IOException e)
-            {
-                throw new ConexionDispositivoDriverException(string.Format("Falló la conexión al dispositivo {0}", codigoHumedimetro), e);
-            }
-            catch (FormatException e)
-            {
-                throw new FormatoRespuestaDriverException(string.Format("Formato de respuesta del dispositivo {0}", codigoHumedimetro), e);
-            }
-            catch (Exception e)
-            {
-                throw new DriverException(string.Format("Error al conectarse al dispositivo {0}", configHumedimetro), e);
-            }
+            return null;
         }
 
-        public override bool MantenerConectado()
+        public override void VerificarDispositivo()
         {
-            return true;
+            if (cliente == null || !cliente.Conectado)
+            {
+                throw new DriverException(string.Format("Error al conectarse al dispositivo {0}", configHumedimetro));
+            }
         }
 
         protected override void Dispose(bool disposing)

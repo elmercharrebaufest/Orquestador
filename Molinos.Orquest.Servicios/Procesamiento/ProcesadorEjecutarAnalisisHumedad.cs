@@ -1,6 +1,4 @@
-﻿using System;
-using System.Configuration;
-using Molinos.Orquest.Dominio.Comandos;
+﻿using Molinos.Orquest.Dominio.Comandos;
 using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Recursos;
 using Molinos.Orquest.Dominio.Resultados;
@@ -23,26 +21,32 @@ namespace Molinos.Orquest.Servicios.Procesamiento
                 throw new ComandoDriverException();
             }
             var humedad = ((IDriverHumedimetro)driver).ObtenerHumedad(comando.FechaDeInicio);
+            decimal? ph = null;
 
-            var activarLecturaPH = ConfigurationManager.AppSettings["ActivarLecturaPH"];
-
-            if (!string.IsNullOrEmpty(activarLecturaPH) && activarLecturaPH == "1")
+            if (humedad == null)
             {
-                var PH = ((IDriverHumedimetro)driver).ObtenerPH(comando.FechaDeInicio);
-                return humedad.HasValue || PH.HasValue ?
-                new ResultadoEjecutar { Mensaje = Mensaje.ResultadoOK() }.Agregar("AnalisisHumedad", humedad.Value).Agregar("PH", PH.Value) :
-                new ResultadoEjecutar
+                var humedimetroResultado = ((IDriverHumedimetro)driver).ObtenerHumedadPH(comando.FechaDeInicio);
+                if (humedimetroResultado != null)
                 {
-                    Mensaje = new Mensaje(Codigos.SinLecturaDeHumedad, Textos.ResultadoSinLecturaDeHumedad, comando.CodigoDispositivo)
-                };
+                    humedad = humedimetroResultado.Humedad;
+                    ph = humedimetroResultado.PH;
+                }
             }
 
-            return humedad.HasValue ? 
-                new ResultadoEjecutar { Mensaje = Mensaje.ResultadoOK() }.Agregar("AnalisisHumedad", humedad.Value) :
-                new ResultadoEjecutar 
-                {
-                    Mensaje = new Mensaje(Codigos.SinLecturaDeHumedad, Textos.ResultadoSinLecturaDeHumedad, comando.CodigoDispositivo)
-                };
+            var resultadoEjecutar = new ResultadoEjecutar { Mensaje = new Mensaje(Codigos.SinLecturaDeHumedad, Textos.ResultadoSinLecturaDeHumedad, comando.CodigoDispositivo) };
+            if (humedad.HasValue && ph.HasValue)
+            {
+                resultadoEjecutar = new ResultadoEjecutar { Mensaje = Mensaje.ResultadoOK() }.Agregar("AnalisisHumedad", humedad.Value).Agregar("PH", ph.Value);
+            }
+            else if (humedad.HasValue)
+            {
+                resultadoEjecutar = new ResultadoEjecutar { Mensaje = Mensaje.ResultadoOK() }.Agregar("AnalisisHumedad", humedad.Value);
+            }
+            else if (ph.HasValue)
+            {
+                resultadoEjecutar = new ResultadoEjecutar { Mensaje = Mensaje.ResultadoOK() }.Agregar("PH", ph.Value);
+            }
+            return resultadoEjecutar;
         }
     }
 }

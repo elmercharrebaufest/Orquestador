@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Molinos.Orquest.Dominio.Dtos;
+using System;
 
 namespace Molinos.Orquest.Drivers
 {
@@ -6,6 +7,6 @@ namespace Molinos.Orquest.Drivers
     {
         decimal? ObtenerHumedad(DateTime? fechaDeInicio = null);
 
-        decimal? ObtenerPH(DateTime? fechaDeInicio = null);
+        HumedimetroResultadoDto ObtenerHumedadPH(DateTime? fechaDeInicio = null);
     }
 }
