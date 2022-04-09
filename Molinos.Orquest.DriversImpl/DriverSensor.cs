@@ -100,5 +100,16 @@ namespace Molinos.Orquest.DriversImpl
         {
             driverItc.InformarEstado();
         }
+
+        public ResultadoEstadoSensor ConsultaEstadoActual()
+        {
+            Log.Info($"ConsultaEstadoActual Dispositivo : {codigoDispositivo}, Numero Entrada : {configSensor.NumeroEntrada}");
+            return new ResultadoEstadoSensor
+            {
+                CodigoDispositivoConcentrador = configSensor?.Dispositivo?.Concentrador?.Codigo,
+                CodigoDispositivoSensor = codigoDispositivo,
+                EstadoActivo = driverItc.ConsultarEstadoEntrada(configSensor.NumeroEntrada)
+            };
+        }
     }
 }

@@ -117,6 +117,7 @@
     <Compile Include="Procesamiento\ProcesadorEjecutarCierreBarrera.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarAperturaCortinaAgua.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarBorrarBalanzadasPorRango.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarConsultaEstadoSensor.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarEjecutarQuery.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarObtenerDireccionViento.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarEnviarMensaje.cs" />

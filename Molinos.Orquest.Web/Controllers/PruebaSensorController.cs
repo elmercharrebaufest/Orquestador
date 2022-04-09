@@ -1,0 +1,48 @@
+﻿using Molinos.Orquest.Dominio.Comandos;
+using Molinos.Orquest.Dominio.Recursos;
+using Molinos.Orquest.Drivers;
+using Molinos.Orquest.Servicios;
+using Ninject.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+
+namespace Molinos.Orquest.Web.Controllers
+{
+    [AllowAnonymous]
+    public class PruebaSensorController : BaseController
+    {
+        private readonly IEnumerable<string> drivers;
+
+        public PruebaSensorController(IRepositorioFactory repositorio, IDriverFactory driverFactory, IServicioOrquestador servicio, ILogger log)
+            : base(repositorio, servicio, log)
+        {
+            drivers = driverFactory.DriversDisponibles<IDriverSensor>();
+        }
+
+        public ActionResult consultarSensor(string codigo)
+        {
+            JsonResult jsonResult;
+            try
+            {
+                log.Info($"Activar Salida codigo: {codigo}");
+                var resultado = servicio.Ejecutar(new EjecutarConsultaEstadoSensor { CodigoDispositivo = codigo });
+                jsonResult = Json(new
+                {
+                    Codigo = resultado.Mensaje.Codigo,
+                    Mensaje = String.Format("{0}: {1}-{2}", codigo, resultado.Mensaje.Codigo, resultado.Mensaje.Descripcion)
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "No se pudo acceder al orquestador de dispositivos");
+                jsonResult = Json(new
+                {
+                    Codigo = 999,
+                    Mensaje = String.Format("{0}: {1}", codigo, Textos.PruebaItc_ErrorServicio)
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return jsonResult;
+        }
+    }
+}

@@ -69,6 +69,7 @@
     <Compile Include="Comandos\EjecutarComunicador.cs" />
     <Compile Include="Comandos\EjecutarCierreBarrera.cs" />
     <Compile Include="Comandos\EjecutarAperturaCortinaAgua.cs" />
+    <Compile Include="Comandos\EjecutarConsultaEstadoSensor.cs" />
     <Compile Include="Comandos\EjecutarEjecutarQuery.cs" />
     <Compile Include="Comandos\EjecutarObtenerDireccionViento.cs" />
     <Compile Include="Comandos\EjecutarBorrarBalanzadasPorRango.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="Resultados\ResultadoConsultaBalanzada.cs" />
     <Compile Include="Resultados\ResultadoBorrarBalanzada.cs" />
     <Compile Include="Resultados\ResultadoEjecutarQuery.cs" />
+    <Compile Include="Resultados\ResultadoEstadoSensor.cs" />
     <Compile Include="Resultados\ResultadoMeteorologica.cs" />
     <Compile Include="Resultados\ResultadoObtenerPatente.cs" />
     <Compile Include="Resultados\ResultadoTomarFoto.cs" />

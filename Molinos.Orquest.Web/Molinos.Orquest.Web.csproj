@@ -238,6 +238,7 @@
     <Compile Include="Atributos\FileSizeAttribute.cs" />
     <Compile Include="Atributos\FileTypesAttribute.cs" />
     <Compile Include="Controllers\IntercomunicadorController.cs" />
+    <Compile Include="Controllers\PruebaSensorController.cs" />
     <Compile Include="Controllers\TagsHistorianController.cs" />
     <Compile Include="Controllers\CartelLedController.cs" />
     <Compile Include="Controllers\CortinaDeAguaController.cs" />
@@ -1788,6 +1789,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\themes\base\minified\images\" />
+    <Folder Include="Views\PruebaSensor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
