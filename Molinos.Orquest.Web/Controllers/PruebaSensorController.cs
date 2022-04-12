@@ -1,5 +1,6 @@
 ﻿using Molinos.Orquest.Dominio.Comandos;
 using Molinos.Orquest.Dominio.Recursos;
+using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
 using Molinos.Orquest.Servicios;
 using Ninject.Extensions.Logging;
@@ -25,12 +26,14 @@ namespace Molinos.Orquest.Web.Controllers
             JsonResult jsonResult;
             try
             {
-                log.Info($"Activar Salida codigo: {codigo}");
-                var resultado = servicio.Ejecutar(new EjecutarConsultaEstadoSensor { CodigoDispositivo = codigo });
+                log.Info($"Consultando Estado Sensor: {codigo}");
+                var resultado = servicio.Ejecutar(new EjecutarConsultaEstadoSensor { CodigoDispositivo = codigo }) as ResultadoEstadoSensor;
                 jsonResult = Json(new
                 {
                     Codigo = resultado.Mensaje.Codigo,
-                    Mensaje = String.Format("{0}: {1}-{2}", codigo, resultado.Mensaje.Codigo, resultado.Mensaje.Descripcion)
+                    Mensaje = String.Format("{0}: {1}-{2}", codigo, resultado.Mensaje.Codigo, resultado.Mensaje.Descripcion),
+                    CodigoDispositivoSensor = resultado?.CodigoDispositivoSensor,
+                    EstadoActivo = resultado?.EstadoActivo
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
