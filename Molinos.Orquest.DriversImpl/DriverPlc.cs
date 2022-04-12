@@ -344,5 +344,10 @@ namespace Molinos.Orquest.DriversImpl
                              .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                              .ToArray();
         }
+
+        public bool ConsultarEstadoActual(int numeroEntrada)
+        {
+            return ConsultarEstadoEntrada(numeroEntrada);
+        }
     }
 }

@@ -273,5 +273,79 @@ namespace Molinos.Orquest.DriversImpl
         {
             return;
         }
+
+        public bool ConsultarEstadoActual(int numeroEntrada)
+        {
+            Log.Info("ConsultarEstadoActual Sensor - DriverIotBox");
+
+            List<EntradaDto> respuesta = null;
+            try
+            {
+                lock (lockComandoLectura)
+                {
+                    try
+                    {
+                        ActivarSalida(0, "\"ping\"", "0", false);
+                    }
+                    catch
+                    {
+                        cliente.ReConectar();
+                        ActivarSalida(0, "\"socketconnected\"", "0", false);
+                    }
+
+                    string response;
+                    try
+                    {
+                        response = cliente.LeerNovedad();
+                    }
+                    catch (SocketException e)
+                    {
+                        Log.Error("Error de conexion al leer respuesta, intentando un nuevo ping", e);
+                        cliente.ReConectar();
+                        ActivarSalida(0, "\"ping\"", "0", false);
+                        response = cliente.LeerNovedad();
+                    }
+
+                    try
+                    {
+                        if (response != null && response != "\"ok\"")
+                        {
+                            respuesta = JsonConvert.DeserializeObject<List<EntradaDto>>(response);
+                            if (respuesta[0].Dato == "pingResponse")
+                            {
+                                Log.Info("Ping respondido exitosamente.");
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(e, "Error al parsear respuesta");
+                    }
+                }
+            }
+            catch (Exception e) when (e.InnerException != null && (e.InnerException is SocketException) && ((SocketException)e.InnerException).ErrorCode == 10060)
+            {
+                Log.Debug(e, $"{codigoRasp} - Sin novedad");
+                //throw new DriverException("El dispositivo no ha devuelto una respuesta", e);
+            }
+            catch (Exception e)
+            {
+                throw new DriverException("Error al Conectar con el dispositivo", e);
+            }
+
+            if (respuesta != null && respuesta[0].Dato != "pingResponse")
+            {
+                bool resultado = false;
+                foreach (var entrada in respuesta)
+                {
+                    Log.Info("Salida Consultada: ITC={0} Salida={1} Status={2}", codigoRasp, entrada.Numero,entrada.Dato);
+                    resultado = bool.TryParse(entrada?.Dato, out bool j);                    
+                }
+
+                return resultado;
+            }
+
+            return false;
+        }
     }
 }

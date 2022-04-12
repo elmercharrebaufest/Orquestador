@@ -105,5 +105,10 @@ namespace Molinos.Orquest.DriversImpl
         protected override void Dispose(bool disposing)
         {
         }
+
+        public bool ConsultarEstadoActual(int numeroEntrada)
+        {
+            return ConsultarEstadoEntrada(numeroEntrada);
+        }
     }
 }

@@ -334,5 +334,10 @@ namespace Molinos.Orquest.DriversImpl
         {
             return;
         }
+
+        public bool ConsultarEstadoActual(int numeroEntrada)
+        {
+            return ConsultarEstadoEntrada(numeroEntrada);
+        }
     }
 }
