@@ -276,75 +276,103 @@ namespace Molinos.Orquest.DriversImpl
 
         public bool ConsultarEstadoActual(int numeroEntrada)
         {
-            Log.Info("ConsultarEstadoActual Sensor - DriverIotBox");
+            Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 0");
 
             List<EntradaDto> respuesta = null;
             try
             {
+                Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 1");
                 lock (lockComandoLectura)
                 {
+                    Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 2");
                     try
                     {
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 3");
                         ActivarSalida(0, "\"ping\"", "0", false);
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 4");
                     }
                     catch
                     {
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 5");
                         cliente.ReConectar();
                         ActivarSalida(0, "\"socketconnected\"", "0", false);
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 6");
                     }
-
+                    Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 7");
                     string response;
+                    Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 8");
                     try
                     {
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 9");
                         response = cliente.LeerNovedad();
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 10");
                     }
                     catch (SocketException e)
                     {
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 11");
                         Log.Error("Error de conexion al leer respuesta, intentando un nuevo ping", e);
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 12");
                         cliente.ReConectar();
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 13");
                         ActivarSalida(0, "\"ping\"", "0", false);
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 14");
                         response = cliente.LeerNovedad();
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 15");
                     }
-
+                    Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 16");
                     try
                     {
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 17");
                         if (response != null && response != "\"ok\"")
                         {
+                            Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 18");
                             respuesta = JsonConvert.DeserializeObject<List<EntradaDto>>(response);
+                            Log.Info($"ConsultarEstadoActual Sensor - DriverIotBox response : {response}");
+                            Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 19");
                             if (respuesta[0].Dato == "pingResponse")
                             {
+                                Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 20");
                                 Log.Info("Ping respondido exitosamente.");
                             }
+                            Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 21");
                         }
                     }
                     catch (Exception e)
                     {
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 22");
                         Log.Error(e, "Error al parsear respuesta");
+                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 23");
                     }
                 }
             }
             catch (Exception e) when (e.InnerException != null && (e.InnerException is SocketException) && ((SocketException)e.InnerException).ErrorCode == 10060)
             {
+                Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 24");
                 Log.Debug(e, $"{codigoRasp} - Sin novedad");
                 //throw new DriverException("El dispositivo no ha devuelto una respuesta", e);
             }
             catch (Exception e)
             {
+                Log.Info($"ConsultarEstadoActual Sensor - DriverIotBox 25 : {e.ToString()}");
                 throw new DriverException("Error al Conectar con el dispositivo", e);
             }
 
             if (respuesta != null && respuesta[0].Dato != "pingResponse")
             {
+                Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 26");
                 bool resultado = false;
                 foreach (var entrada in respuesta)
                 {
-                    Log.Info("Salida Consultada: ITC={0} Salida={1} Status={2}", codigoRasp, entrada.Numero,entrada.Dato);
-                    resultado = bool.TryParse(entrada?.Dato, out bool j);                    
+                    Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 27");
+                    Log.Info("Salida Consultada: ITC={0} Salida={1} Status={2}", codigoRasp, entrada.Numero, entrada.Dato);
+                    resultado = bool.TryParse(entrada?.Dato, out bool j);
                 }
+                Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 28");
 
                 return resultado;
             }
 
+            Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 29");
             return false;
         }
     }
