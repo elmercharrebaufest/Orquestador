@@ -309,7 +309,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (SocketException e)
                     {
-                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 11");
+                        Log.Info($"ConsultarEstadoActual Sensor - DriverIotBox 11 : {e.ToString()}");
                         Log.Error("Error de conexion al leer respuesta, intentando un nuevo ping", e);
                         Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 12");
                         cliente.ReConectar();
@@ -339,7 +339,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (Exception e)
                     {
-                        Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 22");
+                        Log.Info($"ConsultarEstadoActual Sensor - DriverIotBox 22 : {e.ToString()}");
                         Log.Error(e, "Error al parsear respuesta");
                         Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 23");
                     }
@@ -347,7 +347,7 @@ namespace Molinos.Orquest.DriversImpl
             }
             catch (Exception e) when (e.InnerException != null && (e.InnerException is SocketException) && ((SocketException)e.InnerException).ErrorCode == 10060)
             {
-                Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 24");
+                Log.Info($"ConsultarEstadoActual Sensor - DriverIotBox 24 : {e.ToString()}");
                 Log.Debug(e, $"{codigoRasp} - Sin novedad");
                 //throw new DriverException("El dispositivo no ha devuelto una respuesta", e);
             }
