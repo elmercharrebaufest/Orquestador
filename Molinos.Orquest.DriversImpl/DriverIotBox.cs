@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -281,9 +282,9 @@ namespace Molinos.Orquest.DriversImpl
             bool resultado = false;
             try
             {
-                Log.Info("ConsultarEstadoActual Sensor - DriverIotBox 0");
+                Log.Info("ConsultarEstadoActual Sensor - DriverIotBox");
 
-                if (estadoAnterior != null)
+                if (estadoAnterior != null && estadoAnterior.Any())
                 {
                     Log.Info($"ConsultarEstadoActual Sensor - Estado Anterior : {JsonConvert.SerializeObject(estadoAnterior)}");
                     if (estadoAnterior != null && estadoAnterior[0].Dato != "pingResponse")
@@ -291,9 +292,10 @@ namespace Molinos.Orquest.DriversImpl
                         Log.Info("ConsultarEstadoActual Sensor - Existe Respuesta de Ping");
                         foreach (var entrada in estadoAnterior)
                         {
-                            Log.Info($"ConsultarEstadoActual Sensor Lista estadoAnterior : {entrada?.Dato}");
-                            resultado = bool.TryParse(entrada?.Dato, out bool j);
+                            Log.Info($"ConsultarEstadoActual Sensor Elemento : {entrada?.Dato}");
+                            //resultado = bool.TryParse(entrada?.Dato, out bool j);
                         }
+                        return estadoAnterior[0]?.Dato == "true" ? true : false;
                     }
                     else
                     {
