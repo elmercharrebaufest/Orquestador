@@ -26,7 +26,6 @@ namespace Molinos.Orquest.DriversImpl
 
         private readonly ManualResetEvent finCiclo = new ManualResetEvent(false);
 
-        private List<EntradaDto> estadoAnterior;
         private bool? falloUltimaConexion;
         private Exception errorUltimaConexion;
         private readonly List<string> eventosSoportados = new List<string> { CodigosEventos.EntradaActivada, CodigosEventos.ErrorConexionDispositivo };
@@ -157,7 +156,6 @@ namespace Molinos.Orquest.DriversImpl
                         if (response != null && response != "\"ok\"")
                         {
                             respuesta = JsonConvert.DeserializeObject<List<EntradaDto>>(response);
-                            estadoAnterior = JsonConvert.DeserializeObject<List<EntradaDto>>(response);
                             if (respuesta[0].Dato == "pingResponse")
                             {
                                 Log.Info("Ping respondido exitosamente.");
@@ -280,9 +278,38 @@ namespace Molinos.Orquest.DriversImpl
         public bool ConsultarEstadoActual(int numeroEntrada)
         {
             bool resultado = false;
+            string respuesta;
+            List<EntradaDto> estadoAnterior = null;
             try
             {
                 Log.Info("ConsultarEstadoActual Sensor - DriverIotBox");
+
+                if (!dispositivoActivo)
+                {
+                    Log.Info("ConsultarEstadoActual Sensor - DriverIotBox Desactivado");
+                    return false;
+                }
+
+                lock (lockComandoEscritura)
+                {
+                    if (!cliente.Conectado)
+                    {
+                        cliente.ReConectar();
+                    }
+                    cliente.EnviarComando("[{\"Tipo\": \"salida\", \"Numero\" : " + numeroEntrada.ToString(CultureInfo.InvariantCulture) +
+                        ", \"Dato\" : " + "\"ping\"" +
+                        ", \"Delay\": " + "0" + "}]", false);
+
+                    respuesta = cliente.LeerNovedad();
+                }
+
+                Log.Info("ConsultarEstadoActual Sensor - ComandoEnviado con Exito");
+
+                if (respuesta != null && respuesta != "\"ok\"")
+                {
+                    estadoAnterior = JsonConvert.DeserializeObject<List<EntradaDto>>(respuesta);
+                    Log.Info("ConsultarEstadoActual Sensor - Respuesta !Ok");
+                }
 
                 if (estadoAnterior != null && estadoAnterior.Any())
                 {
