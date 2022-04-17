@@ -5,5 +5,6 @@ namespace Molinos.Orquest.Drivers
     public interface IDriverSensor : IDriver
     {
         ResultadoEstadoSensor ConsultaEstadoActual();
+        void NotificarEstadoActualSensor();
     }
 }

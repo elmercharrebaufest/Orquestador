@@ -110,5 +110,12 @@ namespace Molinos.Orquest.DriversImpl
         {
             return ConsultarEstadoEntrada(numeroEntrada);
         }
+
+        public void NotificarEstadoActual(int numeroEntrada)
+        {
+            /// <summary>
+            /// Metodo No implementado, driver no soportado.
+            /// </summary>
+        }
     }
 }

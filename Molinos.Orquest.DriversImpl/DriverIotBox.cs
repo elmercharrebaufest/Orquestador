@@ -277,71 +277,18 @@ namespace Molinos.Orquest.DriversImpl
 
         public bool ConsultarEstadoActual(int numeroEntrada)
         {
-            bool resultado = false;
-            string respuesta;
-            List<EntradaDto> estadoAnterior = null;
-            try
-            {
-                Log.Info("ConsultarEstadoActual Sensor - DriverIotBox");
+            /// <summary>
+            /// Motodo deshabilitado, falta realizar la implementación del lado del concetrador para el envío de un comando el cual permita consultar el estado actual de un sensor enviado como parámetro el código del dispositivo.
+            /// </summary>
+            
+            return false;
+        }
 
-                if (!dispositivoActivo)
-                {
-                    Log.Info("ConsultarEstadoActual Sensor - DriverIotBox Desactivado");
-                    return false;
-                }
-
-                lock (lockComandoEscritura)
-                {
-                    if (!cliente.Conectado)
-                    {
-                        cliente.ReConectar();
-                    }
-                    cliente.EnviarComando("[{\"Tipo\": \"salida\", \"Numero\" : " + numeroEntrada.ToString(CultureInfo.InvariantCulture) +
-                        ", \"Dato\" : " + "\"ping\"" +
-                        ", \"Delay\": " + "0" + "}]", false);
-
-                    respuesta = cliente.LeerNovedad();
-                }
-
-                Log.Info("ConsultarEstadoActual Sensor - ComandoEnviado con Exito");
-
-                if (respuesta != null && respuesta != "\"ok\"")
-                {
-                    estadoAnterior = JsonConvert.DeserializeObject<List<EntradaDto>>(respuesta);
-                    Log.Info("ConsultarEstadoActual Sensor - Respuesta !Ok");
-                }
-
-                if (estadoAnterior != null && estadoAnterior.Any())
-                {
-                    Log.Info($"ConsultarEstadoActual Sensor - Estado Anterior : {JsonConvert.SerializeObject(estadoAnterior)}");
-                    if (estadoAnterior != null && estadoAnterior[0].Dato != "pingResponse")
-                    {
-                        Log.Info("ConsultarEstadoActual Sensor - Existe Respuesta de Ping");
-                        foreach (var entrada in estadoAnterior)
-                        {
-                            Log.Info($"ConsultarEstadoActual Sensor Elemento : {entrada?.Dato}");
-                            //resultado = bool.TryParse(entrada?.Dato, out bool j);
-                        }
-                        return estadoAnterior[0]?.Dato == "true" ? true : false;
-                    }
-                    else
-                    {
-                        Log.Info("ConsultarEstadoActual Sensor - No Existe Respuesta de Ping");
-                    }
-                }
-                else
-                {
-                    Log.Info("ConsultarEstadoActual Sensor - EstadoAnterior No Identificado");
-                    return resultado;
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Info($"ConsultarEstadoActual Sensor - Error : {e.ToString()}");
-                return resultado;
-            }
-
-            return resultado;
+        public void NotificarEstadoActual(int numeroEntrada)
+        {
+            /// <summary>
+            /// Metodo No implementado, falta realizar la implementación del lado del concetrador para el envío de un comando el cual permita consultar el estado actual de un sensor enviado como parámetro el código del dispositivo.
+            /// </summary>
         }
     }
 }

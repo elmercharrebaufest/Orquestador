@@ -132,12 +132,14 @@ namespace Molinos.Orquest.DriversImpl
                     {
                         Log.Info("Entrada Activada: ITC={0} Entrada={1}", codigoItc, i - 3);
                         NotificarEventoEntrada(i - 3, CodigosEventos.EntradaActivada);
+                        NotificarEventoEntrada(i - 3, CodigosEventos.CambioEstadoSensor, "true");
                     }
                     //chequeamos al cambio de estado de activada a desactivada
                     if (!byteRespuesta.BitAt(i) && (estadoAnterior.HasValue && estadoAnterior.Value.BitAt(i)))
                     {
                         Log.Info("Entrada Desactivada: ITC={0} Entrada={1}", codigoItc, i - 3);
                         NotificarEventoEntrada(i - 3, CodigosEventos.EntradaDesactivada);
+                        NotificarEventoEntrada(i - 3, CodigosEventos.CambioEstadoSensor, "false");
                     }
                 }
                 estadoAnterior = byteRespuesta;
@@ -157,6 +159,31 @@ namespace Molinos.Orquest.DriversImpl
                     Datos = new Dictionary<string, string>
                                 {
                                     {"Entrada", entrada.ToString(CultureInfo.InvariantCulture)}
+                                }
+                };
+
+                OnEventoDriver(new EventoDriverEventArgs { Notificacion = notification });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "No se pudo notificar el evento ", codigoEvento);
+            }
+        }
+
+        private void NotificarEventoEntrada(int entrada, string codigoEvento, string dato)
+        {
+            try
+            {
+                Log.Info("NotificarEventoEntradaCambioSensor : ITC={0} Entrada={1} Evento={2} Dato={3}", codigoItc, entrada, codigoEvento, dato);
+
+                var notification = new NotificacionEvento
+                {
+                    CodigoDispositivo = codigoItc,
+                    CodigoEvento = codigoEvento,
+                    Datos = new Dictionary<string, string>
+                                {
+                                    {"Entrada", entrada.ToString(CultureInfo.InvariantCulture)},
+                                    {"Dato", dato}
                                 }
                 };
 
@@ -338,6 +365,32 @@ namespace Molinos.Orquest.DriversImpl
         public bool ConsultarEstadoActual(int numeroEntrada)
         {
             return ConsultarEstadoEntrada(numeroEntrada);
+        }
+
+        public void NotificarEstadoActual(int numeroEntrada)
+        {
+            try
+            {
+                Log.Info("NotificarEstadoActual: ITC={0} Salida={1}", codigoItc, numeroEntrada);
+                bool estado = false;
+                if (estadoAnterior == null)
+                {
+                    ConsultarEstado();
+                }
+                if (estadoAnterior.HasValue && estadoAnterior.Value.BitAt(numeroEntrada + 3))
+                {
+                    estado = true;
+                    NotificarEventoEntrada(numeroEntrada, CodigosEventos.CambioEstadoSensor, estado.ToString(CultureInfo.InvariantCulture));
+                }
+                else
+                {
+                    NotificarEventoEntrada(numeroEntrada, CodigosEventos.CambioEstadoSensor, estado.ToString(CultureInfo.InvariantCulture));
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Error al NotificarEstadoActual del ITC {0}", codigoItc);
+            }
         }
     }
 }

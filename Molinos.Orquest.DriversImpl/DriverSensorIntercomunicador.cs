@@ -86,5 +86,10 @@ namespace Molinos.Orquest.DriversImpl
                 Mensaje = Mensaje.ResultadoOK()
             };
         }
+
+        public void NotificarEstadoActualSensor()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

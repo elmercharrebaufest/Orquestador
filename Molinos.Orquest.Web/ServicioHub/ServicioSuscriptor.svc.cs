@@ -112,15 +112,6 @@ namespace Molinos.Orquest.Web.ServicioHub
                             Speaker = estados[1].ToLower() == "true",
                         });
                     }
-                    else if (notificacion.CodigoEvento == CodigosEventos.CambioEstadoSensorBarrera)
-                    {
-                        hubClient.Invoke("NotificarLecturaEntrada", new LecturaEntrada
-                        {
-                            CodigoItc = codigoItc,
-                            CodigoDispositivo = notificacion.CodigoDispositivo,
-                            Valor = notificacion.Datos.ContainsKey("Dato") ? bool.TryParse(notificacion.Datos["Dato"], out bool j) : false
-                        });
-                    }
                 }
             }
             catch (Exception ex)

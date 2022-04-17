@@ -47,5 +47,31 @@ namespace Molinos.Orquest.Web.Controllers
             }
             return jsonResult;
         }
+
+        public ActionResult NotificarEstadoSendor(string codigo)
+        {
+            JsonResult jsonResult;
+            try
+            {
+                log.Info($"Ejecutando Notificar Estado Actual del Sensor: {codigo}");
+                var resultado = servicio.Ejecutar(new EjecutarNotificacionEstadoSensor { CodigoDispositivo = codigo });
+                jsonResult = Json(new
+                {
+                    Codigo = resultado.Mensaje.Codigo,
+                    Mensaje = String.Format("{0}: {1}-{2}", codigo, resultado.Mensaje.Codigo, resultado.Mensaje.Descripcion)
+                }, JsonRequestBehavior.AllowGet);
+                log.Info($"Ejecutando Notificar Estado Actual del Sensor Exitosamente.");
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "No se pudo acceder al orquestador de dispositivos");
+                jsonResult = Json(new
+                {
+                    Codigo = 999,
+                    Mensaje = String.Format("{0}: {1}", codigo, Textos.PruebaItc_ErrorServicio)
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return jsonResult;
+        }
     }
 }

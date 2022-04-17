@@ -119,6 +119,7 @@
     <Compile Include="Procesamiento\ProcesadorEjecutarBorrarBalanzadasPorRango.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarConsultaEstadoSensor.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarEjecutarQuery.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarNotificacionEstadoSensor.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarObtenerDireccionViento.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarEnviarMensaje.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarConsultaBalanzadaPorRango.cs" />

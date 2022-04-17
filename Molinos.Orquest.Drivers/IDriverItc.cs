@@ -6,5 +6,6 @@
         void DesactivarSalida(int salida, string estado, string dato);
         bool ConsultarEstadoEntrada(int numeroEntrada);
         bool ConsultarEstadoActual(int numeroEntrada);
+        void NotificarEstadoActual(int numeroEntrada);
     }
 }

@@ -125,5 +125,10 @@ namespace Molinos.Orquest.DriversImpl
                 Mensaje = Mensaje.ResultadoOK()
             };
         }
+
+        public void NotificarEstadoActualSensor()
+        {
+            driverItc.ConsultarEstadoActual(configSensor.NumeroEntrada);
+        }
     }
 }

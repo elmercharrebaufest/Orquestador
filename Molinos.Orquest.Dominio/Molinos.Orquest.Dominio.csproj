@@ -71,6 +71,7 @@
     <Compile Include="Comandos\EjecutarAperturaCortinaAgua.cs" />
     <Compile Include="Comandos\EjecutarConsultaEstadoSensor.cs" />
     <Compile Include="Comandos\EjecutarEjecutarQuery.cs" />
+    <Compile Include="Comandos\EjecutarNotificacionEstadoSensor.cs" />
     <Compile Include="Comandos\EjecutarObtenerDireccionViento.cs" />
     <Compile Include="Comandos\EjecutarBorrarBalanzadasPorRango.cs" />
     <Compile Include="Comandos\EjecutarConsultaBalanzadaPorRango.cs" />

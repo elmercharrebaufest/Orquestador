@@ -205,7 +205,7 @@ namespace Molinos.Orquest.DriversImpl
         {
             try
             {
-                Log.Info("Cambio Estado Entrada: PLC={0} Entrada={1} Evento={2}", codigoPlc, entrada, codigoEvento);
+                Log.Info("Cambio Estado Entrada: PLC={0} Entrada={1} Evento={2} Dato={3}", codigoPlc, entrada, codigoEvento, mensaje);
 
                 var notification = new NotificacionEvento
                 {
@@ -214,7 +214,8 @@ namespace Molinos.Orquest.DriversImpl
                     Datos = new Dictionary<string, string>
                                 {
                                     {"Entrada", entrada.ToString(CultureInfo.InvariantCulture)},
-                                    {"Mensaje", mensaje}
+                                    {"Mensaje", mensaje},
+                                    {"Dato", mensaje}
                                 }
                 };
 
@@ -348,6 +349,38 @@ namespace Molinos.Orquest.DriversImpl
         public bool ConsultarEstadoActual(int numeroEntrada)
         {
             return ConsultarEstadoEntrada(numeroEntrada);
+        }
+
+        public void NotificarEstadoActual(int numeroEntrada)
+        {
+            try
+            {                
+                Log.Info("NotificarEstadoActual: PLC={0} Salida={1}", codigoPlc, numeroEntrada);
+                bool estado = false;
+                if (estadoAnterior == null)
+                {
+                    ConsultarEstado();
+                }
+                else
+                {
+                    if (estadoAnterior != null && estadoAnterior.Length > 9)
+                    {
+                        var bytePosicion = 9 + (numeroEntrada / 8);
+                        var bitPosicion = 7 - (numeroEntrada % 8);
+                        estado = estadoAnterior[bytePosicion].BitAt(bitPosicion);
+                        NotificarEventoEntrada(numeroEntrada, CodigosEventos.CambioEstadoSensor, estado.ToString(CultureInfo.InvariantCulture));
+                    }
+                    else
+                    {
+                        NotificarEventoEntrada(numeroEntrada, CodigosEventos.CambioEstadoSensor, estado.ToString(CultureInfo.InvariantCulture));
+                    }
+                }
+                
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Error al NotificarEstadoActual del ITC {0}", codigoPlc);
+            }
         }
     }
 }
