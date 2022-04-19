@@ -56,6 +56,8 @@ namespace Molinos.Orquest.DriversImpl
             var notificacion = evento.Notificacion;
             if (EsEventoParaDispositivo(notificacion))
             {
+                Log.Debug($"Enviando evento driver sensor: {codigoDispositivo } Evento: {notificacion.CodigoEvento}");
+
                 var codigoEvento = notificacion.CodigoEvento;
                 // Esto se da cuando "0" es "activada" y "1" es desactivada
                 if (!configSensor.EstadoActivado)
