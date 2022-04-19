@@ -28,7 +28,8 @@ namespace Molinos.Orquest.Servicios.Procesamiento
                     driversLogicos.Add(disp.Codigo, driverLogico);
                     //Nos suscribimos a los eventos de los drivers logicos
                     driverLogico.EventoDriver += (sender, args) => { adminSuscripciones.Notificar(args.Notificacion);
-                        log.Debug($"Suscripcion Notificacion Concentrador: Dispositivos: {args.Notificacion.CodigoDispositivo } Evento: {args.Notificacion.CodigoEvento}")};
+                        log.Debug($"Suscripcion Notificacion Concentrador: Dispositivos: {args.Notificacion.CodigoDispositivo } Evento: {args.Notificacion.CodigoEvento}");
+                    };
 
                 }
             }
