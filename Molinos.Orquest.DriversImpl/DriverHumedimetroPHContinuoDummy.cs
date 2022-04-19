@@ -53,9 +53,9 @@ namespace Molinos.Orquest.DriversImpl
                         string frase = " ,29/03/22,14:20:14,11.9,70.7,30.3,28.9,29.7,SOJA ARG,S/N: 1716-32552, 2, 895,2305, 303,070815";
                         if (frase != null)
                         {
-                            Log.Info("Captura de Humedad - " + configHumedimetro.Dispositivo.Codigo + " - '" + frase.Replace("\r", "") + "'");
+                            //Log.Info("Captura de Humedad - " + configHumedimetro.Dispositivo.Codigo + " - '" + frase.Replace("\r", "") + "'");
                             var arrayHumedad = frase.Split(new[] { configHumedimetro.DelimitadorCampos }, StringSplitOptions.None);
-                            Log.Error("Lectura!! {0}", frase);
+                            //Log.Error("Lectura!! {0}", frase);
                             if (arrayHumedad.Length != 15)
                             {
                                 throw new FormatException(frase);
