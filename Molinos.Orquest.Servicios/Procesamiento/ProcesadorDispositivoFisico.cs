@@ -18,7 +18,12 @@ namespace Molinos.Orquest.Servicios.Procesamiento
         {
 
             // Nos suscribimos a eventos del driver
-            Driver.EventoDriver += (sender, args) => adminSuscripciones.Notificar(args.Notificacion);
+            Driver.EventoDriver += (sender, args) =>
+            {
+                adminSuscripciones.Notificar(args.Notificacion);
+                log.Debug($"Suscripcion Notificacion: Dispositivos: {args.Notificacion.CodigoDispositivo } Evento: {args.Notificacion.CodigoEvento}");
+            };
+            
         }
 
         protected override ResultadoComando ProcesarComando(Comando comando)
