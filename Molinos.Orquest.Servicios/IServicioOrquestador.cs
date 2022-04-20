@@ -105,5 +105,8 @@ namespace Molinos.Orquest.Servicios
 
         [OperationContract]
         IntercomunicadorDispositivoBaseDto ObtenerIntercomunicadorPuertoDeAudio(string codigoDispositivo);
+
+        [OperationContract]
+        IList<DispositivoDto> ListarTags();
     }
 }

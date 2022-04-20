@@ -828,5 +828,18 @@ namespace Molinos.Orquest.Servicios.Impl
                 return resultado;
             }
         }
+
+        public IList<DispositivoDto> ListarTags()
+        {
+            using (var repositorio = factoryRepositorio.Repositorio())
+            {
+                return repositorio.Listar<ConfigTag, DispositivoDto>(q => q.Dispositivo.Activo && !q.Dispositivo.EsConcentrador,
+                    q => new DispositivoDto
+                    {
+                        Codigo = q.Dispositivo.Codigo,
+                        Descripcion = q.Dispositivo.Descripcion
+                    });
+            }
+        }
     }
 }
