@@ -93,6 +93,7 @@ namespace Molinos.Orquest.DriversImpl
 
         private bool EsEventoParaDispositivo(NotificacionEvento notificacion)
         {
+            Log.Debug($"Es Evento Para Dispositivo: {notificacion.CodigoEvento } Datos: {notificacion.Datos}");
             return eventosSoportados.Contains(notificacion.CodigoEvento) 
                 && (notificacion.Datos == null || !notificacion.Datos.ContainsKey("Entrada") 
                             || notificacion.Datos["Entrada"] == entrada);
