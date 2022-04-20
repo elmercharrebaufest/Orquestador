@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+
+    <ExtensionTasksPath>$(MSBuildExtensionsPath)\ExtensionPack\4.0\</ExtensionTasksPath>
+
+    <Reintentos>1</Reintentos>
+    <PackageServidor>$(MSBuildProjectDirectory)\package</PackageServidor>
+    <AppConfig>$(MSBuildProjectDirectory)\package\App.GSLOSCATOOPS00.Config</AppConfig>
+
+    <Exe>Molinos.Orquest.Servidor.exe</Exe>
+    <OrquestadorService>SCATO - Orquestador de Dispositivos</OrquestadorService>
+
+    <User>molinosagro\scatoopsprd</User>
+    <UserPassword>05D9442CD3</UserPassword>
+
+    <RemoteMachine>GSLOSCATOOPS00</RemoteMachine>
+    <DeployPath>//GSLOSCATOOPS00/Orquestador</DeployPath>
+    <LocalPath>E:/Orquestador</LocalPath>
+
+
+  </PropertyGroup>
+
+</Project>
