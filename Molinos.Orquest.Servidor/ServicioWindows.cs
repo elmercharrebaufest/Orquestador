@@ -6,10 +6,12 @@ using System.Reflection;
 using System.ServiceModel;
 using System.ServiceProcess;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights.Extensibility;
 using Molinos.Orquest.Dependencias;
 using Molinos.Orquest.Servicios;
 using Molinos.Orquest.Servicios.Impl;
 using Molinos.Orquest.Servidor.Hosting;
+using Molinos.Orquest.Servidor.Insights;
 using Ninject;
 using Ninject.Extensions.Logging;
 
@@ -54,6 +56,8 @@ namespace Molinos.Orquest.Servidor
                                                    Environment.MachineName);
                 var urlsOrquestador = urlOrquestador.Split(',').Select(url => new Uri(url)).ToArray();
                 serviceHost = new NinjectServiceHost(KernelInstance, typeof (ServicioOrquestador), urlsOrquestador);
+
+                TelemetryConfiguration.Active.TelemetryInitializers.Add(new RoleTelemetryInitializer());
 
                 log.Debug("Inicializando orquestador...");
                 ServicioOrquestador.Iniciar(Environment.MachineName, urlsOrquestador[0].AbsoluteUri);
