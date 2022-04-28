@@ -69,6 +69,7 @@
     <Compile Include="Comandos\EjecutarComunicador.cs" />
     <Compile Include="Comandos\EjecutarCierreBarrera.cs" />
     <Compile Include="Comandos\EjecutarAperturaCortinaAgua.cs" />
+    <Compile Include="Comandos\EjecutarConsultaSensor.cs" />
     <Compile Include="Comandos\EjecutarConsultaEstadoSensor.cs" />
     <Compile Include="Comandos\EjecutarEjecutarQuery.cs" />
     <Compile Include="Comandos\EjecutarNotificacionEstadoSensor.cs" />
