@@ -57,8 +57,6 @@ namespace Molinos.Orquest.Servidor
                 var urlsOrquestador = urlOrquestador.Split(',').Select(url => new Uri(url)).ToArray();
                 serviceHost = new NinjectServiceHost(KernelInstance, typeof (ServicioOrquestador), urlsOrquestador);
 
-                TelemetryConfiguration.Active.TelemetryInitializers.Add(new RoleTelemetryInitializer());
-
                 log.Debug("Inicializando orquestador...");
                 ServicioOrquestador.Iniciar(Environment.MachineName, urlsOrquestador[0].AbsoluteUri);
                 log.Debug("Servicio iniciado");

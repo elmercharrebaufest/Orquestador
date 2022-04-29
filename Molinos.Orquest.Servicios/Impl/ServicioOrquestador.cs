@@ -1,4 +1,5 @@
-﻿using Molinos.Orquest.Dominio;
+﻿using Microsoft.ApplicationInsights;
+using Molinos.Orquest.Dominio;
 using Molinos.Orquest.Dominio.Comandos;
 using Molinos.Orquest.Dominio.Dtos;
 using Molinos.Orquest.Dominio.Entidades;
@@ -25,6 +26,7 @@ namespace Molinos.Orquest.Servicios.Impl
         private readonly INamedLocker locker;
         private readonly IProgramadorTareas programador;
         private readonly ILogger log;
+        private readonly TelemetryClient aiClient;
 
         private readonly IDictionary<string, IProcesadorDispositivo> procesadores;
         private readonly IDictionary<string, bool> estadoDispositivo;
@@ -41,6 +43,7 @@ namespace Molinos.Orquest.Servicios.Impl
             this.locker = locker;
             this.programador = programador;
             this.log = log;
+            this.aiClient = new TelemetryClient();
 
             procesadores = new ConcurrentDictionary<string, IProcesadorDispositivo>();
             estadoDispositivo = new ConcurrentDictionary<string, bool>();
@@ -206,6 +209,18 @@ namespace Molinos.Orquest.Servicios.Impl
 
         public ResultadoEjecutar Ejecutar(ComandoEjecutar comando)
         {
+            try
+            {
+                if (aiClient.IsEnabled())
+                {
+                    aiClient.TrackTrace($"Ejecutando comando --> {comando.GetType().Name}");
+                }
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "No se pudo registrar en AI el comando {0}", comando.GetType().Name);
+            }
+
             return Procesar(comando, (servicio, cmd) => servicio.Ejecutar(cmd));
         }
 
