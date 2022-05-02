@@ -89,6 +89,7 @@ namespace Molinos.Orquest.Web.Controllers
                     {
                         model.Dispositivo.Concentrador = repositorio.Obtener<Dispositivo>(model.Dispositivo.ConcentradorId);
                     }
+                    model.Dispositivo.ServerFijo = Server.UrlDecode(model.Dispositivo.ServerFijo);
                     repositorio.Agregar(conversor.Convertir<ConfigItcModel, ConfigItc>(model));
                     repositorio.GuardarCambios();
                     return new AjaxEditSuccessResult();
@@ -141,6 +142,7 @@ namespace Molinos.Orquest.Web.Controllers
                     viejo.Activo = model.Dispositivo.Activo;
                     viejo.EsConcentrador = model.Dispositivo.EsConcentrador;
                     viejo.Concentrador = repositorio.Obtener<Dispositivo>(model.Dispositivo.ConcentradorId);
+                    viejo.ServerFijo = model.Dispositivo.ServerFijo;
                     var configItc = (ConfigItc) viejo.Configuracion;
                     configItc.CarFinFrase = Server.UrlDecode(model.CarFinFrase);
                     configItc.CarInicioFrase = Server.UrlDecode(model.CarInicioFrase);

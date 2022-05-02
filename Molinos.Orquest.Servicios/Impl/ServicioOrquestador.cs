@@ -575,6 +575,8 @@ namespace Molinos.Orquest.Servicios.Impl
                 throw new DispositivoNoEncontradoException(string.Format("El dispositivo {0} no existe o esta desactivado.", codigo));
             }
             var codigoDispositivo = codigo;
+            var serverFijo = dispositivo.ServerFijo;
+
             if (dispositivo.Concentrador != null)
             {
                 if (!dispositivo.Concentrador.Activo && !permitirInactivo)
@@ -582,14 +584,22 @@ namespace Molinos.Orquest.Servicios.Impl
                     throw new DispositivoNoEncontradoException(string.Format("El dispositivo concentrador {0} no existe o esta desactivado.", dispositivo.Concentrador.Codigo));
                 }
                 codigoDispositivo = dispositivo.Concentrador.Codigo;
+                serverFijo = dispositivo.Concentrador.ServerFijo;
             }
             lock (locker.GetLock(codigoDispositivo))
             {
+                //cuando tiene fijado un server y no es este no se devuelve procesador
+                if (!string.IsNullOrEmpty(serverFijo) && !string.Equals(serverFijo,NombreMaquina,StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return null;
+                }
+
                 IProcesadorDispositivo procesador;
                 if (!procesadores.TryGetValue(codigoDispositivo, out procesador))
                 {
                     log.Debug("No existe una cola de procesamiento para {0}. Se creará una.", codigoDispositivo);
                     log.Debug("Intentando tomar dispositivo {0}", codigoDispositivo);
+
                     var tomado = repositorio.TomarDispositivo(IdOrquestador, codigoDispositivo);
                     if (tomado)
                     {

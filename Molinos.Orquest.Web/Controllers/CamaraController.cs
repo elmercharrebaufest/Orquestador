@@ -86,6 +86,7 @@ namespace Molinos.Orquest.Web.Controllers
                         model.Dispositivo.Concentrador = repositorio.Obtener<Dispositivo>(model.Dispositivo.ConcentradorId);
                     }
                     model.Contrasenia = SetearPassword(model.Contrasenia, null);
+
                     repositorio.Agregar(model);
                     repositorio.GuardarCambios();
                     return new AjaxEditSuccessResult();
@@ -123,6 +124,7 @@ namespace Molinos.Orquest.Web.Controllers
                     viejo.Activo = model.Dispositivo.Activo;
                     viejo.EsConcentrador = model.Dispositivo.EsConcentrador;
                     viejo.Concentrador = repositorio.Obtener<Dispositivo>(model.Dispositivo.ConcentradorId);
+                    viejo.ServerFijo = model.Dispositivo.ServerFijo;
                     var configCamara = (ConfigCamara)viejo.Configuracion;
                     configCamara.Uri = model.Uri;
                     configCamara.TimeoutLectura = model.TimeoutLectura;

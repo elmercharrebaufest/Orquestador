@@ -131,7 +131,8 @@ namespace Molinos.Orquest.Web.Controllers
                     viejo.Activo = model.Dispositivo.Activo;
                     viejo.EsConcentrador = model.Dispositivo.EsConcentrador;
                     viejo.Concentrador = repositorio.Obtener<Dispositivo>(model.Dispositivo.ConcentradorId);
-                    var configHumedimetro = (ConfigHumedimetro)viejo.Configuracion;
+                    viejo.ServerFijo = model.Dispositivo.ServerFijo;
+                    var configHumedimetro = (ConfigHumedimetro) viejo.Configuracion;
                     configHumedimetro.ComandoHumedad = model.ComandoHumedad;
                     configHumedimetro.DelimitadorCampos = Server.UrlDecode(model.DelimitadorCampos);
                     configHumedimetro.LongFrase = model.LongFrase;

@@ -125,6 +125,7 @@ namespace Molinos.Orquest.Web.Controllers
                     viejo.Activo = model.Dispositivo.Activo;
                     viejo.EsConcentrador = model.Dispositivo.EsConcentrador;
                     viejo.Concentrador = repositorio.Obtener<Dispositivo>(model.Dispositivo.ConcentradorId);
+                    viejo.ServerFijo = model.Dispositivo.ServerFijo;
                     var conf = (ConfigCartelLed)viejo.Configuracion;
                     conf.DireccionIp = model.DireccionIp;
                     conf.Puerto = model.Puerto;

@@ -126,6 +126,7 @@ namespace Molinos.Orquest.Web.Controllers
                     viejo.Dispositivo.Activo = model.Dispositivo.Activo;
                     viejo.Dispositivo.EsConcentrador = model.Dispositivo.EsConcentrador;
                     viejo.Dispositivo.Concentrador = repositorio.Obtener<Dispositivo>(model.Dispositivo.ConcentradorId);
+                    viejo.Dispositivo.ServerFijo = model.Dispositivo.ServerFijo;
                     viejo.ConfigPuestoDeVianda = repositorio.Obtener<ConfigPuestoDeVianda>(model.ConfigPuestoDeViandas);
                     repositorio.GuardarCambios();
                     RecargarConfiguracion(model.Dispositivo.Codigo);

@@ -1440,6 +1440,8 @@
   <data name="Intercomunicador_PuertoAudio" xml:space="preserve">
     <value>Puerto de Audio</value>
   </data>
+  <data name="ServerFijo" xml:space="preserve">
+    <value>Orquestado por</value>
   <data name="Intercomunicador_SensorDeEstado" xml:space="preserve">
     <value>Sensor de Estado</value>
   </data>

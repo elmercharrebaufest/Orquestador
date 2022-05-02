@@ -115,6 +115,7 @@ namespace Molinos.Orquest.Web.Controllers
                     viejo.EsConcentrador = model.Dispositivo.EsConcentrador;
                     viejo.Concentrador = repositorio.Obtener<Dispositivo>(model.Dispositivo.ConcentradorId);
                     viejo.Activo = model.Dispositivo.Activo;
+                    viejo.ServerFijo = model.Dispositivo.ServerFijo;
                     var configMeteorologica = (ConfigMeteorologica)viejo.Configuracion;
                     configMeteorologica.Ruta = model.Ruta;
                     repositorio.GuardarCambios();

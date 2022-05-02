@@ -27,5 +27,8 @@ namespace Molinos.Orquest.Dominio.Entidades
         public virtual int ConcentradorId { get; set; }
 
         public virtual bool EstadoCorrecto { get; set; }
+
+        [Display(ResourceType = typeof(Textos), Name = "ServerFijo")]
+        public virtual string ServerFijo { get; set; }
     }
 }
