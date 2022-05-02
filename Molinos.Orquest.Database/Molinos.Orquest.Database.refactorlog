@@ -77,4 +77,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="PuertoDeAudio" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="35f3590d-a760-4dd7-ba89-635fd6f7950b" ChangeDateTime="04/04/2022 19:32:44">
+    <Property Name="ElementName" Value="[dbo].[ConfigJsonToIotBox].[Salida]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigJsonToIotBox]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NumeroSalida" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="787947e7-0339-4b58-ac19-7cefda92e09f" ChangeDateTime="04/04/2022 19:32:57">
+    <Property Name="ElementName" Value="[dbo].[ConfigJsonToIotBox].[Json]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigJsonToIotBox]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Json_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8df3f68f-5c4b-4f41-a666-5895eccad2c6" ChangeDateTime="04/04/2022 19:45:30">
+    <Property Name="ElementName" Value="[dbo].[FormatosJson].[Dispositivo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[FormatosJson]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Dispositivo_nomber" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="62a57eda-6fff-49cc-93b5-e6937aafaf74" ChangeDateTime="04/08/2022 19:16:49">
+    <Property Name="ElementName" Value="[dbo].[FormatosJson].[Dispositivo_nomber]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[FormatosJson]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Dispositivo_nombre" />
+  </Operation>
 </Operations>

@@ -1,0 +1,18 @@
+﻿@using Molinos.Orquest.Dominio.Consultas
+@using Molinos.Orquest.Dominio.Entidades
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Web.Helpers
+
+@{
+    Layout = null;
+    var items = (ListaPaginada<ConfigJsonToIotBox>) ViewBag.Items;
+}
+    @Html.Grilla(items,
+        grilla => grilla.Columns(
+        grilla.ColumnaEliminarModificar(Html, "JsonToIotBox"),
+        grilla.Columna("Dispositivo.Codigo", Textos.Codigo, c => c.Dispositivo.Codigo),
+        grilla.Columna("Dispositivo.Descripcion", Textos.Descripcion, c => c.Dispositivo.Descripcion),
+        grilla.Columna("ClaseDriver", Textos.Cabezal_ClaseDriver, x => x.ClaseDriver.Split('.', ',')[3]),
+        grilla.Columna("Dispositivo.Concentrador.Codigo", Textos.Concentrador, x => x.Dispositivo.Concentrador != null ? x.Dispositivo.Concentrador.Codigo : ""),
+        grilla.Columna("NumeroSalida", Textos.Barrera_NumeroSalida)))
+     

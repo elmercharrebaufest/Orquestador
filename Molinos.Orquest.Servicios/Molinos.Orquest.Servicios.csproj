@@ -120,6 +120,7 @@
     <Compile Include="Procesamiento\ProcesadorEjecutarConsultaSensor.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarConsultaEstadoSensor.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarEjecutarQuery.cs" />
+    <Compile Include="Procesamiento\ProcesadorEjecutarEnviarJson.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarNotificacionEstadoSensor.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarObtenerDireccionViento.cs" />
     <Compile Include="Procesamiento\ProcesadorEjecutarEnviarMensaje.cs" />

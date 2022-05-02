@@ -93,6 +93,8 @@
     <Compile Include="DriverBalanzaPuerto.cs" />
     <Compile Include="DriverHumedimetroPHContinuoDummy.cs" />
     <Compile Include="DriverHumedimetroPHContinuo.cs" />
+    <Compile Include="DriverJsonToIotBox.cs" />
+    <Compile Include="DriverSensorBarrera.cs" />
     <Compile Include="DriverSensorIntercomunicador.cs" />
     <Compile Include="DriverTag.cs" />
     <Compile Include="DriverComunicadorIotBox.cs" />

@@ -63,6 +63,7 @@
     <Compile Include="IDriverCartelLed.cs" />
     <Compile Include="IDriverDisplay.cs" />
     <Compile Include="IDriverImpresoraHasar.cs" />
+    <Compile Include="IDriverJsonToIotBox.cs" />
     <Compile Include="IDriverLectorQr.cs" />
     <Compile Include="IDriverMolinete.cs" />
     <Compile Include="IDriverPuestoDeVianda.cs" />

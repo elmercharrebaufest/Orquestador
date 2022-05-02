@@ -237,6 +237,7 @@
     <Compile Include="Atributos\CharValidationAttribute.cs" />
     <Compile Include="Atributos\FileSizeAttribute.cs" />
     <Compile Include="Atributos\FileTypesAttribute.cs" />
+    <Compile Include="Controllers\JsonToIotBoxController.cs" />
     <Compile Include="Controllers\IntercomunicadorController.cs" />
     <Compile Include="Controllers\PruebaSensorController.cs" />
     <Compile Include="Controllers\TagsHistorianController.cs" />
@@ -1785,6 +1786,11 @@
     <Content Include="Views\Shared\Intercomunicador\_IntercomunicadorDispositivo.cshtml" />
     <Content Include="Views\Shared\Intercomunicador\_Intercomunicador.cshtml" />
     <Content Include="Views\Intercomunicador\_SensorDeEstado.cshtml" />
+    <Content Include="Views\JsonToIotBox\_CrearModificar.cshtml" />
+    <Content Include="Views\JsonToIotBox\Crear.cshtml" />
+    <Content Include="Views\JsonToIotBox\Index.cshtml" />
+    <Content Include="Views\JsonToIotBox\Listar.cshtml" />
+    <Content Include="Views\JsonToIotBox\Modificar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1873,7 +1879,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59670</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Molinos.Orquest.Web</IISUrl>
+          <IISUrl>http://localhost:63791</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -72,6 +72,7 @@
     <Compile Include="Comandos\EjecutarConsultaSensor.cs" />
     <Compile Include="Comandos\EjecutarConsultaEstadoSensor.cs" />
     <Compile Include="Comandos\EjecutarEjecutarQuery.cs" />
+    <Compile Include="Comandos\EjecutarEnviarJson.cs" />
     <Compile Include="Comandos\EjecutarNotificacionEstadoSensor.cs" />
     <Compile Include="Comandos\EjecutarObtenerDireccionViento.cs" />
     <Compile Include="Comandos\EjecutarBorrarBalanzadasPorRango.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Dtos\IntercomunicadorDispositivoDto.cs" />
     <Compile Include="Dtos\MeteorologicaDto.cs" />
     <Compile Include="Dtos\MonitoreoOrquestadorDto.cs" />
+    <Compile Include="Entidades\ConfigJsonToIotBox.cs" />
     <Compile Include="Entidades\ConfigTag.cs" />
     <Compile Include="Entidades\ConfigBalanzaPuerto.cs" />
     <Compile Include="Entidades\ConfigComunicador.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Entidades\ConfigSensor.cs" />
     <Compile Include="Entidades\Estado.cs" />
     <Compile Include="Entidades\Firma.cs" />
+    <Compile Include="Entidades\FormatosJson.cs" />
     <Compile Include="Entidades\RolPermisoOrquestador.cs" />
     <Compile Include="Entidades\Rol.cs" />
     <Compile Include="Entidades\Suscripcion.cs" />

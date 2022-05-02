@@ -13,7 +13,7 @@
         public const string LecturaQr = "LecturaQr";
         public const string AlertaDeSeguridad = "AlertaDeSeguridad";
         public const string CambioEstadoSensor = "CambioEstadoSensor";
-
+        public const string LecturaTarjetaOffline = "LecturaTarjetaOffline";
         //TODO: deprecar
         public const string LecturaTarjetaMolinete = "LecturaTarjetaMolinete";
         //TODO: deprecar
