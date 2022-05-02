@@ -108,6 +108,7 @@
     <Build Include="dbo\Tables\ConfigCortinaAgua.sql" />
     <Build Include="dbo\Tables\ConfigComunicador.sql" />
     <Build Include="dbo\Tables\ConfigTag.sql" />
+    <Build Include="dbo\Tables\ConfigJsonFromIotBox.sql" />
     <Build Include="dbo\Tables\ConfigJsonToIotBox.sql" />
     <Build Include="dbo\Tables\FormatosJson.sql" />
   </ItemGroup>

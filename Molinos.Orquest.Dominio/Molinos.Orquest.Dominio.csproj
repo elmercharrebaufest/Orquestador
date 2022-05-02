@@ -104,6 +104,7 @@
     <Compile Include="Dtos\IntercomunicadorDispositivoDto.cs" />
     <Compile Include="Dtos\MeteorologicaDto.cs" />
     <Compile Include="Dtos\MonitoreoOrquestadorDto.cs" />
+    <Compile Include="Entidades\ConfigJsonFromIotBox.cs" />
     <Compile Include="Entidades\ConfigJsonToIotBox.cs" />
     <Compile Include="Entidades\ConfigTag.cs" />
     <Compile Include="Entidades\ConfigBalanzaPuerto.cs" />

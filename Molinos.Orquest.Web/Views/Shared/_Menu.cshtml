@@ -70,6 +70,10 @@
                                     {
                                         <li>@Html.ActionLink(Textos.Intercomunicador_Administrar, "Index", "Intercomunicador", null, new { @class = "dropdown-item" })</li>
                                     }
+                                    @if (PermisosHelper.Is(PermisosOrquestador.Sensor))
+                                    {
+                                        <li>@Html.ActionLink("JsonFromIotBox", "Index", "JsonFromIotBox", null, new { @class = "dropdown-item" })</li>
+                                    }
                                     @if (PermisosHelper.Is(PermisosOrquestador.Barrera))
                                     {
                                         <li>@Html.ActionLink("JsonToIotBox", "Index", "JsonToIotBox", null, new { @class = "dropdown-item" })</li>

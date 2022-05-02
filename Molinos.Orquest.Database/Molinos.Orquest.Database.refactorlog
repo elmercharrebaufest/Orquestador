@@ -77,6 +77,12 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="PuertoDeAudio" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="0afdd742-7de0-4af0-9a35-4f6afaed86d3" ChangeDateTime="04/08/2022 19:47:57">
+    <Property Name="ElementName" Value="[dbo].[ConfigJsonFromIotBox].[Entrada]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigJsonFromIotBox]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NumeroEntrada" />
   <Operation Name="Rename Refactor" Key="35f3590d-a760-4dd7-ba89-635fd6f7950b" ChangeDateTime="04/04/2022 19:32:44">
     <Property Name="ElementName" Value="[dbo].[ConfigJsonToIotBox].[Salida]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />

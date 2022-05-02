@@ -239,6 +239,7 @@
     <Compile Include="Atributos\FileTypesAttribute.cs" />
     <Compile Include="Controllers\JsonToIotBoxController.cs" />
     <Compile Include="Controllers\IntercomunicadorController.cs" />
+    <Compile Include="Controllers\JsonFromIotBoxController.cs" />
     <Compile Include="Controllers\PruebaSensorController.cs" />
     <Compile Include="Controllers\TagsHistorianController.cs" />
     <Compile Include="Controllers\CartelLedController.cs" />
@@ -1786,6 +1787,11 @@
     <Content Include="Views\Shared\Intercomunicador\_IntercomunicadorDispositivo.cshtml" />
     <Content Include="Views\Shared\Intercomunicador\_Intercomunicador.cshtml" />
     <Content Include="Views\Intercomunicador\_SensorDeEstado.cshtml" />
+    <Content Include="Views\JsonFromIotBox\_CrearModificar.cshtml" />
+    <Content Include="Views\JsonFromIotBox\Crear.cshtml" />
+    <Content Include="Views\JsonFromIotBox\Index.cshtml" />
+    <Content Include="Views\JsonFromIotBox\Listar.cshtml" />
+    <Content Include="Views\JsonFromIotBox\Modificar.cshtml" />
     <Content Include="Views\JsonToIotBox\_CrearModificar.cshtml" />
     <Content Include="Views\JsonToIotBox\Crear.cshtml" />
     <Content Include="Views\JsonToIotBox\Index.cshtml" />
