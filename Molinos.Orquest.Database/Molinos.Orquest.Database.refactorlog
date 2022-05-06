@@ -83,6 +83,7 @@
     <Property Name="ParentElementName" Value="[dbo].[ConfigJsonFromIotBox]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="NumeroEntrada" />
+  </Operation>
   <Operation Name="Rename Refactor" Key="35f3590d-a760-4dd7-ba89-635fd6f7950b" ChangeDateTime="04/04/2022 19:32:44">
     <Property Name="ElementName" Value="[dbo].[ConfigJsonToIotBox].[Salida]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />

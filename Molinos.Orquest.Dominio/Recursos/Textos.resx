@@ -1442,6 +1442,7 @@
   </data>
   <data name="ServerFijo" xml:space="preserve">
     <value>Orquestado por</value>
+  </data>
   <data name="Intercomunicador_SensorDeEstado" xml:space="preserve">
     <value>Sensor de Estado</value>
   </data>
