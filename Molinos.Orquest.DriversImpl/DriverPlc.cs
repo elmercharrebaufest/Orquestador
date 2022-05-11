@@ -71,7 +71,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e, "Error al ConsultarEstado del PLC {0}", codigoPlc);
+                        Log.Debug(e, "Error al ConsultarEstado del PLC {0}", codigoPlc);
                         //Cuando no hay estado anterior se lanza el evento
                         if (!falloUltimaConexion.HasValue || !falloUltimaConexion.Value)
                         {
