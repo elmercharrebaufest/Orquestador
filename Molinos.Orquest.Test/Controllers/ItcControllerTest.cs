@@ -131,7 +131,7 @@ namespace Molinos.Orquest.Test.Controllers
                     DelimitadorCampos = ",",
                     RespuestaError = "E",
                     RespuestaExito = "X",
-                    Dispositivo = new Dispositivo {Id = 1, Activo = true, Codigo = "Cod1", Descripcion = "Desc1"}
+                    Dispositivo = new Dispositivo {Id = 1, Activo = true, Codigo = "Cod1", Descripcion = "Desc1", ServerFijo = ""}
                 };
 
             var server = new Mock<HttpServerUtilityBase>();
@@ -146,7 +146,7 @@ namespace Molinos.Orquest.Test.Controllers
             Assert.AreEqual(result.Content, expectedResult.Content);
             repositorioMock.Verify(v => v.Agregar(It.Is<ConfigItc>(f => f.Dispositivo.Codigo == itc.Dispositivo.Codigo)), Times.Once());
             repositorioMock.Verify(v => v.GuardarCambios(), Times.Once());
-            server.Verify(v => v.UrlDecode(It.IsAny<string>()), Times.Exactly(3));
+            server.Verify(v => v.UrlDecode(It.IsAny<string>()), Times.Exactly(4));
         }
 
 
@@ -174,7 +174,7 @@ namespace Molinos.Orquest.Test.Controllers
                 DelimitadorCampos = ",",
                 RespuestaError = "E",
                 RespuestaExito = "X",
-                Dispositivo = new Dispositivo { Id = 0, Activo = true, Codigo = "Cod2", Descripcion = "Desc2", EsConcentrador = false, ConcentradorId = dispositivos[1].Id }
+                Dispositivo = new Dispositivo { Id = 0, Activo = true, Codigo = "Cod2", Descripcion = "Desc2", EsConcentrador = false, ConcentradorId = dispositivos[1].Id, ServerFijo = "" }
             };
 
             var server = new Mock<HttpServerUtilityBase>();
@@ -189,7 +189,7 @@ namespace Molinos.Orquest.Test.Controllers
             Assert.AreEqual(result.Content, expectedResult.Content);
             repositorioMock.Verify(v => v.Agregar(It.Is<ConfigItc>(f => f.Dispositivo.Codigo == itc.Dispositivo.Codigo && f.Dispositivo.Concentrador == dispositivos[1])), Times.Once());
             repositorioMock.Verify(v => v.GuardarCambios(), Times.Once());
-            server.Verify(v => v.UrlDecode(It.IsAny<string>()), Times.Exactly(3));
+            server.Verify(v => v.UrlDecode(It.IsAny<string>()), Times.Exactly(4));
         }
 
         [Test]

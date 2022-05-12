@@ -384,7 +384,7 @@ namespace Molinos.Orquest.Test.Controllers
             Assert.That(model, Is.Not.Null);
             Assert.That(model, Has.Count.EqualTo(1));
             Assert.That(model[0].Error, Is.False);
-            Assert.That(model[0].Message, Is.EqualTo("12"));
+            Assert.That(model[0].Message, Is.EqualTo("Humedad: 12"));
         }
 
         [Test]
