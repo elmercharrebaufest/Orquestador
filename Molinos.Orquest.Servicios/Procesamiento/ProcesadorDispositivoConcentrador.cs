@@ -50,6 +50,7 @@ namespace Molinos.Orquest.Servicios.Procesamiento
                 else
                 {
                     Log.Debug("Obteniendo dispositivo/driver para el dispositivo {0}", comando.CodigoDispositivo);
+                    Log.Debug("DispositivosLogicos({0}): {1}", dispositivosLogicos.Count, dispositivosLogicos.Count > 0 ? string.Join(", ",dispositivosLogicos.Keys) : string.Empty);
                     disp = dispositivosLogicos[comando.CodigoDispositivo];
                     driver = driversLogicos[comando.CodigoDispositivo];
                 }
