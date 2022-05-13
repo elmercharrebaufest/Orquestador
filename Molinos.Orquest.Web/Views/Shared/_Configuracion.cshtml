@@ -9,12 +9,12 @@
 
 @Html.Hidden("charValidationMessage", Textos.Char_ErrorCantidadGenerico)
 <div class="row align-items-end">
-    <div class="col">
+    @*<div class="col">
         <div class="form-group">
             @Html.LabelFor(model => model.Dispositivo.ServerFijo)
             @Html.TextBoxFor(m => m.Dispositivo.ServerFijo, new { @class = "form-control" })
         </div>
-    </div>
+    </div>*@
     <div class="col">
         @if (ViewBag.PuedeSerConcentrador)
         {
