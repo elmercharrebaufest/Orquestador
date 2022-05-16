@@ -205,7 +205,7 @@ namespace Molinos.Orquest.DriversImpl
         {
             try
             {
-                Log.Info("Cambio Estado Entrada: PLC={0} Entrada={1} Evento={2} Dato={3}", codigoPlc, entrada, codigoEvento, mensaje);
+                Log.Debug("Cambio Estado Entrada: PLC={0} Entrada={1} Evento={2} Dato={3}", codigoPlc, entrada, codigoEvento, mensaje);
 
                 var notification = new NotificacionEvento
                 {
@@ -220,7 +220,7 @@ namespace Molinos.Orquest.DriversImpl
                 };
 
                 OnEventoDriver(new EventoDriverEventArgs { Notificacion = notification });
-                Log.Info($"Notificacion enviada {notification}");
+                Log.Debug($"Notificacion enviada {notification}");
             }
             catch (Exception ex)
             {
