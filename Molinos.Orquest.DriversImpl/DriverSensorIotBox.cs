@@ -66,6 +66,8 @@ namespace Molinos.Orquest.DriversImpl
                 if (!configSensor.EstadoActivado)
                 {
                     codigoEvento = InvertirEventoActivacion(codigoEvento);
+                    if (notificacion.Datos.ContainsKey("Mensaje"))
+                        notificacion.Datos["Mensaje"] = notificacion.Datos["Mensaje"] == "True" ? "False" : "True";
                 }
                 var nuevoEvento = new EventoDriverEventArgs
                 {
