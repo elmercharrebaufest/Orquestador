@@ -590,7 +590,7 @@ namespace Molinos.Orquest.Servicios.Impl
                 throw new DispositivoNoEncontradoException(string.Format("El dispositivo {0} no existe o esta desactivado.", codigo));
             }
             var codigoDispositivo = codigo;
-            //var serverFijo = dispositivo.ServerFijo;
+            var serverFijo = dispositivo.ServerFijo;
 
             if (dispositivo.Concentrador != null)
             {
@@ -599,15 +599,15 @@ namespace Molinos.Orquest.Servicios.Impl
                     throw new DispositivoNoEncontradoException(string.Format("El dispositivo concentrador {0} no existe o esta desactivado.", dispositivo.Concentrador.Codigo));
                 }
                 codigoDispositivo = dispositivo.Concentrador.Codigo;
-                //serverFijo = dispositivo.Concentrador.ServerFijo;
+                serverFijo = dispositivo.Concentrador.ServerFijo;
             }
             lock (locker.GetLock(codigoDispositivo))
             {
                 //cuando tiene fijado un server y no es este no se devuelve procesador
-                //if (!string.IsNullOrEmpty(serverFijo) && !string.Equals(serverFijo,NombreMaquina,StringComparison.InvariantCultureIgnoreCase))
-                //{
-                //    return null;
-                //}
+                if (!string.IsNullOrEmpty(serverFijo) && !string.Equals(serverFijo,NombreMaquina,StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return null;
+                }
 
                 IProcesadorDispositivo procesador;
                 if (!procesadores.TryGetValue(codigoDispositivo, out procesador))
