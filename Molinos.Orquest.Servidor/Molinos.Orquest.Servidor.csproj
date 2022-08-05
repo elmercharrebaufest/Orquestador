@@ -180,6 +180,12 @@
     <None Include="App.GSLOSCATO04.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="App.GSLOSCATOAPP06.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="App.GSLOSCATOAPP05.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="App.GSLOSCATOOPS00.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -226,9 +232,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-  
-  
-  
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Molinos.Orquest.Dependencias\Molinos.Orquest.Dependencias.csproj">
