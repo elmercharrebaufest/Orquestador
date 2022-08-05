@@ -213,6 +213,8 @@
     <None Include="App.Vicscatoqa.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ApplicationInsights.QA.config" />
+    <None Include="ApplicationInsights.PRD.config" />
     <None Include="ApplicationInsights.config" />
     <None Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
