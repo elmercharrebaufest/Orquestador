@@ -19,7 +19,7 @@ namespace Molinos.Orquest.Dominio.Recursos {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Textos {
@@ -633,6 +633,24 @@ namespace Molinos.Orquest.Dominio.Recursos {
         public static string Barrera_Titulo {
             get {
                 return ResourceManager.GetString("Barrera_Titulo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barrera Abajo.
+        /// </summary>
+        public static string BarreraAbajo {
+            get {
+                return ResourceManager.GetString("BarreraAbajo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barrera Arriba.
+        /// </summary>
+        public static string BarreraArriba {
+            get {
+                return ResourceManager.GetString("BarreraArriba", resourceCulture);
             }
         }
         
@@ -1411,6 +1429,15 @@ namespace Molinos.Orquest.Dominio.Recursos {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crear Grupo Barrera.
+        /// </summary>
+        public static string CrearGrupoBarrera {
+            get {
+                return ResourceManager.GetString("CrearGrupoBarrera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Desconectado.
         /// </summary>
         public static string Desconectado {
@@ -1920,6 +1947,24 @@ namespace Molinos.Orquest.Dominio.Recursos {
         public static string Firma_Titulo {
             get {
                 return ResourceManager.GetString("Firma_Titulo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grupo Barrera.
+        /// </summary>
+        public static string GrupoBarrera_Titulo {
+            get {
+                return ResourceManager.GetString("GrupoBarrera_Titulo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grupo De Dispositivos.
+        /// </summary>
+        public static string GrupoDispositivos_Titulo {
+            get {
+                return ResourceManager.GetString("GrupoDispositivos_Titulo", resourceCulture);
             }
         }
         
@@ -2541,6 +2586,15 @@ namespace Molinos.Orquest.Dominio.Recursos {
         public static string Modificar {
             get {
                 return ResourceManager.GetString("Modificar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modificar Grupo Barrera.
+        /// </summary>
+        public static string ModificarGrupoBarrera {
+            get {
+                return ResourceManager.GetString("ModificarGrupoBarrera", resourceCulture);
             }
         }
         
@@ -3864,6 +3918,42 @@ namespace Molinos.Orquest.Dominio.Recursos {
         public static string Sensor_Titulo {
             get {
                 return ResourceManager.GetString("Sensor_Titulo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Abajo.
+        /// </summary>
+        public static string SensorAbajo {
+            get {
+                return ResourceManager.GetString("SensorAbajo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Arriba.
+        /// </summary>
+        public static string SensorArriba {
+            get {
+                return ResourceManager.GetString("SensorArriba", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Primer Cruce.
+        /// </summary>
+        public static string SensorPrimerCruce {
+            get {
+                return ResourceManager.GetString("SensorPrimerCruce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Segundo Cruce.
+        /// </summary>
+        public static string SensorSegundoCruce {
+            get {
+                return ResourceManager.GetString("SensorSegundoCruce", resourceCulture);
             }
         }
         

@@ -1449,4 +1449,34 @@
   <data name="Humedimetro_PosicionCampoPesoHectolitrico" xml:space="preserve">
     <value>Posición Campo PH</value>
   </data>
+  <data name="GrupoDispositivos_Titulo" xml:space="preserve">
+    <value>Grupo De Dispositivos</value>
+  </data>
+  <data name="BarreraArriba" xml:space="preserve">
+    <value>Barrera Arriba</value>
+  </data>
+  <data name="BarreraAbajo" xml:space="preserve">
+    <value>Barrera Abajo</value>
+  </data>
+  <data name="SensorArriba" xml:space="preserve">
+    <value>Sensor Arriba</value>
+  </data>
+  <data name="SensorAbajo" xml:space="preserve">
+    <value>Sensor Abajo</value>
+  </data>
+  <data name="SensorPrimerCruce" xml:space="preserve">
+    <value>Sensor Primer Cruce</value>
+  </data>
+  <data name="SensorSegundoCruce" xml:space="preserve">
+    <value>Sensor Segundo Cruce</value>
+  </data>
+  <data name="GrupoBarrera_Titulo" xml:space="preserve">
+    <value>Grupo Barrera</value>
+  </data>
+  <data name="CrearGrupoBarrera" xml:space="preserve">
+    <value>Crear Grupo Barrera</value>
+  </data>
+  <data name="ModificarGrupoBarrera" xml:space="preserve">
+    <value>Modificar Grupo Barrera</value>
+  </data>
 </root>
