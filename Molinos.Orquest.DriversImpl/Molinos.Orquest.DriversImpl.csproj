@@ -90,8 +90,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="DriverGrupoBarrera.cs" />
     <Compile Include="DriverBalanzaPuerto.cs" />
+    <Compile Include="DriverBarreraGrupo.cs" />
     <Compile Include="DriverJsonFromIotBox.cs" />
     <Compile Include="DriverHumedimetroPHContinuoDummy.cs" />
     <Compile Include="DriverHumedimetroPHContinuo.cs" />

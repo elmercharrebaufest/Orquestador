@@ -21,7 +21,7 @@ namespace Molinos.Orquest.Dominio.Entidades
         public virtual int SensorPrimerCruceId { get; set; }
 
         [Column("SensorSegundoCruce_Id")]
-        public virtual int? SensorSegundoCruceId { get; set; }
+        public virtual int SensorSegundoCruceId { get; set; }
 
         public virtual ConfigBarrera BarreraArriba { get; set; }
         public virtual ConfigBarrera BarreraAbajo { get; set; }

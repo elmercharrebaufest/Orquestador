@@ -91,6 +91,7 @@
     <Compile Include="Comandos\EjecutarAperturaBarrera.cs" />
     <Compile Include="Comandos\EjecutarVerificacionDispositivo.cs" />
     <Compile Include="ActualizarEstadoEventArgs.cs" />
+    <Compile Include="Dtos\GrupoBarreraDto.cs" />
     <Compile Include="Dtos\HumedimetroResultadoDto.cs" />
     <Compile Include="Dtos\CamaraDto.cs" />
     <Compile Include="Dtos\EntradaDto.cs" />
