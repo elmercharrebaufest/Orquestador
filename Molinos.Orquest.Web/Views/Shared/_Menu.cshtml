@@ -83,7 +83,7 @@
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-item dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Textos.GrupoDispositivos_Titulo</a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    @if (PermisosHelper.Is(PermisosOrquestador.Itc, PermisosOrquestador.GrupoBarrera))
+                                    @if (PermisosHelper.Is(PermisosOrquestador.GrupoBarrera))
                                     {
                                         <li>@Html.ActionLink(Textos.GrupoBarrera_Titulo, "Index", "GrupoBarrera", null, new { @class = "dropdown-item" })</li>
                                     }
