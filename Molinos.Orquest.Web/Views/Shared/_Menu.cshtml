@@ -80,17 +80,15 @@
                                     }
                                 </ul>
                             </li>
-
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-item dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Textos.GrupoDispositivos_Titulo</a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    @if (PermisosHelper.Is(PermisosOrquestador.Itc, PermisosOrquestador.PruebaItc))
+                                    @if (PermisosHelper.Is(PermisosOrquestador.Itc, PermisosOrquestador.GrupoBarrera))
                                     {
                                         <li>@Html.ActionLink(Textos.GrupoBarrera_Titulo, "Index", "GrupoBarrera", null, new { @class = "dropdown-item" })</li>
                                     }
                                 </ul>
                             </li>
-
                             @if (PermisosHelper.Is(PermisosOrquestador.Cabezal, PermisosOrquestador.PruebaCabezal))
                             {
                                 <li>@Html.ActionLink(Textos.Cabezales_Titulo, "Index", "Cabezal", null, new { @class = "dropdown-item" })</li>

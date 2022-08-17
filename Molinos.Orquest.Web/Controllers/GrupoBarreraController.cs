@@ -12,14 +12,13 @@ using Molinos.Scato.Dominio.Consultas;
 using Ninject.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 
 namespace Molinos.Orquest.Web.Controllers
 {
-    //[Autorizacion(PermisosOrquestador.GrupoBarrera)]
+    [Autorizacion(PermisosOrquestador.GrupoBarrera)]
     public class GrupoBarreraController : BaseController
     {
         private readonly IConversor conversor;
@@ -46,8 +45,6 @@ namespace Molinos.Orquest.Web.Controllers
             return View("Listar", (object)filtro);
         }
 
-
-        //[Autorizacion(PermisosOrquestador.AgrupadorBarrera)]
         public ActionResult Crear()
         {
             SetearVistaConfiguracion();
@@ -55,13 +52,10 @@ namespace Molinos.Orquest.Web.Controllers
         }
 
         [HttpPost]
-        //[Autorizacion(PermisosOrquestador.AgrupadorBarrera)]
         public ActionResult Crear(ConfigGrupoBarreraModel model)
         {
-
             if (ModelState.IsValid)
             {
-
                 var configGrupoBarrera = new ConfigGrupoBarrera
                 {
                     Id = -1,
@@ -71,7 +65,7 @@ namespace Molinos.Orquest.Web.Controllers
                     SensorAbajoId = model.SensorAbajoId,
                     SensorPrimerCruceId = model.SensorPrimerCruceId,
                     SensorSegundoCruceId = model.SensorSegundoCruceId,
-                    ClaseDriver = model.ClaseDriver 
+                    ClaseDriver = model.ClaseDriver
                 };
                 var dispositivo = new Dispositivo
                 {
@@ -88,7 +82,6 @@ namespace Molinos.Orquest.Web.Controllers
 
                 return new AjaxEditSuccessResult();
             }
-
 
             SetearVistaConfiguracion();
             return View();
@@ -107,28 +100,25 @@ namespace Molinos.Orquest.Web.Controllers
         }
 
         [HttpPost]
-        //[Autorizacion(PermisosOrquestador.AgrupadorBarrera)]
         public ActionResult Modificar(ConfigGrupoBarreraModel model)
         {
             if (ModelState.IsValid)
             {
-               
-                    ConfigGrupoBarrera configGrupoBarrera = repositorio.Obtener<ConfigGrupoBarrera>(model.Id);
+                ConfigGrupoBarrera configGrupoBarrera = repositorio.Obtener<ConfigGrupoBarrera>(model.Id);
 
-                    configGrupoBarrera.Dispositivo.Codigo = model.Codigo;
-                    configGrupoBarrera.Dispositivo.Descripcion = model.Descripcion;
-                    configGrupoBarrera.Dispositivo.Activo = model.Activo;
-                    configGrupoBarrera.BarreraArribaId = model.BarreraArribaId;
-                    configGrupoBarrera.BarreraAbajoId = model.BarreraAbajoId;
-                    configGrupoBarrera.SensorArribaId = model.SensorArribaId;
-                    configGrupoBarrera.SensorAbajoId = model.SensorAbajoId;
-                    configGrupoBarrera.SensorPrimerCruceId = model.SensorPrimerCruceId;
-                    configGrupoBarrera.SensorSegundoCruceId = model.SensorSegundoCruceId;
+                configGrupoBarrera.Dispositivo.Codigo = model.Codigo;
+                configGrupoBarrera.Dispositivo.Descripcion = model.Descripcion;
+                configGrupoBarrera.Dispositivo.Activo = model.Activo;
+                configGrupoBarrera.BarreraArribaId = model.BarreraArribaId;
+                configGrupoBarrera.BarreraAbajoId = model.BarreraAbajoId;
+                configGrupoBarrera.SensorArribaId = model.SensorArribaId;
+                configGrupoBarrera.SensorAbajoId = model.SensorAbajoId;
+                configGrupoBarrera.SensorPrimerCruceId = model.SensorPrimerCruceId;
+                configGrupoBarrera.SensorSegundoCruceId = model.SensorSegundoCruceId;
 
-                    repositorio.GuardarCambios();
-                    RecargarConfiguracion(model.Codigo);
-                    return new AjaxEditSuccessResult();
-              
+                repositorio.GuardarCambios();
+                RecargarConfiguracion(model.Codigo);
+                return new AjaxEditSuccessResult();
             }
 
             SetearVistaConfiguracion();
@@ -172,9 +162,8 @@ namespace Molinos.Orquest.Web.Controllers
 
         private void SetearVistaConfiguracion()
         {
-        
-            var sensores = repositorio.Listar<ConfigSensor>().OrderBy(p => p.Dispositivo.Descripcion).Select(d => new SelectListItem { Text = d.Dispositivo.Descripcion, Value = d.Id.ToString()}).ToList();
-            var barreras = repositorio.Listar<ConfigBarrera>().OrderBy(p => p.Dispositivo.Descripcion).Select(d => new SelectListItem { Text = d.Dispositivo.Descripcion, Value = d.Id.ToString()}).ToList();
+            var sensores = repositorio.Listar<ConfigSensor>().OrderBy(p => p.Dispositivo.Descripcion).Select(d => new SelectListItem { Text = d.Dispositivo.Descripcion, Value = d.Id.ToString() }).ToList();
+            var barreras = repositorio.Listar<ConfigBarrera>().OrderBy(p => p.Dispositivo.Descripcion).Select(d => new SelectListItem { Text = d.Dispositivo.Descripcion, Value = d.Id.ToString() }).ToList();
 
             ViewBag.Drivers = drivers.Select(d => new SelectListItem { Text = d, Value = d }).ToList();
             ViewBag.Sensores = sensores;

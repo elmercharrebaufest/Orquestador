@@ -900,6 +900,19 @@ namespace Molinos.Orquest.Servicios.Impl
             return result;
         }
 
+        public IList<DispositivoDto> ListarGruposBarrera ()
+        {
+            using (var repositorio = factoryRepositorio.Repositorio())
+            {
+                return repositorio.Listar<ConfigGrupoBarrera, DispositivoDto>(q => q.Dispositivo.Activo && !q.Dispositivo.EsConcentrador,
+                    q => new DispositivoDto
+                    {
+                        Codigo = q.Dispositivo.Codigo,
+                        Descripcion = q.Dispositivo.Descripcion
+                    });
+            }
+        }
+
         private DispositivoDto ObtenerDispositivoPorId(int dispositivoId) {
             var result = new DispositivoDto();
             using (var repositorio = factoryRepositorio.Repositorio())

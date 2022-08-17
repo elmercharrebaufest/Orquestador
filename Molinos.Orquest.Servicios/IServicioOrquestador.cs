@@ -111,5 +111,8 @@ namespace Molinos.Orquest.Servicios
 
         [OperationContract]
         GrupoBarreraDto ObtenerConfiguracionGrupoBarrera(string codigo);
+
+        [OperationContract]
+        IList<DispositivoDto> ListarGruposBarrera();
     }
 }
