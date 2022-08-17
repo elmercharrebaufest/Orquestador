@@ -28,7 +28,7 @@ namespace Molinos.Orquest.Web.Controllers
             : base(repositorio, servicio, log)
         {
             this.conversor = conversor;
-            drivers = driverFactory.DriversDisponibles<IDriverAgrupadorBarrera>();
+            drivers = driverFactory.DriversDisponibles<IDriverGrupoBarrera>();
         }
 
         public ActionResult Index(string filtro, int pagina = 1, string ordenarPor = "Id", DirOrden dirOrden = DirOrden.Asc)
