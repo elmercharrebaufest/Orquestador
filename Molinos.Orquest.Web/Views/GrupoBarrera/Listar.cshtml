@@ -1,0 +1,21 @@
+﻿@using Molinos.Orquest.Dominio.Consultas
+@using Molinos.Orquest.Dominio.Entidades
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Web.Helpers
+
+@{
+    Layout = null;
+    var items = (ListaPaginada<ConfigGrupoBarrera>) ViewBag.Items;
+}
+    @Html.Grilla(items,
+        grilla => grilla.Columns(
+        grilla.ColumnaEliminarModificar(Html, "GrupoBarrera"),
+        grilla.Columna("Dispositivo.Codigo", Textos.Codigo, c => c.Dispositivo.Codigo),
+        grilla.Columna("Dispositivo.Descripcion", Textos.Descripcion, c => c.Dispositivo.Descripcion),
+        grilla.Columna("BarreraArriba.Dispositivo.Descripcion", Textos.BarreraArriba, c => c.BarreraArriba.Dispositivo.Descripcion),
+        grilla.Columna("BarreraAbajo.Dispositivo.Descripcion", Textos.BarreraAbajo, c => c.BarreraAbajo.Dispositivo.Descripcion),
+        grilla.Columna("SensorArriba.Dispositivo.Descripcion", Textos.SensorArriba, c => c.SensorArriba.Dispositivo.Descripcion),
+        grilla.Columna("SensorAbajo.Dispositivo.Descripcion", Textos.SensorAbajo, c => c.SensorAbajo.Dispositivo.Descripcion),
+        grilla.Columna("SensorPrimerCruce.Dispositivo.Descripcion", Textos.SensorPrimerCruce, c => c.SensorPrimerCruce.Dispositivo.Descripcion),
+        grilla.Columna("SensorSegundoCruce.Dispositivo.Descripcion", Textos.SensorSegundoCruce, c => c.SensorSegundoCruce.Dispositivo.Descripcion),
+        grilla.Columna("ClaseDriver", Textos.Cabezal_ClaseDriver, x => x.ClaseDriver.Split('.', ',')[3])))
