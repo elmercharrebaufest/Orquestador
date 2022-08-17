@@ -1479,4 +1479,7 @@
   <data name="ModificarGrupoBarrera" xml:space="preserve">
     <value>Modificar Grupo Barrera</value>
   </data>
+  <data name="GrupoBarrera_Administrar" xml:space="preserve">
+    <value>Grupo Barrera</value>
+  </data>
 </root>

@@ -1953,6 +1953,15 @@ namespace Molinos.Orquest.Dominio.Recursos {
         /// <summary>
         ///   Looks up a localized string similar to Grupo Barrera.
         /// </summary>
+        public static string GrupoBarrera_Administrar {
+            get {
+                return ResourceManager.GetString("GrupoBarrera_Administrar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grupo Barrera.
+        /// </summary>
         public static string GrupoBarrera_Titulo {
             get {
                 return ResourceManager.GetString("GrupoBarrera_Titulo", resourceCulture);
