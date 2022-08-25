@@ -110,7 +110,7 @@ namespace Molinos.Orquest.Servicios
         IList<DispositivoDto> ListarTags();
 
         [OperationContract]
-        GrupoBarreraDto ObtenerConfiguracionGrupoBarrera(string codigo);
+        IList<GrupoBarreraDto> ObtenerConfiguracionGrupoBarrera(string codigoSegundoCruce);
 
         [OperationContract]
         IList<DispositivoDto> ListarGruposBarrera();
