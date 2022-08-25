@@ -868,35 +868,24 @@ namespace Molinos.Orquest.Servicios.Impl
             }
         }
 
-        public GrupoBarreraDto ObtenerConfiguracionGrupoBarrera(string codigo)
+        public IList<GrupoBarreraDto> ObtenerConfiguracionGrupoBarrera(string codigoSegundoCruce)
         {
-            var result = new GrupoBarreraDto();
+            var result = new List<GrupoBarreraDto>();
             using (var repositorio = factoryRepositorio.Repositorio())
             {
-                result = repositorio.Obtener<ConfigGrupoBarrera, GrupoBarreraDto>(x => x.Dispositivo.Codigo == codigo, x => new GrupoBarreraDto
+                result = repositorio.Listar<ConfigGrupoBarrera, GrupoBarreraDto>(x => x.SensorSegundoCruce.Dispositivo.Codigo == codigoSegundoCruce && x.Dispositivo.Activo, x => new GrupoBarreraDto
                 {
                     Id = x.Id,
-                    Codigo = x.Dispositivo.Codigo,
-                    Descripcion = x.Dispositivo.Descripcion,
-                    ClaseDriver = x.ClaseDriver,
-                    Activo = x.Dispositivo.Activo,
-
-                    BarreraArribaId = x.BarreraArribaId,
-                    BarreraAbajoId = x.BarreraAbajoId,
-                    SensorArribaId = x.SensorArribaId,
-                    SensorAbajoId = x.SensorAbajoId,
-                    SensorPrimerCruceId = x.SensorPrimerCruceId,
-                    SensorSegundoCruceId = x.SensorSegundoCruceId,
-                });
-
-                result.BarreraArriba = ObtenerDispositivoPorId(result.BarreraArribaId);
-                result.BarreraAbajo = ObtenerDispositivoPorId(result.BarreraAbajoId);
-                result.SensorArriba = ObtenerDispositivoPorId(result.SensorArribaId);
-                result.SensorAbajo = ObtenerDispositivoPorId(result.SensorAbajoId);
-                result.SensorPrimerCruce = ObtenerDispositivoPorId(result.SensorPrimerCruceId);
-                result.SensorSegundoCruce = ObtenerDispositivoPorId(result.SensorSegundoCruceId);
+                    AgrupadorCodigo = x.Dispositivo.Codigo,
+                    AgrupadorClaseDriver = x.ClaseDriver,
+                    SensorPrimerCruceCodigo = x.SensorPrimerCruce.Dispositivo.Codigo,
+                    SensorSegundoCruceCodigo = x.SensorSegundoCruce.Dispositivo.Codigo,
+                    SensorArribaCodigo = x.SensorArriba.Dispositivo.Codigo,
+                    SensorAbajoCodigo = x.SensorAbajo.Dispositivo.Codigo,
+                    BarreraArribaCodigo = x.BarreraArriba.Dispositivo.Codigo,
+                    BarreraAbajoCodigo = x.BarreraAbajo.Dispositivo.Codigo,
+                }).ToList();
             }
-
             return result;
         }
 
@@ -911,22 +900,6 @@ namespace Molinos.Orquest.Servicios.Impl
                         Descripcion = q.Dispositivo.Descripcion
                     });
             }
-        }
-
-        private DispositivoDto ObtenerDispositivoPorId(int dispositivoId) {
-            var result = new DispositivoDto();
-            using (var repositorio = factoryRepositorio.Repositorio())
-            {
-                result = repositorio.Obtener<Dispositivo,DispositivoDto>(x => x.Id == dispositivoId, x => new DispositivoDto
-                {
-                    Id = x.Id,
-                    Codigo = x.Codigo,
-                    Descripcion = x.Descripcion,
-                    ClaseDriver = x.Configuracion.ClaseDriver,
-                    Activo = x.Activo
-                });
-            }
-            return result;
         }
     }
 }
