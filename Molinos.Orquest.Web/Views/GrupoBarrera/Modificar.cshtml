@@ -1,0 +1,21 @@
+﻿@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Web.Models.ConfigGrupoBarreraModel
+@{
+    ViewBag.Title = Textos.Barrera_Modificar;
+    Layout = null;
+}
+@Scripts.Render("~/bundles/jqueryval")
+
+@using (Ajax.BeginForm("Modificar", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = Textos.ModificarGrupoBarrera }))
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+    @Html.Partial("_CrearModificar", Model)
+}
+
+
+<style>
+    .modal-dialog-centered {
+        max-width: 700px !important;
+    }
+</style>

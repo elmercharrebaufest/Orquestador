@@ -5,11 +5,11 @@
 	<setParameter name="FederationMetadataLocation Config" value="https://stspoc.molinos.com.ar/FederationMetadata/2007-06/FederationMetadata.xml" />
 	<setParameter name="CertificateValidation Identity Configuration" value="None" />
 
-	<setParameter name="UrlServicioNotificaciones Config" value="http://localhost/Orquest.web/" />
-	<setParameter name="UrlServicioSuscriptor Config" value="http://localhost/Orquest.web/ServicioHub/ServicioSuscriptor.svc" />
+	<setParameter name="UrlServicioNotificaciones Config" value="http://scatoqa.molinosagro.com.ar/Orquest.web/" />
+	<setParameter name="UrlServicioSuscriptor Config" value="http://scatoqa.molinosagro.com.ar/Orquest.web/ServicioHub/ServicioSuscriptor.svc" />
 	<setParameter name="Orquestador Service Endpoint Address" value="http://localhost:8080/ServicioOrquestador" />
 	<setParameter name="OrquestadorService Config" value="SCATO - Orquestador de Dispositivos" />
-	<setParameter name="HostServiciosWeb Config" value="GSLOSCATOAPQ00;GSLOSCATOAPQ01" />
+	<setParameter name="HostServiciosWeb Config" value="GSLOSCATOAPQ01;GSLOSCATOQA01" />
 	<setParameter name="ICWebServerUrl Config" value="https://GSLOSCATOAPQ01.molinosagro.ad:8889/rtc" />
 	<setParameter name="ICWSServerUrl Config" value="wss://GSLOSCATOAPQ01.molinosagro.ad:8889/rtc" />
 </parameters>

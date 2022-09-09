@@ -112,4 +112,46 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Dispositivo_nombre" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="1df20af8-9dc0-4d2f-b0f9-110fcb38ca12" ChangeDateTime="08/05/2022 17:01:28">
+    <Property Name="ElementName" Value="[dbo].[ConfigGrupoBarrera].[BarreraArribaId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigGrupoBarrera]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BarreraArriba_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b419bfd5-bbac-45de-9140-c014934366ca" ChangeDateTime="08/05/2022 17:01:31">
+    <Property Name="ElementName" Value="[dbo].[ConfigGrupoBarrera].[BarreraAbajoId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigGrupoBarrera]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BarreraAbajo_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b1c09fcd-9b7a-4f3c-86fc-5b14f20b5f6c" ChangeDateTime="08/05/2022 17:01:33">
+    <Property Name="ElementName" Value="[dbo].[ConfigGrupoBarrera].[SensorArribaId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigGrupoBarrera]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SensorArriba_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f8bf784a-d0f6-4cfd-b27c-833ef64029a2" ChangeDateTime="08/05/2022 17:01:36">
+    <Property Name="ElementName" Value="[dbo].[ConfigGrupoBarrera].[SensorAbajoId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigGrupoBarrera]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SensorAbajo_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="685802f3-c297-4bfd-b5be-28e568cd9ea2" ChangeDateTime="08/05/2022 17:01:41">
+    <Property Name="ElementName" Value="[dbo].[ConfigGrupoBarrera].[SensorPrimerCruceId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigGrupoBarrera]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SensorPrimerCruce_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7d266134-a587-498b-a39b-84222a0add54" ChangeDateTime="08/05/2022 17:01:45">
+    <Property Name="ElementName" Value="[dbo].[ConfigGrupoBarrera].[SensorSegundoCruceId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ConfigGrupoBarrera]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SensorSegundoCruce_Id" />
+  </Operation>
 </Operations>

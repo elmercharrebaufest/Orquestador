@@ -65,6 +65,12 @@
     <None Include="Deploy\deploy.GSLOSCATOAPP00.targets" />
     <None Include="Deploy\deploy.GSLOSCATOAPP01.targets" />
     <None Include="Deploy\deploy.GSLOSCATOAPP02.targets" />
+    <None Include="Deploy\deploy.GSLOSCATOAPP05.targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Deploy\deploy.GSLOSCATOAPP06.targets">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Deploy\deploy.GSLOSCATOOPS00.targets" />
     <None Include="Deploy\deploy.GSLOSCATOOPSQA00.targets" />
     <None Include="Deploy\deploy.GSLOSCATOQA01.targets" />

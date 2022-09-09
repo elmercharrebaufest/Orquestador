@@ -82,5 +82,7 @@ namespace Molinos.Orquest.Dominio.Seguridad
         Comunicador = 38,
         [Display(ResourceType = typeof(Textos), Name = "Intercomunicador_Administrar")]
         Intercomunicador = 39,
+        [Display(ResourceType = typeof(Textos), Name = "GrupoBarrera_Administrar")]
+        GrupoBarrera = 40,   
     }
 }

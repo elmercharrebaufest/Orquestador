@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="ConexionDispositivoDriverException.cs" />
     <Compile Include="ComandoDriverException.cs" />
+    <Compile Include="IDriverGrupoBarrera.cs" />
     <Compile Include="IDriverBalanzaPuerto.cs" />
     <Compile Include="IDriverComunicador.cs" />
     <Compile Include="IDriverCortinaAgua.cs" />

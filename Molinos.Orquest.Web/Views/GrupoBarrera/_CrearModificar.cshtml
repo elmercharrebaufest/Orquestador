@@ -1,0 +1,86 @@
+﻿@model Molinos.Orquest.Web.Models.ConfigGrupoBarreraModel
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Codigo)
+                @Html.TextBoxFor(model => model.Codigo, new { @class = "form-control to-uppercase" })
+                @Html.ValidationMessageFor(model => model.Codigo, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Descripcion)
+                @Html.TextBoxFor(model => model.Descripcion, new {  @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Descripcion, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.BarreraArribaId)
+                @Html.DropDownListFor(model => model.BarreraArribaId, (IEnumerable<SelectListItem>)ViewBag.Barreras, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BarreraArribaId, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.BarreraAbajoId)
+                @Html.DropDownListFor(model => model.BarreraAbajoId, (IEnumerable<SelectListItem>)ViewBag.Barreras, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BarreraAbajoId, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.SensorArribaId)
+                @Html.DropDownListFor(model => model.SensorArribaId, (IEnumerable<SelectListItem>)ViewBag.Sensores, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SensorArribaId, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.SensorAbajoId)
+                @Html.DropDownListFor(model => model.SensorAbajoId, (IEnumerable<SelectListItem>)ViewBag.Sensores, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SensorAbajoId, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.SensorPrimerCruceId)
+                @Html.DropDownListFor(model => model.SensorPrimerCruceId, (IEnumerable<SelectListItem>)ViewBag.Sensores, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SensorPrimerCruceId, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.SensorSegundoCruceId)
+                @Html.DropDownListFor(model => model.SensorSegundoCruceId, (IEnumerable<SelectListItem>)ViewBag.Sensores, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SensorSegundoCruceId, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Activo)
+                @Html.CheckBoxFor(m => m.Activo)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClaseDriver)
+                @Html.DropDownListFor(model => model.ClaseDriver, (IEnumerable<SelectListItem>)ViewBag.Drivers, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ClaseDriver, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+</div>
+
+
