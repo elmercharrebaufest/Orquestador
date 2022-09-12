@@ -15,8 +15,8 @@
     <User>molinosagro\scatoprodMOA</User>
     <UserPassword>$cat02016</UserPassword>
 
-    <RemoteMachine>GSLOSCATOAPP04</RemoteMachine>
-    <DeployPath>//GSLOSCATOAPP04/Orquestador</DeployPath>
+    <RemoteMachine>GSLOSCATOAPP06</RemoteMachine>
+    <DeployPath>//GSLOSCATOAPP06/Orquestador</DeployPath>
     <LocalPath>g:/Orquestador</LocalPath>
     
     
