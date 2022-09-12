@@ -6,10 +6,10 @@
 	<setParameter name="CertificateValidation Identity Configuration" value="None" />
 
 	<setParameter name="UrlServicioNotificaciones Config" value="http://scato.molinosagro.com.ar/Orquest.web/" />
-	<setParameter name="UrlServicioSuscriptor Config" value="http://localhost/Orquest.web/ServicioHub/ServicioSuscriptor.svc" />
+	<setParameter name="UrlServicioSuscriptor Config" value="http://scato.molinosagro.com.ar/Orquest.web/ServicioHub/ServicioSuscriptor.svc" />
 	<setParameter name="Orquestador Service Endpoint Address" value="http://localhost:8080/ServicioOrquestador" />
 	<setParameter name="OrquestadorService Config" value="SCATO - Orquestador de Dispositivos" />
-	<setParameter name="HostServiciosWeb Config" value="GSLOSCATOAPP00;GSLOSCATOAPP01;GSLOSCATOAPP02;GSLOSCATOAPP03;GSLOSCATOAPP04" />
+	<setParameter name="HostServiciosWeb Config" value="GSLOSCATOAPP03;GSLOSCATOAPP04;GSLOSCATOAPP05;GSLOSCATOAPP06" />
 	<setParameter name="ICWebServerUrl Config" value="https://GSLOSCATOAPP03.molinosagro.ad:8889/rtc" />
 	<setParameter name="ICWSServerUrl Config" value="wss://GSLOSCATOAPP03.molinosagro.ad:8889/rtc" />
 </parameters>

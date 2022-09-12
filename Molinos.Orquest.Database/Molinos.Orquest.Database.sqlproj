@@ -111,6 +111,7 @@
     <Build Include="dbo\Tables\ConfigJsonFromIotBox.sql" />
     <Build Include="dbo\Tables\ConfigJsonToIotBox.sql" />
     <Build Include="dbo\Tables\FormatosJson.sql" />
+    <Build Include="dbo\Tables\ConfigGrupoBarrera.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Molinos.Orquest.Database.publish.xml" />

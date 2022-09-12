@@ -180,6 +180,12 @@
     <None Include="App.GSLOSCATO04.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="App.GSLOSCATOAPP06.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="App.GSLOSCATOAPP05.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="App.GSLOSCATOOPS00.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -213,7 +219,15 @@
     <None Include="App.Vicscatoqa.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ApplicationInsights.config" />
+    <None Include="ApplicationInsights.QA.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ApplicationInsights.PRD.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

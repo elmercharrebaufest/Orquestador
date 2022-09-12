@@ -51,7 +51,6 @@ namespace Molinos.Orquest.Servicios.Impl
 
         public void Iniciar(string nombreMaquina, string urlServicio)
         {
-            
             NombreMaquina = nombreMaquina;
             UrlServicio = urlServicio;
             log.Debug("Inicializando orquestador. Servidor: {0} Url: {1}", nombreMaquina, urlServicio);
@@ -604,7 +603,7 @@ namespace Molinos.Orquest.Servicios.Impl
             lock (locker.GetLock(codigoDispositivo))
             {
                 //cuando tiene fijado un server y no es este no se devuelve procesador
-                if (!string.IsNullOrEmpty(serverFijo) && !string.Equals(serverFijo,NombreMaquina,StringComparison.InvariantCultureIgnoreCase))
+                if (!string.IsNullOrEmpty(serverFijo) && !string.Equals(serverFijo, NombreMaquina, StringComparison.InvariantCultureIgnoreCase))
                 {
                     return null;
                 }
@@ -842,12 +841,14 @@ namespace Molinos.Orquest.Servicios.Impl
             using (var repositorio = factoryRepositorio.Repositorio())
             {
                 var intercomunicadorDto = new IntercomunicadorDispositivoBaseDto();
-                var resultado = repositorio.Obtener<ConfigComunicador, IntercomunicadorDispositivoBaseDto>(x => 
+                var resultado = repositorio.Obtener<ConfigComunicador, IntercomunicadorDispositivoBaseDto>(x =>
                 x.Dispositivo.Codigo == codigoDispositivo, x => new IntercomunicadorDispositivoBaseDto
                 {
                     Codigo = x.Dispositivo.Codigo
-                    ,PuertoDeAudio = x.PuertoDeAudio
-                    ,Sensor = x.Sensor.Codigo
+                    ,
+                    PuertoDeAudio = x.PuertoDeAudio
+                    ,
+                    Sensor = x.Sensor.Codigo
                 });
                 //var resultado = repositorio.Obtener<ConfigComunicador, IntercomunicadorDispositivoBaseDto>(m => m.Dispositivo.Codigo == codigoDispositivo);
                 return resultado;
@@ -859,6 +860,40 @@ namespace Molinos.Orquest.Servicios.Impl
             using (var repositorio = factoryRepositorio.Repositorio())
             {
                 return repositorio.Listar<ConfigTag, DispositivoDto>(q => q.Dispositivo.Activo && !q.Dispositivo.EsConcentrador,
+                    q => new DispositivoDto
+                    {
+                        Codigo = q.Dispositivo.Codigo,
+                        Descripcion = q.Dispositivo.Descripcion
+                    });
+            }
+        }
+
+        public IList<GrupoBarreraDto> ObtenerConfiguracionGrupoBarrera(string codigoSegundoCruce)
+        {
+            var result = new List<GrupoBarreraDto>();
+            using (var repositorio = factoryRepositorio.Repositorio())
+            {
+                result = repositorio.Listar<ConfigGrupoBarrera, GrupoBarreraDto>(x => x.SensorSegundoCruce.Dispositivo.Codigo == codigoSegundoCruce && x.Dispositivo.Activo, x => new GrupoBarreraDto
+                {
+                    Id = x.Id,
+                    AgrupadorCodigo = x.Dispositivo.Codigo,
+                    AgrupadorClaseDriver = x.ClaseDriver,
+                    SensorPrimerCruceCodigo = x.SensorPrimerCruce.Dispositivo.Codigo,
+                    SensorSegundoCruceCodigo = x.SensorSegundoCruce.Dispositivo.Codigo,
+                    SensorArribaCodigo = x.SensorArriba.Dispositivo.Codigo,
+                    SensorAbajoCodigo = x.SensorAbajo.Dispositivo.Codigo,
+                    BarreraArribaCodigo = x.BarreraArriba.Dispositivo.Codigo,
+                    BarreraAbajoCodigo = x.BarreraAbajo.Dispositivo.Codigo,
+                }).ToList();
+            }
+            return result;
+        }
+
+        public IList<DispositivoDto> ListarGruposBarrera ()
+        {
+            using (var repositorio = factoryRepositorio.Repositorio())
+            {
+                return repositorio.Listar<ConfigGrupoBarrera, DispositivoDto>(q => q.Dispositivo.Activo && !q.Dispositivo.EsConcentrador,
                     q => new DispositivoDto
                     {
                         Codigo = q.Dispositivo.Codigo,
