@@ -234,6 +234,12 @@
     <Content Include="bfdev258.DeployParameters.xml" />
     <Content Include="Global.asax" />
     <Content Include="GSLOSCATO01.DeployParameters.xml" />
+    <Content Include="GSLOSCATOAPP06.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="GSLOSCATOAPP05.DeployParameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="GVICSCATOAPP04.DeployParameters.xml">
       <SubType>Designer</SubType>
     </Content>
