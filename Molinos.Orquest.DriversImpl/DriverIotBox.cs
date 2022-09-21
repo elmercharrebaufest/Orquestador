@@ -213,7 +213,7 @@ namespace Molinos.Orquest.DriversImpl
                 throw new DriverException("Error al Conectar con el dispositivo", e);
             }
 
-            Log.Info("Salida Activada: ITC={0} Salida={1}", codigoRasp, salida);
+            Log.Info("Salida Activada: ITC={0} Salida={1} Estado={2} Dato={3}", codigoRasp, salida, estado, dato);
         }
 
         public override void InformarEstado()

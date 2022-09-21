@@ -146,7 +146,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (Exception e)
                     {
-                        Log.Error("Error de conexion al leer respuesta, intentando un nuevo ping", e);
+                        Log.Error(e, "Error de conexion al leer respuesta, intentando un nuevo ping");
                         cliente.ReConectar();
                         ActivarSalida(0, "\"ping\"", "0", false);
                         response = cliente.LeerNovedad();
@@ -217,7 +217,7 @@ namespace Molinos.Orquest.DriversImpl
                 throw new DriverException("Error al Conectar con el dispositivo", e);
             }
 
-            Log.Info("Salida Activada: ITC={0} Salida={1}", codigoRasp, salida);
+            Log.Info("Salida Activada: ITC={0} Salida={1} Estado={2} Dato={3}", codigoRasp, salida, estado, dato);
         }
 
         public override void InformarEstado()
