@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Molinos.Orquest.DriversImpl
 {
-    public class DriverIotBox : DriverBase, IDriverItc
+    public class DriverIotBoxV2 : DriverBase, IDriverItc
     {
         private readonly object lockComandoLectura = new object();
         private readonly object lockComandoEscritura = new object();
@@ -143,14 +144,13 @@ namespace Molinos.Orquest.DriversImpl
                     {
                         response = cliente.LeerNovedad();
                     }
-                    catch (SocketException e)
+                    catch (Exception e)
                     {
-                        Log.Error("Error de conexion al leer respuesta, intentando un nuevo ping", e);
+                        Log.Error(e, "Error de conexion al leer respuesta, intentando un nuevo ping");
                         cliente.ReConectar();
                         ActivarSalida(0, "\"ping\"", "0", false);
                         response = cliente.LeerNovedad();
                     }
-
                     try
                     {
                         if (response != null && response != "\"ok\"")
@@ -159,6 +159,10 @@ namespace Molinos.Orquest.DriversImpl
                             if (respuesta[0].Dato == "pingResponse")
                             {
                                 Log.Info("Ping respondido exitosamente.");
+                            }
+                            else
+                            {
+                                cliente.ReConectar();
                             }
                         }
                     }

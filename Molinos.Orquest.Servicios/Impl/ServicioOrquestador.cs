@@ -868,7 +868,28 @@ namespace Molinos.Orquest.Servicios.Impl
             }
         }
 
-        public IList<GrupoBarreraDto> ObtenerConfiguracionGrupoBarrera(string codigoSegundoCruce)
+        public GrupoBarreraDto ObtenerConfiguracionGrupoBarrera(string codigoGrupoBarrera)
+        {
+            var result = new GrupoBarreraDto();
+            using (var repositorio = factoryRepositorio.Repositorio())
+            {
+                result = repositorio.Obtener<ConfigGrupoBarrera, GrupoBarreraDto>(x => x.Dispositivo.Codigo == codigoGrupoBarrera && x.Dispositivo.Activo, x => new GrupoBarreraDto
+                {
+                    Id = x.Id,
+                    AgrupadorCodigo = x.Dispositivo.Codigo,
+                    AgrupadorClaseDriver = x.ClaseDriver,
+                    SensorPrimerCruceCodigo = x.SensorPrimerCruce.Dispositivo.Codigo,
+                    SensorSegundoCruceCodigo = x.SensorSegundoCruce.Dispositivo.Codigo,
+                    SensorArribaCodigo = x.SensorArriba.Dispositivo.Codigo,
+                    SensorAbajoCodigo = x.SensorAbajo.Dispositivo.Codigo,
+                    BarreraArribaCodigo = x.BarreraArriba.Dispositivo.Codigo,
+                    BarreraAbajoCodigo = x.BarreraAbajo.Dispositivo.Codigo,
+                });
+            }
+            return result;
+        }
+
+        public IList<GrupoBarreraDto> ObtenerConfiguracionGrupoBarreraPorSegundoCruce(string codigoSegundoCruce)
         {
             var result = new List<GrupoBarreraDto>();
             using (var repositorio = factoryRepositorio.Repositorio())
@@ -889,7 +910,7 @@ namespace Molinos.Orquest.Servicios.Impl
             return result;
         }
 
-        public IList<DispositivoDto> ListarGruposBarrera ()
+        public IList<DispositivoDto> ListarGruposBarrera()
         {
             using (var repositorio = factoryRepositorio.Repositorio())
             {
