@@ -20,5 +20,9 @@ namespace Molinos.Orquest.Dominio.Entidades
             get { return EstadoActivado ? 1 : 0; } 
             set { EstadoActivado = value != 0; }
         }
+
+        [Column("Camara_Id")]
+        public virtual int? CamaraId { get; set; }
+        public virtual ConfigCamara Camara { get; set; }
     }
 }

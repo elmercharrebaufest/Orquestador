@@ -1,0 +1,182 @@
+﻿using Molinos.Orquest.Dominio.Entidades;
+using Molinos.Orquest.Dominio.Helpers;
+using Molinos.Orquest.Dominio.Resultados;
+using Molinos.Orquest.Drivers;
+using Molinos.Orquest.DriversImpl.ServicioALPR;
+using Ninject.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Net;
+using ResultadoObtenerPatente = Molinos.Orquest.Dominio.Resultados.ResultadoObtenerPatente;
+
+namespace Molinos.Orquest.DriversImpl
+{
+    public class DriverSensorCamaraALPR : DriverBase, IDriverSensor, IDriverLogico
+    {
+        private string codigoDispositivo;
+        private ConfigSensor configSensor;
+        private ConfigCamara configCamara;
+        private IDriverItc driverItc;
+        private string entrada;
+        private readonly IServicioALPR servicioALPR;
+        private readonly List<string> eventosSoportados = new List<string> { CodigosEventos.CambioEstadoSensorCamaraALPR };
+
+        public event EventHandler<EventoDriverEventArgs> EventoDriver;
+
+        public DriverSensorCamaraALPR(IServicioALPR servicioALPR)
+        {
+            this.servicioALPR = servicioALPR;
+        }
+
+        public override IEnumerable<string> EventosSoportados
+        {
+            get
+            {
+                return eventosSoportados;
+            }
+        }
+
+        public override Type TipoDispositivo
+        {
+            get { return typeof(ConfigSensor); }
+        }
+
+        public override void VerificarDispositivo()
+        {
+            driverItc.VerificarDispositivo();
+        }
+
+        public IDriver DriverFisico
+        {
+            set
+            {
+                driverItc = (IDriverItc)value;
+                driverItc.EventoDriver += OnEventoDriverFisico;
+            }
+        }
+
+        public ILogger Log { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public override void Inicializar(string codigo, ConfigDispositivo configuracion)
+        {
+            codigoDispositivo = codigo;
+            configSensor = (ConfigSensor)configuracion;
+            configCamara = configSensor.Camara;
+            entrada = configSensor.NumeroEntrada.ToString(CultureInfo.InvariantCulture);
+        }
+
+        public void NotificarEstadoActualSensor()
+        {
+            driverItc.NotificarEstadoActual(configSensor.NumeroEntrada);
+        }
+
+        public ResultadoEstadoSensor ConsultaEstadoActual()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnEventoDriverFisico(object sender, EventoDriverEventArgs evento)
+        {
+            var notificacion = evento.Notificacion;
+            var datos = new Dictionary<string, string>();
+            var codigoEvento = string.Empty;
+            var estado = string.Empty;
+
+            if (notificacion.Datos.ContainsKey("Mensaje"))
+                estado = notificacion.Datos["Mensaje"];
+
+            codigoEvento = CodigosEventos.CambioEstadoSensorCamaraALPR;
+            if (estado == "True")
+            {
+                var resultadoALPR = TomarFoto();
+                datos = new Dictionary<string, string>
+                        {
+                            { "Patente",resultadoALPR.Patente},
+                            { "Estado",estado},
+                        };
+            }
+            else
+            {
+                datos = new Dictionary<string, string>
+                        {
+                            { "Patente",string.Empty},
+                            { "Estado",estado},
+                        };
+            }
+
+            var nuevoEvento = new EventoDriverEventArgs
+            {
+                Notificacion = new NotificacionEvento
+                {
+                    CodigoDispositivo = codigoDispositivo,
+                    CodigoEvento = codigoEvento,
+                    Datos = datos
+                }
+            };
+            OnEventoDriver(nuevoEvento);
+        }
+
+        private ResultadoObtenerPatente TomarFoto()
+        {
+            var resultado = new ResultadoObtenerPatente();
+
+            var request = (HttpWebRequest)WebRequest.Create(configCamara.Uri);
+            request.Timeout = configCamara.TimeoutLectura;
+
+            if (!string.IsNullOrEmpty(configCamara.NombreUsuario) && !string.IsNullOrEmpty(configCamara.Contrasenia))
+            {
+                request.Credentials = new NetworkCredential(configCamara.NombreUsuario, Encriptador.Decrypt(configCamara.Contrasenia));
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            if ((response.StatusCode == HttpStatusCode.OK
+                || response.StatusCode == HttpStatusCode.Moved
+                || response.StatusCode == HttpStatusCode.Redirect) &&
+                response.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+            {
+                using (var inputStream = response.GetResponseStream())
+                {
+                    var imagenAEscanear = LeerImagen(inputStream);
+                    resultado = LlamarALPR(imagenAEscanear);
+                }
+            }
+            else
+            {
+                throw new FormatoRespuestaDriverException(string.Format("Formato de respuesta del dispositivo {0} incorrecto para la url {1}", configCamara.Dispositivo.Codigo, configCamara.Uri));
+            }
+            return resultado;
+        }
+
+        private ResultadoObtenerPatente LlamarALPR(byte[] imagen)
+        {
+            var resultadoObtenerPatente = new ResultadoObtenerPatente();
+            var resultadoALPR = servicioALPR.LeerPatente(imagen, configCamara.MargenIzquierdo ?? 0, configCamara.MargenDerecho ?? 0, configCamara.MargenSuperior ?? 0, configCamara.MargenInferior ?? 0);
+            resultadoObtenerPatente.Imagen = resultadoALPR.Imagen;
+            resultadoObtenerPatente.Confianza = resultadoALPR.Confianza;
+
+            return resultadoObtenerPatente;
+        }
+
+        private byte[] LeerImagen(Stream inputStream)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                inputStream.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
+
+        public void InformarEstado()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool MantenerConectado()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

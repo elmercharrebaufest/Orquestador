@@ -22,5 +22,7 @@
         public const string PulsadorEmergenciaUtilizado = "PulsadorEmergenciaUtilizado";
 
         public const string CambioEstadoIntercomunicador = "CambioEstadoIntercomunicador";
+
+        public const string CambioEstadoSensorCamaraALPR = "CambioEstadoSensorCamaraALPR";
     }
 }
