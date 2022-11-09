@@ -1,4 +1,5 @@
 ﻿using Molinos.Orquest.Dominio.Entidades;
+using Molinos.Orquest.Dominio.Helpers;
 using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
 using System;
@@ -60,7 +61,7 @@ namespace Molinos.Orquest.DriversImpl
             notificacion.Datos["Accion"] = configSensor.Accion.Value.ToString();
             if (EsEventoParaDispositivo(notificacion))
             {
-                var nuevoEvento = new EventoDriverEventArgs
+                var eventoNotification = new EventoDriverEventArgs
                 {
                     Notificacion = new NotificacionEvento
                     {
@@ -69,7 +70,9 @@ namespace Molinos.Orquest.DriversImpl
                         Datos = notificacion.Datos,
                     }
                 };
-                OnEventoDriver(nuevoEvento);
+
+                Log.Debug("DriverSensorGeneral {0}", eventoNotification.ToJson());
+                OnEventoDriver(evento);
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using Molinos.Orquest.Dominio.Entidades;
+using Molinos.Orquest.Dominio.Helpers;
 using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
 using Molinos.Orquest.DriversImpl.ServicioALPR;
@@ -8,6 +9,7 @@ using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using Mensaje = Molinos.Orquest.Dominio.Resultados.Mensaje;
 using ResultadoObtenerPatente = Molinos.Orquest.Dominio.Resultados.ResultadoObtenerPatente;
 
 namespace Molinos.Orquest.DriversImpl
@@ -67,7 +69,14 @@ namespace Molinos.Orquest.DriversImpl
 
         public ResultadoEstadoSensor ConsultaEstadoActual()
         {
-            throw new NotImplementedException();
+            Log.Info($"ConsultaEstadoActual Dispositivo : {codigoDispositivo}, Numero Entrada : {configSensor.NumeroEntrada}");
+
+            return new ResultadoEstadoSensor
+            {
+                CodigoDispositivoSensor = codigoDispositivo,
+                EstadoActivo = driverItc.ConsultarEstadoActual(configSensor.NumeroEntrada),
+                Mensaje = Mensaje.ResultadoOK()
+            };
         }
 
         private void OnEventoDriverFisico(object sender, EventoDriverEventArgs evento)
@@ -99,7 +108,7 @@ namespace Molinos.Orquest.DriversImpl
                         };
             }
 
-            var nuevoEvento = new EventoDriverEventArgs
+            var eventoNotification = new EventoDriverEventArgs
             {
                 Notificacion = new NotificacionEvento
                 {
@@ -108,7 +117,8 @@ namespace Molinos.Orquest.DriversImpl
                     Datos = datos
                 }
             };
-            OnEventoDriver(nuevoEvento);
+            Log.Debug("DriverSensorCamaraALPRDummy Notificacion {0}", eventoNotification.ToJson());
+            OnEventoDriver(eventoNotification);
         }
 
         private ResultadoObtenerPatente TomarFoto()
