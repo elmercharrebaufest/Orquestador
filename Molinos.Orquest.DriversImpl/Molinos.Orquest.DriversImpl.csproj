@@ -101,6 +101,7 @@
     <Compile Include="DriverHumedimetroPHContinuo.cs" />
     <Compile Include="DriverJsonToIotBox.cs" />
     <Compile Include="DriverSensorIntercomunicador.cs" />
+    <Compile Include="DriverSensorGeneral.cs" />
     <Compile Include="DriverTag.cs" />
     <Compile Include="DriverComunicadorIotBox.cs" />
     <Compile Include="DriverBarreraPlc.cs" />

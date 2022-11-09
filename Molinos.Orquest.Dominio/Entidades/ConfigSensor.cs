@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Molinos.Orquest.Dominio.Enums;
 using Molinos.Orquest.Dominio.Recursos;
 
 namespace Molinos.Orquest.Dominio.Entidades
@@ -24,5 +25,6 @@ namespace Molinos.Orquest.Dominio.Entidades
         [Column("Camara_Id")]
         public virtual int? CamaraId { get; set; }
         public virtual ConfigCamara Camara { get; set; }
+        public virtual TipoAccionSensor? Accion { get; set; }
     }
 }

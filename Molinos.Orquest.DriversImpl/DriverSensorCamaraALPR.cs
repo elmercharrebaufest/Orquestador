@@ -168,15 +168,5 @@ namespace Molinos.Orquest.DriversImpl
                 return memoryStream.ToArray();
             }
         }
-
-        public void InformarEstado()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool MantenerConectado()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
