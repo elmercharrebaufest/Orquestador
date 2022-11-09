@@ -96,6 +96,10 @@
       <Project>{84cc0ec6-299d-4c90-8c72-7f9202234aad}</Project>
       <Name>Molinos.Orquest.Dominio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.ModuloALPR\Molinos.Orquest.ModuloALPR.csproj">
+      <Project>{A1DA03B5-E24E-4468-9A55-53E97767AC36}</Project>
+      <Name>Molinos.Orquest.ModuloALPR</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

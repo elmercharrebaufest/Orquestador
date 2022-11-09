@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using Molinos.Orquest.Dominio.Entidades;
+﻿using Molinos.Orquest.Dominio.Entidades;
+using Molinos.Orquest.Dominio.Helpers;
 using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace Molinos.Orquest.DriversImpl
 {
-    public class DriverSensor : DriverBase, IDriverSensor, IDriverLogico
+    public class DriverSensorGeneral : DriverBase, IDriverSensor, IDriverLogico
     {
         private string codigoDispositivo;
         private ConfigSensor configSensor;
         private IDriverItc driverItc;
-
         private string entrada;
+
         private readonly List<string> eventosSoportados = new List<string> {
-             CodigosEventos.EntradaActivada
-            , CodigosEventos.EntradaDesactivada
-            , CodigosEventos.ErrorConexionDispositivo
-            , CodigosEventos.ConexionDispositivoCorrecta
-            , CodigosEventos.CambioEstadoSensor};
+             CodigosEventos.CambioEstadoSensorGeneral
+            ,CodigosEventos.ErrorConexionDispositivo
+            ,CodigosEventos.ConexionDispositivoCorrecta};
 
         public override IEnumerable<string> EventosSoportados
         {
@@ -36,6 +35,7 @@ namespace Molinos.Orquest.DriversImpl
 
         public override void Inicializar(string codigo, ConfigDispositivo configuracion)
         {
+            Log.Info("DriverSensorGeneral Inicializar");
             codigoDispositivo = codigo;
             configSensor = (ConfigSensor)configuracion;
             entrada = configSensor.NumeroEntrada.ToString(CultureInfo.InvariantCulture);
@@ -58,50 +58,28 @@ namespace Molinos.Orquest.DriversImpl
         private void OnEventoDriverFisico(object sender, EventoDriverEventArgs evento)
         {
             var notificacion = evento.Notificacion;
+            notificacion.Datos["Accion"] = configSensor.Accion.Value.ToString();
             if (EsEventoParaDispositivo(notificacion))
             {
-                Log.Debug($"Enviando evento driver sensor: {codigoDispositivo } Evento: {notificacion.CodigoEvento}");
-
-                var codigoEvento = notificacion.CodigoEvento;
-                // Esto se da cuando "0" es "activada" y "1" es desactivada
-                if (!configSensor.EstadoActivado)
+                var eventoNotification = new EventoDriverEventArgs
                 {
-                    codigoEvento = InvertirEventoActivacion(codigoEvento);
-                    if(notificacion.Datos.ContainsKey("Mensaje"))
-                        notificacion.Datos["Mensaje"] = notificacion.Datos["Mensaje"] == "True" ? "False" : "True";
-                }
-
-                var nuevoEvento = new EventoDriverEventArgs
+                    Notificacion = new NotificacionEvento
                     {
-                        Notificacion = new NotificacionEvento
-                            {
-                                CodigoDispositivo = codigoDispositivo,
-                                CodigoEvento = codigoEvento,
-                                Datos = notificacion.Datos,
-                            }
-                    };
-                OnEventoDriver(nuevoEvento);
-            }
-        }
+                        CodigoDispositivo = codigoDispositivo,
+                        CodigoEvento = CodigosEventos.CambioEstadoSensorGeneral,
+                        Datos = notificacion.Datos,
+                    }
+                };
 
-        private static string InvertirEventoActivacion(string codigoEvento)
-        {
-            if (codigoEvento == CodigosEventos.EntradaActivada)
-            {
-                codigoEvento = CodigosEventos.EntradaDesactivada;
+                Log.Debug("DriverSensorGeneral {0}", eventoNotification.ToJson());
+                OnEventoDriver(evento);
             }
-            else if (codigoEvento == CodigosEventos.EntradaDesactivada)
-            {
-                codigoEvento = CodigosEventos.EntradaActivada;
-            }
-            return codigoEvento;
         }
 
         private bool EsEventoParaDispositivo(NotificacionEvento notificacion)
         {
-            Log.Debug($"Es Evento Para Dispositivo: {notificacion.CodigoEvento } Datos: {notificacion.Datos}");
-            return eventosSoportados.Contains(notificacion.CodigoEvento) 
-                && (notificacion.Datos == null || !notificacion.Datos.ContainsKey("Entrada") 
+            return eventosSoportados.Contains(notificacion.CodigoEvento)
+                && (notificacion.Datos == null || !notificacion.Datos.ContainsKey("Entrada")
                             || notificacion.Datos["Entrada"] == entrada);
         }
 

@@ -31,6 +31,7 @@ namespace Molinos.Orquest.DriversImpl
             configCamara = (ConfigCamara)configuracion;
         }
 
+
         public override void VerificarDispositivo()
         {
 
