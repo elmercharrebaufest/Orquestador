@@ -19,7 +19,13 @@ namespace Molinos.Orquest.DriversImpl
         private ConfigCamara configCamara;
         private IDriverItc driverItc;
         private readonly IServicioALPR servicioALPR;
-        private readonly List<string> eventosSoportados = new List<string> { CodigosEventos.CambioEstadoSensorCamaraALPR };
+        private readonly List<string> eventosSoportados = new List<string> {
+             CodigosEventos.EntradaActivada
+            , CodigosEventos.EntradaDesactivada
+            , CodigosEventos.ErrorConexionDispositivo
+            , CodigosEventos.ConexionDispositivoCorrecta
+            , CodigosEventos.CambioEstadoSensor
+            ,CodigosEventos.CambioEstadoSensorCamaraALPR };
 
         public DriverSensorCamaraALPR(IServicioALPR servicioALPR)
         {
