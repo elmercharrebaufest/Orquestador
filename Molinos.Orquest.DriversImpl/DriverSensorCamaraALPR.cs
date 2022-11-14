@@ -19,6 +19,8 @@ namespace Molinos.Orquest.DriversImpl
         private ConfigCamara configCamara;
         private IDriverItc driverItc;
         private readonly IServicioALPR servicioALPR;
+        private string codigoEventoITC;
+
         private readonly List<string> eventosSoportados = new List<string> {
              CodigosEventos.EntradaActivada
             , CodigosEventos.EntradaDesactivada
@@ -90,12 +92,13 @@ namespace Molinos.Orquest.DriversImpl
             var codigoEvento = string.Empty;
             var estado = string.Empty;
 
-            if (notificacion.Datos.ContainsKey("Mensaje"))
-                estado = notificacion.Datos["Mensaje"];
+            if (notificacion.Datos.ContainsKey("Dato"))
+                estado = notificacion.Datos["Dato"];
 
             codigoEvento = CodigosEventos.CambioEstadoSensorCamaraALPR;
             if (estado == "True")
             {
+                codigoEventoITC = CodigosEventos.EntradaActivada;
                 var resultadoALPR = TomarFoto();
                 datos = new Dictionary<string, string>
                         {
@@ -105,6 +108,7 @@ namespace Molinos.Orquest.DriversImpl
             }
             else
             {
+                codigoEventoITC = CodigosEventos.EntradaDesactivada;
                 datos = new Dictionary<string, string>
                         {
                             { "Patente",string.Empty},
@@ -123,6 +127,7 @@ namespace Molinos.Orquest.DriversImpl
             };
             Log.Debug("DriverSensorCamaraALPRDummy Notificacion {0}", eventoNotification.ToJson());
             OnEventoDriver(eventoNotification);
+            NotificarEventoITC(eventoNotification);
         }
 
         private ResultadoObtenerPatente TomarFoto()
@@ -163,7 +168,7 @@ namespace Molinos.Orquest.DriversImpl
             var resultadoALPR = servicioALPR.LeerPatente(imagen, configCamara.MargenIzquierdo ?? 0, configCamara.MargenDerecho ?? 0, configCamara.MargenSuperior ?? 0, configCamara.MargenInferior ?? 0);
             resultadoObtenerPatente.Imagen = resultadoALPR.Imagen;
             resultadoObtenerPatente.Confianza = resultadoALPR.Confianza;
-
+            resultadoObtenerPatente.Patente = resultadoALPR.Patente;
             return resultadoObtenerPatente;
         }
 
@@ -174,6 +179,12 @@ namespace Molinos.Orquest.DriversImpl
                 inputStream.CopyTo(memoryStream);
                 return memoryStream.ToArray();
             }
+        }
+
+        private void NotificarEventoITC(EventoDriverEventArgs eventoNotification)
+        {
+            eventoNotification.Notificacion.CodigoEvento = codigoEventoITC;
+            OnEventoDriver(eventoNotification);
         }
     }
 }
