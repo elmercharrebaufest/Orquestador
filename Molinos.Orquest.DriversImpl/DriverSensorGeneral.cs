@@ -16,9 +16,12 @@ namespace Molinos.Orquest.DriversImpl
         private string entrada;
 
         private readonly List<string> eventosSoportados = new List<string> {
-             CodigosEventos.CambioEstadoSensorGeneral
-            ,CodigosEventos.ErrorConexionDispositivo
-            ,CodigosEventos.ConexionDispositivoCorrecta};
+             CodigosEventos.EntradaActivada
+            , CodigosEventos.EntradaDesactivada
+            , CodigosEventos.ErrorConexionDispositivo
+            , CodigosEventos.ConexionDispositivoCorrecta
+            , CodigosEventos.CambioEstadoSensor
+            ,CodigosEventos.CambioEstadoSensorGeneral };
 
         public override IEnumerable<string> EventosSoportados
         {
