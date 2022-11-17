@@ -1806,6 +1806,7 @@
     <Content Include="Views\GrupoBarrera\Listar.cshtml" />
     <Content Include="Views\GrupoBarrera\Index.cshtml" />
     <Content Include="Views\GrupoBarrera\Crear.cshtml" />
+    <Content Include="Views\Sensor\_ConfiguracionSensor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
