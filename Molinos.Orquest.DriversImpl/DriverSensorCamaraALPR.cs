@@ -5,6 +5,7 @@ using Molinos.Orquest.Drivers;
 using Molinos.Orquest.DriversImpl.ServicioALPR;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using Mensaje = Molinos.Orquest.Dominio.Resultados.Mensaje;
@@ -14,12 +15,15 @@ namespace Molinos.Orquest.DriversImpl
 {
     public class DriverSensorCamaraALPR : DriverBase, IDriverSensor, IDriverLogico
     {
+        private readonly IServicioALPR servicioALPR;
+        private IDriverItc driverItc;
+
         private string codigoDispositivo;
+        private string codigoEventoITC;
+        private string entrada;
+
         private ConfigSensor configSensor;
         private ConfigCamara configCamara;
-        private IDriverItc driverItc;
-        private readonly IServicioALPR servicioALPR;
-        private string codigoEventoITC;
 
         private readonly List<string> eventosSoportados = new List<string> {
              CodigosEventos.EntradaActivada
@@ -66,6 +70,7 @@ namespace Molinos.Orquest.DriversImpl
             codigoDispositivo = codigo;
             configSensor = (ConfigSensor)configuracion;
             configCamara = configSensor.Camara;
+            entrada = configSensor.NumeroEntrada.ToString(CultureInfo.InvariantCulture);
         }
 
         public void NotificarEstadoActualSensor()
@@ -88,46 +93,38 @@ namespace Molinos.Orquest.DriversImpl
         private void OnEventoDriverFisico(object sender, EventoDriverEventArgs evento)
         {
             var notificacion = evento.Notificacion;
-            var datos = new Dictionary<string, string>();
-            var codigoEvento = string.Empty;
-            var estado = string.Empty;
-
-            if (notificacion.Datos.ContainsKey("Dato"))
-                estado = notificacion.Datos["Dato"];
-
-            codigoEvento = CodigosEventos.CambioEstadoSensorCamaraALPR;
-            if (estado == "True")
+            if (EsEventoParaDispositivo(notificacion))
             {
-                codigoEventoITC = CodigosEventos.EntradaActivada;
-                var resultadoALPR = TomarFoto();
-                datos = new Dictionary<string, string>
-                        {
-                            { "Patente",resultadoALPR.Patente},
-                            { "Estado",estado},
-                        };
-            }
-            else
-            {
-                codigoEventoITC = CodigosEventos.EntradaDesactivada;
-                datos = new Dictionary<string, string>
-                        {
-                            { "Patente",string.Empty},
-                            { "Estado",estado},
-                        };
-            }
+                var estado = string.Empty;
 
-            var eventoNotification = new EventoDriverEventArgs
-            {
-                Notificacion = new NotificacionEvento
+                if (notificacion.Datos.ContainsKey("Dato"))
+                    estado = notificacion.Datos["Dato"];
+
+                if (estado == "True")
                 {
-                    CodigoDispositivo = codigoDispositivo,
-                    CodigoEvento = codigoEvento,
-                    Datos = datos
+                    codigoEventoITC = CodigosEventos.EntradaActivada;
+                    var resultadoALPR = TomarFoto();
+                    notificacion.Datos["Patente"] = resultadoALPR.Patente;
+                    notificacion.Datos["Estado"] = estado;
+
+                    var eventoNotification = new EventoDriverEventArgs
+                    {
+                        Notificacion = new NotificacionEvento
+                        {
+                            CodigoDispositivo = codigoDispositivo,
+                            CodigoEvento = CodigosEventos.CambioEstadoSensorCamaraALPR,
+                            Datos = notificacion.Datos
+                        }
+                    };
+                    Log.Debug("DriverSensorCamaraALPRDummy Notificacion {0}", eventoNotification.ToJson());
+                    OnEventoDriver(eventoNotification);
                 }
-            };
-            Log.Debug("DriverSensorCamaraALPRDummy Notificacion {0}", eventoNotification.ToJson());
-            OnEventoDriver(eventoNotification);
-            NotificarEventoITC(eventoNotification);
+                else
+                {
+                    codigoEventoITC = CodigosEventos.EntradaDesactivada;
+                }
+                NotificarEventoITC(notificacion.Datos);
+            }
         }
 
         private ResultadoObtenerPatente TomarFoto()
@@ -181,10 +178,27 @@ namespace Molinos.Orquest.DriversImpl
             }
         }
 
-        private void NotificarEventoITC(EventoDriverEventArgs eventoNotification)
+        private void NotificarEventoITC(Dictionary<string, string> datos)
         {
-            eventoNotification.Notificacion.CodigoEvento = codigoEventoITC;
+            var eventoNotification = new EventoDriverEventArgs
+            {
+                Notificacion = new NotificacionEvento
+                {
+                    CodigoDispositivo = codigoDispositivo,
+                    CodigoEvento = codigoEventoITC,
+                    Datos = datos
+                }
+            };
+
             OnEventoDriver(eventoNotification);
+        }
+
+        private bool EsEventoParaDispositivo(NotificacionEvento notificacion)
+        {
+            Log.Debug($"Es Evento Para Dispositivo: {notificacion.CodigoEvento} Datos: {notificacion.Datos}");
+            return eventosSoportados.Contains(notificacion.CodigoEvento)
+                && (notificacion.Datos == null || !notificacion.Datos.ContainsKey("Entrada")
+                            || notificacion.Datos["Entrada"] == entrada);
         }
     }
 }

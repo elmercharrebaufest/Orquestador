@@ -11,16 +11,16 @@ namespace Molinos.Orquest.DriversImpl
     public class DriverSensorGeneral : DriverBase, IDriverSensor, IDriverLogico
     {
         private string codigoDispositivo;
+        private string entrada;
+        private string codigoEventoITC;
         private ConfigSensor configSensor;
         private IDriverItc driverItc;
-        private string entrada;
 
         private readonly List<string> eventosSoportados = new List<string> {
              CodigosEventos.EntradaActivada
             , CodigosEventos.EntradaDesactivada
             , CodigosEventos.ErrorConexionDispositivo
             , CodigosEventos.ConexionDispositivoCorrecta
-            , CodigosEventos.CambioEstadoSensor
             ,CodigosEventos.CambioEstadoSensorGeneral };
 
         public override IEnumerable<string> EventosSoportados
@@ -38,7 +38,6 @@ namespace Molinos.Orquest.DriversImpl
 
         public override void Inicializar(string codigo, ConfigDispositivo configuracion)
         {
-            Log.Info("DriverSensorGeneral Inicializar");
             codigoDispositivo = codigo;
             configSensor = (ConfigSensor)configuracion;
             entrada = configSensor.NumeroEntrada.ToString(CultureInfo.InvariantCulture);
@@ -60,30 +59,43 @@ namespace Molinos.Orquest.DriversImpl
 
         private void OnEventoDriverFisico(object sender, EventoDriverEventArgs evento)
         {
+
+            Log.Info("DriverSensorCamaraALPRDummy evento {0}", evento.ToJson());
+
             var notificacion = evento.Notificacion;
-            notificacion.Datos["Accion"] = configSensor.Accion.Value.ToString();
             if (EsEventoParaDispositivo(notificacion))
             {
-                var eventoNotification = new EventoDriverEventArgs
+                var estado = string.Empty;
+
+                if (notificacion.Datos.ContainsKey("Dato"))
+                    estado = notificacion.Datos["Dato"];
+
+                if (estado.ToUpper() == "TRUE")
                 {
-                    Notificacion = new NotificacionEvento
+                    codigoEventoITC = CodigosEventos.EntradaActivada;
+                    if (configSensor.Accion != null)
                     {
-                        CodigoDispositivo = codigoDispositivo,
-                        CodigoEvento = CodigosEventos.CambioEstadoSensorGeneral,
-                        Datos = notificacion.Datos,
+                        notificacion.Datos["Accion"] = configSensor.Accion.Value.ToString();
+                        var eventoNotification = new EventoDriverEventArgs
+                        {
+                            Notificacion = new NotificacionEvento
+                            {
+                                CodigoDispositivo = codigoDispositivo,
+                                CodigoEvento = CodigosEventos.CambioEstadoSensorGeneral,
+                                Datos = notificacion.Datos,
+                            }
+                        };
+                        Log.Info("DriverSensorGeneral EventoNotification {0}", eventoNotification.ToJson());
+                        OnEventoDriver(eventoNotification);
                     }
-                };
+                }
+                else
+                {
+                    codigoEventoITC = CodigosEventos.EntradaDesactivada;
+                }
 
-                Log.Debug("DriverSensorGeneral {0}", eventoNotification.ToJson());
-                OnEventoDriver(evento);
+                NotificarEventoITC(notificacion.Datos);
             }
-        }
-
-        private bool EsEventoParaDispositivo(NotificacionEvento notificacion)
-        {
-            return eventosSoportados.Contains(notificacion.CodigoEvento)
-                && (notificacion.Datos == null || !notificacion.Datos.ContainsKey("Entrada")
-                            || notificacion.Datos["Entrada"] == entrada);
         }
 
         public override void InformarEstado()
@@ -93,8 +105,6 @@ namespace Molinos.Orquest.DriversImpl
 
         public ResultadoEstadoSensor ConsultaEstadoActual()
         {
-            Log.Info($"ConsultaEstadoActual Dispositivo : {codigoDispositivo}, Numero Entrada : {configSensor.NumeroEntrada}");
-
             return new ResultadoEstadoSensor
             {
                 CodigoDispositivoSensor = codigoDispositivo,
@@ -106,6 +116,28 @@ namespace Molinos.Orquest.DriversImpl
         public void NotificarEstadoActualSensor()
         {
             driverItc.NotificarEstadoActual(configSensor.NumeroEntrada);
+        }
+
+        private void NotificarEventoITC(Dictionary<string, string> datos)
+        {
+            var eventoNotification = new EventoDriverEventArgs
+            {
+                Notificacion = new NotificacionEvento
+                {
+                    CodigoDispositivo = codigoDispositivo,
+                    CodigoEvento = codigoEventoITC,
+                    Datos = datos
+                }
+            };
+            OnEventoDriver(eventoNotification);
+        }
+
+        private bool EsEventoParaDispositivo(NotificacionEvento notificacion)
+        {
+            Log.Debug($"Es Evento Para Dispositivo: {notificacion.CodigoEvento} Datos: {notificacion.Datos}");
+            return eventosSoportados.Contains(notificacion.CodigoEvento)
+                && (notificacion.Datos == null || !notificacion.Datos.ContainsKey("Entrada")
+                            || notificacion.Datos["Entrada"] == entrada);
         }
     }
 }
