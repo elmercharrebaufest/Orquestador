@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Web.Mvc;
+﻿using Molinos.Orquest.Dominio;
 using Molinos.Orquest.Dominio.Consultas;
 using Molinos.Orquest.Dominio.Entidades;
+using Molinos.Orquest.Dominio.Enums;
 using Molinos.Orquest.Dominio.Recursos;
 using Molinos.Orquest.Dominio.Seguridad;
 using Molinos.Orquest.Drivers;
@@ -12,6 +10,12 @@ using Molinos.Orquest.Servicios;
 using Molinos.Orquest.Web.Atributos;
 using Molinos.Scato.Dominio.Consultas;
 using Ninject.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Web.Mvc;
 
 namespace Molinos.Orquest.Web.Controllers
 {
@@ -56,6 +60,9 @@ namespace Molinos.Orquest.Web.Controllers
         public ActionResult Crear()
         {
             SetearVistaConfiguracion(drivers);
+            ListCamaras();
+            ListAcciones();
+
             return View();
         }
 
@@ -93,8 +100,12 @@ namespace Molinos.Orquest.Web.Controllers
             var sensor = repositorio.Obtener<ConfigSensor>(id);
             sensor.Dispositivo.ConcentradorId = sensor.Dispositivo.Concentrador != null ? sensor.Dispositivo.Concentrador.Id : 0;
             SetearVistaConfiguracion(drivers);
+
+            ListCamaras();
+            ListAcciones(sensor);
             return View(sensor);
         }
+
         [HttpPost]
         public ActionResult Modificar(ConfigSensor model)
         {
@@ -114,6 +125,8 @@ namespace Molinos.Orquest.Web.Controllers
                     var configSensor = (ConfigSensor)viejo.Configuracion;
                     configSensor.NumeroEntrada = model.NumeroEntrada;
                     configSensor.EstadoActivado = model.EstadoActivado;
+                    configSensor.CamaraId = model.CamaraId ?? model.CamaraId;
+                    configSensor.Accion = model.Accion ?? model.Accion;
                     repositorio.GuardarCambios();
                     RecargarConfiguracion(model.Dispositivo.Codigo);
                     return new AjaxEditSuccessResult();
@@ -157,6 +170,30 @@ namespace Molinos.Orquest.Web.Controllers
             return ValidacionesDeNegocio(dispositivo);
         }
 
+        private void ListCamaras()
+        {
+            Expression<Func<ConfigCamara, bool>> expresionFiltro = null;
+            expresionFiltro = x => x.Dispositivo.Codigo.Contains(Constantes.TiposDrivers.Camara) || x.Dispositivo.Descripcion.Contains(Constantes.TiposDrivers.Camara) || x.ClaseDriver.Contains(Constantes.TiposDrivers.Camara);
+            var camaras = new List<SelectListItem>();
 
+            var queryCamaras = repositorio.Listar(expresionFiltro);
+
+            if (queryCamaras != null && queryCamaras.Count > 0)
+            {
+                camaras = queryCamaras.OrderBy(p => p.Dispositivo.Descripcion).Select(d => new SelectListItem { Text = d.Dispositivo.Descripcion, Value = d.Id.ToString(CultureInfo.InvariantCulture) }).ToList();
+            }
+
+            ViewBag.Camaras = camaras;
+        }
+
+        private void ListAcciones(ConfigSensor configSensor = null)
+        {
+            var acciones = Enum.GetValues(typeof(TipoAccionSensor)).Cast<TipoAccionSensor>().Select(a => new SelectListItem { Text = a.ToString(), Value = ((byte)a).ToString() }).ToList();
+            if (configSensor != null && configSensor.Accion != null)
+            {
+                acciones.Find(a => a.Value == ((byte?)configSensor.Accion).ToString()).Selected = true;
+            }
+            ViewBag.Acciones = acciones;
+        }
     }
 }

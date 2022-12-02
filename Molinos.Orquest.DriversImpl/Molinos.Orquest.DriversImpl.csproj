@@ -91,6 +91,8 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="DriverBalanzaPuerto.cs" />
+    <Compile Include="DriverSensorCamaraALPR.cs" />
+    <Compile Include="DriverSensorCamaraALPRDummy.cs" />
     <Compile Include="DriverCamaraALPRDummy.cs" />
     <Compile Include="DriverGrupoBarrera.cs" />
     <Compile Include="DriverIotBoxV2.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="DriverHumedimetroPHContinuo.cs" />
     <Compile Include="DriverJsonToIotBox.cs" />
     <Compile Include="DriverSensorIntercomunicador.cs" />
+    <Compile Include="DriverSensorGeneral.cs" />
     <Compile Include="DriverTag.cs" />
     <Compile Include="DriverComunicadorIotBox.cs" />
     <Compile Include="DriverBarreraPlc.cs" />

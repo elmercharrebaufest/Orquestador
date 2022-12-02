@@ -1607,6 +1607,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\crear_modificar.common.js" />
+    <Content Include="Scripts\configuracion_sensor.js" />
     <Content Include="scatoqa.DeployParameters.xml" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -1805,6 +1806,7 @@
     <Content Include="Views\GrupoBarrera\Listar.cshtml" />
     <Content Include="Views\GrupoBarrera\Index.cshtml" />
     <Content Include="Views\GrupoBarrera\Crear.cshtml" />
+    <Content Include="Views\Sensor\_ConfiguracionSensor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

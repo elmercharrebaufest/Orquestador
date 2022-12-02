@@ -17,5 +17,12 @@
         {
             public const string DriverSensorIntercomunicador = "Molinos.Orquest.DriversImpl.DriverSensorIntercomunicador, Molinos.Orquest.DriversImpl";
         }
+
+        public struct TiposDrivers
+        {
+            public const string Sensor = "Sensor";
+            public const string Camara = "Camara";
+        }
+
     }
 }

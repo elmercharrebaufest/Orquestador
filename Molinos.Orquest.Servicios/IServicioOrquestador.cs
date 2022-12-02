@@ -117,5 +117,6 @@ namespace Molinos.Orquest.Servicios
 
         [OperationContract]
         IList<DispositivoDto> ListarGruposBarrera();
+
     }
 }

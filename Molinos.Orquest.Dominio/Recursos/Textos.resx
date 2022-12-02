@@ -1482,4 +1482,10 @@
   <data name="GrupoBarrera_Administrar" xml:space="preserve">
     <value>Grupo Barrera</value>
   </data>
+  <data name="Acciones_Titulo_Modificar_Crear" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="Camara_Titulo_Modificar_Crear" xml:space="preserve">
+    <value>Cámara</value>
+  </data>
 </root>
