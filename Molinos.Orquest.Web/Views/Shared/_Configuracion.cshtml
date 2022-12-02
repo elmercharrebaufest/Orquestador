@@ -11,17 +11,17 @@
 <div class="row align-items-end">
     @*<div class="col">
         <div class="form-group">
-            @Html.LabelFor(model => model.Dispositivo.ServerFijo)
-            @Html.TextBoxFor(m => m.Dispositivo.ServerFijo, new { @class = "form-control" })
+        @Html.LabelFor(model => model.Dispositivo.ServerFijo)
+        @Html.TextBoxFor(m => m.Dispositivo.ServerFijo, new { @class = "form-control" })
         </div>
-    </div>*@
+        </div>*@
     <div class="col">
         @if (ViewBag.PuedeSerConcentrador)
         {
-         <div class="form-group">
-             @Html.LabelFor(model => model.Dispositivo.EsConcentrador)
-             @Html.CheckBoxFor(m => m.Dispositivo.EsConcentrador)
-         </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.EsConcentrador)
+                @Html.CheckBoxFor(m => m.Dispositivo.EsConcentrador)
+            </div>
         }
     </div>
 </div>
@@ -29,7 +29,8 @@
     <div class="col">
         <div class="form-group">
             @Html.LabelFor(model => model.Dispositivo.ConcentradorId)
-            @Html.DropDownListFor(model => model.Dispositivo.ConcentradorId, (IEnumerable<SelectListItem>)ViewBag.Concentradores, new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.Dispositivo.ConcentradorId,
+            (IEnumerable<SelectListItem>)ViewBag.Concentradores, new { @class = "form-control" })
         </div>
     </div>
 </div>
@@ -37,9 +38,16 @@
     <div class="col">
         <div class="form-group">
             @Html.LabelFor(model => model.ClaseDriver)
-            @Html.DropDownListFor(model => model.ClaseDriver, (IEnumerable<SelectListItem>)ViewBag.Drivers, new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.ClaseDriver, (IEnumerable<SelectListItem>)ViewBag.Drivers, new { @class
+            = "form-control" })
             @Html.ValidationMessageFor(model => model.ClaseDriver, null, new { @class = "text-danger" })
         </div>
     </div>
 </div>
 <script type="text/javascript" src="~/scripts/crear_modificar.common.js"></script>
+
+@if (ViewBag.TipoDispositivo == "Sensor")
+{
+    @Html.Partial("_ConfiguracionSensor", Model)
+
+}

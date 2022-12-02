@@ -13,6 +13,7 @@
         public const string LecturaQr = "LecturaQr";
         public const string AlertaDeSeguridad = "AlertaDeSeguridad";
         public const string CambioEstadoSensor = "CambioEstadoSensor";
+
         public const string LecturaTarjetaOffline = "LecturaTarjetaOffline";
         //TODO: deprecar
         public const string LecturaTarjetaMolinete = "LecturaTarjetaMolinete";
@@ -22,5 +23,9 @@
         public const string PulsadorEmergenciaUtilizado = "PulsadorEmergenciaUtilizado";
 
         public const string CambioEstadoIntercomunicador = "CambioEstadoIntercomunicador";
+
+        public const string CambioEstadoSensorCamaraALPR = "CambioEstadoSensorCamaraALPR";
+
+        public const string CambioEstadoSensorGeneral = "CambioEstadoSensorGeneral";
     }
 }

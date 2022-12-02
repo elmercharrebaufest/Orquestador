@@ -143,6 +143,7 @@
     <Compile Include="Entidades\Suscripcion.cs" />
     <Compile Include="Entidades\Usuario.cs" />
     <Compile Include="Enums\TipoAlerta.cs" />
+    <Compile Include="Enums\TipoAccionSensor.cs" />
     <Compile Include="Enums\TipoComunicador.cs" />
     <Compile Include="Enums\TipoQr.cs" />
     <Compile Include="Helpers\Encriptador.cs" />

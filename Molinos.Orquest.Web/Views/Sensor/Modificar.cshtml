@@ -1,8 +1,9 @@
 ﻿@using Molinos.Orquest.Dominio.Recursos
 @model Molinos.Orquest.Dominio.Entidades.ConfigSensor
+
 @{
     ViewBag.Title = Textos.Sensor_Modificar;
-    Layout = null;
+    Layout = null;  
 }
 @Scripts.Render("~/bundles/jqueryval")
 
@@ -10,5 +11,5 @@
 {
     @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model.Id)
-    @Html.Partial("_CrearModificar", Model)           
+    @Html.Partial("_CrearModificar", Model)      
 }
