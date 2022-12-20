@@ -17,8 +17,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Molinos.Orquest.Web.Controllers
@@ -28,6 +26,7 @@ namespace Molinos.Orquest.Web.Controllers
     {
         // GET: CartelLed
         private readonly IConversor conversor;
+
         private readonly IEnumerable<string> drivers;
 
         public CartelLedController(IRepositorioFactory repositorio, IDriverFactory driverFactory, IConversor conversor, IServicioOrquestador servicio, ILogger log)
@@ -36,7 +35,6 @@ namespace Molinos.Orquest.Web.Controllers
             this.conversor = conversor;
             drivers = driverFactory.DriversDisponibles<IDriverCartelLed>();
         }
-       
 
         public ActionResult Index(string filtro, int pagina = 1, string ordenarPor = "Id", DirOrden dirOrden = DirOrden.Asc)
         {
@@ -66,9 +64,8 @@ namespace Molinos.Orquest.Web.Controllers
             ViewBag.Items = consulta;
         }
 
-        
         public ActionResult Crear()
-        {           
+        {
             SetearVistaConfiguracion(drivers);
             return View();
         }
@@ -77,7 +74,6 @@ namespace Molinos.Orquest.Web.Controllers
         [Autorizacion(PermisosOrquestador.CartelLed)]
         public ActionResult Crear(ConfigCartelLedModel model)
         {
-          
             if (ModelState.IsValid)
             {
                 if (ValidacionesDeNegocio(model.Dispositivo))
@@ -94,6 +90,7 @@ namespace Molinos.Orquest.Web.Controllers
             SetearVistaConfiguracion(drivers);
             return View(model);
         }
+
         [Autorizacion(PermisosOrquestador.CartelLed)]
         public ActionResult Modificar(int id)
         {
@@ -102,6 +99,7 @@ namespace Molinos.Orquest.Web.Controllers
             SetearVistaConfiguracion(drivers);
             return View(cartel);
         }
+
         protected void SetearVistaConfiguracion(IEnumerable<string> drivers, bool puedeSerConcentrador = false)
         {
             FillViewBag();
@@ -111,6 +109,7 @@ namespace Molinos.Orquest.Web.Controllers
             concentradores.Insert(0, new SelectListItem { Selected = true, Text = Textos.NoTiene, Value = "0" });
             ViewBag.Concentradores = concentradores;
         }
+
         [HttpPost]
         public ActionResult Modificar(ConfigCartelLedModel model)
         {
@@ -180,7 +179,7 @@ namespace Molinos.Orquest.Web.Controllers
 
         public ActionResult Probar(int id)
         {
-            var cartel =  conversor.Convertir<ConfigCartelLed, ConfigCartelLedModel>(repositorio.Obtener<ConfigCartelLed>(id));
+            var cartel = conversor.Convertir<ConfigCartelLed, ConfigCartelLedModel>(repositorio.Obtener<ConfigCartelLed>(id));
             return View("Probar", cartel);
         }
 
@@ -189,12 +188,13 @@ namespace Molinos.Orquest.Web.Controllers
             var resultados = new List<ResultadoPruebaModel>();
             try
             {
-                var resultado = servicio.Ejecutar(new EjecutarEnviarMensaje { 
-                    CodigoDispositivo = codigo, 
+                var resultado = servicio.Ejecutar(new EjecutarEnviarMensaje
+                {
+                    CodigoDispositivo = codigo,
                     Texto = texto,
                     NumeroPrograma = numeroPrograma,
-                NumeroTrama = numeroTrama,
-                NumeroVariable= numeroVariable
+                    NumeroTrama = numeroTrama,
+                    NumeroVariable = numeroVariable
                 });
                 if (resultado.Mensaje.Codigo == Codigos.OK)
                 {
@@ -214,6 +214,46 @@ namespace Molinos.Orquest.Web.Controllers
                 resultados.Add(new ResultadoPruebaModel(Textos.PruebaItc_ErrorServicio, true));
             }
             return View("~/Views/PruebaConexion/ResultadoPrueba.cshtml", resultados);
+        }
+
+        public ActionResult EjecutarIntervalo(string codigo, string texto, string numeroPrograma, string numeroTrama, string numeroVariable, string textoSecundario, int? intervalo)
+        {
+            try
+            {
+                servicio.Ejecutar(new EjecutarEnviarMensajeIntervalo
+                {
+                    CodigoDispositivo = codigo,
+                    Texto = texto,
+                    NumeroPrograma = numeroPrograma,
+                    NumeroTrama = numeroTrama,
+                    NumeroVariable = numeroVariable,
+                    TextSecundario = textoSecundario,
+                    Intervalo = intervalo ?? 3
+                });
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "Error al obtener el análisis del dispositivo {0}", codigo);
+            }
+
+            return Json("Ejecutando",JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DetenerIntervalo(string codigo)
+        {
+            try
+            {
+                servicio.Ejecutar(new DetenerMensajeIntervalo
+                {
+                    CodigoDispositivo = codigo
+                });
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "Error al obtener el análisis del dispositivo {0}", codigo);
+            }
+
+            return Json("Detenido", JsonRequestBehavior.AllowGet);
         }
 
         private void FillViewBag()
