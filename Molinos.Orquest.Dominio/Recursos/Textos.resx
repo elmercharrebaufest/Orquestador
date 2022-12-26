@@ -1488,4 +1488,10 @@
   <data name="Camara_Titulo_Modificar_Crear" xml:space="preserve">
     <value>Cámara</value>
   </data>
+  <data name="EnviarMensajeIntervalo" xml:space="preserve">
+    <value>Enviar Mensaje Intervalo</value>
+  </data>
+  <data name="CartelLedIntervalo" xml:space="preserve">
+    <value>Intervalo</value>
+  </data>
 </root>

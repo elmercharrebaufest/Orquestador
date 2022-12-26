@@ -1,12 +1,12 @@
-﻿using AngleSharp.Common;
-using Molinos.Orquest.Dominio.Entidades;
+﻿using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Drivers;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Molinos.Orquest.DriversImpl
 {
@@ -15,6 +15,10 @@ namespace Molinos.Orquest.DriversImpl
         private string codigoCartelLed;
         private ConfigCartelLed configuracionCarteLed;
         private string numeroTrama;
+        private string mensajeActual;
+        private bool intervaloActivo;
+        private DateTime fechaFinEjecucion;
+
         public override Type TipoDispositivo
         {
             get { return typeof(ConfigCartelLed); }
@@ -40,7 +44,7 @@ namespace Molinos.Orquest.DriversImpl
         {
             try
             {
-                using (new  UdpCommandClient(configuracionCarteLed.DireccionIp, configuracionCarteLed.Puerto, configuracionCarteLed.LongFrase, configuracionCarteLed.TimeoutLectura, Log))
+                using (new UdpCommandClient(configuracionCarteLed.DireccionIp, configuracionCarteLed.Puerto, configuracionCarteLed.LongFrase, configuracionCarteLed.TimeoutLectura, Log))
                 {
                     // Intentamos conectarnos al dispositivo
                     // Se puede probar algo más?
@@ -52,10 +56,8 @@ namespace Molinos.Orquest.DriversImpl
             }
         }
 
-
         public void EnviarMensaje(string mensaje, string numeroPrograma, string numeroTrama, string numeroVariable)
         {
-            
             try
             {
                 using (var cliente = new UdpCommandClient(configuracionCarteLed.DireccionIp, configuracionCarteLed.Puerto, configuracionCarteLed.LongFrase, configuracionCarteLed.TimeoutLectura, Log))
@@ -94,7 +96,7 @@ namespace Molinos.Orquest.DriversImpl
         public List<byte> GenerarComando(string dato, byte comando, string variable)
         {
             this.AumentarTrama(numeroTrama);
-            List<byte> buffer = new List<byte>{ comando };
+            List<byte> buffer = new List<byte> { comando };
 
             if (!string.IsNullOrEmpty(variable))
             {
@@ -111,7 +113,6 @@ namespace Molinos.Orquest.DriversImpl
             buffer.Add(Convert.ToByte(numeroTrama[0]));
             buffer.Add(Convert.ToByte(numeroTrama[1]));
 
-
             var check = ObtenerChecksum(buffer.ToArray());
             buffer.AddRange(check);
             buffer.Add(0x10);
@@ -123,7 +124,8 @@ namespace Molinos.Orquest.DriversImpl
             return buffer;
         }
 
-        static readonly char[] _hexDigits = "0123456789abcdef".ToCharArray();
+        private static readonly char[] _hexDigits = "0123456789abcdef".ToCharArray();
+
         public string ToHexString(byte[] bytes)
         {
             char[] digits = new char[bytes.Length * 2];
@@ -193,5 +195,27 @@ namespace Molinos.Orquest.DriversImpl
             this.numeroTrama = numeroTramaNuevo;
         }
 
+        public void EnviarMensajeIntervalo(string textoPrimario, string textoSecundario, string numeroPrograma, string numeroTrama, string numeroVariable, int intervalMilliseconds)
+        {
+            intervaloActivo = true;
+            fechaFinEjecucion = DateTime.Now.AddMinutes(30);
+            Task.Run(() =>
+            {
+                while (intervaloActivo)
+                {
+                    if (DateTime.Now > fechaFinEjecucion)
+                        intervaloActivo = false;
+
+                    mensajeActual = (mensajeActual == textoPrimario) ? textoSecundario : textoPrimario;
+                    EnviarMensaje(mensajeActual, numeroPrograma, numeroTrama, numeroVariable);
+                    Thread.Sleep(intervalMilliseconds);
+                }
+            });
+        }
+
+        public void DetenerIntervalo()
+        {
+            intervaloActivo = false;
+        }
     }
 }

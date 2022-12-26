@@ -19,7 +19,7 @@ namespace Molinos.Orquest.Dominio.Recursos {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Textos {
@@ -1141,6 +1141,15 @@ namespace Molinos.Orquest.Dominio.Recursos {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Intervalo.
+        /// </summary>
+        public static string CartelLedIntervalo {
+            get {
+                return ResourceManager.GetString("CartelLedIntervalo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mensaje.
         /// </summary>
         public static string CartelLedMensaje {
@@ -1596,6 +1605,15 @@ namespace Molinos.Orquest.Dominio.Recursos {
         public static string EnviarMensaje {
             get {
                 return ResourceManager.GetString("EnviarMensaje", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enviar Mensaje Intervalo.
+        /// </summary>
+        public static string EnviarMensajeIntervalo {
+            get {
+                return ResourceManager.GetString("EnviarMensajeIntervalo", resourceCulture);
             }
         }
         
