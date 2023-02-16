@@ -1494,4 +1494,10 @@
   <data name="CartelLedIntervalo" xml:space="preserve">
     <value>Intervalo</value>
   </data>
+	<data name="JsonFromIotBox" xml:space="preserve">
+    <value>JSON desde IoT Box</value>
+  </data>
+	<data name="JsonToIotBox" xml:space="preserve">
+    <value>JSON hacia IoT Box</value>
+  </data>
 </root>

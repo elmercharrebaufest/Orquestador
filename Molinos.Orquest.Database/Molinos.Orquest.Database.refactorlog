@@ -96,7 +96,7 @@
     <Property Name="ElementType" Value="SqlSimpleColumn" />
     <Property Name="ParentElementName" Value="[dbo].[ConfigJsonToIotBox]" />
     <Property Name="ParentElementType" Value="SqlTable" />
-    <Property Name="NewName" Value="Json_Id" />
+    <Property Name="NewName" Value="FormatoJson" />
   </Operation>
   <Operation Name="Rename Refactor" Key="8df3f68f-5c4b-4f41-a666-5895eccad2c6" ChangeDateTime="04/04/2022 19:45:30">
     <Property Name="ElementName" Value="[dbo].[FormatosJson].[Dispositivo]" />

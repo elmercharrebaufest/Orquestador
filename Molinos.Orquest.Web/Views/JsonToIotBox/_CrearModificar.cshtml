@@ -38,9 +38,9 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Json_Id)
-                    @Html.DropDownListFor(model => model.Json_Id, (IEnumerable<SelectListItem>)ViewBag.Sensores, "Ninguno", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Json_Id, null, new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.FormatoJson)
+                    @Html.DropDownListFor(model => model.FormatoJson, (IEnumerable<SelectListItem>)ViewBag.Sensores, "Ninguno", new { @class = "form-control" })
+                    @*@Html.ValidationMessageFor(model => model.FormatoJson, null, new { @class = "text-danger" })*@
                 </div>
             </div>
 
