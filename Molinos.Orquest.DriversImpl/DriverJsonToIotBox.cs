@@ -18,7 +18,7 @@ namespace Molinos.Orquest.DriversImpl
             get { return typeof(ConfigJsonToIotBox); }
         }
 
-        public IDriver DriverFisico { set => throw new NotImplementedException(); }
+        public IDriver DriverFisico { set => driverItc = (IDriverItc)value; }
 
         public override void Inicializar(string codigo, ConfigDispositivo configuracion)
         {
@@ -35,17 +35,6 @@ namespace Molinos.Orquest.DriversImpl
             //var desJson = JsonConvert.DeserializeObject<PersonasHabilitadas>(Json);
             
             driverItc.ActivarSalida(configJsontoIotBox.NumeroSalida, Json, "");
-        }
-
-        public void Cerrar()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EnviarPersonaHabilitada(int puesto)
-        {
-            throw new NotImplementedException();
-
         }
     }
 }

@@ -118,7 +118,7 @@ namespace Molinos.Orquest.Web.Controllers
                     viejo.Concentrador = repositorio.Obtener<Dispositivo>(model.Dispositivo.ConcentradorId);
                     var configBarrera = (ConfigJsonToIotBox) viejo.Configuracion;
                     configBarrera.NumeroSalida = model.NumeroSalida;
-                    configBarrera.Json_Id = model.Json_Id;
+                    configBarrera.FormatoJson = model.FormatoJson;
                     repositorio.GuardarCambios();
                     RecargarConfiguracion(model.Dispositivo.Codigo);
                     return new AjaxEditSuccessResult();
