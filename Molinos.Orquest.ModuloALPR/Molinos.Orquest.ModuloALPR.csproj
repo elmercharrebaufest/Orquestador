@@ -64,8 +64,8 @@
     <Reference Include="NewRelic.Api.Agent, Version=8.50.0.0, Culture=neutral, PublicKeyToken=06552fced0b33d87, processorArchitecture=MSIL">
       <HintPath>..\packages\NewRelic.Agent.Api.8.32.0\lib\net45\NewRelic.Api.Agent.dll</HintPath>
     </Reference>
-    <Reference Include="NewRelic.LogEnrichers.NLog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0f1b6df23b18ab4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\NewRelic.LogEnrichers.NLog.1.2.1\lib\net45\NewRelic.LogEnrichers.NLog.dll</HintPath>
+    <Reference Include="NewRelic.LogEnrichers.Log4Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0f1b6df23b18ab4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewRelic.LogEnrichers.Log4Net.1.1.1\lib\net45\NewRelic.LogEnrichers.Log4Net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
