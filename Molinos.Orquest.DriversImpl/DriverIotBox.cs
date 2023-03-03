@@ -153,6 +153,7 @@ namespace Molinos.Orquest.DriversImpl
 
                     try
                     {
+                        Log.Info("LECTURA - FRANCO: " + response);
                         if (response != null && response != "\"ok\"")
                         {
                             respuesta = JsonConvert.DeserializeObject<List<EntradaDto>>(response);
