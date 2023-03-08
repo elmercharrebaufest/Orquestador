@@ -9,7 +9,5 @@ namespace Molinos.Orquest.Drivers
     public interface IDriverJsonToIotBox : IDriver
     {
         void EnviarJson(string json);
-        void Cerrar();
-        void EnviarPersonaHabilitada(int puesto);
     }
 }

@@ -72,6 +72,9 @@ namespace Molinos.Orquest.Servicios
 
         [OperationContract]
         IList<DispositivoDto> ListarConcentradores();
+        
+        [OperationContract]
+        IList<DispositivoDto> ListarOffline();
 
         [OperationContract]
         IList<DispositivoDto> ListarSensoresPorConcentrador(string concentrador);

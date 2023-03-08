@@ -97,6 +97,15 @@
     <Reference Include="Microsoft.ApplicationInsights.Log4NetAppender, Version=2.20.0.103, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Log4NetAppender.2.20.0\lib\net452\Microsoft.ApplicationInsights.Log4NetAppender.dll</HintPath>
     </Reference>
+    <Reference Include="NewRelic.Api.Agent, Version=8.50.0.0, Culture=neutral, PublicKeyToken=06552fced0b33d87, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewRelic.Agent.Api.8.32.0\lib\net45\NewRelic.Api.Agent.dll</HintPath>
+    </Reference>
+    <Reference Include="NewRelic.LogEnrichers.Log4Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0f1b6df23b18ab4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewRelic.LogEnrichers.Log4Net.1.1.1\lib\net45\NewRelic.LogEnrichers.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
     </Reference>

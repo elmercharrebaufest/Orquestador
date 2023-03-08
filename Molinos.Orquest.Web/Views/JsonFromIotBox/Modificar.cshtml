@@ -6,7 +6,7 @@
 }
 @Scripts.Render("~/bundles/jqueryval")
 
-@using (Ajax.BeginForm("Modificar", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = "Modificar JsonFromIotBox" }))
+@using (Ajax.BeginForm("Modificar", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = "Modificar JSON desde IoT Box" }))
 {
     @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model.Id)

@@ -8,8 +8,7 @@ namespace Molinos.Orquest.Dominio.Entidades
 
     public class ConfigJsonToIotBox : ConfigDispositivo
     {
-        
         virtual public int NumeroSalida { get; set; }
-        virtual public int Json_Id { get; set; }
+        virtual public int? FormatoJson { get; set; }
     }
 }

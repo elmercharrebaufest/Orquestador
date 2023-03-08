@@ -1,12 +1,12 @@
 ﻿@using Molinos.Orquest.Dominio.Recursos
 @model Molinos.Orquest.Dominio.Entidades.ConfigJsonToIotBox
 @{
-    ViewBag.Title = Textos.Barrera_Modificar;
+    ViewBag.Title = "Modificar JsonToIotBox";
     Layout = null;
 }
 @Scripts.Render("~/bundles/jqueryval")
 
-@using (Ajax.BeginForm("Modificar", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = "Modificar JsonToIotBox" }))
+@using (Ajax.BeginForm("Modificar", null, new AjaxOptions(), new { @class = "form-horizontal", data_dialogo_titulo = "Modificar JSON hacia IoT Box" }))
 {
     @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model.Id)

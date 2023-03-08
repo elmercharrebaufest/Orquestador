@@ -15,6 +15,7 @@
         public const string CambioEstadoSensor = "CambioEstadoSensor";
 
         public const string LecturaTarjetaOffline = "LecturaTarjetaOffline";
+        public const string NuevoTransitoOffline = "NuevoTransitoOffline";
         //TODO: deprecar
         public const string LecturaTarjetaMolinete = "LecturaTarjetaMolinete";
         //TODO: deprecar

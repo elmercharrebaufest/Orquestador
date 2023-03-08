@@ -13,8 +13,8 @@ namespace Molinos.Orquest.DriversImpl
         private ConfigJsonFromIotBox configDriver;
         private IDriverItc driverItc;
         private string entrada;
-        private readonly List<string> eventosSoportados = new List<string> {CodigosEventos.EntradaActivada, CodigosEventos.EntradaDesactivada,
-            CodigosEventos.ErrorConexionDispositivo, CodigosEventos.ConexionDispositivoCorrecta, CodigosEventos.CambioEstadoSensor};
+        private readonly List<string> eventosSoportados = new List<string> {CodigosEventos.NuevoTransitoOffline,
+            CodigosEventos.ErrorConexionDispositivo, CodigosEventos.ConexionDispositivoCorrecta};
 
         public override IEnumerable<string> EventosSoportados
         {
