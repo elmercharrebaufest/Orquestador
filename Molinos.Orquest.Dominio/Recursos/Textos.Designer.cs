@@ -2408,7 +2408,29 @@ namespace Molinos.Orquest.Dominio.Recursos {
                 return ResourceManager.GetString("Itc_Titulo", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to JSON desde IoT Box.
+        /// </summary>
+        public static string JsonFromIotBox
+        {
+            get
+            {
+                return ResourceManager.GetString("JsonFromIotBox", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to JSON hacia IoT Box.
+        /// </summary>
+        public static string JsonToIotBox
+        {
+            get
+            {
+                return ResourceManager.GetString("JsonToIotBox", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Lectores Qr.
         /// </summary>

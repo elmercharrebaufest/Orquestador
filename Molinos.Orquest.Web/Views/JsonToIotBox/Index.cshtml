@@ -2,12 +2,12 @@
 @{
     /**/
 
-    ViewBag.Title = "Jsons To IoT Box";
+    ViewBag.Title = "JSON dirigido al IoT Box";
 }
 
 <div class="flex-row d-lg-flex align-items-center">
     <div class="p-2 bd-highlight d-sm-flex">
-        <h2 class="h2">Administracion de JsonsToIotBox</h2>
+        <h2 class="h2">JSON hacia IoT Box</h2>
     </div>
     @using (Ajax.BeginForm("Index", null, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "gridContainer" }, new { id = "search-form", @class = "d-sm-flex flex-fill align-items-center" }))
     {

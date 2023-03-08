@@ -433,7 +433,14 @@ namespace Molinos.Orquest.Servicios.Impl
                     concentrador => new DispositivoDto { Codigo = concentrador.Dispositivo.Codigo, Descripcion = concentrador.Dispositivo.Descripcion });
             }
         }
-
+        public IList<DispositivoDto> ListarOffline()
+        {
+            using (var repositorio = factoryRepositorio.Repositorio())
+            {
+                return repositorio.Listar<ConfigJsonToIotBox, DispositivoDto>(offline => offline.Dispositivo.Activo && !offline.Dispositivo.EsConcentrador,
+                    offline => new DispositivoDto { Codigo = offline.Dispositivo.Codigo, Descripcion = offline.Dispositivo.Descripcion });
+            }
+        }
         public IList<DispositivoDto> ListarSensoresPorConcentrador(string concentrador)
         {
             using (var repositorio = factoryRepositorio.Repositorio())
