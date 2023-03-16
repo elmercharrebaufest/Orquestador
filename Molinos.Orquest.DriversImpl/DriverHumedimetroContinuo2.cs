@@ -1,6 +1,7 @@
 ﻿using Molinos.Orquest.Dominio.Dtos;
 using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Drivers;
+using Molinos.Orquest.DriversImpl.Helpers;
 using System;
 using System.Globalization;
 using System.IO;
@@ -41,7 +42,7 @@ namespace Molinos.Orquest.DriversImpl
                 {
                     try
                     {
-                        if (!cliente.Conectado || (pingOK && !conectado))
+                        if (ConnectionHelper.IsConnected(cliente, pingOK,conectado))
                         {
                             ultimaHumedadMedida = null;
                             fechaDeMuestra = null;
@@ -93,7 +94,7 @@ namespace Molinos.Orquest.DriversImpl
             {
                 while (tomaHumedad)
                 {
-                    pingOK = PingOK(configHumedimetro.DireccionIp);
+                    pingOK = ConnectionHelper.PingOK(configHumedimetro.DireccionIp);
                     Thread.Sleep(pingOK ? 5000 : configHumedimetro.TimeoutLectura);
                 }
             });
@@ -141,32 +142,6 @@ namespace Molinos.Orquest.DriversImpl
                 tomaHumedad = false;
                 cliente.Dispose();
             }
-        }
-
-        private bool PingOK(string ip)
-        {
-            var pingOptions = new PingOptions(128, true);
-            using (var ping = new Ping())
-            {
-                var buffer = new byte[32];
-
-                for (int i = 0; i < 4; i++)
-                {
-                    try
-                    {
-                        var pingReply = ping.Send(ip, 3000, buffer, pingOptions);
-
-                        if (pingReply != null && pingReply.Status == IPStatus.Success)
-                        {
-                            return true;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                    }
-                }
-            }
-            return false;
         }
     }
 }
