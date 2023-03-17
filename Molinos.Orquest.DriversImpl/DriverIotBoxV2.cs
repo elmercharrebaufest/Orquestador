@@ -2,12 +2,14 @@
 using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
+using Molinos.Orquest.DriversImpl.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +24,8 @@ namespace Molinos.Orquest.DriversImpl
         private bool dispositivoActivo = false;
         private string codigoRasp;
         private ConfigItc config;
-
+        private bool conectado;
+        private bool pingOK;
         private TcpCommandClient cliente;
 
         private readonly ManualResetEvent finCiclo = new ManualResetEvent(false);
@@ -51,6 +54,7 @@ namespace Molinos.Orquest.DriversImpl
             codigoRasp = codigo;
             config = (ConfigItc)configuracion;
             dispositivoActivo = true;
+            pingOK = true;
             cliente = new TcpCommandClient(config.DireccionIp, config.Puerto, config.LongFrase, config.TimeoutLectura, Log, false);
 
             Log.Debug("Iniciando Driver de IotBox {0}", codigo);
@@ -156,18 +160,23 @@ namespace Molinos.Orquest.DriversImpl
                         if (response != null && response != "\"ok\"")
                         {
                             respuesta = JsonConvert.DeserializeObject<List<EntradaDto>>(response);
-                            if (respuesta[0].Dato == "pingResponse")
+
+                            var connected = ConnectionHelper.IsConnected(cliente, pingOK, conectado);
+                            if (!connected)
+                            {
+                                Log.Info("Intentando reconectar con dispositivo. Dispositivo: {0}", codigoRasp);
+                                cliente.ReConectar();
+                                conectado = true;
+                            }
+                            else if (connected)
                             {
                                 Log.Info("Ping respondido exitosamente.");
-                            }
-                            else
-                            {
-                                cliente.ReConectar();
                             }
                         }
                     }
                     catch (Exception e)
                     {
+                        conectado = false;
                         Log.Error(e, "Error al parsear respuesta");
                     }
                 }
