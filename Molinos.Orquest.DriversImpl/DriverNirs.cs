@@ -35,15 +35,10 @@ namespace Molinos.Orquest.DriversImpl
 
         public override void Inicializar(string codigo, ConfigDispositivo configuracion)
         {
-            Log.Info("logComando 3 {0}", codigo);
-            Log.Info("logComando 4 {0}", (ConfigNirs)configuracion);
-
             codigoNirs = codigo;
             configNirs = (ConfigNirs)configuracion;
             ultimoAnalisis = null;
             ConectarNirs();
-            Log.Info("logComando Conectó 5 ");
-
         }
 
 
@@ -75,10 +70,10 @@ namespace Molinos.Orquest.DriversImpl
                 {
                     if (huboReconeccion)
                     {
-                        Log.Error(e, "Error al intentar consultar estado con NIRS {0}", configNirs);
+                        Log.Warn(e, "Error al intentar consultar estado con NIRS {0}", configNirs);
                         throw new ConexionDispositivoDriverException(string.Format("Error al conectarse al dispositivo {0}", codigoNirs));
                     }
-                    Log.Error(e, "Intentando reconectarnos ante un error al consultar estado con NIRS {0}", configNirs);
+                    Log.Warn(e, "Intentando reconectarnos ante un error al consultar estado con NIRS {0}", configNirs);
                     cliente.Dispose();
                     ConectarNirs();
                     huboReconeccion = true;
@@ -90,8 +85,6 @@ namespace Molinos.Orquest.DriversImpl
         public Dictionary<string, decimal> ObtenerAnalisis(string codigoDeMaterial, string codigoDeMuestra)
         {
             var material = productos.FirstOrDefault(x => x.ProductCode == codigoDeMaterial);
-            Log.Info("logComando material 6 {0} ", material);
-            Log.Info("logComando muestra 7 {0} ", codigoDeMuestra);
             if (material == null) throw new DriverConMensajeException(string.Format("Error, el material {0} no existe en el dispositivo {1}", codigoDeMaterial, codigoNirs));
             var huboReconeccion = false;
             do
@@ -111,16 +104,15 @@ namespace Molinos.Orquest.DriversImpl
                 {
                     if (huboReconeccion)
                     {
-                        Log.Error(e, "Error al intentar consultar estado con NIRS {0}", codigoNirs);
+                        Log.Warn(e, "Error al intentar consultar estado con NIRS {0}", codigoNirs);
                         throw new ConexionDispositivoDriverException(string.Format("Error al conectarse al dispositivo {0}", codigoNirs));
                     }
-                    Log.Error(e, "Intentando reconectarnos ante un error al consultar estado con NIRS {0}", codigoNirs);
+                    Log.Warn(e, "Intentando reconectarnos ante un error al consultar estado con NIRS {0}", codigoNirs);
                     cliente.Dispose();
                     ConectarNirs();
                     huboReconeccion = true;
                 }
             } while (huboReconeccion);
-            Log.Info("logComando finalizó 12");
 
             semaforoAnalisis.Wait(configNirs.TimeoutLectura);
             semaforoAnalisis = null;
@@ -179,7 +171,6 @@ namespace Molinos.Orquest.DriversImpl
                     throw new ConexionDispositivoDriverException(mensaje);
                 }
                 productos = cliente.GetProducts();
-                Log.Info("logComando muestra 14 {0} ", productos);
                 cliente.RequestInstrumentState();
             }
             catch (Exception e)

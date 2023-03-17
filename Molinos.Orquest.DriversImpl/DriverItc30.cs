@@ -61,7 +61,7 @@ namespace Molinos.Orquest.DriversImpl
                         //Cuando no hay estado anterior se lanza el evento
                         if (!falloUltimaConexion.HasValue || falloUltimaConexion.Value)
                         {
-                            Log.Debug("Conexion reestablecida con el ITC {0}", codigoItc);
+                            //Log.Debug("Conexion reestablecida con el ITC {0}", codigoItc);
                             Log.Info("Nueva Conexión a ITC={0}", codigoItc);
                             NotificarEstadoConexion(CodigosEventos.ConexionDispositivoCorrecta);
                             falloUltimaConexion = false;
@@ -70,7 +70,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e, "Error al ConsultarEstado del ITC {0}", codigoItc);
+                        Log.Warn(e, "Error al ConsultarEstado del ITC {0}", codigoItc);
                         //Cuando no hay estado anterior se lanza el evento
                         if (!falloUltimaConexion.HasValue || !falloUltimaConexion.Value)
                         {
@@ -104,7 +104,7 @@ namespace Molinos.Orquest.DriversImpl
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "ITC {0}: No se pudo notificar el evento {1}", codigoItc, codigoEvento);
+                Log.Warn(ex, "ITC {0}: No se pudo notificar el evento {1}", codigoItc, codigoEvento);
             }
         }
 
@@ -130,14 +130,14 @@ namespace Molinos.Orquest.DriversImpl
                     //Chequeamos el cambio de estado de desactivada a activada
                     if (byteRespuesta.BitAt(i) && (estadoAnterior.HasValue && !estadoAnterior.Value.BitAt(i)))
                     {
-                        Log.Info("Entrada Activada: ITC={0} Entrada={1}", codigoItc, i - 3);
+                        Log.Debug("Entrada Activada: ITC={0} Entrada={1}", codigoItc, i - 3);
                         NotificarEventoEntrada(i - 3, CodigosEventos.EntradaActivada);
                         NotificarEventoEntrada(i - 3, CodigosEventos.CambioEstadoSensor, "true");
                     }
                     //chequeamos al cambio de estado de activada a desactivada
                     if (!byteRespuesta.BitAt(i) && (estadoAnterior.HasValue && estadoAnterior.Value.BitAt(i)))
                     {
-                        Log.Info("Entrada Desactivada: ITC={0} Entrada={1}", codigoItc, i - 3);
+                        Log.Debug("Entrada Desactivada: ITC={0} Entrada={1}", codigoItc, i - 3);
                         NotificarEventoEntrada(i - 3, CodigosEventos.EntradaDesactivada);
                         NotificarEventoEntrada(i - 3, CodigosEventos.CambioEstadoSensor, "false");
                     }
@@ -166,7 +166,7 @@ namespace Molinos.Orquest.DriversImpl
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "No se pudo notificar el evento ", codigoEvento);
+                Log.Warn(ex, "No se pudo notificar el evento ", codigoEvento);
             }
         }
 
@@ -174,7 +174,7 @@ namespace Molinos.Orquest.DriversImpl
         {
             try
             {
-                Log.Info("NotificarEventoEntradaCambioSensor : ITC={0} Entrada={1} Evento={2} Dato={3}", codigoItc, entrada, codigoEvento, dato);
+                Log.Debug("NotificarEventoEntradaCambioSensor : ITC={0} Entrada={1} Evento={2} Dato={3}", codigoItc, entrada, codigoEvento, dato);
 
                 var notification = new NotificacionEvento
                 {
@@ -191,7 +191,7 @@ namespace Molinos.Orquest.DriversImpl
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "No se pudo notificar el evento ", codigoEvento);
+                Log.Warn(ex, "No se pudo notificar el evento ", codigoEvento);
             }
         }
 
@@ -249,10 +249,10 @@ namespace Molinos.Orquest.DriversImpl
             var respuesta = EnviarComando(comando, 1);
             if (respuesta != configItc.RespuestaExito)
             {
-                Log.Info("Salida No Activada: ITC={0} Salida={1}", codigoItc, salida);
+                Log.Debug("Salida No Activada: ITC={0} Salida={1}", codigoItc, salida);
                 throw new DriverException(string.Format("No se pudo activar la salida {0}", salida));
             }
-            Log.Info("Salida Activada: ITC={0} Salida={1}", codigoItc, salida);
+            Log.Debug("Salida Activada: ITC={0} Salida={1}", codigoItc, salida);
         }
 
         protected override void Dispose(bool disposing)
@@ -295,7 +295,7 @@ namespace Molinos.Orquest.DriversImpl
             Log.Debug("ITC {0} Respuesta Comando: {1}", codigoItc, frase);
             if (!LecturaValida(frase))
             {
-                Log.Warn("La respuesta al comando no pasó la validación de checksum. Descartando lectura..");
+                Log.Debug("La respuesta al comando no pasó la validación de checksum. Descartando lectura..");
                 return string.Empty;
             }
             var arrayFrase = frase.Split(new[] { configItc.DelimitadorCampos }, StringSplitOptions.None);
@@ -371,7 +371,7 @@ namespace Molinos.Orquest.DriversImpl
         {
             try
             {
-                Log.Info("NotificarEstadoActual: ITC={0} Salida={1}", codigoItc, numeroEntrada);
+                Log.Debug("NotificarEstadoActual: ITC={0} Salida={1}", codigoItc, numeroEntrada);
                 bool estado = false;
                 if (estadoAnterior == null)
                 {

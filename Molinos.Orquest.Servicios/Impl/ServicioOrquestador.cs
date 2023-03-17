@@ -123,7 +123,7 @@ namespace Molinos.Orquest.Servicios.Impl
             }
             catch (Exception e)
             {
-                log.Error(e, "Error al ejecutar tarea programada Verificacion de dispositivos");
+                log.Warn(e, "Error al ejecutar tarea programada Verificacion de dispositivos");
             }
             finally
             {

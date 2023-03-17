@@ -72,13 +72,13 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (SocketException e)
                     {
-                        Log.Error(e, "Falló la conexión al dispositivo {0}", codigoHumedimetro);
+                        Log.Warn(e, "Falló la conexión al dispositivo {0}", codigoHumedimetro);
                         conectado = false;
                         Thread.Sleep(1000);
                     }
                     catch (IOException e)
                     {
-                        Log.Error(e, "Error I/O al conectarse al dispositivo {0}", codigoHumedimetro);
+                        Log.Warn(e, "Error I/O al conectarse al dispositivo {0}", codigoHumedimetro);
                         conectado = false;
                     }
                     catch (FormatException e)
@@ -169,7 +169,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e, "Error validaction de conexion");
+                        Log.Warn(e, "Error validacion de conexion");
                     }
                 }
             }

@@ -120,7 +120,7 @@ namespace Molinos.Orquest.DriversImpl
             buffer.Insert(0, 0x10);
             buffer.Insert(0, 0x02);
             var a = ToHexString(buffer.ToArray());
-            Log.Debug($"Cartel led{codigoCartelLed}, {a}");
+            Log.Debug($"Cartel led {codigoCartelLed}, {a}");
             return buffer;
         }
 

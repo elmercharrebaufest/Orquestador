@@ -32,11 +32,10 @@ namespace Molinos.Orquest.DriversImpl
         {
             try
             {
-                Log.Error($"Conectando a { configuracionImpresoraHasar.DireccionIp }");
+                Log.Info($"Conectando a { configuracionImpresoraHasar.DireccionIp }");
                 using (var cliente = new TcpCommandClient(configuracionImpresoraHasar.DireccionIp, configuracionImpresoraHasar.Puerto, 30, configuracionImpresoraHasar.TimeoutLectura, Log))
                 {
-                    Log.Error($"Conecto con exito. Imprimiendo");
-
+                    Log.Debug($"Conecto con exito. Imprimiendo");
                     foreach (var imprimir in comando.Ticket)
                     {
 

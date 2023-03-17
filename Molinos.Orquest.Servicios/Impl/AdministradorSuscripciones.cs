@@ -140,7 +140,7 @@ namespace Molinos.Orquest.Servicios.Impl
                             }
                             catch (Exception e)
                             {
-                                log.Error(e, "Falló la notificación de {0}-{1} a suscriptor: {2}",
+                                log.Warn(e, "Falló la notificación de {0}-{1} a suscriptor: {2}",
                                                            evento.CodigoDispositivo, 
                                                            evento.CodigoEvento,
                                                            rutaSuscriptor);
