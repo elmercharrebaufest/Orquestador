@@ -1903,7 +1903,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59670</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Molinos.Orquest.Web</IISUrl>
+          <IISUrl>http://localhost/Orquest.Web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

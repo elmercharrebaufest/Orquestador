@@ -57,7 +57,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e, "Error al ConsultarEstado del Rasp {0}", codigoCamara);
+                        Log.Warn(e, "Error al ConsultarEstado del Rasp {0}", codigoCamara);
                         //Cuando no hay estado anterior se lanza el evento
                         if (!falloUltimaConexion.HasValue || !falloUltimaConexion.Value)
                         {

@@ -66,8 +66,7 @@ namespace Molinos.Orquest.DriversImpl
                     cliente.ReConectar();
                     conectado = true;
                 }
-                Log.Error($"Conecto con exito. Imprimiendo");
-
+                Log.Debug($"Conecto con exito. Imprimiendo");
                 foreach (var imprimir in comando.Ticket)
                 {
 

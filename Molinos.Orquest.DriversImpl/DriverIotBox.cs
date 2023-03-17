@@ -63,7 +63,7 @@ namespace Molinos.Orquest.DriversImpl
                         //Cuando no hay estado anterior se lanza el evento
                         if (!falloUltimaConexion.HasValue || falloUltimaConexion.Value)
                         {
-                            Log.Debug("Conexion reestablecida con la Rasp {0}", codigoRasp);
+                            //Log.Debug("Conexion reestablecida con la Rasp {0}", codigoRasp);
                             Log.Info("Nueva Conexión a Rasp={0}", codigoRasp);
                             NotificarEstadoConexion(CodigosEventos.ConexionDispositivoCorrecta);
                             falloUltimaConexion = false;
@@ -72,7 +72,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e, "Error al ConsultarEstado del Rasp {0}", codigoRasp);
+                        Log.Warn(e, "Error al ConsultarEstado del Rasp {0}", codigoRasp);
                         //Cuando no hay estado anterior se lanza el evento
                         if (!falloUltimaConexion.HasValue || !falloUltimaConexion.Value)
                         {
@@ -145,7 +145,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (SocketException e)
                     {
-                        Log.Error("Error de conexion al leer respuesta, intentando un nuevo ping", e);
+                        Log.Warn("Error de conexion al leer respuesta, intentando un nuevo ping", e);
                         cliente.ReConectar();
                         ActivarSalida(0, "\"ping\"", "0", false);
                         response = cliente.LeerNovedad();
@@ -153,7 +153,7 @@ namespace Molinos.Orquest.DriversImpl
 
                     try
                     {
-                        Log.Info("LECTURA - FRANCO: " + response);
+                        //Log.Info("LECTURA - FRANCO: " + response);
                         if (response != null && response != "\"ok\"")
                         {
                             respuesta = JsonConvert.DeserializeObject<List<EntradaDto>>(response);
@@ -171,7 +171,7 @@ namespace Molinos.Orquest.DriversImpl
             }
             catch (Exception e) when (e.InnerException != null && (e.InnerException is SocketException) && ((SocketException)e.InnerException).ErrorCode == 10060)
             {
-                Log.Debug(e, $"{codigoRasp} - Sin novedad");
+                Log.Error(e, $"{codigoRasp} - Sin novedad");
                 //throw new DriverException("El dispositivo no ha devuelto una respuesta", e);
             }
             catch (Exception e)
@@ -214,7 +214,7 @@ namespace Molinos.Orquest.DriversImpl
                 throw new DriverException("Error al Conectar con el dispositivo", e);
             }
 
-            Log.Info("Salida Activada: ITC={0} Salida={1} Estado={2} Dato={3}", codigoRasp, salida, estado, dato);
+            Log.Debug("Salida Activada: ITC={0} Salida={1} Estado={2} Dato={3}", codigoRasp, salida, estado, dato);
         }
 
         public override void InformarEstado()

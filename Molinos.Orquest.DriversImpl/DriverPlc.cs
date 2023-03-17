@@ -62,7 +62,7 @@ namespace Molinos.Orquest.DriversImpl
                         //Cuando no hay estado anterior se lanza el evento
                         if (!falloUltimaConexion.HasValue || falloUltimaConexion.Value)
                         {
-                            Log.Debug("Conexion reestablecida con el PLC {0}", codigoPlc);
+                            //Log.Debug("Conexion reestablecida con el PLC {0}", codigoPlc);
                             Log.Debug("Nueva Conexión a PLC={0}", codigoPlc);
                             NotificarEstadoConexion(CodigosEventos.ConexionDispositivoCorrecta);
                             falloUltimaConexion = false;
@@ -197,7 +197,7 @@ namespace Molinos.Orquest.DriversImpl
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "No se pudo notificar el evento ", codigoEvento);
+                Log.Warn(ex, "No se pudo notificar el evento ", codigoEvento);
             }
         }
 
@@ -224,7 +224,7 @@ namespace Molinos.Orquest.DriversImpl
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "No se pudo notificar el evento ", codigoEvento);
+                Log.Warn(ex, "No se pudo notificar el evento ", codigoEvento);
             }
         }
 
