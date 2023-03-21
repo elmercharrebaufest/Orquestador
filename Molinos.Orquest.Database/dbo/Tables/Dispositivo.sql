@@ -16,7 +16,8 @@
 );
 
 GO
-CREATE NONCLUSTERED INDEX ndx_Codigo_TomadoPor_Id_Activo
-ON [dbo].[Dispositivo] (Codigo,TomadoPor_Id,Activo)
-INCLUDE (Id)
+CREATE NONCLUSTERED INDEX [ndx_Codigo_TomadoPor_Id_Activo] ON [dbo].[Dispositivo](
+[Codigo] ASC,[TomadoPor_Id] ASC,[Activo] ASC,[EsConcentrador])
+INCLUDE([Id],[Descripcion],[EstadoCorrecto],[ServerFijo],[Concentrador_Id])
+WITH (SORT_IN_TEMPDB = ON, DROP_EXISTING = ON, ONLINE = ON, FILLFACTOR = 90) ON [PRIMARY]
 GO
