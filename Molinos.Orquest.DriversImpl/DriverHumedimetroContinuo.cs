@@ -48,7 +48,7 @@ namespace Molinos.Orquest.DriversImpl
                         {
                             Log.Info("Captura de Humedad - " + configHumedimetro.Dispositivo.Codigo + " - '" + frase.Replace("\r", "") + "'");
                             var arrayHumedad = frase.Split(new[] { configHumedimetro.DelimitadorCampos }, StringSplitOptions.None);
-                            Log.Error("Lectura!! {0}", frase);
+                            Log.Info("Lectura!! {0}", frase);
                             if (arrayHumedad.Length != 15)
                             {
                                 throw new FormatException(frase);
@@ -63,7 +63,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (SocketException e)
                     {
-                        Log.Error(e, "Falló la conexión al dispositivo {0}", codigoHumedimetro);
+                        Log.Warn(e, "Falló la conexión al dispositivo {0}", codigoHumedimetro);
                         Thread.Sleep(1000);
                     }
                     catch (IOException)
