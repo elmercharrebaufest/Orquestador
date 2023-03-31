@@ -52,7 +52,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e, "Error al DescargarImagen del Pantalla {0}", codigoItc);
+                        Log.Warn(e, "Error al DescargarImagen del Pantalla {0}", codigoItc);
 
                         if (!falloUltimaConexion.HasValue || !falloUltimaConexion.Value)
                         {

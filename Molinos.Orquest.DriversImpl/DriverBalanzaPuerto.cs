@@ -92,7 +92,7 @@ namespace Molinos.Orquest.DriversImpl
                         //Cuando no hay estado anterior se lanza el evento
                         if (!falloUltimaConexion.HasValue || falloUltimaConexion.Value)
                         {
-                            Log.Debug("Conexion reestablecida con la Balanza {0}", codigoBalanzaPuerto);
+                            //Log.Debug("Conexion reestablecida con la Balanza {0}", codigoBalanzaPuerto);
                             Log.Debug("Nueva Conexión a Balanza={0}", codigoBalanzaPuerto);
                             NotificarEstadoConexion(CodigosEventos.ConexionDispositivoCorrecta);
                             falloUltimaConexion = false;

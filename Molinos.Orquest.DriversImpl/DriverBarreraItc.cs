@@ -61,7 +61,7 @@ namespace Molinos.Orquest.DriversImpl
 
         public void AbrirMaestro()
         {
-            Log.Info("Abriendo Salida Maestro: Barrera={0}", configBarrera.Dispositivo.Codigo);
+            //Log.Info("Abriendo Salida Maestro: Barrera={0}", configBarrera.Dispositivo.Codigo);
             Log.Debug("Salida: Barrera={0} NumeroSalida={1}", configBarrera.Dispositivo.Codigo, configBarrera.NumeroSalida);
             driverItc.ActivarSalida(configBarrera.NumeroSalida, (configBarrera.EstadoAbierta ? 1 : 0).ToString(), configBarrera.TiempoActivacion.ToString());
         }

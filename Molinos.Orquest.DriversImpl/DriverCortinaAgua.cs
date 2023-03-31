@@ -67,7 +67,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e, "Error al ConsultarEstado de la Cortina de Agua {0}", codigoDispositivo);
+                        Log.Warn(e, "Error al ConsultarEstado de la Cortina de Agua {0}", codigoDispositivo);
                         //Cuando no hay estado anterior se lanza el evento
                         if (!falloUltimaConexion.HasValue || !falloUltimaConexion.Value)
                         {
@@ -107,7 +107,7 @@ namespace Molinos.Orquest.DriversImpl
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Molinete {0}: No se pudo notificar el evento {1}", codigoDispositivo, codigoEvento);
+                Log.Warn(ex, "Molinete {0}: No se pudo notificar el evento {1}", codigoDispositivo, codigoEvento);
             }
         }
 
