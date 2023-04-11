@@ -56,6 +56,7 @@ namespace Molinos.Orquest.DriversImpl
             dispositivoActivo = true;
             pingOK = true;
             cliente = new TcpCommandClient(config.DireccionIp, config.Puerto, config.LongFrase, config.TimeoutLectura, Log, false);
+            conectado = cliente.Conectado;
 
             Log.Debug("Iniciando Driver de IotBox {0}", codigo);
             Task.Run(() =>
