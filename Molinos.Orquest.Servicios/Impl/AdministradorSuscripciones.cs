@@ -24,7 +24,7 @@ namespace Molinos.Orquest.Servicios.Impl
 
         public int CrearSuscripcion(int idDispositivo, string codigoEvento, string rutaAccesoSuscriptor, bool persistente)
         {
-            log.Debug("--OSCAR LecturaTarjetaRecibida 7."+ idDispositivo+" "+ codigoEvento);
+            log.Info("--OSCAR LecturaTarjetaRecibida 7."+ idDispositivo+" "+ codigoEvento);
             log.Debug("Creando suscripción. Dispositivo: {0} Evento: {1} Ruta Suscriptor: {2}", 
                 idDispositivo, codigoEvento, rutaAccesoSuscriptor);
 
@@ -34,10 +34,10 @@ namespace Molinos.Orquest.Servicios.Impl
                     s => s.Dispositivo.Id == idDispositivo
                          && s.CodigoEvento == codigoEvento
                          && s.RutaAccesoSuscriptor == rutaAccesoSuscriptor);
-                log.Debug("--OSCAR LecturaTarjetaRecibida 8.");
+                log.Info("--OSCAR LecturaTarjetaRecibida 8.");
                 if (suscripcion == null)
                 {
-                    log.Debug("--OSCAR LecturaTarjetaRecibida 9.");
+                    log.Info("--OSCAR LecturaTarjetaRecibida 9.");
                     suscripcion = new Suscripcion
                         {
                             Dispositivo = repositorio.Obtener<Dispositivo>(idDispositivo),
@@ -48,29 +48,29 @@ namespace Molinos.Orquest.Servicios.Impl
                             Persistente = persistente
                         };
                     repositorio.Agregar(suscripcion);
-                    log.Debug("--OSCAR LecturaTarjetaRecibida 10.");
+                    log.Info("--OSCAR LecturaTarjetaRecibida 10.");
                     log.Debug("Suscripción Id={3} creada. Dispositivo: {0} Evento: {1} Ruta Suscriptor: {2}",
                         idDispositivo, codigoEvento, rutaAccesoSuscriptor, suscripcion.Id);
                 }
                 else
                 {
-                    log.Debug("--OSCAR LecturaTarjetaRecibida 11.");
+                    log.Info("--OSCAR LecturaTarjetaRecibida 11.");
                     suscripcion.Cantidad += 1;
                     suscripcion.UltimaSuscripcion = DateTime.Now;
                     suscripcion.Persistente = persistente || suscripcion.Persistente;
                     log.Debug("Se incrementó el contador de siscriptiones de Id={3} a {4}. Dispositivo: {0} Evento: {1} Ruta Suscriptor: {2}",
                         idDispositivo, codigoEvento, rutaAccesoSuscriptor, suscripcion.Id, suscripcion.Cantidad);
                 }
-                log.Debug("--OSCAR LecturaTarjetaRecibida 12.");
+                log.Info("--OSCAR LecturaTarjetaRecibida 12.");
                 repositorio.GuardarCambios();
-                log.Debug("--OSCAR LecturaTarjetaRecibida 13.");
+                log.Info("--OSCAR LecturaTarjetaRecibida 13.");
                 return suscripcion.Id;
             }
         }
 
         public void CancelarSuscripcion(int idSuscripcion, int idDispositivo, bool cancelarTodas)
         {
-            log.Debug("--OSCAR LecturaTarjetaRecibida 20.");
+            log.Info("--OSCAR LecturaTarjetaRecibida 20.");
             log.Debug("Cancelando suscripción. Dispositivo: {0} Id Suscripción: {1}", idDispositivo,idSuscripcion);
             using (var repositorio = repositorioFactory.Repositorio())
             {
