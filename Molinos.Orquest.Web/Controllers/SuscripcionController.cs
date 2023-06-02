@@ -57,6 +57,7 @@ namespace Molinos.Orquest.Web.Controllers
             var contenido = "true";
             try
             {
+                log.Info("--OSCAR LecturaTarjetaRecibida 33");
                 var resultado = servicio.CancelarSuscripcion(new ComandoCancelarSuscripcion
                 {
                     IdSuscripcion = suscripcion.Id,

@@ -23,6 +23,7 @@ namespace Molinos.Orquest.Servicios.Procesamiento
             {
                 if (comando.IdSuscripcion > 0)
                 {
+                    Log.Info("--OSCAR LecturaTarjetaRecibida 30");
                     adminSuscripciones.CancelarSuscripcion(comando.IdSuscripcion, dispositivo.Id, comando.CancelarTodas);
                 }
                 else

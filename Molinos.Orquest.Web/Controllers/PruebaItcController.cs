@@ -232,6 +232,8 @@ namespace Molinos.Orquest.Web.Controllers
                 var suscripciones = repositorio.Listar<Suscripcion>(x => x.RutaAccesoSuscriptor == urlSuscriptor && x.Dispositivo.Concentrador.Codigo == codigoItc);
                 foreach (var suscripcion in suscripciones)
                 {
+
+                    log.Info("--OSCAR LecturaTarjetaRecibida 31");
                     var resultado = servicio.CancelarSuscripcion(new ComandoCancelarSuscripcion
                     {
                         IdSuscripcion = suscripcion.Id,

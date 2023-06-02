@@ -231,6 +231,7 @@ namespace Molinos.Orquest.Servicios.Impl
 
         public ResultadoCancelarSuscripcion CancelarSuscripcion(ComandoCancelarSuscripcion comando)
         {
+            log.Info("--OSCAR LecturaTarjetaRecibida 34");
             return Procesar(comando, (servicio, cmd) => servicio.CancelarSuscripcion(cmd));
         }
 
