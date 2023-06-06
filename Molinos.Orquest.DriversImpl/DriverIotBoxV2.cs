@@ -59,12 +59,14 @@ namespace Molinos.Orquest.DriversImpl
             conectado = cliente.Conectado;
 
             Log.Debug("Iniciando Driver de IotBox {0}", codigo);
+            Log.Info("ARSCT350-546 - Iniciando Driver IotBoxV2 {0}", codigo);
             Task.Run(() =>
             {
                 while (dispositivoActivo)
                 {
                     try
                     {
+                        Log.Info("ARSCT350-546 - Consultando estado {0}", codigo);
                         ConsultarEstado();
                         //Cuando no hay estado anterior se lanza el evento
                         if (!falloUltimaConexion.HasValue || falloUltimaConexion.Value)
@@ -99,6 +101,7 @@ namespace Molinos.Orquest.DriversImpl
 
         public override void VerificarDispositivo()
         {
+            Log.Info($"ARSCT350-546 - VerificarDispositivo");
             if ((falloUltimaConexion ?? false))
             {
                 throw new ConexionDispositivoDriverException("");
@@ -107,6 +110,7 @@ namespace Molinos.Orquest.DriversImpl
 
         private void NotificarEstadoConexion(string codigoEvento, Exception e = null)
         {
+            Log.Info($"ARSCT350-546 - NotificarEstadoConexion");
             try
             {
                 var notification = new NotificacionEvento
@@ -136,10 +140,12 @@ namespace Molinos.Orquest.DriversImpl
                 {
                     try
                     {
+                        Log.Info("ARSCT350-546 - Dentro de ConsultarEstado");
                         ActivarSalida(0, "\"ping\"", "0", false);
                     }
                     catch
                     {
+                        Log.Info("ARSCT350-546 - Catch de ConsultarEstado");
                         cliente.ReConectar();
                         ActivarSalida(0, "\"socketconnected\"", "0", false);
                     }
@@ -147,10 +153,12 @@ namespace Molinos.Orquest.DriversImpl
                     string response;
                     try
                     {
+                        Log.Info("ARSCT350-546 - Intentando LeerNovedad");
                         response = cliente.LeerNovedad();
                     }
                     catch (Exception e)
                     {
+                        Log.Info("ARSCT350-546 - Catch de LeerNovedad");
                         Log.Warn(e, "Error de conexion al leer respuesta, intentando un nuevo ping");
                         cliente.ReConectar();
                         ActivarSalida(0, "\"ping\"", "0", false);
@@ -158,11 +166,14 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     try
                     {
+                        Log.Info("ARSCT350-546 - Nueva seccion");
                         if (response != null && response != "\"ok\"")
                         {
                             respuesta = JsonConvert.DeserializeObject<List<EntradaDto>>(response);
 
+                            Log.Info("ARSCT350-546 - deserializacion de response {0}", respuesta);
                             var connected = ConnectionHelper.IsConnected(cliente, pingOK, conectado);
+                            Log.Info("ARSCT350-546 - connected {0}", connected);
                             if (!connected)
                             {
                                 Log.Info("Intentando reconectar con dispositivo. Dispositivo: {0}", codigoRasp);
@@ -177,6 +188,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (Exception e)
                     {
+                        Log.Info("ARSCT350-546 - Catch de nueva seccion");
                         conectado = false;
                         Log.Warn(e, "Error al parsear respuesta");
                     }
@@ -184,11 +196,13 @@ namespace Molinos.Orquest.DriversImpl
             }
             catch (Exception e) when (e.InnerException != null && (e.InnerException is SocketException) && ((SocketException)e.InnerException).ErrorCode == 10060)
             {
+                Log.Info("ARSCT350-546 - Catch lockComandoLectura");
                 Log.Debug(e, $"{codigoRasp} - Sin novedad");
                 //throw new DriverException("El dispositivo no ha devuelto una respuesta", e);
             }
             catch (Exception e)
             {
+                Log.Info("ARSCT350-546 - DriverException");
                 throw new DriverException("Error al Conectar con el dispositivo", e);
             }
 
@@ -196,6 +210,8 @@ namespace Molinos.Orquest.DriversImpl
             {
                 foreach (var entrada in respuesta)
                 {
+                    Log.Info("ARSCT350-546 - pingResponse");
+                    Log.Info($"ARSCT350-546 - entrada dato {entrada.Dato}, numero {entrada.Numero}");
                     NotificarEventoEntrada(entrada.Numero, entrada.Dato, CodigosEventos.EntradaActivada);
                 }
             }
@@ -204,6 +220,7 @@ namespace Molinos.Orquest.DriversImpl
         public void ActivarSalida(int salida, string estado, string dato, bool flush = false)
         {
             Log.Debug("Activando Salida: ITC={0} Salida={1}", codigoRasp, salida);
+            Log.Info("ARSCT350-546 - Activando Salida: ITC={0} Salida={1}", codigoRasp, salida);
             if (!dispositivoActivo)
             {
                 return;
@@ -212,6 +229,7 @@ namespace Molinos.Orquest.DriversImpl
             {
                 lock (lockComandoEscritura)
                 {
+                    Log.Info("ARSCT350-546 - cliente conectado {0}", cliente.Conectado);
                     if (!cliente.Conectado)
                     {
                         cliente.ReConectar();
@@ -233,6 +251,7 @@ namespace Molinos.Orquest.DriversImpl
         public override void InformarEstado()
         {
             Log.Debug("Informando estado ITC {0}", codigoRasp);
+            Log.Info("ARSCT350-546 - Informando estado ITC {0}", codigoRasp);
             if (falloUltimaConexion.HasValue && falloUltimaConexion.Value)
             {
                 NotificarEstadoConexion(CodigosEventos.ErrorConexionDispositivo, errorUltimaConexion ?? new Exception(CodigosEventos.ErrorConexionDispositivo));
@@ -245,6 +264,7 @@ namespace Molinos.Orquest.DriversImpl
 
         private void NotificarEventoEntrada(int entrada, string dato, string codigoEvento)
         {
+            Log.Info($"ARSCT350-546 - NotificarEventoEntrada");
             try
             {
                 Log.Debug("Cambio Estado Entrada: Rasp={0} Entrada={1} Dato={3} Evento={2}", codigoRasp, entrada, codigoEvento, dato);
