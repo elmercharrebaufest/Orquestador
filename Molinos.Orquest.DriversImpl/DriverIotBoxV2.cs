@@ -64,6 +64,7 @@ namespace Molinos.Orquest.DriversImpl
             {
                 while (dispositivoActivo)
                 {
+                    Thread.Sleep(1000); // Si no funciona usar variable con tiempo actual y vuelva a correr 1 segundo despues
                     try
                     {
                         Log.Info("ARSCT350-546 - Consultando estado {0}", codigo);
