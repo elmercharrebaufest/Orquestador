@@ -64,9 +64,7 @@ namespace Molinos.Orquest.Web.Controllers
                 var urlSuscriptor = ConfigurationManager.AppSettings["UrlServicioSuscriptor"];
                 foreach (var lector in lectores)
                 {
-                    log.Info("--OSCAR LecturaTarjetaRecibida 0.");
                     Suscribir(lector.Codigo, CodigosEventos.LecturaTarjetaRecibida, urlSuscriptor, errores);
-                    log.Info("--OSCAR LecturaTarjetaRecibida 1.");
                     Suscribir(lector.Codigo, CodigosEventos.ErrorConexionDispositivo, urlSuscriptor, errores);
                     Suscribir(lector.Codigo, CodigosEventos.ConexionDispositivoCorrecta, urlSuscriptor, errores);
                 }
@@ -128,7 +126,6 @@ namespace Molinos.Orquest.Web.Controllers
         {
             try
             {
-                log.Info("--OSCAR LecturaTarjetaRecibida 2.");
                 var resultado = servicio.Suscribir(new ComandoSuscribir
                 {
                     CodigoDispositivo = codigoDisp,
@@ -232,8 +229,6 @@ namespace Molinos.Orquest.Web.Controllers
                 var suscripciones = repositorio.Listar<Suscripcion>(x => x.RutaAccesoSuscriptor == urlSuscriptor && x.Dispositivo.Concentrador.Codigo == codigoItc);
                 foreach (var suscripcion in suscripciones)
                 {
-
-                    log.Info("--OSCAR LecturaTarjetaRecibida 31");
                     var resultado = servicio.CancelarSuscripcion(new ComandoCancelarSuscripcion
                     {
                         IdSuscripcion = suscripcion.Id,

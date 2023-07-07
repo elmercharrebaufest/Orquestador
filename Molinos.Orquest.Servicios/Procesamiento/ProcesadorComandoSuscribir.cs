@@ -19,12 +19,10 @@ namespace Molinos.Orquest.Servicios.Procesamiento
 
         protected override ResultadoSuscribir Ejecutar(ComandoSuscribir comando, Dispositivo dispositivo, IDriver driver)
         {
-            Log.Info("--OSCAR LecturaTarjetaRecibida 3. " + comando.CodigoEvento);
             ResultadoSuscribir resultado;
             if (driver.EventosSoportados.Any(evento => evento == comando.CodigoEvento))
             {
                 var idSuscripcion = adminSuscripciones.CrearSuscripcion(dispositivo.Id, comando.CodigoEvento, comando.RutaAccesoSuscriptor, comando.Persistente);
-                Log.Info("--OSCAR LecturaTarjetaRecibida 4.");
                 resultado = new ResultadoSuscribir
                     {
                         Mensaje = Mensaje.ResultadoOK(),
@@ -33,13 +31,11 @@ namespace Molinos.Orquest.Servicios.Procesamiento
                 if (comando.CodigoEvento == CodigosEventos.ConexionDispositivoCorrecta ||
                     comando.CodigoEvento == CodigosEventos.ErrorConexionDispositivo)
                 {
-                    Log.Info("--OSCAR LecturaTarjetaRecibida 5.");
                     driver.InformarEstado();
                 }
             }
             else
             {
-                Log.Info("--OSCAR LecturaTarjetaRecibida 6.");
                 resultado = new ResultadoSuscribir
                     {
                         Mensaje = new Mensaje(Codigos.EventoNoSoportado, Textos.ResultadoEventoNoSoportadoPorDriver,
