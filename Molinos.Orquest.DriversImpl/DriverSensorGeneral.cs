@@ -21,7 +21,7 @@ namespace Molinos.Orquest.DriversImpl
             , CodigosEventos.EntradaDesactivada
             , CodigosEventos.ErrorConexionDispositivo
             , CodigosEventos.ConexionDispositivoCorrecta
-            ,CodigosEventos.CambioEstadoSensorGeneral };
+            ,CodigosEventos.CambioEstadoSensor };
 
         public override IEnumerable<string> EventosSoportados
         {
@@ -60,7 +60,7 @@ namespace Molinos.Orquest.DriversImpl
         private void OnEventoDriverFisico(object sender, EventoDriverEventArgs evento)
         {
 
-            Log.Info("DriverSensorCamaraALPRDummy evento {0}", evento.ToJson());
+            Log.Info("DriverSensorGeneral evento {0}", evento.ToJson());
 
             var notificacion = evento.Notificacion;
             if (EsEventoParaDispositivo(notificacion))
