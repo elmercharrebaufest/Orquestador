@@ -6,12 +6,15 @@ using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
 using Molinos.Orquest.Servicios;
 using Molinos.Orquest.Web.Conversiones;
+using Molinos.Orquest.Web.Helpers;
 using Ninject.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Services;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
+
 
 namespace Molinos.Orquest.Web.Controllers
 {
@@ -42,24 +45,23 @@ namespace Molinos.Orquest.Web.Controllers
         public JsonResult ListarDispositivos()
         {
             var estado = repositorio.Listar<Estado>(x => true).FirstOrDefault();
-
-            var dispositivos = repositorio.Listar<ConfigDispositivo, DispositivoDto>(x=> x.Dispositivo.Concentrador == null, x=> new DispositivoDto {
+          
+            var dispositivosDto = repositorio.Listar<ConfigDispositivo, DispositivoDto>(x => x.Dispositivo.Concentrador == null
+            || x.Dispositivo.Concentrador != null, x => new DispositivoDto {
                 Codigo = x.Dispositivo.Codigo,
                 Activo = x.Dispositivo.Activo,
                 Descripcion = x.Dispositivo.Descripcion,
                 ClaseDriver = x.ClaseDriver,
                 EstadoCorrecto = x.Dispositivo.EstadoCorrecto,
-                EsConcentrador = x.Dispositivo.EsConcentrador
+                EsConcentrador = x.Dispositivo.EsConcentrador,
+                TieneConcentrador = x.Dispositivo.Concentrador != null
             }).OrderBy(x => x.ClaseDriver);
 
-            var dispositivosVirtual = repositorio.Listar<ConfigDispositivo, DispositivoDto>(x => x.Dispositivo.Concentrador != null, x => new DispositivoDto
-            {
-                Activo = x.Dispositivo.Activo,
-                Codigo = x.Dispositivo.Codigo,
-                Descripcion = x.Dispositivo.Descripcion,
-                ClaseDriver = x.Dispositivo.Concentrador.Codigo,
-                EstadoCorrecto = x.Dispositivo.EstadoCorrecto
-            }).OrderBy(x => x.ClaseDriver);
+
+            var dispositivos = dispositivosDto.Where(x => x.TieneConcentrador == false);
+
+            var dispositivosVirtual = dispositivosDto.Where(x => x.TieneConcentrador == true);
+
 
             var labels = new List<string>();
             var padres = new List<string>();
@@ -73,6 +75,7 @@ namespace Molinos.Orquest.Web.Controllers
             activos.Add(true);
             estados.Add(true);
 
+
             foreach (var p in dispositivos.GroupBy(x=> x.ClaseDriver))
             {
                 
@@ -84,6 +87,8 @@ namespace Molinos.Orquest.Web.Controllers
                 estados.Add(p.Where(x => x.Activo).All(y => !y.EsConcentrador ? y.EstadoCorrecto : dispositivosVirtual.Where(x => x.ClaseDriver == y.Codigo && x.Activo).All(x => x.EstadoCorrecto)));
 
             }
+
+
             foreach (var d in dispositivos)
             {
                 labels.Add(d.Descripcion);
@@ -99,6 +104,7 @@ namespace Molinos.Orquest.Web.Controllers
                     estados.Add(d.EstadoCorrecto);
                 }
             }
+
             foreach (var d in dispositivosVirtual){
                
                 labels.Add(d.Descripcion);
@@ -107,7 +113,6 @@ namespace Molinos.Orquest.Web.Controllers
                 activos.Add(d.Activo);
                 estados.Add(d.EstadoCorrecto);
             }
-
 
 
             return Json(new

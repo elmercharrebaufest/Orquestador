@@ -30,8 +30,7 @@ namespace Molinos.Orquest.DriversImpl
             , CodigosEventos.EntradaDesactivada
             , CodigosEventos.ErrorConexionDispositivo
             , CodigosEventos.ConexionDispositivoCorrecta
-            , CodigosEventos.CambioEstadoSensor
-            ,CodigosEventos.CambioEstadoSensorCamaraALPR };
+            , CodigosEventos.CambioEstadoSensor };
 
         public DriverSensorCamaraALPR(IServicioALPR servicioALPR)
         {

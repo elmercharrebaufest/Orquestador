@@ -12,5 +12,6 @@ namespace Molinos.Orquest.Dominio.Dtos
         public bool Activo { get; set; }
         public bool EstadoCorrecto { get; set; }
         public bool EsConcentrador { get; set; }
+        public bool TieneConcentrador { get; set; }
     }
 }
