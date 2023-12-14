@@ -145,7 +145,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (SocketException e)
                     {
-                        Log.Warn("Error de conexion al leer respuesta, intentando un nuevo ping", e);
+                        Log.Warn("Error de conexion al leer respuesta, intentando un nuevo ping");
                         cliente.ReConectar();
                         ActivarSalida(0, "\"ping\"", "0", false);
                         response = cliente.LeerNovedad();

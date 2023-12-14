@@ -6,6 +6,6 @@
 
         void EnviarMensajeIntervalo(string textoPrimario, string textoSecundario, string numeroPrograma, string numeroTrama, string numeroVariable, int intervalMilliseconds);
 
-        void DetenerIntervalo();
+        void DetenerIntervalo(string numeroPrograma, string numeroTrama, string numeroVariable);
     }
 }

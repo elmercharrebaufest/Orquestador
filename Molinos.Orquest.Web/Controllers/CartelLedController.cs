@@ -236,16 +236,19 @@ namespace Molinos.Orquest.Web.Controllers
                 log.Error(e, "Error al obtener el análisis del dispositivo {0}", codigo);
             }
 
-            return Json("Ejecutando",JsonRequestBehavior.AllowGet);
+            return Json("Ejecutando", JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult DetenerIntervalo(string codigo)
+        public ActionResult DetenerIntervalo(string codigo, string numeroPrograma, string numeroTrama, string numeroVariable)
         {
             try
             {
                 servicio.Ejecutar(new DetenerMensajeIntervalo
                 {
-                    CodigoDispositivo = codigo
+                    CodigoDispositivo = codigo,
+                    NumeroPrograma = numeroPrograma,
+                    NumeroTrama = numeroTrama,
+                    NumeroVariable = numeroVariable
                 });
             }
             catch (Exception e)

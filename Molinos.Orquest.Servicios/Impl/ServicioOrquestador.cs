@@ -495,7 +495,7 @@ namespace Molinos.Orquest.Servicios.Impl
             }
             catch (DispositivoNoEncontradoException e)
             {
-                log.Error(e, "No se encontró el dispositivo para el comando {0}", comando);
+                log.Debug(e, "DispositivoNoEncontradoException No se encontró el dispositivo para el comando {0}", comando);
                 resultadoComando = new TResultadoComando
                 {
                     Mensaje =
@@ -505,7 +505,7 @@ namespace Molinos.Orquest.Servicios.Impl
             }
             catch (DriverNoEncontradoException e)
             {
-                log.Error(e, "No se encontro el driver del dispoisitivo {0}", comando.CodigoDispositivo);
+                log.Debug(e, "DriverNoEncontradoException No se encontro el driver del dispoisitivo {0}", comando.CodigoDispositivo);
                 return new TResultadoComando
                 {
                     Mensaje = new Mensaje(Codigos.DriverNoEncontrado, Textos.ResultadoDriverNoEncontrado, e.ClaseDriver, comando.CodigoDispositivo)
@@ -513,7 +513,7 @@ namespace Molinos.Orquest.Servicios.Impl
             }
             catch (TipoDispositivoIncorrectoException e)
             {
-                log.Error(e, "El tipo de dispositivo '{0}' no concuerda el comando que se quiere ejecutar {1}", e.TipoDispositivo, comando);
+                log.Debug(e, "TipoDispositivoIncorrectoException El tipo de dispositivo '{0}' no concuerda el comando que se quiere ejecutar {1}", e.TipoDispositivo, comando);
                 return new TResultadoComando
                 {
                     Mensaje = new Mensaje(Codigos.TipoDispositivoIncorrecto, Textos.ResultadoTipoDispositivoIncorrecto, e.TipoDispositivo, comando)
@@ -521,7 +521,7 @@ namespace Molinos.Orquest.Servicios.Impl
             }
             catch (TipoDriverIncorrectoException e)
             {
-                log.Error(e, "Ocurrió un error al ejecutar el comando {0}", comando);
+                log.Debug(e, "TipoDriverIncorrectoException Ocurrió un error al ejecutar el comando {0}", comando);
                 return new TResultadoComando
                 {
                     Mensaje = new Mensaje(Codigos.TipoDriverIncorrecto, Textos.ResultadoTipoDriverIncorrecto, e.ClaseDriver, comando.CodigoDispositivo)
@@ -634,7 +634,7 @@ namespace Molinos.Orquest.Servicios.Impl
                         {
                             // Si ocurrió algún error al instanciar el procesador, liberar el dispositivo
                             repositorio.LiberarDispositivo(IdOrquestador, codigoDispositivo);
-                            log.Error(ex, "No se pudo instanciar el procesador para el dispositivo {0}", codigoDispositivo);
+                            log.Debug(ex, "No se pudo instanciar el procesador para el dispositivo {0}", codigoDispositivo);
                             throw;
                         }
                     }

@@ -101,7 +101,7 @@ namespace Molinos.Orquest.DriversImpl
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e, "Error al ConsultarBalanzada de la balanza {0}", codigoBalanzaPuerto);
+                        Log.Debug(e, "Error al ConsultarBalanzada de la balanza {0}", codigoBalanzaPuerto);
                         //Cuando no hay estado anterior se lanza el evento
                         if (!falloUltimaConexion.HasValue || !falloUltimaConexion.Value)
                         {
@@ -230,13 +230,13 @@ namespace Molinos.Orquest.DriversImpl
                     {
                         if(!IdBalanzada.HasValue || ObtenerId(consulta) == IdBalanzada.Value)
                         {
-                            Log.Info("Comando P," + IdBalanzada + " || voy a convertir");
+                            Log.Debug("Comando P," + IdBalanzada + " || voy a convertir");
 
                             var resultado = ConvertirADictionary(consulta, IdBalanzada);
-                            Log.Info("Comando P," + IdBalanzada + " || Resultado: " + resultado.Count + "voy a cachear");
+                            Log.Debug("Comando P," + IdBalanzada + " || Resultado: " + resultado.Count + "voy a cachear");
 
                             SetObjectToCache(ObtenerId(consulta) + configBalanzaPuerto.Dispositivo.Codigo, 24, consulta, Log);
-                            Log.Info("Comando P," + IdBalanzada + " || salgo");
+                            Log.Debug("Comando P," + IdBalanzada + " || salgo");
 
                             return resultado;
                         }

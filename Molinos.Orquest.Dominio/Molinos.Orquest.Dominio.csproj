@@ -105,6 +105,7 @@
     <Compile Include="Dtos\ConsultaMolinete.cs" />
     <Compile Include="Dtos\FotoConPatenteDto.cs" />
     <Compile Include="Dtos\IntercomunicadorDispositivoDto.cs" />
+    <Compile Include="Dtos\MensajeIntervaloDto.cs" />
     <Compile Include="Dtos\MeteorologicaDto.cs" />
     <Compile Include="Dtos\MonitoreoOrquestadorDto.cs" />
     <Compile Include="Entidades\ConfigGrupoBarrera.cs" />

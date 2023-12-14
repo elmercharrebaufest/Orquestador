@@ -14,7 +14,7 @@ namespace Molinos.Orquest.Servicios.Procesamiento
 
         protected override ResultadoEjecutar Ejecutar(DetenerMensajeIntervalo comando, Dispositivo dispositivo, IDriver driver)
         {
-            ((IDriverCartelLed)driver).DetenerIntervalo();
+            ((IDriverCartelLed)driver).DetenerIntervalo(comando.NumeroPrograma, comando.NumeroTrama, comando.NumeroVariable);
             return new ResultadoEjecutar { Mensaje = Mensaje.ResultadoOK() };
         }
     }

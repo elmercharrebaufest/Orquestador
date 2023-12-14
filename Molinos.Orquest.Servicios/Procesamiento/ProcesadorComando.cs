@@ -1,10 +1,10 @@
-﻿using System;
-using Molinos.Orquest.Dominio.Comandos;
+﻿using Molinos.Orquest.Dominio.Comandos;
 using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Recursos;
 using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
 using Ninject.Extensions.Logging;
+using System;
 
 namespace Molinos.Orquest.Servicios.Procesamiento
 {
@@ -52,22 +52,22 @@ namespace Molinos.Orquest.Servicios.Procesamiento
             {
                 Log.Error(e, "Falló la conexión al dispositivo {0}", dispositivo.Codigo);
                 return new TResultado
-                    {
-                        Mensaje =
+                {
+                    Mensaje =
                             new Mensaje(Codigos.ConexionDispositivo, Textos.ResultadoConexionDispositivo + e.Message,
                                         dispositivo.Codigo)
-                    };
+                };
             }
             catch (FormatoRespuestaDriverException e)
             {
                 Log.Error(e, "Formato de respuesta del dispositivo {0} incorrecto para el comando {1}",
                           dispositivo.Codigo, comando.GetType());
                 return new TResultado
-                    {
-                        Mensaje =
+                {
+                    Mensaje =
                             new Mensaje(Codigos.FormatoRespuestaDispositivo, Textos.ResultadoFormatoRespuestaDispositivo,
                                         dispositivo.Codigo, comando.GetType().Name)
-                    };
+                };
             }
             catch (LecturaEscrituraDriverException e)
             {
@@ -89,9 +89,9 @@ namespace Molinos.Orquest.Servicios.Procesamiento
             {
                 Log.Error(e, "Error al ejecutar el comando {0}", comando);
                 return new TResultado
-                    {
-                        Mensaje = new Mensaje(Codigos.Error, Textos.ResultadoError)
-                    };
+                {
+                    Mensaje = new Mensaje(Codigos.Error, Textos.ResultadoError)
+                };
             }
         }
 

@@ -12,8 +12,8 @@
         return false;
     });
 
-    $("#linkEjecutarIntervalo").click(function () {
-        event.preventDefault();
+    $("#linkEjecutarIntervalo").click(function (e) {
+        e.preventDefault();
         var url = $("#linkEjecutarIntervalo").attr("href") + "&texto=" + $('#texto').val() + "&numeroPrograma=" + $('#numeroPrograma').val() + "&numeroTrama=" + $('#numeroTrama').val() + "&numeroVariable=" + $('#numeroVariable').val() + "&textoSecundario=" + $('#textoSecundario').val() + "&intervalo=" + $('#intervalo').val();
         $("#linkEjecutarIntervalo").attr("disabled", "disabled");
         var div = $("#resultado-cartel-intervalo");
@@ -26,9 +26,9 @@
     });
 
 
-    $("#linkDetenerIntervalo").click(function () {
-        event.preventDefault();
-        var url = $("#linkDetenerIntervalo").attr("href");
+    $("#linkDetenerIntervalo").click(function (e) {
+        e.preventDefault();
+        var url = $("#linkDetenerIntervalo").attr("href") + "&numeroPrograma=" + $('#numeroPrograma').val() + "&numeroTrama=" + $('#numeroTrama').val() + "&numeroVariable=" + $('#numeroVariable').val();
         $("#linkDetenerIntervalo").attr("disabled", "disabled");
         var div = $("#resultado-cartel-intervalo");
         $.get(url, function (resultado) {
