@@ -59,39 +59,8 @@ namespace Molinos.Orquest.DriversImpl
 
         public void EnviarMensaje(string mensaje, string numeroPrograma, string numeroTrama, string numeroVariable)
         {
-            try
-            {
-                using (var cliente = new UdpCommandClient(configuracionCarteLed.DireccionIp, configuracionCarteLed.Puerto, configuracionCarteLed.LongFrase, configuracionCarteLed.TimeoutLectura, Log))
-                {
-                    //0x30 cambiar programa actual
-                    var programa = GenerarComando(null, 0x30, numeroPrograma);
-                    cliente.EnviarComando(programa);
-
-                    //0x3e seteo modo de reproduccion manual
-                    var manual = GenerarComando(null, 0x3E, "00");
-                    cliente.EnviarComando(manual);
-
-                    //0x33 seleccionar pantalla dentro del programa actual
-                    var step = GenerarComando(null, 0x33, numeroTrama);
-                    cliente.EnviarComando(step);
-
-                    //0x31 escribir una variable en la pantalla actual
-                    var comando = GenerarComando(mensaje, 0x31, numeroVariable);
-                    cliente.EnviarComando(comando);
-                }
-            }
-            catch (SocketException e)
-            {
-                throw new ConexionDispositivoDriverException(string.Format("Falló la conexión al dispositivo {0}", configuracionCarteLed), e);
-            }
-            catch (IOException e)
-            {
-                throw new ConexionDispositivoDriverException(string.Format("Falló la conexión al dispositivo {0}", configuracionCarteLed), e);
-            }
-            catch (Exception e)
-            {
-                throw new DriverException(string.Format("Error al conectarse al dispositivo {0}", configuracionCarteLed), e);
-            }
+            RemoverMensajeIntervalo(numeroPrograma, numeroTrama, numeroVariable);
+            GenerarMensajeCartelLED(mensaje, numeroPrograma, numeroTrama, numeroVariable);
         }
 
         public List<byte> GenerarComando(string dato, byte comando, string variable)
@@ -198,7 +167,7 @@ namespace Molinos.Orquest.DriversImpl
 
         public void EnviarMensajeIntervalo(string textoPrimario, string textoSecundario, string numeroPrograma, string numeroTrama, string numeroVariable, int intervalMilliseconds)
         {
-            RemoverMensajeIntevalo(numeroPrograma, numeroTrama, numeroVariable);
+            RemoverMensajeIntervalo(numeroPrograma, numeroTrama, numeroVariable);
             var fechaFinEjecucion = DateTime.Now.AddMinutes(30);
             AgregarMensajeIntevalo(numeroPrograma, numeroTrama, numeroVariable, intervalMilliseconds);
             Task.Run(() =>
@@ -207,13 +176,13 @@ namespace Molinos.Orquest.DriversImpl
                 {
                     if (DateTime.Now > fechaFinEjecucion)
                     {
-                        RemoverMensajeIntevalo(numeroPrograma, numeroTrama, numeroVariable);
+                        RemoverMensajeIntervalo(numeroPrograma, numeroTrama, numeroVariable);
                         break;
                     }
 
                     var mensajeObtenido = ObtenerMensajeIntevalo(numeroPrograma, numeroTrama, numeroVariable);
                     mensajeObtenido.MensajeActual = (mensajeObtenido.MensajeActual == textoSecundario) ? textoPrimario : textoSecundario;
-                    EnviarMensaje(mensajeObtenido.MensajeActual, mensajeObtenido.NumeroPrograma, mensajeObtenido.NumeroTrama, mensajeObtenido.NumeroVariable);
+                    GenerarMensajeCartelLED(mensajeObtenido.MensajeActual, mensajeObtenido.NumeroPrograma, mensajeObtenido.NumeroTrama, mensajeObtenido.NumeroVariable);
                     Thread.Sleep(mensajeObtenido.Intervalo);
                 }
             });
@@ -221,7 +190,7 @@ namespace Molinos.Orquest.DriversImpl
 
         public void DetenerIntervalo(string numeroPrograma, string numeroTrama, string numeroVariable)
         {
-            RemoverMensajeIntevalo(numeroPrograma, numeroTrama, numeroVariable);
+            RemoverMensajeIntervalo(numeroPrograma, numeroTrama, numeroVariable);
         }
 
         private MensajeIntervaloDto ObtenerMensajeIntevalo(string numeroPrograma, string numeroTrama, string numeroVariable)
@@ -230,7 +199,7 @@ namespace Molinos.Orquest.DriversImpl
             return mensajeIntervalo;
         }
 
-        private void RemoverMensajeIntevalo(string numeroPrograma, string numeroTrama, string numeroVariable)
+        private void RemoverMensajeIntervalo(string numeroPrograma, string numeroTrama, string numeroVariable)
         {
             var mensaje = ObtenerMensajeIntevalo(numeroPrograma, numeroTrama, numeroVariable);
             if (mensaje != null)
@@ -255,6 +224,43 @@ namespace Molinos.Orquest.DriversImpl
                 };
                 mensajeIntevaloList.Add(mensaje);
                 Log.Info($"DriverCartelLed_MultiledV2  Se agrego mensaje a lista: {codigoCartelLed}, {mensajeIntevaloList.Count}");              
+            }
+        }
+
+        private void GenerarMensajeCartelLED(string mensaje, string numeroPrograma, string numeroTrama, string numeroVariable)
+        {
+            try
+            {
+                using (var cliente = new UdpCommandClient(configuracionCarteLed.DireccionIp, configuracionCarteLed.Puerto, configuracionCarteLed.LongFrase, configuracionCarteLed.TimeoutLectura, Log))
+                {
+                    //0x30 cambiar programa actual
+                    var programa = GenerarComando(null, 0x30, numeroPrograma);
+                    cliente.EnviarComando(programa);
+
+                    //0x3e seteo modo de reproduccion manual
+                    var manual = GenerarComando(null, 0x3E, "00");
+                    cliente.EnviarComando(manual);
+
+                    //0x33 seleccionar pantalla dentro del programa actual
+                    var step = GenerarComando(null, 0x33, numeroTrama);
+                    cliente.EnviarComando(step);
+
+                    //0x31 escribir una variable en la pantalla actual
+                    var comando = GenerarComando(mensaje, 0x31, numeroVariable);
+                    cliente.EnviarComando(comando);
+                }
+            }
+            catch (SocketException e)
+            {
+                throw new ConexionDispositivoDriverException(string.Format("Falló la conexión al dispositivo {0}", configuracionCarteLed), e);
+            }
+            catch (IOException e)
+            {
+                throw new ConexionDispositivoDriverException(string.Format("Falló la conexión al dispositivo {0}", configuracionCarteLed), e);
+            }
+            catch (Exception e)
+            {
+                throw new DriverException(string.Format("Error al conectarse al dispositivo {0}", configuracionCarteLed), e);
             }
         }
     }
