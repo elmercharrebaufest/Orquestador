@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Molinos.Orquest.DriversImpl
 {
+    [Obsolete("Driver en Deshuso - Reemplazado por DriverCartelMultiledV2")]
     public class DriverCartelLed : DriverBase, IDriverCartelLed
     {
         private string codigoCartelLed;
