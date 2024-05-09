@@ -13,7 +13,7 @@
     <OrquestadorService>SCATO - Orquestador de Dispositivos</OrquestadorService>
     
     <User>molinosagro\GScatoSRV_qa</User>
-    <UserPassword>MOAscatoqa16</UserPassword>
+    <UserPassword>CompuTele2345!</UserPassword>
 
     <RemoteMachine>GSLOSCATOAPQ00</RemoteMachine>
     <DeployPath>//GSLOSCATOAPQ00/Orquestador</DeployPath>
