@@ -110,7 +110,10 @@ namespace Molinos.Orquest.Servidor
         private void CreateKernel()
         {
             KernelInstance = new StandardKernel();
-            KernelInstance.Load(new OrquestNinjectModule());
+
+            var orquestNinjectModule = new OrquestNinjectModule();
+            orquestNinjectModule.AppConfig["maxNotificacions"] = ConfigurationManager.AppSettings["maxNotificacions"];
+            KernelInstance.Load(orquestNinjectModule);
         }
 
         private void DisposeKernel()

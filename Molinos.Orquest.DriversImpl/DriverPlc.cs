@@ -127,18 +127,19 @@ namespace Molinos.Orquest.DriversImpl
                 var largoTrama = 9;
                 var cantidadDeBytesConDatos = bytesRespuesta[largoTrama - 1];
                 var entrada = 0;
-                if ((estadoAnterior == null && bytesRespuesta != null) || bytesRespuesta[largoTrama] != estadoAnterior[largoTrama])
-                {
-                    var datos = bytesRespuesta.ToList();
-                    datos.RemoveRange(0, largoTrama);
+                // Se remueve por desuso, ya no se utiliza desde Scato
+                //if ((estadoAnterior == null && bytesRespuesta != null) || bytesRespuesta[largoTrama] != estadoAnterior[largoTrama])
+                //{
+                //    var datos = bytesRespuesta.ToList();
+                //    datos.RemoveRange(0, largoTrama);
 
-                    var texto = new List<string>();
-                    foreach (var item in datos)
-                    {
-                        texto.Add(item.ToString("X").PadLeft(2, '0'));
-                    }
-                    NotificarEventoEntrada(0, CodigosEventos.CambioEstadoSensor, string.Join("-", texto));
-                }
+                //    var texto = new List<string>();
+                //    foreach (var item in datos)
+                //    {
+                //        texto.Add(item.ToString("X").PadLeft(2, '0'));
+                //    }
+                //    NotificarEventoEntrada(0, CodigosEventos.CambioEstadoSensor, string.Join("-", texto));
+                //}
                 if (bytesRespuesta.Length > largoTrama && cantidadDeBytesConDatos > 0)
                 {
                     var indiceFinalDeDatos = cantidadDeBytesConDatos + largoTrama - 1;

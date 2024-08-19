@@ -113,7 +113,10 @@
     <Compile Include="IDriverFactory.cs" />
     <Compile Include="Impl\AdministradorSuscripciones.cs" />
     <Compile Include="Impl\ChannelExtensions.cs" />
+    <Compile Include="Impl\ControlDeNotificaciones.cs" />
+    <Compile Include="Impl\ControlDeNotificacionesDispositivo.cs" />
     <Compile Include="Impl\DriverFactory.cs" />
+    <Compile Include="Impl\IControlDeNotificacionesDispositivo.cs" />
     <Compile Include="Impl\NamedLocker.cs" />
     <Compile Include="Impl\ProcesadorFactory.cs" />
     <Compile Include="Impl\ProgramadorTareas.cs" />
