@@ -1,6 +1,6 @@
 ﻿using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Drivers;
-using Molinos.Orquest.DriversImpl.ServicioALPR;
+using Molinos.Orquest.DriversImpl.Helpers;
 using System;
 using System.Configuration;
 using System.Drawing;
@@ -14,12 +14,9 @@ namespace Molinos.Orquest.DriversImpl
 {
     public class DriverCamaraALPRDummy : DriverCamara, IDriverCamara
     {
-        public DriverCamaraALPRDummy(IServicioALPR servicioALPR)
+        public DriverCamaraALPRDummy()
         {
-            this.servicioALPR = servicioALPR;
         }
-
-        private readonly IServicioALPR servicioALPR;
 
         public override Type TipoDispositivo
         {
@@ -61,7 +58,10 @@ namespace Molinos.Orquest.DriversImpl
             {
                 try
                 {
-                    var resultadoALPR = servicioALPR.LeerPatente(imagen, configCamara.MargenIzquierdo ?? 0, configCamara.MargenDerecho ?? 0, configCamara.MargenSuperior ?? 0, configCamara.MargenInferior ?? 0);
+                    var resultadoALPR = ALPRConnectionHelper.CreateChannel(channel =>
+                    {
+                        return channel.LeerPatente(imagen, configCamara.MargenIzquierdo ?? 0, configCamara.MargenDerecho ?? 0, configCamara.MargenSuperior ?? 0, configCamara.MargenInferior ?? 0);
+                    });
                     resultado.Patente = resultadoALPR.Patente;
                     resultado.Confianza = resultadoALPR.Confianza;
                     if (resultadoALPR.Mensaje != null)
