@@ -45,7 +45,7 @@ namespace Molinos.Orquest.DriversImpl
                     var resultadoALPR = ALPRConnectionHelper.CreateChannel(channel =>
                     {
                         return channel.LeerPatente(imagen, configCamara.MargenIzquierdo ?? 0, configCamara.MargenDerecho ?? 0, configCamara.MargenSuperior ?? 0, configCamara.MargenInferior ?? 0);
-                    });
+                    }, Log);
 
                     if (resultadoALPR != null)
                     {
