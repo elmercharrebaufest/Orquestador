@@ -39,7 +39,6 @@ namespace Molinos.Orquest.Dependencias
 
             Bind<DbContext>().To<OrquestadorDbContext>().InTransientScope();
             Bind<IRepositorio>().To<RepositorioEF>().InTransientScope();
-            this.BindChannelFactory<IServicioALPR>("ServicioALPR");
 
             Bind<IServicioOrquestadorSAP, ServicioOrquestadorSAP>().To<ServicioOrquestadorSAP>().InSingletonScope();
             Bind<IServicioOrquestador, ServicioOrquestador>().To<ServicioOrquestador>().InSingletonScope();

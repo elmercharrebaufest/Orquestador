@@ -2,7 +2,7 @@
 using Molinos.Orquest.Dominio.Helpers;
 using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
-using Molinos.Orquest.DriversImpl.ServicioALPR;
+using Molinos.Orquest.DriversImpl.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,7 +17,6 @@ namespace Molinos.Orquest.DriversImpl
 {
     public class DriverSensorCamaraALPRDummy : DriverBase, IDriverSensor, IDriverLogico
     {
-        private readonly IServicioALPR servicioALPR;
         private IDriverItc driverItc;
 
         private string codigoDispositivo;
@@ -34,9 +33,8 @@ namespace Molinos.Orquest.DriversImpl
             , CodigosEventos.ConexionDispositivoCorrecta
             ,CodigosEventos.CambioEstadoSensorCamaraALPR };
 
-        public DriverSensorCamaraALPRDummy(IServicioALPR servicioALPR)
+        public DriverSensorCamaraALPRDummy()
         {
-            this.servicioALPR = servicioALPR;
         }
 
         public override IEnumerable<string> EventosSoportados
@@ -163,7 +161,10 @@ namespace Molinos.Orquest.DriversImpl
         private ResultadoObtenerPatente LlamarALPR(byte[] imagen)
         {
             var resultadoObtenerPatente = new ResultadoObtenerPatente();
-            var resultadoALPR = servicioALPR.LeerPatente(imagen, configCamara.MargenIzquierdo ?? 0, configCamara.MargenDerecho ?? 0, configCamara.MargenSuperior ?? 0, configCamara.MargenInferior ?? 0);
+            var resultadoALPR = ALPRConnectionHelper.CreateChannel(channel =>
+            {
+                return channel.LeerPatente(imagen, configCamara.MargenIzquierdo ?? 0, configCamara.MargenDerecho ?? 0, configCamara.MargenSuperior ?? 0, configCamara.MargenInferior ?? 0);
+            }, Log);
             resultadoObtenerPatente.Imagen = resultadoALPR.Imagen;
             resultadoObtenerPatente.Confianza = resultadoALPR.Confianza;
             resultadoObtenerPatente.Patente = resultadoALPR.Patente;
