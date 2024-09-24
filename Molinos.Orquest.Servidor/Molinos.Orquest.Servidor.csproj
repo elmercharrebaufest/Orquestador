@@ -168,9 +168,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.ASVWUSCATO00.config" />
-    <None Include="App.AVVWHSCATAPP00.config" />
-    <None Include="App.AVVWHSCATAPP00_PRD.config" />
+    <None Include="App.ASVWUSCATO00.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="App.AVVWHSCATAPP00.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="App.AVVWHSCATAPP00_PRD.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
