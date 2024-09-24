@@ -168,6 +168,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.ASVWUSCATO00.config" />
+    <None Include="App.AVVWHSCATAPP00.config" />
+    <None Include="App.AVVWHSCATAPP00_PRD.config" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
