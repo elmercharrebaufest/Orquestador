@@ -405,6 +405,7 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="gsloaccesos01.DeployParameters.xml" />
+    <Content Include="SCATOUAT.DeployParameters.xml" />
     <Content Include="Scripts\area\shared\intercomunicador.js" />
     <Content Include="Scripts\asignarpantallapuestodevianda.CrearModificar.js" />
     <Content Include="Scripts\bootstrap-filestyle.min.js" />
