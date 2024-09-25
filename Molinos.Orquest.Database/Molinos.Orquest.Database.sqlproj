@@ -120,6 +120,7 @@
     <None Include="Scripts\DispositivosPrueba.sql" />
     <Build Include="dbo\Tables\Firma.sql" />
     <None Include="Molinos.Orquest.Database.ASVWUSCATO00.publish.xml" />
+    <None Include="Molinos.Orquest.Database.MoaOrquestadorAccesosQA.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Datos Base.sql" />

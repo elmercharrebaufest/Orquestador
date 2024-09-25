@@ -210,6 +210,9 @@
     <None Include="App.GSLOSCATOOPSQA00.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="App.ARSFVSQWACAPP00.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="App.GVICSCATOAPP.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

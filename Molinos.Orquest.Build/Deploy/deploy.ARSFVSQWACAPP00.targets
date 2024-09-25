@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+	<PropertyGroup>
+    
+    <ExtensionTasksPath>$(MSBuildExtensionsPath)\ExtensionPack\4.0\</ExtensionTasksPath>
+
+    <Reintentos>1</Reintentos>
+    <PackageServidor>$(MSBuildProjectDirectory)\package</PackageServidor>
+    <AppConfig>$(MSBuildProjectDirectory)\package\App.ARSFVSQWACAPP00.config</AppConfig>
+    
+    <Exe>Molinos.Orquest.Servidor.exe</Exe>
+    <OrquestadorService>SCATO - Orquestador de Dispositivos</OrquestadorService>
+    
+    <User>molinosagro\UsrSvcAccesosOrqQA</User>
+    <UserPassword>EMsr*tS%SRO_EL5PqVXR</UserPassword>
+
+    <RemoteMachine>ARSFVSQWACAPP00</RemoteMachine>
+    <DeployPath>//ARSFVSQWACAPP00/Orquestador</DeployPath>
+    <LocalPath>f:/Orquestador</LocalPath>
+    
+    
+  </PropertyGroup>
+  
+</Project>
+<!--CONFIG ORQUESTADOR ACCESOS QA-->
