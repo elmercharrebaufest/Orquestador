@@ -17,7 +17,7 @@
 
     <RemoteMachine>ARSFVSQWACAPP00</RemoteMachine>
     <DeployPath>//ARSFVSQWACAPP00/Orquestador</DeployPath>
-    <LocalPath>f:/Orquestador</LocalPath>
+    <LocalPath>G:/Orquestador</LocalPath>
     
     
   </PropertyGroup>
