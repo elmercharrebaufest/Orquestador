@@ -279,6 +279,7 @@
     <Content Include="GSLOSCATOAPP01.DeployParameters.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="SCATOUAT.DeployParameters.xml" />
     <Content Include="ServicioALPR.svc" />
     <Content Include="GSLOSCATOAPP00.DeployParameters.xml">
       <SubType>Designer</SubType>

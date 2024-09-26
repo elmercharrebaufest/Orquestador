@@ -119,6 +119,7 @@
     <None Include="Molinos.Orquest.Database.GVICSQLTEST2016.publish.xml" />
     <None Include="Scripts\DispositivosPrueba.sql" />
     <Build Include="dbo\Tables\Firma.sql" />
+    <None Include="Molinos.Orquest.Database.ASVWUSCATO00.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Datos Base.sql" />
