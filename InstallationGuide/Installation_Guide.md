@@ -9,21 +9,48 @@ Prerequisitos
 - Software de base con versiones
    Versión de IIS
    Framework
+   msdeploy
+
 - Puertos 
-- Roles and Features
+
+- Roles and Features 
+
+   - Correr script ps1 para la instalacion de roles y features necesarios. 
+
 - Usuarios y Roles
-- Carpetas compartidas
-- Permisos necesarios
+   -UsrSvcAccesosOrqQA (Usuario de aplicacion, utilizado para correr el Application Pool, por el momento Admin)
+   -UsrSvcTFSAccesosOrqQA (Usuario de servicio utilizado para desplegar desde TFS, Rol Admin).
+
 
 Instalación
+
 Orquestador
+
+- Carpetas compartidas 
+   -Crear carpeta compartida necesaria para poder desplegar el servicio Orquestador, \\Servername\Orquestador
+
+   - Otogarle permisos read/write al usuario molinosagro\tfs_servicio a la carpeta compartida "\\Servername\Orquestador" para que pueda realizar remove/copy cuando se despliega el servicio. (Ver de realizarlo por PS)
+
+- Desplegar pipeline CD (OrquestadorQA - Accesos).
+
+
 Orquest Web
-- Desde cero
-  Prerequisitos
-   - Crear carpetas
-   - ... Sino ejecutar script ".ps"
-- Redespliegues
+
+- Crear directorios de aplicacion
+- Crear Application Pool
+- Crear Site "Scato"
+- Crear Virtual Aplicattion "Scato/Orquest.web"
+
+Correr script powershell moa_create_site_apppooll_IIS.ps1
+
+- Configurar en el IIS metodo de autenticacion a mano. (Ver de incoporarlo al script)
+- Desplegar pipeline CD (OrquestadorQA - Accesos).
+
+
+- Despliegues
  - Ejecutar el pipeline
+
+
 Base de Datos
 
 
@@ -110,10 +137,8 @@ Base de Datos
    sc config msdepsvc start= auto
    ```
 
-### Paso 5: Configurar permisos para el usuario de despliegue
 
-
-### Paso 6: Configurar el firewall
+### Paso 6: Verificar el firewall
 
 2. **Verificar reglas de firewall**:
    - Aseg�rate de que la regla de firewall permita las conexiones entrantes en el puerto **80** para **MSDEPLOYAGENTSERVICE**.
