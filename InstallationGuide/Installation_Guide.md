@@ -1,154 +1,151 @@
-Nombre Aplicación Orquestador
+# Nombre Aplicación: Orquestador
 
-Ambiente QA
-- Servidor
+### Servidor QA
+- ARSFVSQWACAPP00
 
-Prerequisitos
-- SO
-   Windows 2022 
-- Software de base con versiones
-   Versión de IIS
-   Framework
-   msdeploy
+### Servidor PROD
+- POR ASIGNAR
 
-- Puertos 
+### Prerrequisitos
+- **SO**:  
+  - Windows Server 2022  
+- **Software base con versiones**:  
+  - Internet Information Services (Version 10.0.20348.1)
+  - msdeploy
 
-- Roles and Features 
+### Puertos
 
-   - Correr script ps1 para la instalacion de roles y features necesarios. 
+- **(80)**: Utilizado para el acceso web general.  
+- **(443)**: Utilizado para el acceso web seguro.  
+- **(8081)**: Utilizado para el servicio net.tcp. (Comunicación entre Orquestadores)  
+- **(8080)**: Utilizado para los servicios expuestos del Orquestador/ServicioSuscriptor.  
+- **(8889)**: Utilizado para los servicios a interactuar del Intercomunicador.  
 
-- Usuarios y Roles
-   -UsrSvcAccesosOrqQA (Usuario de aplicacion, utilizado para correr el Application Pool, por el momento Admin)
-   -UsrSvcTFSAccesosOrqQA (Usuario de servicio utilizado para desplegar desde TFS, Rol Admin).
+### Puertos de Cámaras
 
+#### PROD
+- (10006, 10008, 10010, 10011, 10012, 10021, 10023, 10024, 10027, 10041, 10043, 10046, 10047, 10064, 10065, 10079, 10082, 10087, 10093, 10094, 10095, 10111, 10116, 10122, 10123, 10125, 10138, 10139, 10140, 10141, 10142, 10143, 10144, 10145, 10146, 10147, 10148, 10164, 10172, 10179, 10180, 10182, 10185, 10189, 10190, 10201, 10208, 10209, 10210, 10211, 10212, 10237, 10238, 10239, 10240, 10241, 10242, 10247, 10248, 10257).  
 
-Instalación
+#### QA
+- (6666).
 
-Orquestador
+### Usuarios y Roles QA
+- **UsrSvcAccesosOrqQA**: Usuario de aplicación, utilizado para correr el Application Pool para la conexión con la DB, por el momento Admin.  
+- **UsrSvcTFSAccesosOrqQA**: Usuario de servicio utilizado para desplegar desde TFS, Rol Admin.  
 
-- Carpetas compartidas 
-   -Crear carpeta compartida necesaria para poder desplegar el servicio Orquestador, \\Servername\Orquestador
-
-   - Otogarle permisos read/write al usuario molinosagro\tfs_servicio a la carpeta compartida "\\Servername\Orquestador" para que pueda realizar remove/copy cuando se despliega el servicio. (Ver de realizarlo por PS)
-
-- Desplegar pipeline CD (OrquestadorQA - Accesos).
-
-
-Orquest Web
-
-- Crear directorios de aplicacion
-- Crear Application Pool
-- Crear Site "Scato"
-- Crear Virtual Aplicattion "Scato/Orquest.web"
-
-Correr script powershell moa_create_site_apppooll_IIS.ps1
-
-- Configurar en el IIS metodo de autenticacion a mano. (Ver de incoporarlo al script)
-- Desplegar pipeline CD (OrquestadorQA - Accesos).
+### Usuarios y Roles PROD
+- **UsrSvcAccesosOrqPRD**: Usuario de aplicación, utilizado para correr el Application Pool para la conexión con la DB, por el momento Admin.  
+- **UsrSvcTFSAccesosOrqPRD**: Usuario de servicio utilizado para desplegar desde TFS, Rol Admin.  
 
 
-- Despliegues
- - Ejecutar el pipeline
+### Roles and Features  
+- Correr script `ps1` para la instalación de roles y features necesarios.  
+---
 
+## Instalación
 
-Base de Datos
+### Orquestador
 
+- **Carpetas compartidas**  
+  - Crear carpeta compartida necesaria para poder desplegar el servicio Orquestador, `\\Servername\Orquestador` (G:\Orquestador).  
+  - Otorgarle permisos read/write al usuario `molinosagro\tfs_servicio` (tfs_servicio representa la cuenta con la que corre el agente) a la carpeta compartida `\\Servername\Orquestador` para que pueda realizar remove/copy cuando se despliega el servicio. (Ver de realizarlo por PS).
 
-### Paso 1: Instalar el rol de IIS y habilitar las caracter�sticas necesarias
+- **Desplegar pipeline CD**  
+  - (OrquestadorQA - Accesos).  
+
+### Orquest Web
+
+- Crear directorios de aplicación.  
+- Crear Application Pool.  
+- Crear Site "Scato".  
+- Crear Virtual Application "Scato/Orquest.web" apuntando a la carpeta G:\Scato\Orquest.web.  
+
+- Correr script PowerShell `moa_create_site_apppooll_IIS.ps1`.  
+- Configurar en el IIS el método de autenticación a mano (ver de incorporarlo al script).  
+- Desplegar pipeline CD (OrquestadorQA - Accesos).  
+
+### Despliegues
+- Ejecutar el pipeline.
+
+### Instalar el rol de IIS y habilitar las características necesarias
 
 1. **Abrir Server Manager**:
-   - Haz clic en el �cono de **Server Manager** en la barra de tareas o abre desde el men� de inicio.
+   - Haz clic en el icono de **Server Manager** en la barra de tareas o abre desde el menú de inicio.
 
-2. **Agregar roles y caracter�sticas**:
-   - En el panel de Server Manager, selecciona **Agregar roles y caracter�sticas**.
-   - En el asistente que aparece, haz clic en **Siguiente** hasta llegar a la selecci�n de roles.
+2. **Agregar roles y características**:
+   - En el panel de Server Manager, selecciona **Agregar roles y características**.
+   - En el asistente que aparece, haz clic en **Siguiente** hasta llegar a la selección de roles.
 
 3. **Seleccionar el rol de IIS (Servidor Web)**:
-   - Marca la casilla de **Servidor Web (IIS)** y contin�a haciendo clic en **Siguiente**.
-   - En la secci�n de **Caracter�sticas**, no es necesario agregar ninguna adicional en este paso, as� que sigue avanzando.
+   - Marca la casilla de **Servidor Web (IIS)** y continúa haciendo clic en **Siguiente**.
+   - En la sección de **Caracteristicas**, no es necesario agregar ninguna adicional en este paso, así que sigue avanzando.
 
-4. **Seleccionar las caracter�sticas de IIS**:
-   - En la p�gina de selecci�n de **Servicios de Rol**, aseg�rate de habilitar las siguientes caracter�sticas:
-     - **Funciones HTTP comunes**:
-       - `Documentos predeterminados`
-       - `Redirecci�n de HTTP` (si lo necesitas)
+4. **Seleccionar las caracteristicas de IIS**:
+   - En la página de selección de **Servicios de Rol**, asegúrate de habilitar las siguientes caracteristicas:
      - **Desarrollo de aplicaciones**:
-       - `ASP.NET 4.5`
-       - `Extensiones .NET Framework 4.5`
+       - `ASP.NET 4.8`
+       - `Net Extensibility 4.8`
        - `ISAPI Extensions`
        - `ISAPI Filters`
      - **Seguridad**:
        - `Windows Authentication`
-     - **Herramientas de administraci�n**:
-       - `Console de administraci�n de IIS`
+     - **Herramientas de administracion**:
+       - `Consola de administración de IIS`
        - `IIS Management Scripts and Tools`
      - **Compatibilidad con versiones anteriores**:
-       - `Compatibilidad con IIS 6 Metabase y configuraci�n` (necesario para algunas funciones de compatibilidad con versiones anteriores y Web Deploy).
+       - `Compatibilidad con IIS 6 Metabase y configuración` (necesario para algunas funciones de compatibilidad con versiones anteriores y Web Deploy).
 
 5. **Instalar el rol**:
-   - Haz clic en **Instalar** para comenzar la instalaci�n del rol de IIS con las caracter�sticas seleccionadas.
+   - Haz clic en **Instalar** para comenzar la instalación del rol de IIS con las características seleccionadas.
 
-### Paso 2: Instalar .NET Framework 4.5 y los componentes necesarios
+5. **Instalar features**:
+   -  **Net Framework 3.5 Features**:
+   -  **Net Framework 4.8 Features**:
+      - `HTTP - Activation`
 
-1. **Instalar .NET Framework 4.5**:
-   - Aseg�rate de que **.NET Framework 4.5** est� instalado en el servidor. Si no est� instalado, puedes agregarlo usando el mismo asistente de **Agregar roles y caracter�sticas**.
-   - En la secci�n de **Caracter�sticas**, selecciona `.NET Framework 4.5` si no est� ya habilitado.
 
-2. **Instalar el paquete de .NET Framework 4.5** (si no est� presente):
-   - Descarga el instalador de `.NET Framework 4.5` desde el sitio de Microsoft si no est� ya instalado y sigue los pasos para su instalaci�n.
-
-### Paso 3: Instalar Web Deploy
+### Instalar Web Deploy
 
 1. **Descargar Web Deploy 3.6**:
-   - Descarga la versi�n m�s reciente de **Web Deploy** desde el [sitio oficial de Microsoft](https://www.iis.net/downloads/microsoft/web-deploy).
-   - Elige la opci�n **Web Deploy 3.x** que sea compatible con tu servidor (en general, 3.6 es compatible con Windows Server 2022).
+   - Descarga la versión más reciente de **Web Deploy** desde el [sitio oficial de Microsoft](https://www.iis.net/downloads/microsoft/web-deploy).
+   - Elige la opción **Web Deploy 3.x** que sea compatible con tu servidor (en general, 3.6 es compatible con Windows Server 2022).
 
 2. **Instalar Web Deploy**:
-   - Durante la instalaci�n, selecciona las siguientes opciones:
-     - **IIS Deployment Handler**: Para permitir despliegues autom�ticos a IIS.
+   - Durante la instalación, selecciona las siguientes opciones:
+     - **IIS Deployment Handler**: Para permitir despliegues automáticos a IIS.
      - **Remote Agent Service**: Para habilitar el servicio de agente remoto (**MSDeployAgentService**) que permite despliegues remotos.
-     - **Client**: Si tambi�n deseas que el servidor pueda realizar despliegues hacia otros servidores.
+     - **Client**: Si también deseas que el servidor pueda realizar despliegues hacia otros servidores.
 
-3. **Finalizar la instalaci�n**:
-   - Completa la instalaci�n y aseg�rate de que Web Deploy se haya instalado correctamente.
+3. **Finalizar la instalación**:
+   - Completa la instalación y asegúrate de que Web Deploy se haya instalado correctamente.
 
-### Paso 4: Configurar MSDeployAgentService (Web Deployment Agent Service)
+### Configurar MSDeployAgentService (Web Deployment Agent Service)
 
-1. **Verificar que el servicio de Web Deploy est� habilitado**:
-   - Abre una terminal de comandos como administrador y ejecuta el siguiente comando para verificar que el servicio de **MSDeployAgentService** est� habilitado:
+1. **Verificar que el servicio de Web Deploy está habilitada**:
+   - Abre una terminal de comandos como administrador y ejecuta el siguiente comando para verificar que el servicio de **MSDeployAgentService** este habilitado:
 
    ```cmd
    sc query msdepsvc
    ```
 
-   Esto deber�a mostrar que el servicio **MSDEPLOYAGENTSERVICE** est� en estado **RUNNING**.
+   Esto debería mostrar que el servicio **MSDEPLOYAGENTSERVICE** está en estado **RUNNING**.
 
-2. **Iniciar el servicio si no est� en ejecuci�n**:
-   - Si el servicio no est� ejecut�ndose, puedes iniciarlo manualmente:
+2. **Iniciar el servicio si no está en ejecución**:
+   - Si el servicio no está ejecutándose, puedes iniciarlo manualmente:
 
    ```cmd
    net start msdepsvc
    ```
 
-3. **Configurar el servicio para que se inicie autom�ticamente**:
-   - Para asegurarte de que el servicio est� siempre disponible despu�s de reiniciar el servidor, config�ralo para que se inicie autom�ticamente:
+3. **Configurar el servicio para que se inicie automáticamente**:
+   - Para asegurarte de que el servicio está siempre disponible después de reiniciar el servidor, configúralo para que se inicie automáticamente:
 
    ```cmd
    sc config msdepsvc start= auto
    ```
 
+### Verificar el firewall
 
-### Paso 6: Verificar el firewall
+1. **Verificar reglas de firewall**:
+   - Asegúrate de que la regla de firewall permita las conexiones entrantes en el puerto **80** para **MSDEPLOYAGENTSERVICE**.
 
-2. **Verificar reglas de firewall**:
-   - Aseg�rate de que la regla de firewall permita las conexiones entrantes en el puerto **80** para **MSDEPLOYAGENTSERVICE**.
-
-### Paso 7: Desplegar la aplicaci�n 
-
-### Resumen:
-
-1. Instalar IIS con las caracter�sticas necesarias para .NET 4.5.
-2. Instalar Web Deploy y habilitar **MSDeployAgentService**.
-3. Configurar permisos para el usuario de despliegue (administrador o **Web Deploy Administrators**).
-4. Asegurar que el puerto 80 est� habilitado en el firewall.
-5. Ejecutar pipeline CD OrquestadorPRD - Accesos
