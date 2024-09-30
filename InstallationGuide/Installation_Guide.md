@@ -20,6 +20,9 @@
 - **(8081)**: Utilizado para el servicio net.tcp. (Comunicación entre Orquestadores)  
 - **(8080)**: Utilizado para los servicios expuestos del Orquestador/ServicioSuscriptor.  
 - **(8889)**: Utilizado para los servicios a interactuar del Intercomunicador.  
+- **(445)**: Utilizado para el servicio SMB cuando se despliega el servicio orquestador y realiza una copia al directorio compartido G:\Orquestador.
+- **(135)**: (RPC Endpoint Mapper) Usado para iniciar la conexión remota a servicios de Windows desde TFS.
+- **(49152-65535)**: Puertos dinámicos usados después de que se negocia la conexión inicial con RPC.
 
 ### Puertos de Cámaras
 
