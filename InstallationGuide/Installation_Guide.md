@@ -1,4 +1,4 @@
-# Nombre Aplicación: Orquestador
+# Guía de instalación "Servicio Orquestador de Dispositivos"
 
 ### Servidor QA
 - ARSFVSQWACAPP00
@@ -14,7 +14,7 @@
   - msdeploy
 
 ### Puertos
-
+Asegurarse de que la regla de firewall permita las conexiones entrantes en los siguientes puertos
 - **(80)**: Utilizado para el acceso web general.  
 - **(443)**: Utilizado para el acceso web seguro.  
 - **(8081)**: Utilizado para el servicio net.tcp. (Comunicación entre Orquestadores)  
@@ -26,52 +26,29 @@
 
 ### Puertos de Cámaras
 
-#### PROD
-- (10006, 10008, 10010, 10011, 10012, 10021, 10023, 10024, 10027, 10041, 10043, 10046, 10047, 10064, 10065, 10079, 10082, 10087, 10093, 10094, 10095, 10111, 10116, 10122, 10123, 10125, 10138, 10139, 10140, 10141, 10142, 10143, 10144, 10145, 10146, 10147, 10148, 10164, 10172, 10179, 10180, 10182, 10185, 10189, 10190, 10201, 10208, 10209, 10210, 10211, 10212, 10237, 10238, 10239, 10240, 10241, 10242, 10247, 10248, 10257).  
-
 #### QA
 - (6666).
 
+#### PROD
+- (10006, 10008, 10010, 10011, 10012, 10021, 10023, 10024, 10027, 10041, 10043, 10046, 10047, 10064, 10065, 10079, 10082, 10087, 10093, 10094, 10095, 10111, 10116, 10122, 10123, 10125, 10138, 10139, 10140, 10141, 10142, 10143, 10144, 10145, 10146, 10147, 10148, 10164, 10172, 10179, 10180, 10182, 10185, 10189, 10190, 10201, 10208, 10209, 10210, 10211, 10212, 10237, 10238, 10239, 10240, 10241, 10242, 10247, 10248, 10257).  
+
+
 ### Usuarios y Roles QA
-- **UsrSvcAccesosOrqQA**: Usuario de aplicación, utilizado para correr el Application Pool para la conexión con la DB, por el momento Admin.  
-- **UsrSvcTFSAccesosOrqQA**: Usuario de servicio utilizado para desplegar desde TFS, Rol Admin.  
+- **MOLINOSAGRO\UsrSvcAccesosOrqQA**: Usuario de aplicación, utilizado para correr el Application Pool para la conexión con la DB, por el momento Admin.
+- **MOLINOSAGRO\UsrSvcTFSAccesosOrqQA**: Usuario de servicio utilizado para desplegar desde TFS, Rol Admin.
 
 ### Usuarios y Roles PROD
-- **UsrSvcAccesosOrqPRD**: Usuario de aplicación, utilizado para correr el Application Pool para la conexión con la DB, por el momento Admin.  
-- **UsrSvcTFSAccesosOrqPRD**: Usuario de servicio utilizado para desplegar desde TFS, Rol Admin.  
+- **MOLINOSAGRO\UsrSvcAccesosOrqPRD**: Usuario de aplicación, utilizado para correr el Application Pool para la conexión con la DB, por el momento Admin.
+- **MOLINOSAGRO\UsrSvcTFSAccesosOrqPRD**: Usuario de servicio utilizado para desplegar desde TFS, Rol Admin.
 
 
-### Roles and Features  
-- Correr script `ps1` para la instalación de roles y features necesarios.  
----
+### Roles and Features
+Para que se pueda crear el sitio web para Orquest.web se requieren ciertos prerequisitos. A continuación, se explicitan 2 maneras de hacerlo: Una automatizada ejecutando un script Powershell y otra de forma manual, con el paso a paso a paso
 
-## Instalación
+#### Ejecución automática  
+- Ejecutar el script `Install-RolesAndFeatures.ps1`, con permisos de administrador, para la instalación de roles y features necesarios.
 
-### Orquestador
-
-- **Carpetas compartidas**  
-  - Crear carpeta compartida necesaria para poder desplegar el servicio Orquestador, `\\Servername\Orquestador` (G:\Orquestador).  
-  - Otorgarle permisos read/write al usuario `molinosagro\tfs_servicio` (tfs_servicio representa la cuenta con la que corre el agente) a la carpeta compartida `\\Servername\Orquestador` para que pueda realizar remove/copy cuando se despliega el servicio. (Ver de realizarlo por PS).
-
-- **Desplegar pipeline CD**  
-  - (OrquestadorQA - Accesos).  
-
-### Orquest Web
-
-- Crear directorios de aplicación.  
-- Crear Application Pool.  
-- Crear Site "Scato".  
-- Crear Virtual Application "Scato/Orquest.web" apuntando a la carpeta G:\Scato\Orquest.web.  
-
-- Correr script PowerShell `moa_create_site_apppooll_IIS.ps1`.  
-- Configurar en el IIS el método de autenticación a mano (ver de incorporarlo al script).  
-- Desplegar pipeline CD (OrquestadorQA - Accesos).  
-
-### Despliegues
-- Ejecutar el pipeline.
-
-### Instalar el rol de IIS y habilitar las características necesarias
-
+#### Ejecución manual 
 1. **Abrir Server Manager**:
    - Haz clic en el icono de **Server Manager** en la barra de tareas o abre desde el menú de inicio.
 
@@ -105,10 +82,15 @@
    -  **Net Framework 3.5 Features**:
    -  **Net Framework 4.8 Features**:
       - `HTTP - Activation`
-
+---
 
 ### Instalar Web Deploy
+Además, se requiere la instalación de Web Deploy. A continuación, se explicitan 2 maneras de hacerlo: Una automatizada ejecutando un script Powershell y otra de forma manual, con el paso a paso a paso
 
+#### Ejecución automática
+- Ejecutar el script `Install-MSDeploy.ps1`, con permisos de administrador.
+
+#### Ejecución manual
 1. **Descargar Web Deploy 3.6**:
    - Descarga la versión más reciente de **Web Deploy** desde el [sitio oficial de Microsoft](https://www.iis.net/downloads/microsoft/web-deploy).
    - Elige la opción **Web Deploy 3.x** que sea compatible con tu servidor (en general, 3.6 es compatible con Windows Server 2022).
@@ -122,33 +104,49 @@
 3. **Finalizar la instalación**:
    - Completa la instalación y asegúrate de que Web Deploy se haya instalado correctamente.
 
-### Configurar MSDeployAgentService (Web Deployment Agent Service)
+4. **Configurar MSDeployAgentService (Web Deployment Agent Service)**
+   4.1. **Verificar que el servicio de Web Deploy esté habilitado**: Abre una terminal de comandos como administrador y ejecuta el siguiente comando para verificar que el servicio de **Web Deployment Agent Service** este habilitado:
+ 
+   ```powershell
+   Get-Service -Name MsDepSvc
+   ```
+ 
+   Esto debería mostrar que el servicio **Web Deployment Agent Service** está en estado **RUNNING**.
 
-1. **Verificar que el servicio de Web Deploy está habilitada**:
-   - Abre una terminal de comandos como administrador y ejecuta el siguiente comando para verificar que el servicio de **MSDeployAgentService** este habilitado:
-
-   ```cmd
-   sc query msdepsvc
+   4.2.  **Iniciar el servicio si no está en ejecución**: Si el servicio no está ejecutándose, puedes iniciarlo manualmente:
+ 
+   ```powershell
+   Start-Service -Name MsDepSvc
    ```
 
-   Esto debería mostrar que el servicio **MSDEPLOYAGENTSERVICE** está en estado **RUNNING**.
-
-2. **Iniciar el servicio si no está en ejecución**:
-   - Si el servicio no está ejecutándose, puedes iniciarlo manualmente:
-
-   ```cmd
-   net start msdepsvc
+   4.3. **Configurar el servicio para que se inicie automáticamente**: Para asegurarte de que el servicio está siempre disponible después de reiniciar el servidor, configúralo para que se inicie automáticamente:
+ 
+   ```powershell
+   Set-Service -Name MsDepSvc -StartupType Automatic
    ```
 
-3. **Configurar el servicio para que se inicie automáticamente**:
-   - Para asegurarte de que el servicio está siempre disponible después de reiniciar el servidor, configúralo para que se inicie automáticamente:
+### Precondiciones adicionales para instalación de Servicio Orquestador
 
-   ```cmd
-   sc config msdepsvc start= auto
-   ```
+- Ejecutar script con permisos de administrador `Create-SharedFolder.ps1`
+   - Este script creará carpeta compartida `\\Servername\Orquestador` (G:\Orquestador), para que pueda realizar despliegue 
+  - Otorgará permisos "Full Access" (hay que ver si se puede cambiar)  para poder realizar remove/copy cuando se despliega el servicio al usuario `molinosagro\tfs_servicio` (tfs_servicio representa la cuenta con la que corre el agente) a la carpeta compartida
+    - A menos que se utilice un agente con el usuario  UsrSvcTFSAccesosOrq* debe seguir siendo utilizando tfs_servicio), sino habría que cambiar el pipeline (¿podríamos dejar esta actividad para después?)
 
-### Verificar el firewall
+### Precondiciones adicionales para instalación de Orquest.Web
 
-1. **Verificar reglas de firewall**:
-   - Asegúrate de que la regla de firewall permita las conexiones entrantes en el puerto **80** para **MSDEPLOYAGENTSERVICE**.
+- Ejecutar script con permisos de administrador `Create-AppPoolAndSites.ps1`. Este script permitirá 
+   - Crear directorios de aplicación.  
+   - Crear Application Pool.  
+   - Crear Site "Scato".  
+   - Crear Virtual Application "Scato/Orquest.web" apuntando a la carpeta G:\Scato\Orquest.web.
+   - Configurar en el IIS el método de autenticación a mano (ver de incorporarlo al script).  
 
+
+### Instalación
+#### Ejecutar pipeline CD
+#### QA
+  - (OrquestadorQA - Accesos).
+
+  
+#### PROD
+  - (OrquestadorPROD - Accesos).
