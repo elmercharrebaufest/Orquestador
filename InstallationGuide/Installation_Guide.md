@@ -1,49 +1,158 @@
-# Guía de instalación "Servicio Orquestador de Dispositivos"
+# Guía de instalación "Orquestador de Dispositivos"
 
-### Servidor QA
-- ARSFVSQWACAPP00
+## Prerrequisitos
+1. Servidor de Aplicaciones por ambiente
+2. Contar con usuarios por ambiente:
+    - De servicios
+    - Para acceso a servidores
+3. Existencia de Bases de datos por ambiente
+4. Software de base
+5. Conexiones entrantes y salientes por ambiente
 
-### Servidor PROD
-- POR ASIGNAR
+---
 
-### Prerrequisitos
-- **SO**:  
-  - Windows Server 2022  
-- **Software base con versiones**:  
-  - Internet Information Services (Version 10.0.20348.1)
-  - msdeploy
+### 1. Servidor de Aplicaciones por ambiente 
 
-### Puertos
-Asegurarse de que la regla de firewall permita las conexiones entrantes en los siguientes puertos
-- **(80)**: Utilizado para el acceso web general.  
-- **(443)**: Utilizado para el acceso web seguro.  
-- **(8081)**: Utilizado para el servicio net.tcp. (Comunicación entre Orquestadores)  
-- **(8080)**: Utilizado para los servicios expuestos del Orquestador/ServicioSuscriptor.  
-- **(8889)**: Utilizado para los servicios a interactuar del Intercomunicador.  
-- **(445)**: Utilizado para el servicio SMB cuando se despliega el servicio orquestador y realiza una copia al directorio compartido G:\Orquestador.
-- **(135)**: (RPC Endpoint Mapper) Usado para iniciar la conexión remota a servicios de Windows desde TFS.
-- **(49152-65535)**: Puertos dinámicos usados después de que se negocia la conexión inicial con RPC.
+ | Entorno | Nombre de Servidor | Tipo   |
+ |:-------:|--------------------|--------|
+ | QA      | ARSFVSQWACAPP00    | Windows Server 2022 |
+ | PROD    | POR ASIGNAR        | Windows Server 2022 |
 
-### Puertos de Cámaras
+Deben tener features y roles configurados. Para el detalle ver sección 'Roles y Features".
 
-#### QA
-- (6666).
+---
 
-#### PROD
-- (10006, 10008, 10010, 10011, 10012, 10021, 10023, 10024, 10027, 10041, 10043, 10046, 10047, 10064, 10065, 10079, 10082, 10087, 10093, 10094, 10095, 10111, 10116, 10122, 10123, 10125, 10138, 10139, 10140, 10141, 10142, 10143, 10144, 10145, 10146, 10147, 10148, 10164, 10172, 10179, 10180, 10182, 10185, 10189, 10190, 10201, 10208, 10209, 10210, 10211, 10212, 10237, 10238, 10239, 10240, 10241, 10242, 10247, 10248, 10257).  
+### 2. Usuarios y Roles por ambiente
 
+**Usuarios de Servicio**
 
-### Usuarios y Roles QA
-- **MOLINOSAGRO\UsrSvcAccesosOrqQA**: Usuario de aplicación, utilizado para correr el Application Pool para la conexión con la DB, por el momento Admin.
-- **MOLINOSAGRO\UsrSvcTFSAccesosOrqQA**: Usuario de servicio utilizado para desplegar desde TFS, Rol Admin.
+Nota: Los siguientes usuarios no se le vencen las claves:
 
-### Usuarios y Roles PROD
-- **MOLINOSAGRO\UsrSvcAccesosOrqPRD**: Usuario de aplicación, utilizado para correr el Application Pool para la conexión con la DB, por el momento Admin.
-- **MOLINOSAGRO\UsrSvcTFSAccesosOrqPRD**: Usuario de servicio utilizado para desplegar desde TFS, Rol Admin.
+ | Entorno | Nombre de Usuario | Descripción |
+ |:-------:|--------------------|------|
+ | QA      | **MOLINOSAGRO\UsrSvcAccesosOrqQA**    | Usuario de aplicación, utilizado para correr el Application Pool y para el Servicio Windows para la conexión con la DB, por el momento Admin. |
+ | QA      |**MOLINOSAGRO\UsrSvcTFSAccesosOrqQ** | Usuario de servicio utilizado para desplegar desde TFS, Rol Admin. |
+ | PROD    | **MOLINOSAGRO\UsrSvcAccesosOrqPRD**        | Usuario de aplicación, utilizado para correr el Application Pool para la conexión con la DB, por el momento Admin. |
+ | PROD    | **MOLINOSAGRO\UsrSvcTFSAccesosOrqP** | Usuario de servicio utilizado para desplegar desde TFS, Rol Admin. |
 
+<br />
 
+**Usuarios con accesos/permisos a servidores**
+  
+  Se requieren usuarios de dominio individuales para acceso
+  - Para acceso por RDP a servidor aplicativo
+  - Para acceder a Bases de Datos
+  - Para acceder a Repositorio de Código
+
+---
+
+### 3. Existencia de Bases de datos por ambiente
+  
+   | Entorno | Nombre de Base de datos| Servidor/cluster |
+   |:--:|--|--|
+   | QA | MoaOrquestadorAccesosQA | Cluster SQL QA (ACCESOSAGLSQA.molinosagro.ad)|
+   | PROD | MoaOrquestadorAccesos | Cluster SQL PROD (ACCESOSAGLSPRD.molinosagro.ad)| 
+
+---
+
+### 4. Software de base
+   1. Internet Information Services (Version 10.0.20348.1)
+   2. msdeploy
+
+---
+
+### 5. Conexiones entrantes y salientes por ambiente
+  
+Asegurarse que las reglas de firewall permitan las siguientes conexiones:
+
+*Referentes: Paolo Magrini e Iván De Angelis*
+
+Nota: Los usuarios de red que utilizarán la aplicación Orquest.Web serán configurados por la aplicación y de momento son:
+   - Mantenimiento de planta
+   - TI (Paolo Magrini, Patricio Manna, Gabriel Cayo)
+   - Referentes de usuarios (Marian Rabellato)
+   - Microinformática
+   - Usuarios de VPN para bindar servicios de gestión de aplicación (por ejemplo, proveedores como Baufest, Huenei, etc.)
+
+#### QA - Entrantes
+
+|  | Origen | Destino | Puerto | Detalle |
+|:------:|:------:|:-------:|:------:|:--------:|
+| *Accesos externos a servidor* |  
+| 1 | Usuarios de red | arsfvsqwacapp00 (172.20.250.20) | 3389 | RDP |
+| *Accesos externos por Orquest.Web* |  
+| 1 | Usuarios de red  | arsfvsqwacapp00 (172.20.250.20) | 80 | Utilizado para el acceso web general |
+| 2 | Usuarios de red | arsfvsqwacapp00 (172.20.250.20) | 443 | Utilizado para el acceso web seguro |
+| *Servicios expuestos*
+| 1 | Aplicación "Control de Accesos" en GSLOACCESOS01 (10.12.42.60) u otros clientes que requieran consumir (ej.: PostMan / SoapUI) | arsfvsqwacapp00 (172.20.250.20) | 8080 | Servicio expuesto por protocolo *http* del Orquestador para realizar acciones sobre dispositivos (ServicioOrquestador, ServicioOrquestadorSAP, ServicioSuscriptor) |
+| 2 | Componente Orquestador local (arsfvsqwacapp00 (172.20.250.20)) y remotos (-) | arsfvsqwacapp00 (172.20.250.20) | 8081 | Servicio expuesto por protocolo *net.tcp* del orquestador, para comunicación entre Orquestadores. Aclaración: En Accesos de momentos solo existirá un componente Orquestador |
+| *Servicio Intercomunicador* | | | | Aún inexistente para Accesos
+| 1 | Servicio intercomunicador  | arsfvsqwacapp00 (172.20.250.20) | 8889 | Utilizado para los servicios a interactuar del Intercomunicador |
+| *CI/CD* |
+| 1 | GVICTFS01 (10.12.12.59) | arsfvsqwacapp00 (172.20.250.20) | 445 | Utilizado para el servicio SMB cuando se despliega el servicio orquestador y realiza una copia al directorio compartido ([unidad]:\Orquestador) |
+| 2 | GVICTFS01 (10.12.12.59) | arsfvsqwacapp00 172.20.250.20 | 135 | RPC Endpoint Mapper. Usado para iniciar la conexión remota a servicios de Windows desde TFS |
+| 3 | GVICTFS01 (10.12.12.59) | arsfvsqwacapp00 172.20.250.20 | 49152-65535 | Puertos dinámicos usados por TFS, después de que se negocia la conexión inicial con RPC |
+| *Cámaras* |
+| 10 | Cámara xxxx | arsfvsqwacapp00 172.20.250.20 | 6666 | La(s) cámara(s) se conectarán a este puerto |
+
+#### QA - Salientes
+
+|  | Origen | Destino | Puerto | Detalle |
+|:------:|:------:|:-------:|:------:|:--------:|
+| *Base de datos* | | | | |
+| 1 | arsfvsqwacapp00 (172.20.250.20) | ACCESOSAGLSQA.molinosagro.ad | 1450 | Servicio Orquestador y Orquest.Web acceden a Base de Datos SQL Server `MoaOrquestadorAccesosQA` |
+| *Otros Servicios* | | | | NO REQUERIDOS PARA CONTROL de ACCESOS |
+| 1 | arsfvsqwacapp00 (172.20.250.20) | - | - | Reconocimiento de Patente (http://[server]/Orquest.ModuloALPR/ServicioALPR.svc)  |
+| 2 | arsfvsqwacapp00 (172.20.250.20) | arsfvsqwacapp00 (172.20.250.20) | 8899 | NIRS - Calidad de granos (net.tcp://localhost:8899/Nova/remoteAPI)  |
+| *Servicio Suscriptor* | | | | |
+| 1 | arsfvsqwacapp00 (172.20.250.20) | gsloaccesos01 (url completa) | 8080 | (Pedidos_QA/Servicios/ServicioSuscriptor.svc)  |
+| *Dispositivos varios y/o Simuladores* | | | | Configurables por Orquest.Web. NO SON FIJOS
+| 1 | arsfvsqwacapp00 (172.20.250.20) | 10.10.104.6 | 1880 | Acceso a http://10.10.104.6:1880/ui/  |
+| 2..n | arsfvsqwacapp00 (172.20.250.20) | 10.10.104.6 | * | Ver con Paolo Magrini el resto de los dispositivos que son totalmente configurables  |
+
+#### PROD - Entrantes
+
+| Num | Origen | Destino | Puerto | Detalle |
+|:------:|:------:|:-------:|:------:|:--------:|
+| *Accesos externos a servidor* |  
+| 1 | Usuarios de red | POR DEFINIR | 3389 | RDP |
+| *Accesos externos por Orquest.Web* |  
+| 1 | Usuarios de red  | POR DEFINIR | 80 | Utilizado para el acceso web general |
+| 2 | Usuarios de red | POR DEFINIR | 443 | Utilizado para el acceso web seguro |
+| *Servicios expuestos*
+| 1 | Aplicación "Control de Accesos" en GSLOACCESOS01 (10.12.42.60) u otros clientes que requieran consumir (ej.: PostMan / SoapUI) | POR DEFINIR | 8080 | Servicio expuesto por protocolo *http* del Orquestador para realizar acciones sobre dispositivos (ServicioOrquestador, ServicioOrquestadorSAP, ServicioSuscriptor) |
+| 2 | Componente Orquestador local (POR DEFINIR) y remotos (-) | POR DEFINIR | 8081 | Servicio expuesto por protocolo *net.tcp* del orquestador, para comunicación entre Orquestadores. Aclaración: En Accesos de momentos solo existirá un componente Orquestador |
+| *Servicio Intercomunicador* | | | | Aún inexistente para Accesos
+| 1 | Servicio intercomunicador | POR DEFINIR | 8889 | Utilizado para los servicios a interactuar del Intercomunicador |
+| *CI/CD* |
+| 1 | GVICTFS01 (10.12.12.59) | POR DEFINIR | 445 | Utilizado para el servicio SMB cuando se despliega el servicio orquestador y realiza una copia al directorio compartido ([unidad]:\Orquestador) |
+| 2 | GVICTFS01 (10.12.12.59) | POR DEFINIR | 135 | RPC Endpoint Mapper. Usado para iniciar la conexión remota a servicios de Windows desde TFS |
+| 3 | GVICTFS01 (10.12.12.59) | POR DEFINIR | 49152-65535 | Puertos dinámicos usados por TFS, después de que se negocia la conexión inicial con RPC |
+| *Cámaras* |
+| 10.1 a n | Cámara xxxx | POR DEFINIR | 10006, 10008, 10010, 10011, 10012, 10021, 10023, 10024, 10027, 10041, 10043, 10046, 10047, 10064, 10065, 10079, 10082, 10087, 10093, 10094, 10095, 10111, 10116, 10122, 10123, 10125, 10138, 10139, 10140, 10141, 10142, 10143, 10144, 10145, 10146, 10147, 10148, 10164, 10172, 10179, 10180, 10182, 10185, 10189, 10190, 10201, 10208, 10209, 10210, 10211, 10212, 10237, 10238, 10239, 10240, 10241, 10242, 10247, 10248, 10257 | Cada cámara se conectará a uno de los puertos a la vez |
+
+#### PROD - Salientes
+Hacia Control de accesos
+Hacia los dispositivos (VLAN de cada dispositivo)
+
+|  | Origen | Destino | Puerto | Detalle |
+|:------:|:------:|:-------:|:------:|:--------:|
+| *Base de datos* | | | | |
+| 1 | POR DEFINIR | ACCESOSAGLSPRD.molinosagro.ad | 1433 | Servicio Orquestador y Orquest.Web acceden a Base de Datos SQL Server `MoaOrquestadorAccesos` |
+| *Otros Servicios* | | | | NO REQUERIDOS PARA CONTROL de ACCESOS |
+| 1 | POR DEFINIR | - | - | Reconocimiento de Patente (http://[server]/Orquest.ModuloALPR/ServicioALPR.svc)  |
+| 2 | POR DEFINIR | POR DEFINIR | 8899 | NIRS - Calidad de granos (net.tcp://localhost:8899/Nova/remoteAPI)  |
+| *Servicio Suscriptor* | | | | |
+| 1 | POR DEFINIR | gsloaccesos01 (url completa) | 8080 | (Pedidos/Servicios/ServicioSuscriptor.svc)  |
+| *Dispositivos varios y/o Simuladores* | | | | Configurables por Orquest.Web. NO SON FIJOS
+| 1 | POR DEFINIR | 10.10.104.6 | 1880 | Acceso a http://10.10.104.6:1880/ui/  |
+| 2..n | POR DEFINIR | 10.10.104.6 | * | Ver con Paolo Magrini el resto de los dispositivos que son totalmente configurables  |
+
+---
+
+## Instalación desde cero
 ### Roles and Features
-Para que se pueda crear el sitio web para Orquest.web se requieren ciertos prerequisitos. A continuación, se explicitan 2 maneras de hacerlo: Una automatizada ejecutando un script Powershell y otra de forma manual, con el paso a paso a paso
+Para que se pueda crear el sitio web para Orquest.web se requieren, además de los puntos mencionados anteriormente cumplir con los siguientes pasos en una intalación desde cero. A continuación, se explicitan 2 maneras de hacerlo: Una automatizada ejecutando un script Powershell y otra de forma manual, con el paso a paso.
 
 #### Ejecución automática  
 - Ejecutar el script `Install-RolesAndFeatures.ps1`, con permisos de administrador, para la instalación de roles y features necesarios.
@@ -79,7 +188,7 @@ Para que se pueda crear el sitio web para Orquest.web se requieren ciertos prere
    - Haz clic en **Instalar** para comenzar la instalación del rol de IIS con las características seleccionadas.
 
 5. **Instalar features**:
-   -  **Net Framework 3.5 Features**:
+   -  **Net Framework 3.5 Features**: (Ver si no está por defecto o si es necesario)
    -  **Net Framework 4.8 Features**:
       - `HTTP - Activation`
 ---
@@ -142,11 +251,16 @@ Además, se requiere la instalación de Web Deploy. A continuación, se explicit
    - Configurar en el IIS el método de autenticación a mano (ver de incorporarlo al script).  
 
 
-### Instalación
-#### Ejecutar pipeline CD
-#### QA
-  - (OrquestadorQA - Accesos).
+## Instalación incremental
+### Ejecutar pipeline CD
+Debe ejecutarse el pipeline correspondiente que desplegará la versión de Orquest.Web y Servicio Orquestador (y opcionalmente la actualización de base de datos) según el ambiente seleccionado
 
-  
+Link: http://gvictfs01.molinosagro.ad:8080/tfs/MOLINOS_AGRO/Orquestador/_release
+
+#### QA
+  - (OrquestadorQA - Accesos)
+    - http://gvictfs01.molinosagro.ad:8080/tfs/MOLINOS_AGRO/Orquestador/_release?definitionId=11&_a=releases
+
 #### PROD
-  - (OrquestadorPROD - Accesos).
+  - (OrquestadorPROD - Accesos)
+    - http://gvictfs01.molinosagro.ad:8080/tfs/MOLINOS_AGRO/Orquestador/_release?definitionId=12&_a=releases
