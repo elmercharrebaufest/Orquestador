@@ -2,7 +2,7 @@
 $siteName = "SCATO"
 $appPoolName = "Orquest.web"
 $physicalPath = "G:\SCATO"
-$appPoolUser = "molinosagro\UsrSvcAccesosOrqQA"
+$appPoolUser = "molinosagro\UsrSvcAccesosOrqPRD"
 $virtualAppName = "Orquest.Web"
 $virtualAppPath = "G:\SCATO\Orquest.Web"
 
