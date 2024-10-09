@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
 	<setParameter name="IIS Web Application Name" value="Scato/Orquest.web" />
-	<setParameter name="OrquestadorDb-Web.config Connection String" value="Data Source=ACCESOSAGLSQA.molinosagro.ad,1450;Initial Catalog=MoaOrquestadorAccesosQA;Integrated Security=True" />
+	<setParameter name="OrquestadorDb-Web.config Connection String" value="Data Source=ACCESOSAGLSPRD.molinosagro.ad,1433;Initial Catalog=MoaOrquestadorAccesos;Integrated Security=True" />
 	<setParameter name="FederationMetadataLocation Config" value="https://pasa.molinos.com.ar/FederationMetadata/2007-06/FederationMetadata.xml" />
 	<setParameter name="CertificateValidation Identity Configuration" value="None" />
 	
