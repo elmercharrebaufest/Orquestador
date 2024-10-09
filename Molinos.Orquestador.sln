@@ -38,7 +38,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.ModuloALPR"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InstallationGuide", "InstallationGuide", "{B1E63CA1-12FE-4E8A-B487-02736F3A654E}"
 	ProjectSection(SolutionItems) = preProject
+		InstallationGuide\Create-AppPoolAndSites.ps1 = InstallationGuide\Create-AppPoolAndSites.ps1
+		InstallationGuide\Create-SharedFolder.ps1 = InstallationGuide\Create-SharedFolder.ps1
+		InstallationGuide\Install-MSDeploy.ps1 = InstallationGuide\Install-MSDeploy.ps1
+		InstallationGuide\Install-RolesAndFeatures.ps1 = InstallationGuide\Install-RolesAndFeatures.ps1
 		InstallationGuide\Installation_Guide.md = InstallationGuide\Installation_Guide.md
+		InstallationGuide\InstalledFeatures.csv = InstallationGuide\InstalledFeatures.csv
 	EndProjectSection
 EndProject
 Global

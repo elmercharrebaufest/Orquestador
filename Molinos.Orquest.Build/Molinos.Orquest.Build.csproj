@@ -57,6 +57,7 @@
   <ItemGroup>
     <None Include="build.proj" />
     <None Include="build.targets" />
+    <None Include="Deploy\deploy.ARSFVSPWACAPP00.targets" />
     <None Include="Deploy\deploy.ARSFVSQWACAPP00.targets" />
     <None Include="Deploy\deploy.ASVWUSCATO00.targets" />
     <None Include="Deploy\deploy.AVVWHSCATAPP00.targets" />

@@ -168,6 +168,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.ARSFVSPWACAPP00.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="App.ASVWUSCATO00.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

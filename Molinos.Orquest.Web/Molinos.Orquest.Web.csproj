@@ -345,6 +345,7 @@
     <Compile Include="App_Start\SignalRStartup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ARSFVSPWACAPP00.DeployParameters.xml" />
     <Content Include="bfdev258.DeployParameters.xml" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
