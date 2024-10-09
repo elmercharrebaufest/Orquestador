@@ -21,7 +21,7 @@ function Install-FeaturesFromCsv {
                 Write-Host "Feature $feature instalada correctamente."
             }
             catch {
-                Write-Host "Error al instalar la feature $feature: $_"
+                Write-Host "Error al instalar la feature $feature : $_"
             }
         }
         else {
