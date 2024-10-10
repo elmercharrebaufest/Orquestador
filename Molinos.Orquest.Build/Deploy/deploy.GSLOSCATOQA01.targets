@@ -7,7 +7,7 @@
 
     <Reintentos>1</Reintentos>
     <PackageServidor>$(MSBuildProjectDirectory)\package</PackageServidor>
-    <AppConfig>$(MSBuildProjectDirectory)\package\App.Vicscatoqa.Config</AppConfig>
+    <AppConfig>$(MSBuildProjectDirectory)\package\App.GSLOSCATOQA01.Config</AppConfig>
     
     <Exe>Molinos.Orquest.Servidor.exe</Exe>
     <OrquestadorService>SCATO - Orquestador de Dispositivos</OrquestadorService>

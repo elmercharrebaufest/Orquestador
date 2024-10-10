@@ -1609,9 +1609,6 @@
     <Content Include="Scripts\usuario.CrearModificar.js" />
     <Content Include="ServicioHub\ServicioSuscriptor.svc" />
     <Content Include="Styles\area\shared\intercomunicador.css" />
-    <Content Include="vicscatoprod.DeployParameters.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="sloscatoprod.DeployParameters.xml">
       <SubType>Designer</SubType>
     </Content>
