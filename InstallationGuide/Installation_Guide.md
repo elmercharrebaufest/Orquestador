@@ -57,7 +57,7 @@ Nota: Los siguientes usuarios no se le vencen las claves:
 
 ### 4. Software de base
    1. Internet Information Services (Version 10.0.20348.1)
-   2. msdeploy
+   2. Msdeploy (Version 4.0)
 
 ---
 
@@ -154,8 +154,18 @@ Hacia los dispositivos (VLAN de cada dispositivo)
 ### Roles and Features
 Para que se pueda crear el sitio web para Orquest.web se requieren, además de los puntos mencionados anteriormente cumplir con los siguientes pasos en una intalación desde cero. A continuación, se explicitan 2 maneras de hacerlo: Una automatizada ejecutando un script Powershell y otra de forma manual, con el paso a paso.
 
-#### Ejecución automática  
-- Ejecutar el script `Install-RolesAndFeatures.ps1`, con permisos de administrador, para la instalación de roles y features necesarios.
+#### Ejecución automática
+
+1. **Descargar el Archivo de Features Instalados**  
+   Descarga el archivo `InstalledFeatures.csv` y colócalo en el directorio `C:\` del servidor en proceso de configuración. El script buscará este archivo en esa ubicación de forma predeterminada.
+
+2. **Ejecución del Script**  
+   Ejecuta el script `Install-RolesAndFeatures.ps1` con permisos de administrador. Este script instalará los roles y features necesarios según lo especificado en el archivo `InstalledFeatures.csv`.
+
+3. **Modificación de la Ruta del Archivo (Opcional)**  
+   Si deseas utilizar una ruta diferente para el archivo `InstalledFeatures.csv`, ajusta la última línea del script para especificar el nuevo path antes de ejecutar el script.
+
+---
 
 #### Ejecución manual 
 1. **Abrir Server Manager**:
@@ -197,7 +207,17 @@ Para que se pueda crear el sitio web para Orquest.web se requieren, además de l
 Además, se requiere la instalación de Web Deploy. A continuación, se explicitan 2 maneras de hacerlo: Una automatizada ejecutando un script Powershell y otra de forma manual, con el paso a paso a paso
 
 #### Ejecución automática
-- Ejecutar el script `Install-MSDeploy.ps1`, con permisos de administrador.
+
+1. **Configuración de la Ruta de Descarga del MSI**  
+   El script `Install-MSDeploy.ps1` utiliza una URL predefinida para descargar el instalador MSI de MSDeploy. Es importante verificar que el path indicado en el script siga funcionando. Se recomienda siempre buscar el archivo de instalación en el [sitio oficial de Microsoft](https://www.iis.net/downloads/microsoft/web-deploy) para asegurar su disponibilidad y autenticidad.
+
+2. **Acceso a Internet**  
+   Asegúrate de que el servidor tenga acceso a internet para que el script pueda descargar el archivo MSI. En caso de no contar con acceso a internet, descarga previamente el instalador, transfiérelo manualmente al servidor y especifica la ruta en la variable (`$msiPath`), y comenta las líneas 8 y 9 del script, donde se realiza la descarga automática, para evitar errores de conexión.
+
+3. **Ejecución del Script**  
+   Ejecuta el script `Install-MSDeploy.ps1` con permisos de administrador. Esto instalará MSDeploy en el servidor utilizando el archivo MSI, ya sea descargado automáticamente o transferido manualmente.
+
+---
 
 #### Ejecución manual
 1. **Descargar Web Deploy 3.6**:

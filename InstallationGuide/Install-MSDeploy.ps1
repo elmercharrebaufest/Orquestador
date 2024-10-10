@@ -10,7 +10,7 @@ Invoke-WebRequest -Uri $msdeployUrl -OutFile $msiPath
 
 # Verificar si el archivo fue descargado correctamente
 if (Test-Path $msiPath) {
-    Write-Host "Archivo descargado exitosamente en $msiPath."
+    Write-Host "Archivo encontrado exitosamente en $msiPath."
 
     # Instalar el archivo MSI
     Write-Host "Instalando msdeploy..."
@@ -47,4 +47,10 @@ if ($startupType.StartMode -ne 'Auto') {
     Set-Service -Name $serviceName -StartupType Automatic
 } else {
     Write-Host "El servicio $serviceName ya está configurado en modo automático."
+}
+
+
+# Comprobar si el usuario existe y eliminarlo
+if (Get-LocalUser -Name "WDeployAdmin" -ErrorAction SilentlyContinue) {
+    Remove-LocalUser -Name "WDeployAdmin"
 }
