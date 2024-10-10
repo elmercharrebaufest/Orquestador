@@ -156,7 +156,7 @@ Para que se pueda crear el sitio web para Orquest.web se requieren, además de l
 
 #### Ejecución automática
 
-1. **Descargar el Archivo de Features Instalados**  
+1. **Descargar el Archivo de Features**  
    Descarga el archivo `InstalledFeatures.csv` y colócalo en el directorio `C:\` del servidor en proceso de configuración. El script buscará este archivo en esa ubicación de forma predeterminada.
 
 2. **Ejecución del Script**  
