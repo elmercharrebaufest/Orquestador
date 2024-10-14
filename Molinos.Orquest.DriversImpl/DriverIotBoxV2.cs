@@ -64,7 +64,7 @@ namespace Molinos.Orquest.DriversImpl
 			delayReconexion = configuracionGeneral.TiempoReintentoReconexion;
 			delayPing = configuracionGeneral.TiempoPing;
 
-			Log.Debug("Iniciando Driver de IotBox {0}", codigo);
+			Log.Info("Iniciando Driver de IotBox {0}", codigo);
 			// 2 hilos separados, uno consulta con ping y pingresponse y el otro es lectura
 			// envio de ping desde el dispositivo fisico y lifetime, si no responde se reconecta teniendo en cuenta el lifetime
 			// cada dispositivo tiene su propio lifetime
@@ -83,7 +83,6 @@ namespace Molinos.Orquest.DriversImpl
 					//Cuando no hay estado anterior se lanza el evento
 					if (!falloUltimaConexion.HasValue || falloUltimaConexion.Value)
 					{
-						//Log.Debug("Conexion reestablecida con la Rasp {0}", codigoRasp);
 						Log.Info("Nueva Conexión a Rasp={0}", codigoRasp);
 						NotificarEstadoConexion(CodigosEventos.ConexionDispositivoCorrecta);
 						falloUltimaConexion = false;
@@ -158,7 +157,7 @@ namespace Molinos.Orquest.DriversImpl
 				}
 				catch (SocketException e)
 				{
-					Log.Debug($"Error de conexion al leer respuesta: {e.Message}. Intentando un nuevo ping.");
+					Log.Info($"Error de conexion al leer respuesta: {e.Message}. Intentando un nuevo ping.");
 					await ReConectarSiEsNecesario();
 					await EnviarPingPeriodicamente();
 					response = cliente.LeerNovedad();
@@ -200,7 +199,7 @@ namespace Molinos.Orquest.DriversImpl
 			}
 			catch (Exception e) when (e.InnerException != null && (e.InnerException is SocketException) && ((SocketException)e.InnerException).ErrorCode == 10060)
 			{
-				Log.Debug(e, $"{codigoRasp} - Sin novedad");
+				Log.Info(e, $"{codigoRasp} - Sin novedad");
 			}
 			catch (Exception e)
 			{
@@ -325,7 +324,7 @@ namespace Molinos.Orquest.DriversImpl
 
 		public override void InformarEstado()
 		{
-			Log.Debug("Informando estado ITC {0}", codigoRasp);
+			Log.Info("Informando estado ITC {0}", codigoRasp);
 			if (falloUltimaConexion.HasValue && falloUltimaConexion.Value)
 			{
 				NotificarEstadoConexion(CodigosEventos.ErrorConexionDispositivo, errorUltimaConexion ?? new Exception(CodigosEventos.ErrorConexionDispositivo));
@@ -340,7 +339,7 @@ namespace Molinos.Orquest.DriversImpl
 		{
 			try
 			{
-				Log.Debug("Cambio Estado Entrada: Rasp={0} Entrada={1} Dato={3} Evento={2}", codigoRasp, entrada, codigoEvento, dato);
+				Log.Info("Cambio Estado Entrada: Rasp={0} Entrada={1} Dato={3} Evento={2}", codigoRasp, entrada, codigoEvento, dato);
 
 				var notification = new NotificacionEvento
 				{
