@@ -44,6 +44,9 @@
     <Reference Include="HtmlAgilityPack, Version=1.8.10.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.8.10\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -69,6 +72,7 @@
     <Compile Include="DriverCabezalIPContinuoTest.cs" />
     <Compile Include="DriverCabezalIPPorDemandaTest.cs" />
     <Compile Include="DriverBalanzaPuertoTest.cs" />
+    <Compile Include="DriverIotBoxV2Test.cs" />
     <Compile Include="DriverPantallaTest.cs" />
     <Compile Include="DriverHumedimetroTest.cs" />
     <Compile Include="DriverItc30Test.cs" />

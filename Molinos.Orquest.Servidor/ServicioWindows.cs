@@ -8,6 +8,7 @@ using System.ServiceProcess;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.Extensibility;
 using Molinos.Orquest.Dependencias;
+using Molinos.Orquest.Drivers;
 using Molinos.Orquest.Servicios;
 using Molinos.Orquest.Servicios.Impl;
 using Molinos.Orquest.Servidor.Hosting;
@@ -38,10 +39,22 @@ namespace Molinos.Orquest.Servidor
 
         protected override void OnStart(string[] args)
         {
-
             var fileInfo = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "/log4net.config");
             log4net.Config.XmlConfigurator.ConfigureAndWatch(fileInfo);
-            CreateKernel();
+
+			// Clase ConfiguracionGeneral toma valores de configuracion del archivo de configuracion del servidor donde se encuentre el servicio Orquestador
+			var configuracionGeneral = new ConfiguracionGeneral();
+			try
+			{
+				configuracionGeneral.TiempoReintentoReconexion = int.Parse(ConfigurationManager.AppSettings["TiempoReintentoReconexion"]);
+				configuracionGeneral.TiempoPing = int.Parse(ConfigurationManager.AppSettings["TiempoPing"]);
+			}
+			catch (Exception)
+			{
+				throw new FormatException("Error al parsear TiempoReintentoReconexion o TiempoPing");
+			}
+
+			CreateKernel(configuracionGeneral);
             var log = KernelInstance.Get<ILoggerFactory>().GetCurrentClassLogger();
             try
             {
@@ -107,14 +120,15 @@ namespace Molinos.Orquest.Servidor
             get { return KernelInstance.Get<IServicioOrquestador>(); }
         }
 
-        private void CreateKernel()
+        private void CreateKernel(ConfiguracionGeneral configuracionGeneral)
         {
             KernelInstance = new StandardKernel();
 
             var orquestNinjectModule = new OrquestNinjectModule();
             orquestNinjectModule.AppConfig["maxNotificacions"] = ConfigurationManager.AppSettings["maxNotificacions"];
             KernelInstance.Load(orquestNinjectModule);
-        }
+			KernelInstance.Bind<IConfiguracionGeneral>().ToConstant(configuracionGeneral);
+		}
 
         private void DisposeKernel()
         {

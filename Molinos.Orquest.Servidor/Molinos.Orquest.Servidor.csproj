@@ -152,6 +152,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfiguracionGeneral.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Hosting\NinjectInstanceProvider.cs" />
     <Compile Include="Hosting\NinjectInstanceServiceBehavior.cs" />
@@ -230,6 +231,10 @@
     <ProjectReference Include="..\Molinos.Orquest.DriversImpl\Molinos.Orquest.DriversImpl.csproj">
       <Project>{1ef9ac66-6c9b-43f5-b669-54fee8f12de0}</Project>
       <Name>Molinos.Orquest.DriversImpl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Molinos.Orquest.Drivers\Molinos.Orquest.Drivers.csproj">
+      <Project>{4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB}</Project>
+      <Name>Molinos.Orquest.Drivers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Molinos.Orquest.Repositorio\Molinos.Orquest.Repositorio.csproj">
       <Project>{17CBA400-3F4D-4EFC-81CB-A183E2507D45}</Project>

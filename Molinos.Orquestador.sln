@@ -12,6 +12,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.Test", "Molinos.Orquest.Test\Molinos.Orquest.Test.csproj", "{6E24351A-AD82-42C3-9825-E1D1D3C2C403}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.Servidor", "Molinos.Orquest.Servidor\Molinos.Orquest.Servidor.csproj", "{76B62B9D-F8B4-4C2C-BF64-D6FE6D130084}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB} = {4C2F6906-2C18-4A9E-8D38-3ECAACDFAAFB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Molinos.Orquest.Dependencias", "Molinos.Orquest.Dependencias\Molinos.Orquest.Dependencias.csproj", "{85C3E535-5DC5-409E-A728-8384623BA40D}"
 EndProject
