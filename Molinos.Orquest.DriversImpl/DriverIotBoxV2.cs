@@ -112,7 +112,6 @@ namespace Molinos.Orquest.DriversImpl
 
 		public override void VerificarDispositivo()
 		{
-			Log.Info($"ARSCT350-546 - VerificarDispositivo");
 			if ((falloUltimaConexion ?? false))
 			{
 				throw new ConexionDispositivoDriverException("");
