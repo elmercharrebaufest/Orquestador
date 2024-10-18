@@ -12,8 +12,8 @@
     <Exe>Molinos.Orquest.Servidor.exe</Exe>
     <OrquestadorService>SCATO - Orquestador de Dispositivos</OrquestadorService>
     
-    <User>molinosagro\scatoprodMOA</User>
-    <UserPassword>$cat02016</UserPassword>
+    <User>molinosagro\Scato_Logistica_uat</User>
+    <UserPassword>dCe7467aF!</UserPassword>
 
     <RemoteMachine>ASVWUSCATO00</RemoteMachine>
     <DeployPath>//ASVWUSCATO00/Orquestador</DeployPath>
