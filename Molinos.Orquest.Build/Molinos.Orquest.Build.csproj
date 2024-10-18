@@ -57,56 +57,29 @@
   <ItemGroup>
     <None Include="build.proj" />
     <None Include="build.targets" />
+    <None Include="Deploy\deploy.ARSFVSPWACAPP00.targets" />
+    <None Include="Deploy\deploy.ARSFVSQWACAPP00.targets" />
     <None Include="Deploy\deploy.ASVWUSCATO00.targets" />
     <None Include="Deploy\deploy.AVVWHSCATAPP00.targets" />
     <None Include="Deploy\deploy.AVVWHSCATAPP00_PRD.targets" />
-    <None Include="Deploy\deploy.GSLOSCATO00.targets" />
-    <None Include="Deploy\deploy.GSLOSCATO01.targets" />
-    <None Include="Deploy\deploy.GSLOSCATO02.targets" />
-    <None Include="Deploy\deploy.GSLOSCATO04.targets" />
-    <None Include="Deploy\deploy.GSLOSCATO03.targets" />
     <None Include="Deploy\deploy.GSLOSCATOAPP00.targets" />
     <None Include="Deploy\deploy.GSLOSCATOAPP01.targets" />
-    <None Include="Deploy\deploy.GSLOSCATOAPP02.targets" />
     <None Include="Deploy\deploy.GSLOSCATOAPP05.targets">
       <SubType>Designer</SubType>
     </None>
     <None Include="Deploy\deploy.GSLOSCATOAPP06.targets">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Deploy\deploy.GSLOSCATOOPS00.targets" />
-    <None Include="Deploy\deploy.GSLOSCATOOPSQA00.targets" />
     <None Include="Deploy\deploy.GSLOSCATOQA01.targets" />
-    <None Include="Deploy\deploy.GVICRPTSRVQA01.targets" />
-    <None Include="Deploy\deploy.GSLOSCATOAPQ02.targets" />
-    <None Include="Deploy\deploy.GSLOACCESOS01.targets">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Deploy\deploy.GVICSCATOAPP04.targets">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Deploy\deploy.GVICSCATOAPP03.targets">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Deploy\deploy.GVICSCATOAPP02.targets">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Deploy\deploy.GVICSCATOAPP01.targets">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Deploy\deploy.GSLOSCATOAPP04.targets">
       <SubType>Designer</SubType>
     </None>
     <None Include="Deploy\deploy.GSLOSCATOAPP03.targets">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Deploy\deploy.GSLOSCATOAPQ00.targets" />
     <None Include="Deploy\deploy.GSLOSCATOAPQ01.targets" />
-    <None Include="Deploy\deploy.gvicscatoqa01.targets" />
-    <None Include="Deploy\deploy.gvicscatoqa02.targets" />
     <None Include="Deploy\deploy.molinos-dev.bat" />
     <None Include="Deploy\deploy.molinos-dev.targets" />
-    <None Include="Deploy\deploy.bfdev260.targets" />
     <None Include="Deploy\deploy.local.targets" />
     <None Include="Deploy\deploy.molinos-qa.bat" />
     <None Include="Deploy\deploy.molinos-qa.targets" />

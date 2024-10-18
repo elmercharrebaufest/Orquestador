@@ -7,19 +7,20 @@
 
     <Reintentos>1</Reintentos>
     <PackageServidor>$(MSBuildProjectDirectory)\package</PackageServidor>
-    <AppConfig>$(MSBuildProjectDirectory)\package\App.GVICSCATOAPP.Config</AppConfig>
+    <AppConfig>$(MSBuildProjectDirectory)\package\App.ARSFVSQWACAPP00.config</AppConfig>
     
     <Exe>Molinos.Orquest.Servidor.exe</Exe>
     <OrquestadorService>SCATO - Orquestador de Dispositivos</OrquestadorService>
     
-    <User>molinosagro\scatoprodMOA</User>
-    <UserPassword>$cat02016</UserPassword>
+    <User>molinosagro\UsrSvcAccesosOrqQA</User>
+    <UserPassword>EMsr*tS%SRO_EL5PqVXR</UserPassword>
 
-    <RemoteMachine>GVICSCATOAPP01</RemoteMachine>
-    <DeployPath>//GVICSCATOAPP01/Orquestador</DeployPath>
-    <LocalPath>g:/Orquestador</LocalPath>
+    <RemoteMachine>ARSFVSQWACAPP00</RemoteMachine>
+    <DeployPath>//ARSFVSQWACAPP00/Orquestador</DeployPath>
+    <LocalPath>G:/Orquestador</LocalPath>
     
     
   </PropertyGroup>
   
 </Project>
+<!--CONFIG ORQUESTADOR ACCESOS QA-->
