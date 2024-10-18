@@ -268,7 +268,8 @@ Además, se requiere la instalación de Web Deploy. A continuación, se explicit
    - Crear Application Pool.  
    - Crear Site "Scato".  
    - Crear Virtual Application "Scato/Orquest.web" apuntando a la carpeta G:\Scato\Orquest.web.
-   - Configurar en el IIS el método de autenticación a mano (ver de incorporarlo al script).  
+   - Configurar en el IIS el método de autenticación a mano (ver de incorporarlo al script).
+      - Actualmente dentro del IIS debe de estar la entrada **Windows Authentication** en el valor **Enabled** a nivel de la aplicación.
 
 
 ## Instalación incremental
