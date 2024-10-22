@@ -153,14 +153,13 @@ namespace Molinos.Orquest.DriversImpl
 
                     try
                     {
-                        //Log.Info("LECTURA - FRANCO: " + response);
                         if (response != null && response != "\"ok\"")
                         {
                             respuesta = JsonConvert.DeserializeObject<List<EntradaDto>>(response);
-                            if (respuesta[0].Dato == "pingResponse")
-                            {
-                                Log.Info("Ping respondido exitosamente.");
-                            }
+                            //if (respuesta[0].Dato == "pingResponse")
+                            //{
+                            //    Log.Info("Ping respondido exitosamente.");
+                            //}
                         }
                     }
                     catch (Exception e)
@@ -171,10 +170,10 @@ namespace Molinos.Orquest.DriversImpl
             }
             catch (Exception e) when (e.InnerException != null && (e.InnerException is SocketException) && ((SocketException)e.InnerException).ErrorCode == 10060)
             {
-                Log.Error(e, $"{codigoRasp} - Sin novedad");
-                //throw new DriverException("El dispositivo no ha devuelto una respuesta", e);
-            }
-            catch (Exception e)
+				// Al dispositivo hay que hacerle polling, por esta razon hay un error de SocketException que no es necesario loguear
+				//Log.Error(e, $"{codigoRasp} - Sin novedad");
+			}
+			catch (Exception e)
             {
                 throw new DriverException("Error al Conectar con el dispositivo", e);
             }

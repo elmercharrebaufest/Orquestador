@@ -100,6 +100,10 @@ namespace Molinos.Orquest.DriversImpl
 						falloUltimaConexion = true;
 						errorUltimaConexion = e;
 					}
+					
+				}
+				finally
+				{
 					if (dispositivoActivo)
 					{
 						Thread.Sleep(config.IntervaloPolling);
@@ -177,10 +181,6 @@ namespace Molinos.Orquest.DriversImpl
 							cliente.ReConectar();
 							conectado = true;
 						}
-						else if (connected)
-						{
-							Log.Debug("Ping respondido exitosamente.");
-						}
 
 						// Reconexion enviada desde el dispostivo
 						if (jsonResponse.Any(x => x.Dato == "reconnectDevice"))
@@ -198,7 +198,8 @@ namespace Molinos.Orquest.DriversImpl
 			}
 			catch (Exception e) when (e.InnerException != null && (e.InnerException is SocketException) && ((SocketException)e.InnerException).ErrorCode == 10060)
 			{
-				Log.Error(e, $"{codigoRasp} - Sin novedad");
+				// Al dispositivo hay que hacerle polling, por esta razon hay un error de SocketException que no es necesario loguear
+				//Log.Error(e, $"{codigoRasp} - Sin novedad");
 			}
 			catch (Exception e)
 			{
@@ -236,7 +237,7 @@ namespace Molinos.Orquest.DriversImpl
 				await ReConectarSiEsNecesario();
 				ActivarSalida(0, "\"socketconnected\"", "0", false);
 			}
-			await Task.Delay(delayPing); // Espera 5 segundos antes de la siguiente ejecución
+			await Task.Delay(delayPing); // Espera X segundos antes de la siguiente ejecución
 		}
 
 		public List<EntradaDto> ParseJsonData(string jsonData)
@@ -284,9 +285,9 @@ namespace Molinos.Orquest.DriversImpl
 		{
 			if (!cliente.Conectado)
 			{
-				Log.Debug($"Intentando reconectar: {codigoRasp}");
+				Log.Info($"Intentando reconectar: {codigoRasp}");
 				cliente.ReConectar();
-				await Task.Delay(delayReconexion); // Espera 5 segundos antes de la siguiente verificación
+				await Task.Delay(delayReconexion); // Espera X segundos antes de la siguiente verificación
 			}
 		}
 
@@ -361,13 +362,20 @@ namespace Molinos.Orquest.DriversImpl
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing)
+			try
 			{
-				dispositivoActivo = false;
-				cliente.Desconectar();
-				finCiclo.WaitOne();
-				finCiclo.Dispose();
+				if (disposing)
+				{
+					dispositivoActivo = false;
+					cliente.Desconectar();
+					finCiclo.WaitOne();
+					finCiclo.Dispose();
+				}
 			}
+			catch (Exception e)
+			{
+				Log.Error(e, "Error al intentar dispose del driver {0}", codigoRasp);
+			}			
 		}
 
 		public bool ConsultarEstadoEntrada(int numeroEntrada)
