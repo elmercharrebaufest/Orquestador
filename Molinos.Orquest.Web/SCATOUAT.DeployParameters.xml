@@ -2,7 +2,6 @@
 <parameters>
 	<setParameter name="IIS Web Application Name" value="Scato/Orquest.web" />
 	<setParameter name="OrquestadorDb-Web.config Connection String" value="Data Source=SCATOAGLSQA.molinosagro.ad,1450;Initial Catalog=MOAOrquestadorUAT;Integrated Security=True" />
-	<setParameter name="OrquestadorLogDb-Web.config Connection String" value="Data Source=SCATOMONAGLSUAT.molinosagro.ad;Initial Catalog=MoaOrquestadorLogUAT;Integrated Security=True" />
 	<setParameter name="FederationMetadataLocation Config" value="https://stspoc.molinos.com.ar/FederationMetadata/2007-06/FederationMetadata.xml" />
 	<setParameter name="CertificateValidation Identity Configuration" value="None" />
 
@@ -13,7 +12,5 @@
 	<setParameter name="HostServiciosWeb Config" value="ASVWUSCATO00" />
 	<setParameter name="ICWebServerUrl Config" value="https://ASVWUSCATO00.molinosagro.ad:8889/rtc" />
 	<setParameter name="ICWSServerUrl Config" value="wss://ASVWUSCATO00.molinosagro.ad:8889/rtc" />
-	<setParameter name="OrquestadorWebLogFileAppender levelMin" value="ERROR" />
-	<setParameter name="OrquestadorWebLogFileAppender levelMax" value="FATAL" />
-	<setParameter name="OrquestadorWebLogFileAppender filePath" value="C:/OrquestadorLogs/OrquestadorWeb.log" />
+
 </parameters>
