@@ -4,7 +4,7 @@
 		<!--General-->
     <ProjectSolution>..\Molinos.Orquestador.sln</ProjectSolution>
     <NUnitToolPath>C:\Program Files (x86)\NUnit 2.6.3\bin</NUnitToolPath>
-    <NUnitProject>..\Molinos.Orquest.Test\bin\Jenkins\Molinos.Orquest.Test.dll</NUnitProject>
+    <NUnitProject>..\Molinos.Orquest.Test\bin\$(Configuration)\Molinos.Orquest.Test.dll</NUnitProject>
 
     <OpenCoverTool>C:\Program Files (x86)\OpenCover\OpenCover.Console.exe</OpenCoverTool>
     <!--<OpenCoverFilter>+[Molinos.Orquest.Servicios]Molinos.Orquest.Servicios.* +[Molinos.Orquest.Web]Molinos.Orquest.Web.Controllers.*</OpenCoverFilter>-->
@@ -12,11 +12,11 @@
 
     <ReportGeneratorTool>C:\Program Files (x86)\ReportGenerator\bin\ReportGenerator.exe</ReportGeneratorTool>
     <OutputDir>..\Deploy\</OutputDir>
-    <PackageWeb>..\Molinos.Orquest.Web\obj\Jenkins\Package\**\*</PackageWeb>
+    <PackageWeb>..\Molinos.Orquest.Web\obj\$(Configuration)\Package\**\*</PackageWeb>
     <DeployParametersWeb>..\Molinos.Orquest.Web\*DeployParameters.xml</DeployParametersWeb>
-    <PackageWebALPR>..\Molinos.Orquest.ModuloALPR\obj\Jenkins\Package\**\*</PackageWebALPR>
+    <PackageWebALPR>..\Molinos.Orquest.ModuloALPR\obj\$(Configuration)\Package\**\*</PackageWebALPR>
     <DeployParametersModuloALPR>..\Molinos.Orquest.ModuloALPR\*DeployParameters.xml</DeployParametersModuloALPR>
-    <PackageServidor>..\Molinos.Orquest.Servidor\bin\Jenkins\**\*</PackageServidor>
+    <PackageServidor>..\Molinos.Orquest.Servidor\bin\$(Configuration)\**\*</PackageServidor>
   </PropertyGroup>
   
 </Project>
