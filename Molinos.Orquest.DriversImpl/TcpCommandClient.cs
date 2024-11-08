@@ -34,11 +34,14 @@ namespace Molinos.Orquest.DriversImpl
 
         private void Conectar()
         {
-            clienteTcp = new TcpClient(host, puerto) { ReceiveBufferSize = tamBuffer };
+			log.Warn($"5. Entro en Conectar");
+			log.Warn($"5. ClienteTCP conectado: {clienteTcp?.Connected}");
+			clienteTcp = new TcpClient(host, puerto) { ReceiveBufferSize = tamBuffer };
             if (timeoutLectura > 0)
             {
                 clienteTcp.GetStream().ReadTimeout = timeoutLectura;
             }
+            log.Warn($"5. ClienteTCP conectado: {clienteTcp.Connected}");
         }
 
         public bool Conectado
@@ -48,10 +51,14 @@ namespace Molinos.Orquest.DriversImpl
 
         public void ReConectar()
         {
-            if (clienteTcp != null)
+			log.Warn($"6. Entro a ReConectar en TcpCommandClient");
+			if (clienteTcp != null)
             {
-                clienteTcp.Close();
-            }
+                log.Warn($"6. ClienteTCP distinto de null, Antes de Close(), conectado: {clienteTcp.Connected}");
+                //clienteTcp.Close();
+                clienteTcp.Dispose();
+				log.Warn($"6. ClienteTCP null: {clienteTcp == null}, conectado: {clienteTcp?.Connected}");
+			}
             Conectar();
         }
 

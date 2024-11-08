@@ -73,6 +73,8 @@ namespace Molinos.Orquest.DriversImpl
 		{
 			while (dispositivoActivo)
 			{
+				Log.Warn($"Flag reconectando: {reconectando}");
+
 				// Detener lecturas hasta que reconecte el dispositivo
 				if (reconectando)
 				{
@@ -164,6 +166,7 @@ namespace Molinos.Orquest.DriversImpl
 				}
 				catch (SocketException e)
 				{
+					Log.Warn($"3. Entrando en catch de cliente.LeerNovedad()");
 					Log.Debug($"Error de conexion al leer respuesta: {e.Message}. Intentando un nuevo ping.");
 					await ReConectarSiEsNecesario();
 					await EnviarPingPeriodicamente();
@@ -180,19 +183,21 @@ namespace Molinos.Orquest.DriversImpl
 						// Reconexion en caso de que IsConnected devuelva false
 						if (!cliente.Conectado && !reconectando)
 						{
-							Log.Warn("Intentando reconectar con dispositivo. Dispositivo: {0}", codigoRasp);
+							Log.Warn("2. Intentando reconectar con dispositivo. Dispositivo: {0}", codigoRasp);
 							reconectando = true;
 							cliente.ReConectar();
 							reconectando = false;
+							Log.Warn($"2. Reconexion terminada para dispositivo {codigoRasp}");
 						}
 
 						// Reconexion enviada desde el dispostivo
 						if (cliente.Conectado && !reconectando && jsonResponse.Any(x => x.Dato == "reconnectDevice"))
 						{
-							Log.Warn($"Reconexion enviada desde {codigoRasp}");
+							Log.Warn($"1. Reconexion enviada desde {codigoRasp}");
 							reconectando = true;
 							cliente.ReConectar();
 							reconectando = false;
+							Log.Warn($"1. Reconexion terminada para dispositivo {codigoRasp}");
 						}
 					}
 				}
@@ -240,6 +245,7 @@ namespace Molinos.Orquest.DriversImpl
 			}
 			catch
 			{
+				Log.Warn($"4. Entrando en catch EnviarPingPeriodicamente");
 				await ReConectarSiEsNecesario();
 				ActivarSalida(0, "\"socketconnected\"", "0", false);
 			}
