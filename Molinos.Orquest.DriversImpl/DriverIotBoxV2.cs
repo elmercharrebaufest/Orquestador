@@ -244,11 +244,11 @@ namespace Molinos.Orquest.DriversImpl
 				return entradas; // Devuelve una lista vacía si jsonData es nulo o está vacío
 			}
 
-			Log.Info($"Antes de remplazar: {jsonData}");
+			Log.Debug($"Antes de remplazar: {jsonData}");
 			jsonData = jsonData.Replace("[", ",").Replace("]", "");
 			jsonData = ReplaceFirstCharacterWithBracket(jsonData);
 			jsonData = AddBracketToEnd(jsonData);
-			Log.Info($"Luego de remplazar: {jsonData}");
+			Log.Debug($"Luego de remplazar: {jsonData}");
 
 
 			try
