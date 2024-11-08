@@ -34,7 +34,7 @@ namespace Molinos.Orquest.DriversImpl
 
         private void Conectar()
         {
-            clienteTcp = new TcpClient(host, puerto) { ReceiveBufferSize = tamBuffer };
+			clienteTcp = new TcpClient(host, puerto) { ReceiveBufferSize = tamBuffer };
             if (timeoutLectura > 0)
             {
                 clienteTcp.GetStream().ReadTimeout = timeoutLectura;
@@ -48,14 +48,22 @@ namespace Molinos.Orquest.DriversImpl
 
         public void ReConectar()
         {
-            if (clienteTcp != null)
+			if (clienteTcp != null)
             {
                 clienteTcp.Close();
-            }
+			}
             Conectar();
         }
 
-        public string EnviarComando(string comando, int posInicioRespuesta, int posFinRespuesta)
+		public void Liberar()
+		{
+			if (clienteTcp != null)
+			{
+				clienteTcp.Dispose();
+			}			
+		}
+
+		public string EnviarComando(string comando, int posInicioRespuesta, int posFinRespuesta)
         {
             var netStream = clienteTcp.GetStream();
             byte[] writeBuffer = Encoding.ASCII.GetBytes(comando);

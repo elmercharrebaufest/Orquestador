@@ -19,8 +19,6 @@ namespace Molinos.Orquest.DriversImpl
 		private bool dispositivoActivo = false;
 		private string codigoRasp;
 		private ConfigItc config;
-		private bool conectado;
-		private bool pingOK;
 		private TcpCommandClient cliente;
 		private bool consultarEstado = true;
 		private int delayReconexion;
@@ -58,9 +56,7 @@ namespace Molinos.Orquest.DriversImpl
 			codigoRasp = codigo;
 			config = (ConfigItc)configuracion;
 			dispositivoActivo = true;
-			pingOK = true;
 			cliente = new TcpCommandClient(config.DireccionIp, config.Puerto, config.LongFrase, config.TimeoutLectura, Log, false);
-			conectado = cliente.Conectado;
 			delayReconexion = configuracionGeneral.TiempoReintentoReconexion;
 			delayPing = configuracionGeneral.TiempoPing;
 
@@ -174,19 +170,18 @@ namespace Molinos.Orquest.DriversImpl
 						jsonResponse = ParseJsonData(response);
 
 						// Reconexion en caso de que IsConnected devuelva false
-						var connected = ConnectionHelper.IsConnected(cliente, pingOK, conectado);
-						if (!connected)
+						if (!cliente.Conectado)
 						{
-							Log.Debug("Intentando reconectar con dispositivo. Dispositivo: {0}", codigoRasp);
+							Log.Warn("Intentando reconectar con dispositivo. Dispositivo: {0}", codigoRasp);
 							cliente.ReConectar();
-							conectado = true;
 						}
 
 						// Reconexion enviada desde el dispostivo
-						if (jsonResponse.Any(x => x.Dato == "reconnectDevice"))
+						if (cliente.Conectado && jsonResponse.Any(x => x.Dato == "reconnectDevice"))
 						{
 							Log.Warn($"Reconexion enviada desde {codigoRasp}");
-							cliente.ReConectar();
+							cliente.Liberar();
+							cliente = new TcpCommandClient(config.DireccionIp, config.Puerto, config.LongFrase, config.TimeoutLectura, Log, false);
 						}
 					}
 				}
@@ -249,9 +244,12 @@ namespace Molinos.Orquest.DriversImpl
 				return entradas; // Devuelve una lista vacía si jsonData es nulo o está vacío
 			}
 
+			Log.Info($"Antes de remplazar: {jsonData}");
 			jsonData = jsonData.Replace("[", ",").Replace("]", "");
 			jsonData = ReplaceFirstCharacterWithBracket(jsonData);
 			jsonData = AddBracketToEnd(jsonData);
+			Log.Info($"Luego de remplazar: {jsonData}");
+
 
 			try
 			{
