@@ -34,14 +34,11 @@ namespace Molinos.Orquest.DriversImpl
 
         private void Conectar()
         {
-			log.Warn($"5. Entro en Conectar");
-			log.Warn($"5. ClienteTCP conectado: {clienteTcp?.Connected}");
 			clienteTcp = new TcpClient(host, puerto) { ReceiveBufferSize = tamBuffer };
             if (timeoutLectura > 0)
             {
                 clienteTcp.GetStream().ReadTimeout = timeoutLectura;
             }
-            log.Warn($"5. ClienteTCP conectado: {clienteTcp.Connected}");
         }
 
         public bool Conectado
@@ -51,18 +48,22 @@ namespace Molinos.Orquest.DriversImpl
 
         public void ReConectar()
         {
-			log.Warn($"6. Entro a ReConectar en TcpCommandClient");
 			if (clienteTcp != null)
             {
-                log.Warn($"6. ClienteTCP distinto de null, Antes de Close(), conectado: {clienteTcp.Connected}");
-                //clienteTcp.Close();
-                clienteTcp.Dispose();
-				log.Warn($"6. ClienteTCP null: {clienteTcp == null}, conectado: {clienteTcp?.Connected}");
+                clienteTcp.Close();
 			}
             Conectar();
         }
 
-        public string EnviarComando(string comando, int posInicioRespuesta, int posFinRespuesta)
+		public void Liberar()
+		{
+			if (clienteTcp != null)
+			{
+				clienteTcp.Dispose();
+			}			
+		}
+
+		public string EnviarComando(string comando, int posInicioRespuesta, int posFinRespuesta)
         {
             var netStream = clienteTcp.GetStream();
             byte[] writeBuffer = Encoding.ASCII.GetBytes(comando);

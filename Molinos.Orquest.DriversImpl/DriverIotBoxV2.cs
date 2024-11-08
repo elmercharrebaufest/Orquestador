@@ -19,7 +19,6 @@ namespace Molinos.Orquest.DriversImpl
 		private bool dispositivoActivo = false;
 		private string codigoRasp;
 		private ConfigItc config;
-		private bool reconectando = false;
 		private TcpCommandClient cliente;
 		private bool consultarEstado = true;
 		private int delayReconexion;
@@ -73,14 +72,6 @@ namespace Molinos.Orquest.DriversImpl
 		{
 			while (dispositivoActivo)
 			{
-				Log.Warn($"Flag reconectando: {reconectando}");
-
-				// Detener lecturas hasta que reconecte el dispositivo
-				if (reconectando)
-				{
-					continue;
-				}
-
 				// Si no funciona usar variable con tiempo actual y vuelva a correr 1 segundo despues			
 				try
 				{
@@ -102,7 +93,6 @@ namespace Molinos.Orquest.DriversImpl
 					{
 						Log.Debug("Desconexión de Rasp={0}", codigoRasp);
 						NotificarEstadoConexion(CodigosEventos.ErrorConexionDispositivo, e);
-						reconectando = false;
 						falloUltimaConexion = true;
 						errorUltimaConexion = e;
 					}
@@ -166,7 +156,6 @@ namespace Molinos.Orquest.DriversImpl
 				}
 				catch (SocketException e)
 				{
-					Log.Warn($"3. Entrando en catch de cliente.LeerNovedad()");
 					Log.Debug($"Error de conexion al leer respuesta: {e.Message}. Intentando un nuevo ping.");
 					await ReConectarSiEsNecesario();
 					await EnviarPingPeriodicamente();
@@ -181,23 +170,18 @@ namespace Molinos.Orquest.DriversImpl
 						jsonResponse = ParseJsonData(response);
 
 						// Reconexion en caso de que IsConnected devuelva false
-						if (!cliente.Conectado && !reconectando)
+						if (!cliente.Conectado)
 						{
-							Log.Warn("2. Intentando reconectar con dispositivo. Dispositivo: {0}", codigoRasp);
-							reconectando = true;
+							Log.Warn("Intentando reconectar con dispositivo. Dispositivo: {0}", codigoRasp);
 							cliente.ReConectar();
-							reconectando = false;
-							Log.Warn($"2. Reconexion terminada para dispositivo {codigoRasp}");
 						}
 
 						// Reconexion enviada desde el dispostivo
-						if (cliente.Conectado && !reconectando && jsonResponse.Any(x => x.Dato == "reconnectDevice"))
+						if (cliente.Conectado && jsonResponse.Any(x => x.Dato == "reconnectDevice"))
 						{
-							Log.Warn($"1. Reconexion enviada desde {codigoRasp}");
-							reconectando = true;
-							cliente.ReConectar();
-							reconectando = false;
-							Log.Warn($"1. Reconexion terminada para dispositivo {codigoRasp}");
+							Log.Warn($"Reconexion enviada desde {codigoRasp}");
+							cliente.Liberar();
+							cliente = new TcpCommandClient(config.DireccionIp, config.Puerto, config.LongFrase, config.TimeoutLectura, Log, false);
 						}
 					}
 				}
@@ -245,7 +229,6 @@ namespace Molinos.Orquest.DriversImpl
 			}
 			catch
 			{
-				Log.Warn($"4. Entrando en catch EnviarPingPeriodicamente");
 				await ReConectarSiEsNecesario();
 				ActivarSalida(0, "\"socketconnected\"", "0", false);
 			}
