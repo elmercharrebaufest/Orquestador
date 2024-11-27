@@ -110,6 +110,8 @@
     <Compile Include="Controllers\CabezalControllerTest.cs" />
     <Compile Include="Controllers\CartelLedControllerTest.cs" />
     <Compile Include="Controllers\ImpresoraHasarControllerTest.cs" />
+    <Compile Include="Controllers\JsonFromIotBoxControllerTest.cs" />
+    <Compile Include="Controllers\JsonToIotBoxControllerTest.cs" />
     <Compile Include="Controllers\LectorQrControllerTest.cs" />
     <Compile Include="Controllers\MolineteControllerTest.cs" />
     <Compile Include="Controllers\PruebaMolineteControllerTest.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Controllers\BarreraControllerTest.cs" />
     <Compile Include="Controllers\HumedimetroControllerTest.cs" />
     <Compile Include="Controllers\PruebaItcControllerTest.cs" />
+    <Compile Include="Dominio\ExtensionesSerializacionTest.cs" />
     <Compile Include="Dominio\ExtensionesByteTest.cs" />
     <Compile Include="FactoryConversor.cs" />
     <Compile Include="Helpers\TestExtensionesHtml.cs" />

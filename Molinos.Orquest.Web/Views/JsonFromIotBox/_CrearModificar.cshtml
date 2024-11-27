@@ -23,9 +23,16 @@
                 @Html.TextBoxFor(model => model.Dispositivo.Descripcion, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Dispositivo.Descripcion, null, new { @class = "text-danger" })
             </div>
+
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6">
-            
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dispositivo.Activo)
+                @Html.CheckBoxFor(m => m.Dispositivo.Activo)
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+
         </div>
     </div>
     <div class="row">

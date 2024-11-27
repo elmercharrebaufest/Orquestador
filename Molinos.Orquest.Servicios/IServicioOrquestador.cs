@@ -74,7 +74,10 @@ namespace Molinos.Orquest.Servicios
         IList<DispositivoDto> ListarConcentradores();
         
         [OperationContract]
-        IList<DispositivoDto> ListarOffline();
+        IList<DispositivoDto> ListarJsonToIotBox();
+
+        [OperationContract]
+        IList<DispositivoDto> ListarJsonFromIotBox();
 
         [OperationContract]
         IList<DispositivoDto> ListarSensoresPorConcentrador(string concentrador);
@@ -120,6 +123,5 @@ namespace Molinos.Orquest.Servicios
 
         [OperationContract]
         IList<DispositivoDto> ListarGruposBarrera();
-
     }
 }

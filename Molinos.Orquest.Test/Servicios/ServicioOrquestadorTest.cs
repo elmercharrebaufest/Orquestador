@@ -2267,6 +2267,29 @@ namespace Molinos.Orquest.Test.Servicios
         }
 
         [Test]
+        public void TestListarDataOffLine()
+        {
+            var dispositivos = new List<DispositivoDto>()
+            {
+                new DispositivoDto()
+                {
+                    Codigo = "1",
+                    Descripcion = "1"
+                }
+            };
+            repositorioFactoryMock.Setup(x => x.Repositorio()).Returns(repositorioMock.Object);
+            repositorioMock.Setup(
+                x =>
+                    x.Listar(It.IsAny<Expression<Func<ConfigJsonFromIotBox, bool>>>(),
+                        It.IsAny<Expression<Func<ConfigJsonFromIotBox, DispositivoDto>>>())).Returns(dispositivos);
+
+            var resultado = target.ListarJsonFromIotBox();
+            repositorioFactoryMock.Verify(x => x.Repositorio(), Times.Once());
+            repositorioMock.Verify(x => x.Listar(It.IsAny<Expression<Func<ConfigJsonFromIotBox, bool>>>(),
+                        It.IsAny<Expression<Func<ConfigJsonFromIotBox, DispositivoDto>>>()), Times.Once());
+        }
+
+        [Test]
         public void TestListarBarrerasSemaforos()
         {
             var barrerasSemaforos = new List<DispositivoDto>()

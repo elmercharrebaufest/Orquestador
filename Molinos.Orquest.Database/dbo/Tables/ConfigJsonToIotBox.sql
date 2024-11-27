@@ -3,5 +3,6 @@
 	[Id] INT NOT NULL PRIMARY KEY, 
     [FormatoJson] INT NULL, 
     [NumeroSalida] INT NULL, 
-    CONSTRAINT [FK_ConfigJsonToIotBox_FormatosJson] FOREIGN KEY (FormatoJson) REFERENCES FormatosJson(Id)
+    CONSTRAINT [FK_ConfigJsonToIotBox_FormatosJson] FOREIGN KEY (FormatoJson) REFERENCES FormatosJson(Id),
+    CONSTRAINT [FK_ConfigJsonToIotBox_ConfigDispositivo] FOREIGN KEY (Id) REFERENCES ConfigDispositivo(Id)
 )

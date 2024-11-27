@@ -8,6 +8,7 @@ using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Repositorio;
 using Molinos.Orquest.Servicios.Procesamiento;
 using Ninject.Extensions.Logging;
+using Ninject.Parameters;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -433,14 +434,26 @@ namespace Molinos.Orquest.Servicios.Impl
                     concentrador => new DispositivoDto { Codigo = concentrador.Dispositivo.Codigo, Descripcion = concentrador.Dispositivo.Descripcion });
             }
         }
-        public IList<DispositivoDto> ListarOffline()
+        public IList<DispositivoDto> ListarJsonToIotBox()
         {
             using (var repositorio = factoryRepositorio.Repositorio())
             {
+                log.Info("Listando JSON hacia Iot Box");
                 return repositorio.Listar<ConfigJsonToIotBox, DispositivoDto>(offline => offline.Dispositivo.Activo && !offline.Dispositivo.EsConcentrador,
                     offline => new DispositivoDto { Codigo = offline.Dispositivo.Codigo, Descripcion = offline.Dispositivo.Descripcion });
             }
         }
+
+        public IList<DispositivoDto> ListarJsonFromIotBox()
+        {
+            using (var repositorio = factoryRepositorio.Repositorio())
+            {
+                log.Info("Listando JSON desde Iot Box");
+                return repositorio.Listar<ConfigJsonFromIotBox, DispositivoDto>(OffLine => OffLine.Dispositivo.Activo && !OffLine.Dispositivo.EsConcentrador,
+                    OffLine => new DispositivoDto { Codigo = OffLine.Dispositivo.Codigo, Descripcion = OffLine.Dispositivo.Descripcion });
+            }
+        }
+
         public IList<DispositivoDto> ListarSensoresPorConcentrador(string concentrador)
         {
             using (var repositorio = factoryRepositorio.Repositorio())
