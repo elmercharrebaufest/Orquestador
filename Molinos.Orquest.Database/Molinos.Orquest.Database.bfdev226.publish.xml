@@ -4,7 +4,7 @@
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseName>Orquestador</TargetDatabaseName>
     <DeployScriptFileName>Molinos.Orquest.Database.sql</DeployScriptFileName>
-    <TargetConnectionString>Data Source=bfdev226;Integrated Security=True;Pooling=False</TargetConnectionString>
+    <TargetConnectionString>Data Source=bfdev226;Integrated Security=True;Pooling=False;Trust Server Certificate=True;</TargetConnectionString>
     <ProfileVersionNumber>1</ProfileVersionNumber>
     <ScriptDatabaseOptions>True</ScriptDatabaseOptions>
     <BlockOnPossibleDataLoss>False</BlockOnPossibleDataLoss>
