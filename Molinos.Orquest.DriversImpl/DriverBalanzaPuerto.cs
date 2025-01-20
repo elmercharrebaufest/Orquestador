@@ -313,7 +313,15 @@ namespace Molinos.Orquest.DriversImpl
         {
             if (consulta.Contains(codigoBalanzaPuerto + " ERR"))
             {
-                var respuesta = new Dictionary<string, string>() { { "tipoBalanzada", "error" + (consulta.Contains("MSC 41:UPD FACILITY ACTIVE") ? "41" : "") } };
+                var respuesta = new Dictionary<string, string>();
+
+                if (consulta.Contains("MSC 41:UPD FACILITY ACTIVE"))
+                    respuesta.Add("tipoBalanzada", "error41");
+                else if (consulta.Contains("MSC 44:EMST ACTIVE"))
+                    respuesta.Add("tipoBalanzada", "error44");
+                else
+                    respuesta.Add("tipoBalanzada", "error");
+
                 respuesta.Add("numeroBalanza", BalanzadaNombresDescriptivos(codigoBalanzaPuerto));
                 var idConFechaError = consulta.Split(' ').GetValue(0).ToString() + consulta.Split(' ').GetValue(1).ToString();
                 respuesta.Add("id", idConFechaError.Split(';').GetValue(0).ToString());
