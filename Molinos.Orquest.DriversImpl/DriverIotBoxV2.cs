@@ -60,7 +60,7 @@ namespace Molinos.Orquest.DriversImpl
 			delayReconexion = configuracionGeneral.TiempoReintentoReconexion;
 			delayPing = configuracionGeneral.TiempoPing;
 
-			Log.Debug("Iniciando Driver de IotBox {0}", codigo);
+			Log.Info("Iniciando Driver de IotBox {0}", codigo);
 			// 2 hilos separados, uno consulta con ping y pingresponse y el otro es lectura
 			// envio de ping desde el dispositivo fisico y lifetime, si no responde se reconecta teniendo en cuenta el lifetime
 			// cada dispositivo tiene su propio lifetime
@@ -79,7 +79,7 @@ namespace Molinos.Orquest.DriversImpl
 					//Cuando no hay estado anterior se lanza el evento
 					if (!falloUltimaConexion.HasValue || falloUltimaConexion.Value)
 					{
-						Log.Debug("Nueva Conexión a Rasp={0}", codigoRasp);
+						Log.Info("Nueva Conexión a Rasp={0}", codigoRasp);
 						NotificarEstadoConexion(CodigosEventos.ConexionDispositivoCorrecta);
 						falloUltimaConexion = false;
 						errorUltimaConexion = null;
@@ -91,12 +91,12 @@ namespace Molinos.Orquest.DriversImpl
 					//Cuando no hay estado anterior se lanza el evento
 					if (!falloUltimaConexion.HasValue || !falloUltimaConexion.Value)
 					{
-						Log.Debug("Desconexión de Rasp={0}", codigoRasp);
+						Log.Info("Desconexión de Rasp={0}", codigoRasp);
 						NotificarEstadoConexion(CodigosEventos.ErrorConexionDispositivo, e);
 						falloUltimaConexion = true;
 						errorUltimaConexion = e;
 					}
-					
+
 				}
 				finally
 				{
@@ -156,7 +156,7 @@ namespace Molinos.Orquest.DriversImpl
 				}
 				catch (SocketException e)
 				{
-					Log.Debug($"Error de conexion al leer respuesta: {e.Message}. Intentando un nuevo ping.");
+					Log.Error($"Error de conexion al leer respuesta: {e.Message}. Intentando un nuevo ping.");
 					await ReConectarSiEsNecesario();
 					await EnviarPingPeriodicamente();
 					response = cliente.LeerNovedad();
@@ -183,6 +183,10 @@ namespace Molinos.Orquest.DriversImpl
 							cliente.Liberar();
 							cliente = new TcpCommandClient(config.DireccionIp, config.Puerto, config.LongFrase, config.TimeoutLectura, Log, false);
 						}
+					}
+					else
+					{
+						Log.Info($"JSON Response - ELSE - {(jsonResponse != null ? jsonResponse.ToString() : "Response NULL")}");
 					}
 				}
 				catch (Exception e)
@@ -281,9 +285,10 @@ namespace Molinos.Orquest.DriversImpl
 
 		private async Task ReConectarSiEsNecesario()
 		{
+			Log.Warn($"Entro en ReConectarSiEsNecesario, cliente conectado? {cliente.Conectado}");
 			if (!cliente.Conectado)
 			{
-				Log.Info($"Intentando reconectar: {codigoRasp}");
+				Log.Warn($"Intentando reconectar: {codigoRasp}");
 				cliente.ReConectar();
 				await Task.Delay(delayReconexion); // Espera X segundos antes de la siguiente verificación
 			}
@@ -299,7 +304,7 @@ namespace Molinos.Orquest.DriversImpl
 			{
 				if (!cliente.Conectado)
 				{
-					Log.Debug($"Reconexion desde ActivarSalida: {codigoRasp}");
+					Log.Info($"Reconexion desde ActivarSalida: {codigoRasp}");
 					cliente.ReConectar();
 				}
 				if (consultarEstado)
@@ -322,7 +327,7 @@ namespace Molinos.Orquest.DriversImpl
 
 		public override void InformarEstado()
 		{
-			Log.Debug("Informando estado ITC {0}", codigoRasp);
+			Log.Info("Informando estado ITC {0}", codigoRasp);
 			if (falloUltimaConexion.HasValue && falloUltimaConexion.Value)
 			{
 				NotificarEstadoConexion(CodigosEventos.ErrorConexionDispositivo, errorUltimaConexion ?? new Exception(CodigosEventos.ErrorConexionDispositivo));
@@ -337,7 +342,7 @@ namespace Molinos.Orquest.DriversImpl
 		{
 			try
 			{
-				Log.Debug("Cambio Estado Entrada: Rasp={0} Entrada={1} Dato={3} Evento={2}", codigoRasp, entrada, codigoEvento, dato);
+				Log.Info("Cambio Estado Entrada: Rasp={0} Entrada={1} Dato={3} Evento={2}", codigoRasp, entrada, codigoEvento, dato);
 
 				var notification = new NotificacionEvento
 				{
@@ -373,7 +378,7 @@ namespace Molinos.Orquest.DriversImpl
 			catch (Exception e)
 			{
 				Log.Error(e, "Error al intentar dispose del driver {0}", codigoRasp);
-			}			
+			}
 		}
 
 		public bool ConsultarEstadoEntrada(int numeroEntrada)
