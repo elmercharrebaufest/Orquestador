@@ -55,6 +55,19 @@ namespace Molinos.Orquest.DriversImpl
             Conectar();
         }
 
+		public void ReConectarV2()
+		{
+			if (clienteTcp != null)
+			{
+                log.Info($"ReConectarV2 - ClienteTCP no es nulo - A punto de correr Close(), host {host}, puerto {puerto}");
+				clienteTcp.Close();
+				log.Info($"ReConectarV2 - Se ejecuto clienteTcp.Close(), host {host}, puerto {puerto}");
+			}
+			log.Info($"ReConectarV2 - A punto de correr Conectar() en TcpCommandClient, host {host}, puerto {puerto}");
+			Conectar();
+			log.Info($"ReConectarV2 - Se ejecuto Conectar(), host {host}, puerto {puerto}");
+		}
+
 		public void Liberar()
 		{
 			if (clienteTcp != null)
