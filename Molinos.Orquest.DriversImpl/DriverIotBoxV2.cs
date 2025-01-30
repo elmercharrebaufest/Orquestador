@@ -297,7 +297,7 @@ namespace Molinos.Orquest.DriversImpl
 			if (!cliente.Conectado)
 			{
 				Log.Warn($"Intentando reconectar: {codigoRasp}");
-				cliente.ReConectar();
+				cliente.ReConectarV2();
 				Log.Info($"ReConectar: {codigoRasp}");
 				await Task.Delay(delayReconexion); // Espera X segundos antes de la siguiente verificación
 				Log.Info($"Se paso Delay(delayReconexion)");
