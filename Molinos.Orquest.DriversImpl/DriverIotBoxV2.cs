@@ -158,8 +158,11 @@ namespace Molinos.Orquest.DriversImpl
 				{
 					Log.Error($"Error de conexion al leer respuesta: {e.Message}. Intentando un nuevo ping.");
 					await ReConectarSiEsNecesario();
+					Log.Warn($"Se corrio ReConectarSiEsNecesario en catch de LeerNovedad desde {codigoRasp}");
 					await EnviarPingPeriodicamente();
+					Log.Warn($"Se corrio EnviarPingPeriodicamente en catch de LeerNovedad, se intenta volver a LeerNovedad desde {codigoRasp}");
 					response = cliente.LeerNovedad();
+					Log.Warn($"Se corrio cliente.LeerNovedad() en catch de LeerNovedad desde {codigoRasp}");
 				}
 
 				// Intento de parseo de respuesta
@@ -173,7 +176,8 @@ namespace Molinos.Orquest.DriversImpl
 						if (!cliente.Conectado)
 						{
 							Log.Warn("Intentando reconectar con dispositivo. Dispositivo: {0}", codigoRasp);
-							cliente.ReConectar();
+							cliente.ReConectarV2();
+							Log.Warn("Se ejecuto ReConectarV2: {0}", codigoRasp);
 						}
 
 						// Reconexion enviada desde el dispostivo
@@ -181,7 +185,9 @@ namespace Molinos.Orquest.DriversImpl
 						{
 							Log.Warn($"Reconexion enviada desde {codigoRasp}");
 							cliente.Liberar();
+							Log.Warn($"Se corrio cliente Liberar() en {codigoRasp}");
 							cliente = new TcpCommandClient(config.DireccionIp, config.Puerto, config.LongFrase, config.TimeoutLectura, Log, false);
+							Log.Warn($"Creada nueva conexion de TcpCommandClient para {codigoRasp}");
 						}
 					}
 					else
@@ -233,7 +239,9 @@ namespace Molinos.Orquest.DriversImpl
 			}
 			catch
 			{
+				Log.Warn($"Entro en catch de EnviarPingPeriodicamente para dispositivo: {codigoRasp}");
 				await ReConectarSiEsNecesario();
+				Log.Warn($"Corrio ReConectarSiEsNecesario dentro de catch en EnviarPingPeriodicamente para dispositivo: {codigoRasp}");
 				ActivarSalida(0, "\"socketconnected\"", "0", false);
 			}
 			await Task.Delay(delayPing); // Espera X segundos antes de la siguiente ejecución
@@ -289,8 +297,10 @@ namespace Molinos.Orquest.DriversImpl
 			if (!cliente.Conectado)
 			{
 				Log.Warn($"Intentando reconectar: {codigoRasp}");
-				cliente.ReConectar();
+				cliente.ReConectarV2();
+				Log.Info($"ReConectar: {codigoRasp}");
 				await Task.Delay(delayReconexion); // Espera X segundos antes de la siguiente verificación
+				Log.Info($"Se paso Delay(delayReconexion)");
 			}
 		}
 
@@ -305,7 +315,8 @@ namespace Molinos.Orquest.DriversImpl
 				if (!cliente.Conectado)
 				{
 					Log.Info($"Reconexion desde ActivarSalida: {codigoRasp}");
-					cliente.ReConectar();
+					cliente.ReConectarV2();
+					Log.Info("Se ejecuto ReConectarV2: {0}", codigoRasp);
 				}
 				if (consultarEstado)
 				{
