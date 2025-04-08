@@ -101,11 +101,10 @@ namespace Molinos.Orquest.ModuloALPR.Impl
 
                                             if (guardarImagenes.ToLower() == "true")
                                             {
-                                                imagenCortada.Save(string.Format("{0}/{1}_{2}_intento{3}.jpeg", rutaImagenes, DateTime.Now.ToString("yyyyMMdd_HHmmssfff"), guidRequest, intento), ImageFormat.Jpeg);
+                                                imagenCortada.Save(string.Format("{0}/{1}_{2}.jpeg", rutaImagenes, DateTime.Now.ToString("yyyyMMdd_HHmmssfff"), guidRequest), ImageFormat.Jpeg);
                                             }
 
                                             var results = alpr.Recognize(ms.ToArray());
-                                            log.Info($"Intento {intento}: {results.ToJson()}");
                                             if (results.results.Any() && results.results.First().candidates.Any())
                                             {
                                                 if (results.results.First().candidates.Count > 1)
@@ -117,7 +116,7 @@ namespace Molinos.Orquest.ModuloALPR.Impl
                                                 var reconocimiento = results.results.First().candidates.First();
                                                 resultado.Patente = reconocimiento.plate.PadRight(12).Trim();
                                                 resultado.Confianza = reconocimiento.confidence;
-                                                log.Info($"Patente Reconocida - Intento: {intento} - Patente: {resultado.Patente}");
+                                                log.Info($"Patente Reconocida - Intento: {intento} - Patente: {resultado.Patente} - {results.ToJson()}");
                                                 return resultado;
                                             }
                                         }
