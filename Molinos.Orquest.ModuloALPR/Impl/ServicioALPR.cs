@@ -1,4 +1,5 @@
-﻿using Molinos.Orquest.Dominio.Resultados;
+﻿using Molinos.Orquest.Dominio.Helpers;
+using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.ModuloALPR.ALPR;
 using Ninject.Extensions.Logging;
 using System;
@@ -23,7 +24,7 @@ namespace Molinos.Orquest.ModuloALPR.Impl
         public ResultadoObtenerPatente LeerPatente(byte[] imagen, int margenIzquierdo, int margenDerecho, int margenSuperior, int margenInferior)
         {
             var resultado = new ResultadoObtenerPatente();
-            
+
             var region = "ar";
             String config_file = Path.Combine(AssemblyDirectory + "\\..\\ALPR\\dll", "openalpr.conf");
             String runtime_data_dir = Path.Combine(AssemblyDirectory + "\\..\\ALPR\\dll", "runtime_data");
@@ -46,42 +47,85 @@ namespace Molinos.Orquest.ModuloALPR.Impl
                     }
 
                     alpr.setTopN(1);
-                    using (MemoryStream mStream = new MemoryStream(imagen))
+                    for (int intento = 1; intento <= 6; intento++)
                     {
-                        using (Image img = Image.FromStream(mStream))
-                        {
-                            using (Image imagenCortada = CropImage(img, margenIzquierdo, margenDerecho, margenSuperior, margenInferior))
+                            using (MemoryStream mStream = new MemoryStream(imagen))
                             {
-                                using (var ms = new MemoryStream())
+                                using (Image img = Image.FromStream(mStream))
                                 {
-                                    imagenCortada.Save(ms, ImageFormat.Jpeg);
+                                    // Modificar los márgenes según el intento
+                                    int margenIzqModificado = margenIzquierdo;
+                                    int margenDerModificado = margenDerecho;
+                                    int margenTopModificado = margenSuperior;
+                                    int margenInfModificado = margenInferior;
+                                    Image imgProcesada = img;
 
-                                    if(guardarImagenes.ToLower() == "true")
+                                    switch (intento)
                                     {
-                                        imagenCortada.Save(string.Format("{0}/{1}_{2}.jpeg",rutaImagenes, DateTime.Now.ToString("yyyyMMdd_HHmmssfff"), guidRequest), ImageFormat.Jpeg);
+                                        case 2: // Reducir márgenes en un 5% de la imagen que viene de parametro
+                                            margenIzqModificado = (int)(0.05 * img.Width);
+                                            margenDerModificado = (int)(0.05 * img.Width);
+                                            margenTopModificado = (int)(0.05 * img.Height);
+                                            margenInfModificado = (int)(0.05 * img.Height);
+                                        break;
+
+                                        case 3: // Rotar imagen 20 grados
+                                            imgProcesada = RotateImage(img, 20);
+                                            break;
+                                        
+                                        case 4: // Imagen completa
+                                            margenIzqModificado = 0;
+                                            margenDerModificado = 0;
+                                            margenTopModificado = 0;
+                                            margenInfModificado = 0;
+                                            break;
+
+                                        case 5: // Márgenes aleatorios (máximo 15% de variación)
+                                            Random random = new Random();
+                                            margenIzqModificado = margenIzquierdo - random.Next(0, (int)(margenIzquierdo * 0.15));
+                                            margenDerModificado = margenDerecho - random.Next(0, (int)(margenDerecho * 0.15));
+                                            margenTopModificado = margenSuperior - random.Next(0, (int)(margenSuperior * 0.15));
+                                            margenInfModificado = margenInferior - random.Next(0, (int)(margenInferior * 0.15));
+                                            break;
+
+                                        case 6: // Rotar imagen -20 grados
+                                            imgProcesada = RotateImage(img, -20);
+                                            break;
                                     }
 
-                                    var results = alpr.Recognize(ms.ToArray());
-                                    if (results.results.Any() && results.results.First().candidates.Any())
+                                    using (Image imagenCortada = CropImage(imgProcesada, margenIzqModificado, margenDerModificado, margenTopModificado, margenInfModificado))
                                     {
-                                        if(results.results.First().candidates.Count > 1)
+                                        using (var ms = new MemoryStream())
                                         {
-                                            var patentes = results.results.First().candidates.Select(x => x.plate);
-                                            log.Info(string.Format("Se reconocio más de una patente: ", string.Join(",",patentes.ToArray())));
-                                        }
+                                            imagenCortada.Save(ms, ImageFormat.Jpeg);
 
-                                        var reconocimiento = results.results.First().candidates.First();
-                                        resultado.Patente = reconocimiento.plate.PadRight(12).Trim();
-                                        resultado.Confianza = reconocimiento.confidence;
+                                            if (guardarImagenes.ToLower() == "true")
+                                            {
+                                                imagenCortada.Save(string.Format("{0}/{1}_{2}.jpeg", rutaImagenes, DateTime.Now.ToString("yyyyMMdd_HHmmssfff"), guidRequest), ImageFormat.Jpeg);
+                                            }
+
+                                            var results = alpr.Recognize(ms.ToArray());
+                                            if (results.results.Any() && results.results.First().candidates.Any())
+                                            {
+                                                if (results.results.First().candidates.Count > 1)
+                                                {
+                                                    var patentes = results.results.First().candidates.Select(x => x.plate);
+                                                    log.Info(string.Format("Se reconocio más de una patente: ", string.Join(",", patentes.ToArray())));
+                                                }
+
+                                                var reconocimiento = results.results.First().candidates.First();
+                                                resultado.Patente = reconocimiento.plate.PadRight(12).Trim();
+                                                resultado.Confianza = reconocimiento.confidence;
+                                                log.Info($"Patente Reconocida - Intento: {intento} - Patente: {resultado.Patente} - {results.ToJson()}");
+                                                return resultado;
+                                            }
+                                        }
                                     }
                                 }
                             }
-                        }
                     }
                 }
             }
-
-            log.Info($"Patente reconocida ({guidRequest}) {resultado.Patente} ");
             return resultado;
         }
 
@@ -103,7 +147,31 @@ namespace Molinos.Orquest.ModuloALPR.Impl
             return bmpImage.Clone(new Rectangle(margenIzq ?? 0, margenTop ?? 0, img.Width - (margenIzq ?? 0) - (margenDer ?? 0), img.Height - (margenTop ?? 0) - (margenInf ?? 0)), bmpImage.PixelFormat);
         }
 
-        
+        private static Image RotateImage(Image img, float angle)
+        {
+            // Crear un nuevo bitmap para contener la imagen rotada
+            Bitmap rotatedBmp = new Bitmap(img.Width, img.Height);
+            rotatedBmp.SetResolution(img.HorizontalResolution, img.VerticalResolution);
+
+            // Usar Graphics para aplicar la rotación
+            using (Graphics g = Graphics.FromImage(rotatedBmp))
+            {
+                // Establecer el fondo como transparente
+                g.Clear(Color.Transparent);
+
+                // Mover el punto de origen al centro de la imagen
+                g.TranslateTransform((float)img.Width / 2, (float)img.Height / 2);
+
+                // Rotar la imagen
+                g.RotateTransform(angle);
+
+                // Dibujar la imagen original en el nuevo bitmap
+                g.TranslateTransform(-(float)img.Width / 2, -(float)img.Height / 2);
+                g.DrawImage(img, new Point(0, 0));
+            }
+
+            return rotatedBmp;
+        }
 
     }
 }
