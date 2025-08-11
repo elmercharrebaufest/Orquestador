@@ -173,6 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="Config\BalanzadaPuerto.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Connected Services\ServicioALPR\Molinos.Orquest.DriversImpl.ServicioALPR.ResultadoObtenerPatente.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

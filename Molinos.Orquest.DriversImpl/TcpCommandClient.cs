@@ -7,7 +7,17 @@ using Ninject.Extensions.Logging;
 
 namespace Molinos.Orquest.DriversImpl
 {
-    public sealed class TcpCommandClient : IDisposable
+    public interface ITcpCommandClient
+    {
+        bool Conectado { get; }
+        void ReConectar();
+        void ReConectarV2();
+        void Liberar();
+        string EnviarComando(string comando, int posInicioRespuesta, int posFinRespuesta);
+        void Dispose();
+    }
+
+    public sealed class TcpCommandClient : ITcpCommandClient, IDisposable
     {
         private TcpClient clienteTcp;
         private readonly string host;
@@ -84,6 +94,7 @@ namespace Molinos.Orquest.DriversImpl
 
             var readBuffer = new byte[clienteTcp.ReceiveBufferSize];
             netStream.Read(readBuffer, 0, readBuffer.Length);
+            
             if (comando == "P" && loguear)
             {
                 log.Info("Comando - " + comando + " - Dispositivo: " + host + ":" + puerto.ToString() + " Respuesta: '" + (Encoding.ASCII.GetString(readBuffer.ToArray()).Replace("\r", "")) + "'");
@@ -91,6 +102,7 @@ namespace Molinos.Orquest.DriversImpl
 
             return Encoding.ASCII.GetString(readBuffer, posInicioRespuesta, posFinRespuesta - posInicioRespuesta);
         }
+
         public string EnviarComandoHex(byte[] writeBuffer)
         {
             var netStream = clienteTcp.GetStream();
@@ -103,13 +115,6 @@ namespace Molinos.Orquest.DriversImpl
             Array.Copy(readBuffer, truncArray, truncArray.Length);
             return BitConverter.ToString(truncArray);
         }
-
-        //public void EnviarComando(string comando)
-        //{
-        //    var netStream = clienteTcp.GetStream();
-        //    byte[] writeBuffer = Encoding.ASCII.GetBytes(comando);
-        //    netStream.Write(writeBuffer, 0, writeBuffer.Length);
-        //}
 
         public void EnviarComando(string comando, bool flush = false)
         {
@@ -127,11 +132,13 @@ namespace Molinos.Orquest.DriversImpl
             var netStream = clienteTcp.GetStream();
             netStream.Write(writeBuffer.ToArray(), 0, writeBuffer.Count);
         }
+
         public void EnviarComando(byte[] writeBuffer)
         {
             var netStream = clienteTcp.GetStream();
             netStream.Write(writeBuffer.ToArray(), 0, writeBuffer.Length);
         }
+
         public string LeerRespuesta(int posInicioRespuessta, int posFinRespuesta)
         {
             var netStream = clienteTcp.GetStream();
@@ -218,15 +225,12 @@ namespace Molinos.Orquest.DriversImpl
         public void Dispose()
         {
             var disposable = clienteTcp as IDisposable;
-            if (disposable != null)
-            {
 
+            if (disposable != null)
                 disposable.Dispose();
-            }
+
             if (networkStream != null)
-            {
                 networkStream.Close();
-            }
         }
     }
 }

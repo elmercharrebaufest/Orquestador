@@ -1,0 +1,35 @@
+{
+  "comun": {
+    "id": 0,
+    "tipoBalanzada": 1,
+    "numeroBalanza": 2,
+    "fecha": 3,
+    "hora": 4
+  },
+  "inicio": {
+    "bodega": 5,
+    "vapor": 6,
+    "destino": 7,
+    "exportador": 8,
+    "pesoProgramado": 9,
+    "toneladasaw": 10,
+    "commodity": 12
+  },
+  "balanzada": {
+    "pesoBruto": 6,
+    "pesoTara": 7,
+    "capacidad": 8,
+    "toneladasaw": 9
+  },
+  "fin": {
+    "fechaInicio": 5,
+    "horaInicio": 6,
+    "bodega": 9,
+    "vapor": 10,
+    "destino": 11,
+    "exportador": 12,
+    "commodity": 14,
+    "pesoProgramado": 18,
+    "toneladasaw": 19
+  }
+}
