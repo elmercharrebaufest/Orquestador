@@ -82,6 +82,7 @@
     <Compile Include="DriverPantallaTest.cs" />
     <Compile Include="DriverHumedimetroTest.cs" />
     <Compile Include="DriverItc30Test.cs" />
+    <Compile Include="DriverSensorVehicularTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

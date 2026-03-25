@@ -1494,10 +1494,19 @@
   <data name="CartelLedIntervalo" xml:space="preserve">
     <value>Intervalo</value>
   </data>
-	<data name="JsonFromIotBox" xml:space="preserve">
+  <data name="JsonFromIotBox" xml:space="preserve">
     <value>JSON desde IoT Box</value>
   </data>
-	<data name="JsonToIotBox" xml:space="preserve">
+  <data name="JsonToIotBox" xml:space="preserve">
     <value>JSON hacia IoT Box</value>
+  </data>
+  <data name="PruebaItc_SensoresVehiculares" xml:space="preserve">
+    <value>Sensores Vehiculares</value>
+  </data>
+  <data name="PruebaItc_SensorVehicular" xml:space="preserve">
+    <value>Sensor Vehicular</value>
+  </data>
+  <data name="PruebaItc_Patente" xml:space="preserve">
+    <value>Patente</value>
   </data>
 </root>

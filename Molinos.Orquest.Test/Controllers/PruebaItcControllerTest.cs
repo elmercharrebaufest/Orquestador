@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net.NetworkInformation;
 using System.Web.Mvc;
+using Molinos.Orquest.Dominio;
 using Molinos.Orquest.Dominio.Comandos;
 using Molinos.Orquest.Dominio.Consultas;
 using Molinos.Orquest.Dominio.Entidades;
@@ -105,9 +106,16 @@ namespace Molinos.Orquest.Test.Controllers
         [Test]
         public void TestIndex()
         {
+            var sensoresList = new List<PruebaDispositivoModel>
+            {
+                new PruebaDispositivoModel { Codigo = "SEN1", Numero = "1", Driver = null },
+                new PruebaDispositivoModel { Codigo = "SENVEH1", Numero = "2", Driver = Constantes.Drivers.DriverSensorVehicular },
+                new PruebaDispositivoModel { Codigo = "SENINT1", Numero = "3", Driver = Constantes.Drivers.DriverSensorIntercomunicador }
+            };
+
             repositorioMock.Setup(x => x.Obtener<Dispositivo>(1)).Returns(itces[0].Dispositivo);
             repositorioMock.Setup(x => x.Listar(It.IsAny<Expression<Func<ConfigBarrera, bool>>>(), It.IsAny<Expression<Func<ConfigBarrera, PruebaDispositivoModel>>>())).Returns(new List<PruebaDispositivoModel> { new PruebaDispositivoModel { Codigo = configBarrera.Dispositivo.Codigo, Numero = configBarrera.NumeroSalida.ToString() } });
-            repositorioMock.Setup(x => x.Listar(It.IsAny<Expression<Func<ConfigSensor, bool>>>(), It.IsAny<Expression<Func<ConfigSensor, PruebaDispositivoModel>>>())).Returns(new List<PruebaDispositivoModel> { new PruebaDispositivoModel { Codigo = configSensor.Dispositivo.Codigo, Numero = configSensor.NumeroEntrada.ToString() } });
+            repositorioMock.Setup(x => x.Listar(It.IsAny<Expression<Func<ConfigSensor, bool>>>(), It.IsAny<Expression<Func<ConfigSensor, PruebaDispositivoModel>>>())).Returns(sensoresList);
             repositorioMock.Setup(x => x.Listar(It.IsAny<Expression<Func<ConfigLectorTarjetas, bool>>>(), It.IsAny<Expression<Func<ConfigLectorTarjetas, PruebaDispositivoModel>>>())).Returns(new List<PruebaDispositivoModel> { new PruebaDispositivoModel { Codigo = configLector.Dispositivo.Codigo, Numero = configLector.Lector.ToString() } });
             repositorioMock.Setup(x => x.Listar(It.IsAny<Expression<Func<ConfigLectorQr, bool>>>(), It.IsAny<Expression<Func<ConfigLectorQr, PruebaDispositivoModel>>>())).Returns(new List<PruebaDispositivoModel> { new PruebaDispositivoModel { Codigo = configLectorQr.Dispositivo.Codigo, Numero = configLectorQr.Lector.ToString() } });
             repositorioMock.Setup(x => x.Listar(It.IsAny<Expression<Func<ConfigDisplay, bool>>>(), It.IsAny<Expression<Func<ConfigDisplay, PruebaDispositivoModel>>>())).Returns(new List<PruebaDispositivoModel> { new PruebaDispositivoModel { Codigo = configLectorQr.Dispositivo.Codigo, Numero = configLectorQr.Lector.ToString() } });
@@ -127,8 +135,16 @@ namespace Molinos.Orquest.Test.Controllers
             Assert.That(model, Is.Not.Null);
             Assert.That(model.CodigoItc, Is.EqualTo("Cod1"));
             Assert.That(model.Lectores[0].Codigo, Is.EqualTo("LEC1"));
-            Assert.That(model.Sensores[0].Codigo, Is.EqualTo("SEN1"));
             Assert.That(model.Barreras[0].Codigo, Is.EqualTo("BAR1"));
+
+            Assert.That(model.Sensores.Count, Is.EqualTo(1), "Sensores debe contener solo sensores que no sean vehiculares ni intercomunicadores");
+            Assert.That(model.Sensores[0].Codigo, Is.EqualTo("SEN1"));
+
+            Assert.That(model.SensoresVehiculares, Is.Not.Null, "SensoresVehiculares no debe ser null");
+            Assert.That(model.SensoresVehiculares.Count, Is.EqualTo(1), "Debe haber exactamente un sensor vehicular");
+            Assert.That(model.SensoresVehiculares[0].Codigo, Is.EqualTo("SENVEH1"));
+            Assert.That(model.SensoresVehiculares[0].Driver, Is.EqualTo(Constantes.Drivers.DriverSensorVehicular));
+
             Assert.That(target.ViewBag.Errores, Is.Empty);
         }
 

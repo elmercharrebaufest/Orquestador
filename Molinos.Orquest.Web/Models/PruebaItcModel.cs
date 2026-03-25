@@ -14,5 +14,6 @@ namespace Molinos.Orquest.Web.Models
         public List<PruebaDispositivoModel> Displays { get; set; }
         public List<PruebaDispositivoModel> CortinaAgua { get; set; }
         public List<PruebaDispositivoModel> Tags { get; set; }
+        public List<PruebaDispositivoModel> SensoresVehiculares { get; set; }
     }
 }

@@ -43,6 +43,9 @@ namespace Molinos.Orquest.Servicios
         IList<DispositivoDto> ListarSensores();
 
         [OperationContract]
+        IList<DispositivoDto> ListarSensoresVehiculares();
+
+        [OperationContract]
         IList<DispositivoDto> ListarHumedimetros();
 
         [OperationContract]

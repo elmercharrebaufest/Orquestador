@@ -323,6 +323,7 @@
     <Compile Include="Models\ResultadoPruebaModel.cs" />
     <Compile Include="Models\RolModel.cs" />
     <Compile Include="Models\PruebaItcModel.cs" />
+    <Compile Include="Models\TestConexionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seguridad\ClaimsTransformationHttpModule.cs" />
     <Compile Include="Seguridad\PermisosHelper.cs" />
@@ -333,6 +334,7 @@
     <Compile Include="ServicioHub\EstadoDispositivo.cs" />
     <Compile Include="ServicioHub\LecturaQr.cs" />
     <Compile Include="ServicioHub\LecturaEntrada.cs" />
+    <Compile Include="ServicioHub\LecturaVehiculo.cs" />
     <Compile Include="ServicioHub\IServicioSuscriptor.cs" />
     <Compile Include="ServicioHub\LecturaTarjeta.cs" />
     <Compile Include="ServicioHub\LecturaTarjetaMolinete.cs" />
@@ -1625,6 +1627,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_menu.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Styles\pruebaitc.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1813,6 +1816,7 @@
     <Content Include="Views\GrupoBarrera\Index.cshtml" />
     <Content Include="Views\GrupoBarrera\Crear.cshtml" />
     <Content Include="Views\Sensor\_ConfiguracionSensor.cshtml" />
+    <Content Include="Views\PruebaConexion\_TestConexion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

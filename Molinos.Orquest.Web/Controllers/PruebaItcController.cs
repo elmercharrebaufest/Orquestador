@@ -46,6 +46,10 @@ namespace Molinos.Orquest.Web.Controllers
 
                 var errores = new List<string>();
                 var configItc = (ConfigItc)dispositivo.Configuracion;
+                
+                // Filtrar sensores vehiculares
+                var sensoresVehiculares = sensores.Where(q => q.Driver == Constantes.Drivers.DriverSensorVehicular).ToList();
+                
                 var model = new PruebaItcModel
                 {
                     CodigoItc = dispositivo.Codigo,
@@ -58,6 +62,7 @@ namespace Molinos.Orquest.Web.Controllers
                     Displays = displays,
                     CortinaAgua = cortinaAgua,
                     Tags = tags,
+                    SensoresVehiculares = sensoresVehiculares,
                     //Comunicadores = comunicadores
                 };
                 log.Debug("Suscribiendo eventos de lectores");
@@ -85,6 +90,10 @@ namespace Molinos.Orquest.Web.Controllers
                             Suscribir(sensor.Codigo, CodigosEventos.ConexionDispositivoCorrecta, urlSuscriptor, errores);
                             break;
 
+                        case Constantes.Drivers.DriverSensorVehicular:
+                            Suscribir(sensor.Codigo, CodigosEventos.VehiculoDetectado, urlSuscriptor, errores);
+                            break;
+
                         default:
                             Suscribir(sensor.Codigo, CodigosEventos.EntradaActivada, urlSuscriptor, errores);
                             Suscribir(sensor.Codigo, CodigosEventos.EntradaDesactivada, urlSuscriptor, errores);
@@ -93,7 +102,7 @@ namespace Molinos.Orquest.Web.Controllers
                             break;
                     }
                 }
-                model.Sensores = sensores.Where(q => q.Driver != Constantes.Drivers.DriverSensorIntercomunicador).ToList();
+                model.Sensores = sensores.Where(q => q.Driver != Constantes.Drivers.DriverSensorIntercomunicador && q.Driver != Constantes.Drivers.DriverSensorVehicular).ToList();
 
                 foreach (var cortinaAg in cortinaAgua)
                 {

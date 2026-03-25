@@ -96,6 +96,7 @@
     <Compile Include="DriverCartelLed_MultiledV2.cs" />
     <Compile Include="DriverSensorCamaraALPR.cs" />
     <Compile Include="DriverSensorCamaraALPRDummy.cs" />
+    <Compile Include="DriverSensorVehicular.cs" />
     <Compile Include="DriverCamaraALPRDummy.cs" />
     <Compile Include="DriverGrupoBarrera.cs" />
     <Compile Include="DriverIotBoxV2.cs" />

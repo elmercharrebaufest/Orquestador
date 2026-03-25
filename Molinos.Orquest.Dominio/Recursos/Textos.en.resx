@@ -765,9 +765,6 @@
   <data name="Cartel_Led_Puerto" xml:space="preserve">
     <value>Port</value>
   </data>
-  <data name="Cartel_Led_Administrador" xml:space="preserve">
-    <value>Led Poster</value>
-  </data>
   <data name="Intercomunicador_TiempoMaximoEjecucion" xml:space="preserve">
     <value>Maximum Execution Time</value>
   </data>
@@ -779,5 +776,8 @@
   </data>
   <data name="Camara_Titulo_Modificar_Crear" xml:space="preserve">
     <value>Cámara</value>
+  </data>
+  <data name="Cartel_Led_Administrador" xml:space="preserve">
+    <value>Led Poster</value>
   </data>
 </root>

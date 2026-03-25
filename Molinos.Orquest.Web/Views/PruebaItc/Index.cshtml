@@ -9,6 +9,9 @@
     Func<string, string> textoDispositivo = texto => (texto == "no-conectado") ? @Textos.PruebaItc_NoConectado : texto;
 }
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="~/Styles/pruebaitc.css" rel="stylesheet"/>
 
 <script type="text/javascript">
     $(function () {
@@ -22,130 +25,220 @@
 <script src="~/Scripts/pruebaitc.ver.js"></script>
 <input id="codigoItc" type="hidden" value="@Model.CodigoItc" />
 
-<div id="pruebaItc" class="container content" data-codigo-itc="@Model.CodigoItc" data-url-desuscribir="@Url.Action("Desuscribir", new {codigoItc = Model.CodigoItc})">
-    <div class="row-fluid">
-        <div class="titSecciones span10">@titulo</div>
-        <div class="span2 right"><span id="estadoItc" class="label" data-url-estado="@Url.Action("ConsultarEstado", "PruebaItc")" data-codigo="@Model.CodigoItc" data-toggle="tooltip" title="@Textos.ConsultandoEstado">@Textos.ConsultandoEstado</span></div>
-    </div>
-    <div class="prueba-itc-area bg-light">
-        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_LecturaTarjetas</span>
-        <div class="row">
-            @foreach (var lector in Model.Lectores.OrderBy(x => x.Numero))
-            {
-                <div class="control-group col-6">
-                    <label class="control-label @lector.Codigo">@Textos.PruebaItc_Lector-@lector.Numero (@textoDispositivo(@lector.Codigo))</label>
-                    <div class="controls">
-                        <input id="@lector.Codigo" type="text" readonly="readonly" class="form-control" /><div id="stat-@lector.Codigo" class="alert alert-error hidden"><button type="button" class="close" data-dismiss="alert">&times;</button></div>
-                    </div>
-                </div>
-            }
+<div id="pruebaItc" class="plc-container" data-codigo-itc="@Model.CodigoItc" data-url-desuscribir="@Url.Action("Desuscribir", new {codigoItc = Model.CodigoItc})">
+    <header class="plc-header">
+        <h1>@titulo</h1>
+        <div class="status-badge">
+            <span id="estadoItc" data-url-estado="@Url.Action("ConsultarEstado", "PruebaItc")" data-codigo="@Model.CodigoItc" data-toggle="tooltip" title="@Textos.ConsultandoEstado">@Textos.ConsultandoEstado</span>
         </div>
-    </div>
-    <div class="prueba-itc-area bg-light">
-        <span class="prueba-itc-area-titulo">@Textos.LectorQr_Titulo</span>
-        <div class="row">
-            @foreach (var lector in Model.LectoresQr.OrderBy(x => x.Numero))
-            {
-                <div class="control-group col-6">
-                    <label class="control-label @lector.Codigo">@Textos.PruebaItc_Lector-@lector.Numero (@textoDispositivo(@lector.Codigo))</label>
-                    <div class="controls">
-                        <input id="@lector.Codigo" type="text" readonly="readonly" class="form-control" /><div id="stat-@lector.Numero" class="alert alert-error hidden"><button type="button" class="close" data-dismiss="alert">&times;</button></div>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-    <div class="prueba-itc-area bg-light">
-        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_EstadoDeEntradas</span>
-        <div class="row">
-            @foreach (var sensor in Model.Sensores.OrderBy(x => x.Numero))
-            {
-                <div class="col-6">
-                    <span id="@sensor.Codigo" class="badge badge-entrada-itc-unknown">&nbsp;</span><span id="stat-@sensor.Codigo" class="alert alert-error hidden"></span>
-                    <label class="@sensor.Codigo">@Textos.PruebaItc_Entrada-@sensor.Numero (@textoDispositivo(@sensor.Codigo))</label>
-                </div>
-            }
-        </div>
-    </div>
-    <div class="prueba-itc-area bg-light">
-        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_EstadoDeEntradas</span>
-        <div class="row">
-            @foreach (var sensor in Model.CortinaAgua.OrderBy(x => x.Numero))
-            {
-                <div class="col-6">
-                    <span id="@sensor.Codigo" class="badge badge-entrada-itc-unknown">&nbsp;</span><span id="stat-@sensor.Codigo" class="alert alert-error hidden"></span>
-                    <label class="@sensor.Codigo">@Textos.PruebaItc_Entrada-@sensor.Numero (@textoDispositivo(@sensor.Codigo))</label>
-                </div>
-            }
-        </div>
-    </div>
-    <div class="prueba-itc-area bg-light">
-        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_ActivacionSalidas</span>
-        <div class="row fila-barrera">
-            @foreach (var barrera in Model.Barreras.OrderBy(x => x.Numero))
-            {
-                <div class="col-6">
-                    <button id="@barrera.Codigo" class="boton-barrera btn btn-secondary m-2 @barrera.Codigo" type="button" data-url-activacion="@Url.Action("ActivarSalida", new {codigo = barrera.Codigo})">@Textos.PruebaItc_Activar</button>
-                    <button id="@barrera.Codigo" class="boton-barrera btn btn-secondary m-2 @barrera.Codigo" type="button" data-url-activacion="@Url.Action("DesactivarSalida", new {codigo = barrera.Codigo})">@Textos.PruebaItc_Desactivar</button>
-                    <label class="@barrera.Codigo">@Textos.PruebaItc_Salida-@barrera.Numero (@textoDispositivo(@barrera.Codigo))</label>
-                </div>
-            }
-        </div>
-    </div>
-    <div class="prueba-itc-area bg-light">
-        <span class="prueba-itc-area-titulo">@Textos.PruebaItc_ActivacionDisplays</span>
-        <div class="row fila-barrera">
-            @foreach (var display in Model.Displays.OrderBy(x => x.Numero))
-            {
-                <div class="col-6">
-                    <button id="@display.Codigo" class="boton-barrera btn btn-secondary m-2 @display.Codigo" type="button" data-url-activacion="@Url.Action("ActivarDisplay", new {codigo = display.Codigo})">@Textos.PruebaItc_Activar</button>
-                    <label class="@display.Codigo">@Textos.PruebaItc_Salida-@display.Numero (@textoDispositivo(display.Codigo))</label>
-                </div>
-            }
-        </div>
-    </div>
+    </header>
 
-    @if (Model.Tags != null && Model.Tags.Count > 0)
-    {
-        <div class="prueba-itc-area bg-light">
-            <span class="prueba-itc-area-titulo">Prueba Tags</span>
-            <div class="row fila-barrera">
-                @foreach (var tag in Model.Tags.OrderBy(x => x.Codigo))
+    <div class="plc-grid">
+        <!-- Lecturas de Tarjetas -->
+        <section class="plc-card">
+            <div class="plc-card-header">
+                <span class="material-icons-round">credit_card</span>
+                <h2>@Textos.PruebaItc_LecturaTarjetas</h2>
+            </div>
+            <div class="plc-card-body">
+                @foreach (var lector in Model.Lectores.OrderBy(x => x.Numero))
                 {
-                    <div class="col-6">
-                        <button id="@tag.Codigo" class="boton-tag btn btn-secondary m-2 @tag.Codigo" type="button" data-url-activacion="@Url.Action("EjecutarTag", new {codigo = tag.Codigo})">Ejecutar Query</button>
-                        <label class="@tag.Codigo">Prueba tag (@textoDispositivo(tag.Codigo))</label>
-                        <input id="result-@tag.Codigo" type="text" readonly="readonly" class="form-control" value="@tag.Numero" />
+                    <div class="plc-input-group">
+                        <label class="plc-label @lector.Codigo">@Textos.PruebaItc_Lector-@lector.Numero (@textoDispositivo(@lector.Codigo))</label>
+                        <input id="@lector.Codigo" type="text" readonly="readonly" class="plc-input" />
+                        <div id="stat-@lector.Codigo" class="alert-error"></div>
                     </div>
                 }
             </div>
-        </div>
-    }
+        </section>
 
-    @if (ViewBag.InterComunicadorDispositivoList.Count > 0)
-    {
-        <div class="prueba-itc-area bg-light">
-            <span class="prueba-itc-area-titulo">Prueba Comunicadores</span>
-            <div class="row-fluid">
-                <div class="row-fluid">
-                    @Html.Partial("~/Views/Shared/Intercomunicador/_Intercomunicador.cshtml")
+        <!-- Lectores QR -->
+        <section class="plc-card">
+            <div class="plc-card-header">
+                <span class="material-icons-round">qr_code_2</span>
+                <h2>@Textos.LectorQr_Titulo</h2>
+            </div>
+            <div class="plc-card-body">
+                @foreach (var lector in Model.LectoresQr.OrderBy(x => x.Numero))
+                {
+                    <div class="plc-input-group">
+                        <label class="plc-label @lector.Codigo">@Textos.PruebaItc_Lector-@lector.Numero (@textoDispositivo(@lector.Codigo))</label>
+                        <input id="@lector.Codigo" type="text" readonly="readonly" class="plc-input" />
+                        <div id="stat-@lector.Numero" class="alert-error"></div>
+                    </div>
+                }
+            </div>
+        </section>
+
+        <!-- Entradas (Sensores) -->
+        <section class="plc-card plc-grid-full">
+            <div class="plc-card-header">
+                <span class="material-icons-round">sensors</span>
+                <h2>@Textos.PruebaItc_EstadoDeEntradas</h2>
+            </div>
+            <div class="sensors-grid">
+                @foreach (var sensor in Model.Sensores.OrderBy(x => x.Numero))
+                {
+                    <div class="sensor-item">
+                        <span class="sensor-label-top">Entrada @sensor.Numero</span>
+                        <span id="@sensor.Codigo" class="indicator-bulb bulb-unknown"></span>
+                        <span class="sensor-label-bottom @sensor.Codigo">@textoDispositivo(@sensor.Codigo)</span>
+                    </div>
+                }
+            </div>
+        </section>
+
+        <!-- Cortina de Agua -->
+        @if (Model.CortinaAgua != null && Model.CortinaAgua.Count > 0)
+        {
+            <section class="plc-card plc-grid-full">
+                <div class="plc-card-header">
+                    <span class="material-icons-round">sensors</span>
+                    <h2>Cortina de Agua</h2>
                 </div>
-                <div class="row-fluid">
+                <div class="sensors-grid">
+                    @foreach (var sensor in Model.CortinaAgua.OrderBy(x => x.Numero))
+                    {
+                        <div class="sensor-item">
+                            <span class="sensor-label-top">Entrada @sensor.Numero</span>
+                            <span id="@sensor.Codigo" class="indicator-bulb bulb-unknown"></span>
+                            <span class="sensor-label-bottom @sensor.Codigo">@textoDispositivo(@sensor.Codigo)</span>
+                        </div>
+                    }
+                </div>
+            </section>
+        }
+
+        <!-- Sensores Vehiculares -->
+        @if (Model.SensoresVehiculares != null && Model.SensoresVehiculares.Count > 0)
+        {
+            <section class="plc-card plc-grid-full">
+                <div class="plc-card-header">
+                    <span class="material-icons-round">directions_car</span>
+                    <h2>@Textos.PruebaItc_SensoresVehiculares</h2>
+                </div>
+                <div class="plc-card-body">
+                    <div class="plc-grid">
+                        @foreach (var sensorVehicular in Model.SensoresVehiculares.OrderBy(x => x.Numero))
+                        {
+                            <div class="plc-input-group">
+                                <label class="plc-label @sensorVehicular.Codigo">
+                                    <span id="status-@sensorVehicular.Codigo" class="indicator-bulb bulb-unknown" style="vertical-align: middle;"></span>
+                                    @textoDispositivo(@sensorVehicular.Codigo)
+                                </label>
+                                <input id="@sensorVehicular.Codigo" type="text" readonly="readonly" class="plc-input" placeholder="@Textos.PruebaItc_Patente" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        }
+
+        <!-- Activación de Salidas -->
+        <section class="plc-card plc-grid-full">
+            <div class="plc-card-header">
+                <span class="material-icons-round">settings_input_component</span>
+                <h2>@Textos.PruebaItc_ActivacionSalidas</h2>
+            </div>
+            <div class="output-grid">
+                @foreach (var barrera in Model.Barreras.OrderBy(x => x.Numero))
+                {
+                    <div class="output-item">
+                        <div class="output-info">
+                            <span class="output-label-top">Salida @barrera.Numero</span>
+                            <h3 class="output-title @barrera.Codigo">@textoDispositivo(@barrera.Codigo)</h3>
+                        </div>
+                        <div class="output-buttons">
+                            <button class="plc-btn plc-btn-primary boton-barrera @barrera.Codigo" type="button" data-url-activacion="@Url.Action("ActivarSalida", new {codigo = barrera.Codigo})">@Textos.PruebaItc_Activar</button>
+                            <button class="plc-btn plc-btn-secondary boton-barrera @barrera.Codigo" type="button" data-url-activacion="@Url.Action("DesactivarSalida", new {codigo = barrera.Codigo})">@Textos.PruebaItc_Desactivar</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+
+        <!-- Activación de Displays -->
+        <section class="plc-card plc-grid-full">
+            <div class="plc-card-header">
+                <span class="material-icons-round">monitor</span>
+                <h2>@Textos.PruebaItc_ActivacionDisplays</h2>
+            </div>
+            <div class="display-grid">
+                @foreach (var display in Model.Displays.OrderBy(x => x.Numero))
+                {
+                    <div class="display-item">
+                        <h3 class="display-title @display.Codigo">Display @display.Numero</h3>
+                        <span class="@display.Codigo" style="font-size: 0.75rem; color: var(--slate-500); display: block; margin-bottom: 0.75rem;">@textoDispositivo(display.Codigo)</span>
+                        <button id="@display.Codigo" class="plc-btn plc-btn-primary plc-btn-full boton-barrera @display.Codigo" type="button" data-url-activacion="@Url.Action("ActivarDisplay", new {codigo = display.Codigo})">@Textos.PruebaItc_Activar</button>
+                    </div>
+                }
+            </div>
+        </section>
+
+        <!-- Prueba Tags -->
+        @if (Model.Tags != null && Model.Tags.Count > 0)
+        {
+            <section class="plc-card plc-grid-full">
+                <div class="plc-card-header">
+                    <span class="material-icons-round">label</span>
+                    <h2>Prueba Tags</h2>
+                </div>
+                <div class="plc-card-body">
+                    <div class="plc-grid">
+                        @foreach (var tag in Model.Tags.OrderBy(x => x.Codigo))
+                        {
+                            <div class="plc-input-group">
+                                <label class="plc-label @tag.Codigo">Prueba tag (@textoDispositivo(tag.Codigo))</label>
+                                <button id="@tag.Codigo" class="plc-btn plc-btn-primary plc-btn-full boton-tag @tag.Codigo" type="button" data-url-activacion="@Url.Action("EjecutarTag", new {codigo = tag.Codigo})" style="margin-bottom: 0.5rem;">Ejecutar Query</button>
+                                <input id="result-@tag.Codigo" type="text" readonly="readonly" class="plc-input" value="@tag.Numero" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        }
+
+        <!-- Prueba Comunicadores -->
+        @if (ViewBag.InterComunicadorDispositivoList.Count > 0)
+        {
+            <section class="plc-card plc-grid-full">
+                <div class="plc-card-header">
+                    <span class="material-icons-round">phone</span>
+                    <h2>Prueba Comunicadores</h2>
+                </div>
+                <div class="plc-card-body">
+                    @Html.Partial("~/Views/Shared/Intercomunicador/_Intercomunicador.cshtml")
                     @foreach (var interComunicadorDispositivo in ViewBag.InterComunicadorDispositivoList)
                     {
                         @Html.Partial("~/Views/Shared/Intercomunicador/_IntercomunicadorDispositivo.cshtml", (dtos.IntercomunicadorDispositivoDto)interComunicadorDispositivo)
                     }
                 </div>
-            </div>
-        </div>
-    }
+            </section>
+        }
 
-    @Html.Action("Index", "PruebaConexion", new { ip = Model.DireccionIpItc, puerto = Model.PuertoItc, codigo = Model.CodigoItc })
-    <div class="right margin">
-        @Html.ActionLink(Textos.Volver, "Index", "Itc", null, new { @class = "btn" })
-        @Html.ActionLink(Textos.PruebaItc_Resuscribir, "Index", new { id = ViewBag.IdItc }, new { id = "btn-recargar", @class = "btn btn-primary" })
+        @Html.Partial("~/Views/PruebaConexion/_TestConexion.cshtml", new Molinos.Orquest.Web.Models.TestConexionViewModel
+        {
+                Ip = Model.DireccionIpItc,
+                Puerto = Model.PuertoItc,
+                Codigo = Model.CodigoItc
+        })
+
     </div>
+
+    <footer class="plc-footer">
+        <a href="@Url.Action("Index", "Itc")" class="plc-btn-back">
+            <span class="material-icons-round">arrow_back</span>
+            @Textos.Volver
+        </a>
+        <div style="display: flex; gap: 1rem;">
+            <a href="@Url.Action("Index", new { id = ViewBag.IdItc })" id="btn-recargar" class="plc-btn plc-btn-primary plc-btn-large" style="text-decoration: none;">
+                <span class="material-icons-round" style="font-size: 1rem;">sync</span>
+                @Textos.PruebaItc_Resuscribir
+            </a>
+        </div>
+    </footer>
 </div>
+
 <div id="alerta-error-itc" data-error-generico="@Textos.PruebaItc_ErrorSuscrbir" data-cantidad-errores="@errores.Count">
     <div style="font-size: 12px;">
         @foreach (var error in errores)

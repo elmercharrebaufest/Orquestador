@@ -417,6 +417,18 @@ namespace Molinos.Orquest.Servicios.Impl
             }
         }
 
+        public IList<DispositivoDto> ListarSensoresVehiculares()
+        {
+            using (var repositorio = factoryRepositorio.Repositorio())
+            {
+                return repositorio.Listar<ConfigSensor, DispositivoDto>(
+                    sensor => sensor.Dispositivo.Activo && 
+                              !sensor.Dispositivo.EsConcentrador && 
+                              sensor.ClaseDriver == Constantes.Drivers.DriverSensorVehicular,
+                    sensor => new DispositivoDto { Codigo = sensor.Dispositivo.Codigo, Descripcion = sensor.Dispositivo.Descripcion });
+            }
+        }
+
         public IList<DispositivoDto> ListarDisplays()
         {
             using (var repositorio = factoryRepositorio.Repositorio())

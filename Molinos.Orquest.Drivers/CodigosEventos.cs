@@ -28,5 +28,7 @@
         public const string CambioEstadoSensorCamaraALPR = "CambioEstadoSensorCamaraALPR";
 
         public const string CambioEstadoSensorGeneral = "CambioEstadoSensorGeneral";
+
+        public const string VehiculoDetectado = "VehiculoDetectado";
     }
 }

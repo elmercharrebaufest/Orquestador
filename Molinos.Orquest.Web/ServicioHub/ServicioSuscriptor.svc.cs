@@ -112,6 +112,22 @@ namespace Molinos.Orquest.Web.ServicioHub
                             Speaker = estados[1].ToLower() == "true",
                         });
                     }
+                    else if (notificacion.CodigoEvento == CodigosEventos.VehiculoDetectado)
+                    {
+                        var patente = notificacion.Datos.ContainsKey("Patente") ? notificacion.Datos["Patente"] : null;
+                        var hayError = string.IsNullOrEmpty(patente);
+                        var mensaje = hayError && notificacion.Datos.ContainsKey("Error") 
+                            ? notificacion.Datos["Error"] 
+                            : patente ?? string.Empty;
+
+                        hubClient.Invoke("NotificarLecturaVehiculo", new LecturaVehiculo
+                        {
+                            CodigoItc = codigoItc,
+                            CodigoDispositivo = notificacion.CodigoDispositivo,
+                            Patente = mensaje,
+                            HayError = hayError
+                        });
+                    }
                 }
             }
             catch (Exception ex)

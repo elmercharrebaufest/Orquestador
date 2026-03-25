@@ -1,0 +1,30 @@
+{
+  "name": "molinos-orquest-e2e-tests",
+  "version": "1.0.0",
+  "description": "Tests E2E para Molinos Orquestador Web",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "test:baseline": "playwright test tests/PruebaItc-Baseline.spec.js",
+    "test:baseline:headed": "playwright test tests/PruebaItc-Baseline.spec.js --headed",
+    "setup": "npx playwright install",
+    "setup:all": "npm install && npx playwright install"
+  },
+  "keywords": [
+    "e2e",
+    "playwright",
+    "testing",
+    "molinos",
+    "orquestador"
+  ],
+  "author": "Molinos",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "dotenv": "^17.2.3"
+  }
+}

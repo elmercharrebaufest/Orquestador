@@ -1,0 +1,40 @@
+@model Molinos.Orquest.Web.Models.TestConexionViewModel
+@using Molinos.Orquest.Dominio.Recursos
+
+<script src="~/Scripts/pruebaconexion.index.js"></script>
+
+<!-- Prueba de Ping -->
+<section class="plc-card">
+    <div class="plc-card-header">
+        <span class="material-icons-round">router</span>
+        <h2>@Textos.PruebaDePing</h2>
+    </div>
+    <div class="plc-card-body">
+        <div id="resultado-ping" class="terminal-output resultado-prueba" data-texto-carga="@Textos.Probando"></div>
+        <a id="link-ping" href="@Url.Action("Ping", "PruebaConexion", new {ip = Model.Ip})" class="plc-btn plc-btn-primary plc-btn-full">
+            <span class="material-icons-round" style="font-size: 0.75rem;">play_arrow</span>
+            @Textos.Iniciar
+        </a>
+    </div>
+</section>
+
+<!-- Prueba de Loop -->
+<section id="pruebaLoop" class="plc-card">
+    <div class="plc-card-header">
+        <span class="material-icons-round">loop</span>
+        <h2>@Textos.PruebaDeLoop</h2>
+    </div>
+    <div class="plc-card-body">
+        <div id="resultado-loop" class="terminal-output resultado-prueba" data-texto-carga="@Textos.Probando"></div>
+        <div class="number-input-group">
+            <div class="number-input-wrapper">
+                <label class="number-input-label">@Textos.Repeticiones</label>
+                <input id="repeticiones" name="repeticiones" type="number" value="1" min="1" class="plc-number-input numerico" />
+            </div>
+            <a id="link-loop" href="@Url.Action("Loopback", "PruebaConexion", new {ip = Model.Ip, puerto = Model.Puerto})" class="plc-btn plc-btn-primary" style="padding: 0.5rem 2rem;">
+                <span class="material-icons-round" style="font-size: 0.75rem;">play_arrow</span>
+                @Textos.Iniciar
+            </a>
+        </div>
+    </div>
+</section>

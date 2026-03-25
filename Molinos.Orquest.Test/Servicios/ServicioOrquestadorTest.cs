@@ -2437,5 +2437,107 @@ namespace Molinos.Orquest.Test.Servicios
             Assert.That(result.Mensaje.Descripcion, Is.EqualTo("Ocurrió un error al ejecutar el comando"));
             Assert.That(result.Mensaje.Codigo, Is.EqualTo(999));
         }
+
+        [Test]
+        public void TestListarSensoresVehiculares()
+        {
+            var dispositivoSensorVehicular1 = new Dispositivo
+            {
+                Id = 1,
+                Codigo = "SENSV01",
+                Descripcion = "Sensor Vehicular 1",
+                Activo = true,
+                EsConcentrador = false
+            };
+
+            var dispositivoSensorVehicular2 = new Dispositivo
+            {
+                Id = 2,
+                Codigo = "SENSV02",
+                Descripcion = "Sensor Vehicular 2",
+                Activo = true,
+                EsConcentrador = false
+            };
+
+            var dispositivoSensorOtro = new Dispositivo
+            {
+                Id = 3,
+                Codigo = "SENS01",
+                Descripcion = "Sensor Normal",
+                Activo = true,
+                EsConcentrador = false
+            };
+
+            var sensores = new List<ConfigSensor>
+            {
+                new ConfigSensor
+                {
+                    Id = 1,
+                    ClaseDriver = Constantes.Drivers.DriverSensorVehicular,
+                    Dispositivo = dispositivoSensorVehicular1
+                },
+                new ConfigSensor
+                {
+                    Id = 2,
+                    ClaseDriver = Constantes.Drivers.DriverSensorVehicular,
+                    Dispositivo = dispositivoSensorVehicular2
+                },
+                new ConfigSensor
+                {
+                    Id = 3,
+                    ClaseDriver = "Molinos.Orquest.DriversImpl.DriverSensorIotBox, Molinos.Orquest.DriversImpl",
+                    Dispositivo = dispositivoSensorOtro
+                }
+            };
+
+            repositorioMock.Setup(r => r.Listar(
+                It.IsAny<Expression<Func<ConfigSensor, bool>>>(),
+                It.IsAny<Expression<Func<ConfigSensor, DispositivoDto>>>()))
+                .Returns<Expression<Func<ConfigSensor, bool>>, Expression<Func<ConfigSensor, DispositivoDto>>>(
+                    (filtro, proyeccion) => sensores.Where(filtro.Compile()).Select(proyeccion.Compile()).ToList());
+
+            var resultado = target.ListarSensoresVehiculares();
+
+            Assert.That(resultado, Is.Not.Null);
+            Assert.That(resultado.Count, Is.EqualTo(2));
+            Assert.That(resultado[0].Codigo, Is.EqualTo("SENSV01"));
+            Assert.That(resultado[0].Descripcion, Is.EqualTo("Sensor Vehicular 1"));
+            Assert.That(resultado[1].Codigo, Is.EqualTo("SENSV02"));
+            Assert.That(resultado[1].Descripcion, Is.EqualTo("Sensor Vehicular 2"));
+        }
+
+        [Test]
+        public void TestListarSensoresVehicularesVacio()
+        {
+            var dispositivoSensorOtro = new Dispositivo
+            {
+                Id = 1,
+                Codigo = "SENS01",
+                Descripcion = "Sensor Normal",
+                Activo = true,
+                EsConcentrador = false
+            };
+
+            var sensores = new List<ConfigSensor>
+            {
+                new ConfigSensor
+                {
+                    Id = 1,
+                    ClaseDriver = "Molinos.Orquest.DriversImpl.DriverSensorIotBox, Molinos.Orquest.DriversImpl",
+                    Dispositivo = dispositivoSensorOtro
+                }
+            };
+
+            repositorioMock.Setup(r => r.Listar(
+                It.IsAny<Expression<Func<ConfigSensor, bool>>>(),
+                It.IsAny<Expression<Func<ConfigSensor, DispositivoDto>>>()))
+                .Returns<Expression<Func<ConfigSensor, bool>>, Expression<Func<ConfigSensor, DispositivoDto>>>(
+                    (filtro, proyeccion) => sensores.Where(filtro.Compile()).Select(proyeccion.Compile()).ToList());
+
+            var resultado = target.ListarSensoresVehiculares();
+
+            Assert.That(resultado, Is.Not.Null);
+            Assert.That(resultado.Count, Is.EqualTo(0));
+        }
     }
 }

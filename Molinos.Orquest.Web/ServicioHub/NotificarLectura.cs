@@ -90,5 +90,13 @@ namespace Molinos.Orquest.Web.ServicioHub
                 Clients.Group(Constantes.NotificacionGrupos.Intercomunicador).actualizarEstadoIntercomunicador(estado);
             }
         }
+
+        public void NotificarLecturaVehiculo(LecturaVehiculo lectura)
+        {
+            if (Clients != null)
+            {
+                Clients.Group(lectura.CodigoItc).actualizarLecturaVehiculo(lectura);
+            }
+        }
     }
 }

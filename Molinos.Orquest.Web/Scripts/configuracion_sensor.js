@@ -8,7 +8,7 @@ function DriverSeleccionado() {
 
     var driver = $("#ClaseDriver").val();
 
-    if (driver.includes("ALPR") ) {
+    if (driver.includes("ALPR") || driver.includes("Vehicular")) {
         $("#camaras").show();
         $("#acciones").hide();
         $("#Accion").val(null);

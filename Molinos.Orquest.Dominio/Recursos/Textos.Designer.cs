@@ -19,7 +19,7 @@ namespace Molinos.Orquest.Dominio.Recursos {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Textos {
@@ -2408,29 +2408,25 @@ namespace Molinos.Orquest.Dominio.Recursos {
                 return ResourceManager.GetString("Itc_Titulo", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to JSON desde IoT Box.
         /// </summary>
-        public static string JsonFromIotBox
-        {
-            get
-            {
+        public static string JsonFromIotBox {
+            get {
                 return ResourceManager.GetString("JsonFromIotBox", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to JSON hacia IoT Box.
         /// </summary>
-        public static string JsonToIotBox
-        {
-            get
-            {
+        public static string JsonToIotBox {
+            get {
                 return ResourceManager.GetString("JsonToIotBox", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Lectores Qr.
         /// </summary>
@@ -3341,6 +3337,15 @@ namespace Molinos.Orquest.Dominio.Recursos {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Patente.
+        /// </summary>
+        public static string PruebaItc_Patente {
+            get {
+                return ResourceManager.GetString("PruebaItc_Patente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resuscribir Eventos.
         /// </summary>
         public static string PruebaItc_Resuscribir {
@@ -3391,6 +3396,24 @@ namespace Molinos.Orquest.Dominio.Recursos {
         public static string PruebaItc_Salida4 {
             get {
                 return ResourceManager.GetString("PruebaItc_Salida4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensores Vehiculares.
+        /// </summary>
+        public static string PruebaItc_SensoresVehiculares {
+            get {
+                return ResourceManager.GetString("PruebaItc_SensoresVehiculares", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Vehicular.
+        /// </summary>
+        public static string PruebaItc_SensorVehicular {
+            get {
+                return ResourceManager.GetString("PruebaItc_SensorVehicular", resourceCulture);
             }
         }
         

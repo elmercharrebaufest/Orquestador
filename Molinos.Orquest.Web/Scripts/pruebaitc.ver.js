@@ -3,12 +3,23 @@
     $.getJSON(estadoItc.data().urlEstado, { codigoDispositivo: estadoItc.data().codigo }, function (resultado) {
         estadoItc.html(resultado.Estado);
         estadoItc.attr("title", resultado.Mensaje);
+        var parentBadge = estadoItc.parent();
         if (resultado.Conectado) {
-            estadoItc.addClass("badge-success");
-            estadoItc.removeClass("badge-danger");
+            //estadoItc.addClass("badge-success");
+            //estadoItc.removeClass("badge-danger");
+            parentBadge.css({
+                'background-color': 'var(--green-100)',
+                'color': 'var(--green-700)',
+                'border-color': 'var(--green-200)'
+            });
         } else {
-            estadoItc.addClass("badge-danger");
-            estadoItc.removeClass("badge-success");
+            //estadoItc.addClass("badge-danger");
+            //estadoItc.removeClass("badge-success");
+            parentBadge.css({
+                'background-color': '#fee2e2',
+                'color': '#991b1b',
+                'border-color': '#fecaca'
+            });
         }
     }).done(function () {
         setTimeout(consultarEstado, 2000);
@@ -30,12 +41,15 @@ $(function () {
     };
     
     notificador.client.actualizarLecturaEntrada = function (lectura) {
-        $('#' + lectura.CodigoDispositivo)
-            .removeClass("badge-entrada-itc-unknown")
-            .toggleClass("badge-entrada-itc", lectura.Valor);
-        setTimeout(function () {
-            $('#' + lectura.CodigoDispositivo).removeClass("badge-entrada-itc");
-        }, 5000);
+        var bulb = $('#' + lectura.CodigoDispositivo);
+        bulb.removeClass("bulb-unknown");
+        if (lectura.Valor) {
+            bulb.removeClass("bulb-inactive").addClass("bulb-active");
+        } else {
+            bulb.removeClass("bulb-active").addClass("bulb-inactive");
+        }
+
+        // No reset to inactive - maintain actual state
     };
 
     notificador.client.actualizarLecturaQr = function (lectura) {
@@ -46,11 +60,33 @@ $(function () {
         }, 5000);
     };
 
+    notificador.client.actualizarLecturaVehiculo = function (lectura) {
+        var inputField = $('#' + lectura.CodigoDispositivo);
+        var statusBadge = $('#status-' + lectura.CodigoDispositivo);
+        
+        inputField.val(lectura.Patente);
+        statusBadge.removeClass("bulb-unknown");
+        
+        if (lectura.HayError) {
+            inputField.css('color', 'red');
+            statusBadge.removeClass("bulb-inactive").addClass("bulb-active");
+        } else {
+            inputField.css('color', '');
+            statusBadge.removeClass("bulb-inactive").addClass("bulb-active");
+        }
+        
+        setTimeout(function () {
+            inputField.val("");
+            inputField.css('color', '');
+            statusBadge.removeClass("bulb-active").addClass("bulb-inactive");
+        }, 5000);
+    };
+
     notificador.client.actualizarEstadoDispositivo = function (estado) {
         if (!estado.Error) {
-            MostrarAlertaExitosa("Conexión restablecida con el dispositivo ITC");
+            MostrarAlertaExitosa("Conexión restablecida: " + estado.CodigoDispositivo);
         } else {
-            MostrarAlertaError("Falló conexión con el dispositivo ITC: " + estado.Mensaje);
+            MostrarAlertaError("Error en " + estado.CodigoDispositivo + ": " + estado.Mensaje);
         }
     };
 
