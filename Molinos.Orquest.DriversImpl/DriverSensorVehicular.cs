@@ -5,9 +5,11 @@ using Molinos.Orquest.Drivers;
 using Molinos.Orquest.DriversImpl.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Threading;
 using Mensaje = Molinos.Orquest.Dominio.Resultados.Mensaje;
 
 namespace Molinos.Orquest.DriversImpl
@@ -88,7 +90,7 @@ namespace Molinos.Orquest.DriversImpl
             var notificacion = evento.Notificacion;
             if (EsEventoParaDispositivo(notificacion))
             {
-                var (patente, error) = TomarFoto();
+                var (patente, error) = TomarFotoConReintento();
                 notificacion.Datos["Patente"] = patente;
                 notificacion.Datos["Error"] = error;
 
@@ -106,10 +108,41 @@ namespace Molinos.Orquest.DriversImpl
             }
         }
 
+        private (string patente, string error) TomarFotoConReintento()
+        {
+            var delayAntesTomarFotoMs = ObtenerConfiguracion("SensorVehicular.DelayAntesTomarFotoMs");
+            var maxReintentos = ObtenerConfiguracion("SensorVehicular.MaxReintentosFotos");
+
+            string patente = string.Empty;
+            string error = string.Empty;
+
+            for (int intento = 0; intento <= maxReintentos; intento++)
+            {
+                (patente, error) = TomarFoto();
+                Log.Debug($"Intento {intento} de tomar foto patente: {patente} - error: {error}");
+
+                if (!string.IsNullOrEmpty(patente))
+                    return (patente, error);
+
+                if (delayAntesTomarFotoMs > 0) 
+                    Thread.Sleep(delayAntesTomarFotoMs);
+            }
+
+            return (patente, error);
+        }
+
+        private int ObtenerConfiguracion(string key)
+        {
+            var valor = ConfigurationManager.AppSettings[key];
+            return (string.IsNullOrEmpty(valor) || !int.TryParse(valor, out int resultado)) 
+                ? 0 
+                : resultado;
+        }
+
         private (string patente, string error) TomarFoto()
         {
             string patente = string.Empty;
-            string error = null;
+            string error = string.Empty;
 
             try
             {
@@ -117,9 +150,7 @@ namespace Molinos.Orquest.DriversImpl
                 request.Timeout = configCamara.TimeoutLectura;
 
                 if (!string.IsNullOrEmpty(configCamara.NombreUsuario) && !string.IsNullOrEmpty(configCamara.Contrasenia))
-                {
                     request.Credentials = new NetworkCredential(configCamara.NombreUsuario, Encriptador.Decrypt(configCamara.Contrasenia));
-                }
 
                 var response = (HttpWebResponse)request.GetResponse();
 
@@ -132,6 +163,14 @@ namespace Molinos.Orquest.DriversImpl
                     {
                         var imagenAEscanear = LeerImagen(inputStream);
                         (patente, error) = LlamarALPR(imagenAEscanear);
+
+                        var guardarFotosFallidas = ConfigurationManager.AppSettings["SensorVehicular.GuardarFotosFallidas"];
+                        if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(guardarFotosFallidas) && bool.TryParse(guardarFotosFallidas, out bool guardarFallidas) && guardarFallidas)
+                            GuardarImagen(imagenAEscanear, response.ContentType, "fallidas");
+
+                        var guardarFotosExitosas = ConfigurationManager.AppSettings["SensorVehicular.GuardarFotosExitosas"];
+                        if (!string.IsNullOrEmpty(patente) && !string.IsNullOrEmpty(guardarFotosExitosas) && bool.TryParse(guardarFotosExitosas, out bool guardarExitosas) && guardarExitosas)
+                            GuardarImagen(imagenAEscanear, response.ContentType, "exitosas");
                     }
                 }
                 else
@@ -149,10 +188,39 @@ namespace Molinos.Orquest.DriversImpl
             return (patente, error);
         }
 
+        private void GuardarImagen(byte[] imagen, string contentType, string estado)
+        {
+            var rutaFotos = ConfigurationManager.AppSettings["SensorVehicular.RutaFotos"];
+            if (string.IsNullOrEmpty(rutaFotos))
+            {
+                Log.Warn("No se configuró SensorVehicular.RutaFotos. No se guardará la imagen fallida.");
+                return;
+            }
+
+            try
+            {
+                var fecha = DateTime.Now.ToString("yyyyMMdd");
+                var fileName = $"{DateTime.Now:yyyyMMdd_HHmmss_fff}";
+                var extension = contentType.Substring(contentType.IndexOf("/", StringComparison.Ordinal) + 1);
+
+                var fullPath = Path.Combine(rutaFotos, fecha, codigoDispositivo, estado);
+                if (!Directory.Exists(fullPath))
+                    Directory.CreateDirectory(fullPath);
+
+                var filePath = Path.Combine(fullPath, $"{fileName}.{extension}");
+                File.WriteAllBytes(filePath, imagen);
+                Log.Debug($"Imagen fallida guardada en {filePath}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Error al guardar imagen fallida del sensor vehicular: {ex.Message}");
+            }
+        }
+
         private (string patente, string error) LlamarALPR(byte[] imagen)
         {
             string patente = string.Empty;
-            string error = null;
+            string error = string.Empty;
 
             try
             {
