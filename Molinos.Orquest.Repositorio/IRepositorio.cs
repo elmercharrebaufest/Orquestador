@@ -103,5 +103,8 @@ namespace Molinos.Orquest.Repositorio
         bool LiberarDispositivo(int idOrquestador, string codigoDispositivo);
         void LiberarDispositivos(int idOrquestador);
         string ObtenerCodigoDispositivoConcentrador(string codigoDispositivo);
+        bool TomarCIV(int idOrquestador, string codigoCIV);
+        void LiberarCIV(int idOrquestador, string codigoCIV);
+        void LiberarCIVs(int idOrquestador);
     }
 }

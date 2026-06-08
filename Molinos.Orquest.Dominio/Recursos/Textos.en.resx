@@ -780,4 +780,61 @@
   <data name="Cartel_Led_Administrador" xml:space="preserve">
     <value>Led Poster</value>
   </data>
+  <data name="MonitorIdentificacionVehicular_Diagnostico" xml:space="preserve">
+    <value>Vehicle Identification Monitor</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_Administrar" xml:space="preserve">
+    <value>Vehicle Identification</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_Administracion" xml:space="preserve">
+    <value>Vehicle Identification Configuration</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_Crear" xml:space="preserve">
+    <value>New configuration</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_Modificar" xml:space="preserve">
+    <value>Edit configuration</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_Nombre" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_Codigo" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_LectorTarjetas" xml:space="preserve">
+    <value>Card Reader</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_SensorVehicular" xml:space="preserve">
+    <value>Vehicle Sensor</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_SensorPresencia" xml:space="preserve">
+    <value>Presence Sensor</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_MaxReintentosFoto" xml:space="preserve">
+    <value>Max. Photo Retries</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_DelayEntreReintentosMs" xml:space="preserve">
+    <value>Delay between retries (ms)</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_CamarasALPR" xml:space="preserve">
+    <value>ALPR Cameras</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_AgregarCamara" xml:space="preserve">
+    <value>Add Camera</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_DispositivosDisparadores" xml:space="preserve">
+    <value>Trigger Devices</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_DispositivosPresencia" xml:space="preserve">
+    <value>Presence devices</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_InformacionGeneral" xml:space="preserve">
+    <value>General Information</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_DebeSeleccionarDispositivo" xml:space="preserve">
+    <value>At least one trigger device must be selected.</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_ParametrosAvanzados" xml:space="preserve">
+    <value>Advanced Parameters</value>
+  </data>
 </root>

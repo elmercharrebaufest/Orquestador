@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Configuration;
-using Microsoft.AspNet.SignalR.Client;
+using System.Collections.Generic;
+using Microsoft.AspNet.SignalR;
+using Molinos.Orquest.Dominio.Dtos;
 using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Resultados;
 using Molinos.Orquest.Drivers;
@@ -14,16 +15,15 @@ namespace Molinos.Orquest.Web.ServicioHub
     {
         private readonly IRepositorioFactory factoryRepo;
         private readonly ILogger log;
-        private static IHubProxy hubProxy;
         private readonly HubClient hubClient;
+        private readonly IServicioOrquestador servicioOrquestador;
 
-        private static readonly object LockObject = new object();
-
-        public ServicioSuscriptor(IRepositorioFactory factoryRepo, ILogger log, HubClientFactory hubClientFactory)
+        public ServicioSuscriptor(IRepositorioFactory factoryRepo, ILogger log, HubClientFactory hubClientFactory, IServicioOrquestador servicioOrquestador)
         {
             this.factoryRepo = factoryRepo;
             this.log = log;
             this.hubClient = hubClientFactory.GetClient();
+            this.servicioOrquestador = servicioOrquestador;
         }
 
         public void Recibir(NotificacionEvento notificacion)
@@ -127,6 +127,52 @@ namespace Molinos.Orquest.Web.ServicioHub
                             Patente = mensaje,
                             HayError = hayError
                         });
+                    }
+                    else if (notificacion.CodigoEvento == CodigosEventos.IdentificacionVehicular)
+                    {
+                        var configCIV = repositorio.Obtener<ConfigIdentificacionVehicular>(
+                            c => c.Activo && c.Codigo == notificacion.CodigoDispositivo);
+
+                        if (configCIV == null)
+                        {
+                            configCIV = repositorio.Obtener<ConfigIdentificacionVehicular>(
+                                c => c.Activo && (
+                                    (c.ConfigLectorTarjetas != null && c.ConfigLectorTarjetas.Dispositivo.Codigo == notificacion.CodigoDispositivo) ||
+                                    (c.ConfigSensorVehicular != null && c.ConfigSensorVehicular.Dispositivo.Codigo == notificacion.CodigoDispositivo)));
+                        }
+
+                        if (configCIV == null)
+                        {
+                            log.Warn("IdentificacionVehicular: no se encontro ConfigIdentificacionVehicular activa para CodigoDispositivo='{0}'. Evento descartado.", notificacion.CodigoDispositivo);
+                            return;
+                        }
+
+                        var detalles = notificacion.Datos.ContainsKey("Detalle")
+                            ? JsonConvert.DeserializeObject<List<DetalleCamaraCIV>>(notificacion.Datos["Detalle"])
+                            : new List<DetalleCamaraCIV>();
+
+                        string valor          = notificacion.Datos.ContainsKey("Tarjeta")         ? notificacion.Datos["Tarjeta"]         : string.Empty;
+                        string patenteCIV     = notificacion.Datos.ContainsKey("Patente")         ? notificacion.Datos["Patente"]         : null;
+                        string fechaEvento    = notificacion.Datos.ContainsKey("FechaEvento")     ? notificacion.Datos["FechaEvento"]     : string.Empty;
+                        bool vehiculoPresente = notificacion.Datos.ContainsKey("VehiculoPresente")
+                            && bool.TryParse(notificacion.Datos["VehiculoPresente"], out var vp) && vp;
+
+                        var notificacionCIV = new NotificacionCIV
+                        {
+                            CodigoCIV         = configCIV.Codigo,
+                            CodigoEvento      = notificacion.CodigoEvento,
+                            CodigoDispositivo = notificacion.CodigoDispositivo,
+                            Valor             = valor,
+                            VehiculoPresente  = vehiculoPresente,
+                            Patente           = patenteCIV,
+                            FechaEvento       = fechaEvento,
+                            Detalles          = detalles,
+                            JsonCompleto      = JsonConvert.SerializeObject(notificacion, Formatting.Indented)
+                        };
+
+                        var hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificaLectura>();
+                        hubContext.Clients.Group("civ-" + notificacionCIV.CodigoCIV).actualizarEventoCIV(notificacionCIV);
+                        log.Debug("NotificarEventoCIV despachado al grupo 'civ-{0}'.", notificacionCIV.CodigoCIV);
                     }
                 }
             }

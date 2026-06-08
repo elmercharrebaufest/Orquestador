@@ -1294,6 +1294,168 @@ namespace Molinos.Orquest.Dominio.Recursos {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configuración Identificación Vehicular.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_Administracion {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_Administracion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identificación Vehicular.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_Administrar {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_Administrar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agregar Cámara.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_AgregarCamara {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_AgregarCamara", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cámaras ALPR.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_CamarasALPR {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_CamarasALPR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Código.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_Codigo {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_Codigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nueva configuración.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_Crear {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_Crear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debe seleccionar al menos un dispositivo disparador..
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_DebeSeleccionarDispositivo {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_DebeSeleccionarDispositivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delay entre reintentos (ms).
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_DelayEntreReintentosMs {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_DelayEntreReintentosMs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dispositivos disparadores.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_DispositivosDisparadores {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_DispositivosDisparadores", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dispositivos de presencia.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_DispositivosPresencia {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_DispositivosPresencia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Información General.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_InformacionGeneral {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_InformacionGeneral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lector de Tarjetas.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_LectorTarjetas {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_LectorTarjetas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Máx. Reintentos Foto.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_MaxReintentosFoto {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_MaxReintentosFoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar configuración.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_Modificar {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_Modificar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nombre.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_Nombre {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_Nombre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parámetros Avanzados.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_ParametrosAvanzados {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_ParametrosAvanzados", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor de Presencia.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_SensorPresencia {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_SensorPresencia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Vehicular.
+        /// </summary>
+        public static string ConfigIdentificacionVehicular_SensorVehicular {
+            get {
+                return ResourceManager.GetString("ConfigIdentificacionVehicular_SensorVehicular", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configuración del Dispositivo.
         /// </summary>
         public static string ConfiguracionDispositivo {
@@ -2725,11 +2887,218 @@ namespace Molinos.Orquest.Dominio.Recursos {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cámara ALPR.
+        /// </summary>
+        public static string MonitorCIV_CamaraALPR {
+            get {
+                return ResourceManager.GetString("MonitorCIV_CamaraALPR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Código Dispositivo.
+        /// </summary>
+        public static string MonitorCIV_CodigoDispositivo {
+            get {
+                return ResourceManager.GetString("MonitorCIV_CodigoDispositivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Código Evento.
+        /// </summary>
+        public static string MonitorCIV_CodigoEvento {
+            get {
+                return ResourceManager.GetString("MonitorCIV_CodigoEvento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CONECTADO.
+        /// </summary>
+        public static string MonitorCIV_Conectado {
+            get {
+                return ResourceManager.GetString("MonitorCIV_Conectado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copiar JSON.
+        /// </summary>
+        public static string MonitorCIV_CopiarJSON {
+            get {
+                return ResourceManager.GetString("MonitorCIV_CopiarJSON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DESCONOCIDO.
+        /// </summary>
+        public static string MonitorCIV_Desconocido {
+            get {
+                return ResourceManager.GetString("MonitorCIV_Desconocido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disparadores.
+        /// </summary>
+        public static string MonitorCIV_Disparadores {
+            get {
+                return ResourceManager.GetString("MonitorCIV_Disparadores", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inactivo.
+        /// </summary>
+        public static string MonitorCIV_Inactivo {
+            get {
+                return ResourceManager.GetString("MonitorCIV_Inactivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intentos.
+        /// </summary>
+        public static string MonitorCIV_Intentos {
+            get {
+                return ResourceManager.GetString("MonitorCIV_Intentos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notificaciones de Eventos.
+        /// </summary>
+        public static string MonitorCIV_NotificacionesEventos {
+            get {
+                return ResourceManager.GetString("MonitorCIV_NotificacionesEventos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Presencia Vehicular.
+        /// </summary>
+        public static string MonitorCIV_PresenciaVehicular {
+            get {
+                return ResourceManager.GetString("MonitorCIV_PresenciaVehicular", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Providers.
+        /// </summary>
+        public static string MonitorCIV_Providers {
+            get {
+                return ResourceManager.GetString("MonitorCIV_Providers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rescribir Eventos.
+        /// </summary>
+        public static string MonitorCIV_ReescribirEventos {
+            get {
+                return ResourceManager.GetString("MonitorCIV_ReescribirEventos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El servidor de orquestador no está disponible..
+        /// </summary>
+        public static string MonitorCIV_ServicioNoDisponible {
+            get {
+                return ResourceManager.GetString("MonitorCIV_ServicioNoDisponible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sin captura.
+        /// </summary>
+        public static string MonitorCIV_SinCaptura {
+            get {
+                return ResourceManager.GetString("MonitorCIV_SinCaptura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (sin datos).
+        /// </summary>
+        public static string MonitorCIV_SinDatos {
+            get {
+                return ResourceManager.GetString("MonitorCIV_SinDatos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sin dispositivo asignado.
+        /// </summary>
+        public static string MonitorCIV_SinDispositivoAsignado {
+            get {
+                return ResourceManager.GetString("MonitorCIV_SinDispositivoAsignado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sin notificaciones desde el último reinicio del servicio..
+        /// </summary>
+        public static string MonitorCIV_SinNotificaciones {
+            get {
+                return ResourceManager.GetString("MonitorCIV_SinNotificaciones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monitor de Identificación Vehicular.
+        /// </summary>
+        public static string MonitorCIV_TituloConfiguracion {
+            get {
+                return ResourceManager.GetString("MonitorCIV_TituloConfiguracion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notificación.
+        /// </summary>
+        public static string MonitorCIV_UltimaNotificacion {
+            get {
+                return ResourceManager.GetString("MonitorCIV_UltimaNotificacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valor.
+        /// </summary>
+        public static string MonitorCIV_Valor {
+            get {
+                return ResourceManager.GetString("MonitorCIV_Valor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volver.
+        /// </summary>
+        public static string MonitorCIV_Volver {
+            get {
+                return ResourceManager.GetString("MonitorCIV_Volver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monitoreo Servicio Orquestador.
         /// </summary>
         public static string MonitoreoOrquestador {
             get {
                 return ResourceManager.GetString("MonitoreoOrquestador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monitor Identificación Vehicular.
+        /// </summary>
+        public static string MonitorIdentificacionVehicular_Diagnostico {
+            get {
+                return ResourceManager.GetString("MonitorIdentificacionVehicular_Diagnostico", resourceCulture);
             }
         }
         

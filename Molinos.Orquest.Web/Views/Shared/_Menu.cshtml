@@ -87,6 +87,10 @@
                                     {
                                         <li>@Html.ActionLink(Textos.GrupoBarrera_Titulo, "Index", "GrupoBarrera", null, new { @class = "dropdown-item" })</li>
                                     }
+                                    @if (PermisosHelper.Is(PermisosOrquestador.ConfigIdentificacionVehicular))
+                                    {
+                                        <li>@Html.ActionLink(Textos.ConfigIdentificacionVehicular_Administrar, "Index", "ConfigIdentificacionVehicular", null, new { @class = "dropdown-item" })</li>
+                                    }
                                 </ul>
                             </li>
                             @if (PermisosHelper.Is(PermisosOrquestador.Cabezal, PermisosOrquestador.PruebaCabezal))

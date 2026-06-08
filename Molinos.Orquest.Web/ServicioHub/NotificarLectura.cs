@@ -98,5 +98,18 @@ namespace Molinos.Orquest.Web.ServicioHub
                 Clients.Group(lectura.CodigoItc).actualizarLecturaVehiculo(lectura);
             }
         }
+
+        public void EscucharCIV(string codigoCIV)
+        {
+            Groups.Add(Context.ConnectionId, "civ-" + codigoCIV);
+        }
+
+        public void NotificarEventoCIV(NotificacionCIV notificacion)
+        {
+            if (Clients != null)
+            {
+                Clients.Group("civ-" + notificacion.CodigoCIV).actualizarEventoCIV(notificacion);
+            }
+        }
     }
 }

@@ -22,6 +22,12 @@ namespace Molinos.Orquest.Servicios
         ResultadoComando RecargarConfiguracion(string codigoDispositivo);
 
         [OperationContract]
+        ResultadoSuscribir SuscribirIdentificacionVehicular(string codigoCIV, string codigoEvento, string rutaAccesoSuscriptor);
+
+        [OperationContract]
+        ResultadoComando CancelarSuscripcionIdentificacionVehicular(string codigoCIV, string codigoEvento, string rutaAccesoSuscriptor);
+
+        [OperationContract]
         IList<DispositivoDto> ListarLectores();
 
         [OperationContract]
@@ -44,6 +50,9 @@ namespace Molinos.Orquest.Servicios
 
         [OperationContract]
         IList<DispositivoDto> ListarSensoresVehiculares();
+
+        [OperationContract]
+        IList<ConfigIdentificacionVehicularDto> ListarConfigIdentificacionVehicular();
 
         [OperationContract]
         IList<DispositivoDto> ListarHumedimetros();
@@ -84,6 +93,24 @@ namespace Molinos.Orquest.Servicios
 
         [OperationContract]
         IList<DispositivoDto> ListarSensoresPorConcentrador(string concentrador);
+
+        [OperationContract]
+        ResultadoComando RecargarConfigIdentificacionVehicular(string codigoCIV);
+
+        [OperationContract]
+        IList<EstadoDispositivoCIVDto> ObtenerEstadoDispositivosCIV(string codigoCIV);
+
+        [OperationContract]
+        IList<NotificacionCIVDto> ObtenerUltimasNotificacionesCIV(string codigoCIV);
+
+        /// <summary>
+        /// Registra en el buffer in-memory del DriverIdentificacionVehicular una notificación
+        /// recibida externamente (por ejemplo, via ServicioSuscriptor.svc desde el sistema ALPR),
+        /// de modo que sea visible en la carga inicial del Monitor CIV aunque el driver no la haya
+        /// generado internamente.
+        /// </summary>
+        [OperationContract]
+        void RegistrarNotificacionCIVExterna(string codigoCIV, NotificacionCIVDto notificacion);
 
         void Iniciar(string nombreMaquina, string urlServicio);
 

@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNet.SignalR.Client;
+using Ninject.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace Molinos.Orquest.Web.ServicioHub
 {
@@ -13,10 +11,12 @@ namespace Molinos.Orquest.Web.ServicioHub
         private IHubProxy proxy;
         private HubConnection connection;
 
+        private readonly ILogger log;
         private readonly object connectionLock = new object();
 
-        public HubClient()
+        public HubClient(ILogger log)
         {
+            this.log = log;
 
             try
             {
@@ -27,6 +27,7 @@ namespace Molinos.Orquest.Web.ServicioHub
             }
             catch (Exception e)
             {
+                log.Error(e, "HubClient: error al conectar al hub notificarLectura. Verificar 'UrlServicioNotificaciones' en config.");
             }
         }
 
@@ -34,10 +35,14 @@ namespace Molinos.Orquest.Web.ServicioHub
         {
             try
             {
+                if (proxy == null)
+                    throw new InvalidOperationException("El proxy SignalR es nulo; la conexión inicial falló.");
+
                 return proxy.Invoke(method, args);
             }
             catch (InvalidOperationException e)
             {
+                log.Warn(e, "HubClient: conexión perdida al invocar '{0}'. Intentando reconexión.", method);
                 try
                 {
                     Reconnect();
@@ -45,27 +50,36 @@ namespace Molinos.Orquest.Web.ServicioHub
                 }
                 catch (Exception ex)
                 {
+                    log.Error(ex, "HubClient: no se pudo reconectar al invocar '{0}'.", method);
                     throw;
                 }
             }
         }
 
-
         private void Connect()
         {
-            connection = new HubConnection(ConfigurationManager.AppSettings["UrlServicioNotificaciones"]);
+            var url = ConfigurationManager.AppSettings["UrlServicioNotificaciones"];
+            log.Debug("HubClient: conectando a '{0}' hub notificarLectura...", url);
+            connection = new HubConnection(url);
             proxy = connection.CreateHubProxy("notificarLectura");
             connection.Start().Wait();
+            log.Debug("HubClient: conexión establecida.");
         }
 
         private void Reconnect()
         {
             lock (connectionLock)
             {
-                if (connection.State == ConnectionState.Disconnected)
+                var state = connection?.State;
+                if (state == ConnectionState.Disconnected || state == null)
                 {
-                    connection.Dispose();
+                    log.Debug("HubClient: reconectando...");
+                    connection?.Dispose();
                     Connect();
+                }
+                else
+                {
+                    log.Debug("HubClient: reconexión omitida, estado actual={0}.", state);
                 }
             }
         }

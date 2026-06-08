@@ -12,11 +12,13 @@ namespace Molinos.Orquest.Servicios.Procesamiento
     public sealed class ProcesadorDispositivoConcentrador : ProcesadorDispositivo
     {
         private readonly IDictionary<string, IDriver> driversLogicos = new Dictionary<string, IDriver>();
-        private readonly IDictionary<string, Dispositivo> dispositivosLogicos = new Dictionary<string, Dispositivo>(); 
-        
-        public ProcesadorDispositivoConcentrador(Dispositivo dispositivo, IRepositorioFactory repositorioFactory, IProcesadorFactory procesadorFactory, IDriverFactory driverFactory, IAdministradorSuscripciones adminSuscripciones, Action<IProcesadorDispositivo> callBackFinProcesamiento, ILogger log) 
+        private readonly IDictionary<string, Dispositivo> dispositivosLogicos = new Dictionary<string, Dispositivo>();
+        private readonly IAdministradorIdentificacionVehicular adminIdentificacion;
+
+        public ProcesadorDispositivoConcentrador(Dispositivo dispositivo, IRepositorioFactory repositorioFactory, IProcesadorFactory procesadorFactory, IDriverFactory driverFactory, IAdministradorSuscripciones adminSuscripciones, IAdministradorIdentificacionVehicular adminIdentificacion, Action<IProcesadorDispositivo> callBackFinProcesamiento, ILogger log)
             : base(dispositivo, procesadorFactory, driverFactory, adminSuscripciones, callBackFinProcesamiento, log)
         {
+            this.adminIdentificacion = adminIdentificacion;
             using (var repositorio = repositorioFactory.Repositorio())
             {
                 var dispositivos = repositorio.Listar<Dispositivo>(d => d.Concentrador.Id == dispositivo.Id && d.Activo);
@@ -30,7 +32,7 @@ namespace Molinos.Orquest.Servicios.Procesamiento
                     driverLogico.EventoDriver += (sender, args) => { adminSuscripciones.Notificar(args.Notificacion);
                         log.Debug($"Suscripcion Notificacion Concentrador: Dispositivos: {args.Notificacion.CodigoDispositivo } Evento: {args.Notificacion.CodigoEvento}");
                     };
-
+                    adminIdentificacion?.ConectarDriver(disp.Codigo, driverLogico);
                 }
             }
         }
@@ -79,6 +81,9 @@ namespace Molinos.Orquest.Servicios.Procesamiento
             base.Dispose(disposing);
             if (disposing)
             {
+                foreach (var codigoDispositivo in driversLogicos.Keys)
+                    adminIdentificacion?.DesconectarDriver(codigoDispositivo);
+
                 foreach (var driversLogico in driversLogicos.Values)
                 {
                     var disposable = driversLogico as IDisposable;

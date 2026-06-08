@@ -8,6 +8,7 @@ using Molinos.Orquest.Repositorio;
 using Molinos.Orquest.Servicios;
 using Molinos.Orquest.Servicios.Impl;
 using Molinos.Orquest.Servicios.Procesamiento;
+using Molinos.Orquest.Servicios.Procesamiento;
 using Molinos.Orquest.Test.Mocks;
 using Moq;
 using NUnit.Framework;
@@ -23,6 +24,7 @@ namespace Molinos.Orquest.Test.Servicios
         private Mock<IProcesadorFactory> procesadorFactoryMock;
         private Mock<IDriverFactory> driverFactoryMock;
         private Mock<IAdministradorSuscripciones> adminSuscripcionesMock;
+        private Mock<IAdministradorIdentificacionVehicular> adminIdentificacionMock;
 
         private Mock<IRepositorio> repositorioMock;
 
@@ -36,12 +38,14 @@ namespace Molinos.Orquest.Test.Servicios
             procesadorFactoryMock = new Mock<IProcesadorFactory>();
             driverFactoryMock = new Mock<IDriverFactory>();
             adminSuscripcionesMock = new Mock<IAdministradorSuscripciones>();
-            
+            adminIdentificacionMock = new Mock<IAdministradorIdentificacionVehicular>();
+
             kernel = new StandardKernel();
             kernel.Bind<IRepositorioFactory>().ToMethod(ctx => repositorioFactoryMock.Object);
             kernel.Bind<IProcesadorFactory>().ToMethod(ctx => procesadorFactoryMock.Object);
             kernel.Bind<IDriverFactory>().ToMethod(ctx => driverFactoryMock.Object);
             kernel.Bind<IAdministradorSuscripciones>().ToMethod(ctx => adminSuscripcionesMock.Object);
+            kernel.Bind<IAdministradorIdentificacionVehicular>().ToMethod(ctx => adminIdentificacionMock.Object);
             kernel.Bind<ILogger>().ToMethod(ctx => new NullLogger());
 
             repositorioMock = new Mock<IRepositorio>();

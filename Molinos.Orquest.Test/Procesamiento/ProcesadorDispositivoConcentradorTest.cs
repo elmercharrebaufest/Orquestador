@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -30,6 +30,7 @@ namespace Molinos.Orquest.Test.Procesamiento
         private Mock<IDriver> driverMock;
         private Mock<IDriver> driverLogicoMock;
         private Mock<IAdministradorSuscripciones> adminSuscripcionesMock;
+        private Mock<IAdministradorIdentificacionVehicular> adminIdentificacionMock;
 
         private Dispositivo dispositivo;
         private Dispositivo dispositivo2;
@@ -46,6 +47,7 @@ namespace Molinos.Orquest.Test.Procesamiento
             driverMock = new Mock<IDriver>();
             driverLogicoMock = new Mock<IDriver>();
             adminSuscripcionesMock = new Mock<IAdministradorSuscripciones>();
+            adminIdentificacionMock = new Mock<IAdministradorIdentificacionVehicular>();
 
             procesadorFactoryMock.Setup(factory => factory.ProcesadorPara(It.IsAny<Comando>())).Returns(procesadorMock.Object);
             repositorioFactoryMock.Setup(factory => factory.Repositorio()).Returns(repositorioMock.Object);
@@ -94,6 +96,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                adminIdentificacionMock.Object,
                 disp =>
                 {
                     dispositivoLiberado = disp.ProcesarRemanentes();
@@ -149,6 +152,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                adminIdentificacionMock.Object,
                 disp =>
                 {
                     dispositivoLiberado = disp.ProcesarRemanentes();
@@ -213,6 +217,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                adminIdentificacionMock.Object,
                 disp =>
                 {
                     dispositivoLiberado = disp.ProcesarRemanentes();
@@ -282,6 +287,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                adminIdentificacionMock.Object,
                 disp =>
                 {
                     dispositivoLiberado = disp.ProcesarRemanentes();
@@ -336,6 +342,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                adminIdentificacionMock.Object,
                 disp =>
                 {
                     dispositivoLiberado = disp.ProcesarRemanentes();
@@ -391,6 +398,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                adminIdentificacionMock.Object,
                 disp =>
                 {
                     dispositivoLiberado = disp.ProcesarRemanentes();

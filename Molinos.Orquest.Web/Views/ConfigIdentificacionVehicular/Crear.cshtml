@@ -1,0 +1,27 @@
+@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Web.Models.ConfigIdentificacionVehicularModel
+
+@{
+    ViewBag.Title = Textos.ConfigIdentificacionVehicular_Crear;
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+@using (Html.BeginForm("Crear", "ConfigIdentificacionVehicular", FormMethod.Post, new { id = "civ-form", @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(true)
+
+    <div class="civ-page">
+        <div class="civ-header">
+            <h1 class="civ-header__title">@Textos.ConfigIdentificacionVehicular_Crear</h1>
+            <div class="civ-header__actions">
+                @Html.ActionLink(Textos.Cancelar, "Index", "ConfigIdentificacionVehicular", null, new { @class = "btn btn-default" })
+                <button type="submit" class="civ-header__save">
+                    <span class="fa fa-save"></span> Guardar
+                </button>
+            </div>
+        </div>
+
+        @Html.Partial("_CrearModificar", Model)
+    </div>
+}

@@ -202,6 +202,9 @@
     <None Include="App.GSLOSCATOQA01.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="App.GSLOSCATOAPQ01.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ApplicationInsights.QA.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

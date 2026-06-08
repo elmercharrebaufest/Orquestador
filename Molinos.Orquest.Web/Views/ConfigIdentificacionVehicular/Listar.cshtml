@@ -1,0 +1,35 @@
+@using Molinos.Orquest.Dominio.Consultas
+@using Molinos.Orquest.Dominio.Entidades
+@using Molinos.Orquest.Dominio.Recursos
+@using Molinos.Orquest.Dominio.Seguridad
+@using Molinos.Orquest.Web.Helpers
+@using Molinos.Orquest.Web.Seguridad
+
+@{
+    Layout = null;
+    var items = (ListaPaginada<ConfigIdentificacionVehicular>)ViewBag.Items;
+}
+
+@Html.Grilla(items,
+    grilla => grilla.Columns(
+        grilla.Column("EliminarModificar", "", f =>
+            Html.Raw(
+            "<span>" +
+            Html.BotonLink(Textos.Modificar, "Modificar", "ConfigIdentificacionVehicular", new { f.id }, "", "fa fa-edit", true).ToHtmlString() +
+            Html.BotonLink(Textos.Eliminar, "Eliminar", "ConfigIdentificacionVehicular", new { f.id }, " ajax-borrar-link", "fa fa-trash", true).ToHtmlString() +
+            Html.BotonLink("Monitor", "Index", "MonitorIdentificacionVehicular", new { codigoCIV = f.Codigo }, "", "fa fa-play", true).ToHtmlString() +
+            "</span>"
+            ), "editar-borrar-columna", false),
+        grilla.Columna("Nombre",  Textos.ConfigIdentificacionVehicular_Nombre,  c => c.Nombre),
+        grilla.Columna("Codigo",  Textos.ConfigIdentificacionVehicular_Codigo,  c => c.Codigo),
+        grilla.Columna("Activo",  Textos.Activo, c => c.Activo ? "Si" : "No")
+    ))
+
+@if (!PermisosHelper.Is(PermisosOrquestador.ConfigIdentificacionVehicular))
+{
+    <script type="text/javascript">
+        $(function () {
+            $(".ajax-borrar-link").hide();
+        });
+    </script>
+}

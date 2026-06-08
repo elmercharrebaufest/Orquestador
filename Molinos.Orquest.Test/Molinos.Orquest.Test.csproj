@@ -136,6 +136,7 @@
     <Compile Include="Controllers\BarreraControllerTest.cs" />
     <Compile Include="Controllers\HumedimetroControllerTest.cs" />
     <Compile Include="Controllers\PruebaItcControllerTest.cs" />
+    <Compile Include="Controllers\ConfigIdentificacionVehicularControllerTest.cs" />
     <Compile Include="Dominio\ExtensionesSerializacionTest.cs" />
     <Compile Include="Dominio\ExtensionesByteTest.cs" />
     <Compile Include="FactoryConversor.cs" />
@@ -163,9 +164,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicios\AdministradorSuscripcionesTest.cs" />
     <Compile Include="Servicios\DriverFactoryTest.cs" />
+    <Compile Include="Servicios\DriverIdentificacionVehicularTest.cs" />
     <Compile Include="Servicios\NamedLockerTest.cs" />
     <Compile Include="Servicios\ProcesadorFactoryTest.cs" />
     <Compile Include="Servicios\ProgramadorTareasTest.cs" />
+    <Compile Include="Servicios\AdministradorIdentificacionVehicularTest.cs" />
     <Compile Include="Servicios\ServicioOrquestadorTest.cs" />
     <Compile Include="Servicios\ServicioOrquestsadorSAPTest.cs" />
   </ItemGroup>

@@ -30,5 +30,6 @@
         public const string CambioEstadoSensorGeneral = "CambioEstadoSensorGeneral";
 
         public const string VehiculoDetectado = "VehiculoDetectado";
+        public const string IdentificacionVehicular = "IdentificacionVehicular";
     }
 }

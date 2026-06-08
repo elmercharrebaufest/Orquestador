@@ -1,0 +1,128 @@
+@using Newtonsoft.Json
+@using Molinos.Orquest.Dominio.Recursos
+@model Molinos.Orquest.Web.Models.ConfigIdentificacionVehicularModel
+
+@{
+    var lectores = ViewBag.Lectores as IEnumerable<SelectListItem>;
+    var sensores = ViewBag.Sensores as IEnumerable<SelectListItem>;
+
+    var jsonSettings = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
+
+    string existingCamerasJson = Model != null && Model.Camaras != null && Model.Camaras.Any()
+        ? JsonConvert.SerializeObject(Model.Camaras, jsonSettings)
+        : "[]";
+
+    var availableCamerasJson = JsonConvert.SerializeObject(ViewBag.AvailableCameras, jsonSettings);
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="~/Styles/variables.css" rel="stylesheet" />
+<link href="~/Styles/configIdentificacionVehicular.css" rel="stylesheet" />
+
+<div class="civ-form" id="civ-form-container">
+
+    <div class="civ-card">
+        <div class="civ-card__header">
+            <span class="civ-card__icon"><span class="fa fa-info-circle"></span></span>
+            <h2 class="civ-card__title">@Textos.ConfigIdentificacionVehicular_InformacionGeneral</h2>
+        </div>
+        <div class="civ-card__body">
+            <div class="civ-form-row">
+                <div class="civ-form-group">
+                    @Html.LabelFor(m => m.Nombre, new { @class = "civ-form-group__label" })
+                    @Html.TextBoxFor(m => m.Nombre, new { @class = "civ-form-group__input", placeholder = "Ej: Control Acceso Norte" })
+                    @Html.ValidationMessageFor(m => m.Nombre, null, new { @class = "civ-form-group__error" })
+                </div>
+                <div class="civ-form-group">
+                    @Html.LabelFor(m => m.Codigo, new { @class = "civ-form-group__label" })
+                    @Html.TextBoxFor(m => m.Codigo, new { @class = "civ-form-group__input", placeholder = "Ej: CFG-001" })
+                    @Html.ValidationMessageFor(m => m.Codigo, null, new { @class = "civ-form-group__error" })
+                </div>
+            </div>
+            <div class="civ-switch">
+                @Html.CheckBoxFor(m => m.Activo, new { @class = "civ-switch__input", id = "civ-activo" })
+                <label class="civ-switch__track" id="civ-activo-track">
+                    <span class="civ-switch__thumb"></span>
+                </label>
+                @Html.LabelFor(m => m.Activo, new { @class = "civ-switch__label" })
+                <span id="civ-activo-hint" class="civ-form-group__error" style="display:none;">
+                    @Textos.ConfigIdentificacionVehicular_DebeSeleccionarDispositivo
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="civ-grid" style="margin-top:1.25rem;">
+        <div class="civ-card">
+            <div class="civ-card__header">
+                <span class="civ-card__icon"><span class="fa fa-wifi"></span></span>
+                <h2 class="civ-card__title">@Textos.ConfigIdentificacionVehicular_DispositivosDisparadores</h2>
+            </div>
+            <div class="civ-card__body">
+                <div class="civ-form-group">
+                    @Html.LabelFor(m => m.ConfigLectorTarjetasId, new { @class = "civ-form-group__label" })
+                    @Html.DropDownListFor(m => m.ConfigLectorTarjetasId, lectores, new { @class = "civ-form-group__select" })
+                    @Html.ValidationMessageFor(m => m.ConfigLectorTarjetasId, null, new { @class = "civ-form-group__error" })
+                </div>
+                <div class="civ-form-group">
+                    @Html.LabelFor(m => m.ConfigSensorVehicularId, new { @class = "civ-form-group__label" })
+                    @Html.DropDownListFor(m => m.ConfigSensorVehicularId, sensores, new { @class = "civ-form-group__select" })
+                </div>
+            </div>
+        </div>
+        <div class="civ-card">
+            <div class="civ-card__header">
+                <span class="civ-card__icon"><span class="fa fa-video-camera"></span></span>
+                <h2 class="civ-card__title">@Textos.ConfigIdentificacionVehicular_CamarasALPR</h2>
+                <button type="button" id="civ-add-camera-btn" class="civ-cameras__add-btn" style="margin-left:auto;">
+                    <span class="fa fa-plus"></span> @Textos.ConfigIdentificacionVehicular_AgregarCamara
+                </button>
+            </div>
+            <div class="civ-card__body">
+                <div id="civ-cameras-list" class="civ-cameras__list"></div>
+                <div id="civ-cameras-hidden"></div>
+            </div>
+        </div>
+
+        <div class="civ-card">
+            <div class="civ-card__header">
+                <span class="civ-card__icon"><span class="fa fa-car"></span></span>
+                <h2 class="civ-card__title">@Textos.ConfigIdentificacionVehicular_DispositivosPresencia</h2>
+            </div>
+            <div class="civ-card__body">
+                <div class="civ-form-group">
+                    @Html.LabelFor(m => m.ConfigSensorPresenciaId, new { @class = "civ-form-group__label" })
+                    @Html.DropDownListFor(m => m.ConfigSensorPresenciaId, sensores, new { @class = "civ-form-group__select" })
+                </div>
+            </div>
+        </div>
+
+        <div class="civ-card">
+            <div class="civ-card__header">
+                <span class="civ-card__icon"><span class="fa fa-cog"></span></span>
+                <h2 class="civ-card__title">@Textos.ConfigIdentificacionVehicular_ParametrosAvanzados</h2>
+            </div>
+            <div class="civ-card__body">
+                <div class="civ-form-row">
+                    <div class="civ-form-group">
+                        @Html.LabelFor(m => m.MaxReintentosFoto, new { @class = "civ-form-group__label" })
+                        @Html.TextBoxFor(m => m.MaxReintentosFoto, new { @class = "civ-form-group__input", type = "number", min = "0", max = "10" })
+                        @Html.ValidationMessageFor(m => m.MaxReintentosFoto, null, new { @class = "civ-form-group__error" })
+                    </div>
+                    <div class="civ-form-group">
+                        @Html.LabelFor(m => m.DelayEntreReintentosMs, new { @class = "civ-form-group__label" })
+                        @Html.TextBoxFor(m => m.DelayEntreReintentosMs, new { @class = "civ-form-group__input", type = "number", min = "0" })
+                        @Html.ValidationMessageFor(m => m.DelayEntreReintentosMs, null, new { @class = "civ-form-group__error" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.civExistingCameras = @Html.Raw(existingCamerasJson);
+    window.civAvailableCameras = @Html.Raw(availableCamerasJson);
+</script>
+
+<script src="~/Scripts/configIdentificacionVehicular.js"></script>

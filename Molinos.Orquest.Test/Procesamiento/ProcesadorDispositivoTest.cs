@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -76,6 +76,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object, 
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                null,
                 disp =>
                     {
                         dispositivoLiberado = disp.ProcesarRemanentes();
@@ -114,6 +115,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                null,
                 disp =>
                     {
                         dispositivoLiberado = disp.ProcesarRemanentes();
@@ -147,7 +149,9 @@ namespace Molinos.Orquest.Test.Procesamiento
             string dispositivoLiberado = null;
             var liberaciones = 0;
             target = new ProcesadorDispositivoFisico(dispositivo,
-                procesadorFactoryMock.Object, driverFactoryMock.Object, adminSuscripcionesMock.Object, disp =>
+                procesadorFactoryMock.Object, driverFactoryMock.Object, adminSuscripcionesMock.Object,
+                null,
+                disp =>
                 {
                     dispositivoLiberado = disp.CodigoDispositivo;
                     liberaciones++;
@@ -196,6 +200,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                null,
                 disp => { }, new NullLogger());
             target.Procesar(new EjecutarCereoCabezal { CodigoDispositivo = "BALDM01" });
             Thread.Sleep(10);
@@ -225,6 +230,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                null,
                 disp => { }, new NullLogger()), Throws.InstanceOf<TipoDispositivoIncorrectoException>());
         }
 
@@ -288,6 +294,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                null,
                 disp =>
                 {
                     dispositivoLiberado = disp.ProcesarRemanentes();
@@ -331,6 +338,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                null,
                 disp =>
                 {
                     dispositivoLiberado = disp.ProcesarRemanentes();
@@ -374,6 +382,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                null,
                 disp =>
                 {
                     dispositivoLiberado = disp.ProcesarRemanentes();
@@ -405,6 +414,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                null,
                 disp => { }, 
                 new NullLogger());
 
@@ -434,6 +444,7 @@ namespace Molinos.Orquest.Test.Procesamiento
                 procesadorFactoryMock.Object,
                 driverFactoryMock.Object,
                 adminSuscripcionesMock.Object,
+                null,
                 disp => {}, new NullLogger());
 
             target.Dispose();

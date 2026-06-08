@@ -176,6 +176,27 @@ namespace Molinos.Orquest.Repositorio
                      "UPDATE Dispositivo SET TomadoPor_Id = NULL WHERE TomadoPor_Id = {0}", idOrquestador);
         }
 
+        public bool TomarCIV(int idOrquestador, string codigoCIV)
+        {
+            return context.Database.ExecuteSqlCommand(
+                @"UPDATE ConfigIdentificacionVehicular SET TomadoPor_Id = {0} WHERE Codigo = {1} AND TomadoPor_Id IS NULL",
+                idOrquestador, codigoCIV) > 0;
+        }
+
+        public void LiberarCIV(int idOrquestador, string codigoCIV)
+        {
+            context.Database.ExecuteSqlCommand(
+                "UPDATE ConfigIdentificacionVehicular SET TomadoPor_Id = NULL WHERE TomadoPor_Id = {0} AND Codigo = {1}",
+                idOrquestador, codigoCIV);
+        }
+
+        public void LiberarCIVs(int idOrquestador)
+        {
+            context.Database.ExecuteSqlCommand(
+                "UPDATE ConfigIdentificacionVehicular SET TomadoPor_Id = NULL WHERE TomadoPor_Id = {0}",
+                idOrquestador);
+        }
+
         public void Dispose()
         {
             context.Dispose();

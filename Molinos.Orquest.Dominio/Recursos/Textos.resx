@@ -1509,4 +1509,127 @@
   <data name="PruebaItc_Patente" xml:space="preserve">
     <value>Patente</value>
   </data>
+  <data name="ConfigIdentificacionVehicular_Administrar" xml:space="preserve">
+    <value>Identificación Vehicular</value>
+  </data>
+  <data name="MonitorIdentificacionVehicular_Diagnostico" xml:space="preserve">
+    <value>Monitor Identificación Vehicular</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_Administracion" xml:space="preserve">
+    <value>Configuración Identificación Vehicular</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_Crear" xml:space="preserve">
+    <value>Nueva configuración</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_Modificar" xml:space="preserve">
+    <value>Editar configuración</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_Nombre" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_Codigo" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_LectorTarjetas" xml:space="preserve">
+    <value>Lector de Tarjetas</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_SensorVehicular" xml:space="preserve">
+    <value>Sensor Vehicular</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_SensorPresencia" xml:space="preserve">
+    <value>Sensor de Presencia</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_MaxReintentosFoto" xml:space="preserve">
+    <value>Máx. Reintentos Foto</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_DelayEntreReintentosMs" xml:space="preserve">
+    <value>Delay entre reintentos (ms)</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_CamarasALPR" xml:space="preserve">
+    <value>Cámaras ALPR</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_AgregarCamara" xml:space="preserve">
+    <value>Agregar Cámara</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_DispositivosDisparadores" xml:space="preserve">
+    <value>Dispositivos disparadores</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_DispositivosPresencia" xml:space="preserve">
+    <value>Dispositivos de presencia</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_InformacionGeneral" xml:space="preserve">
+    <value>Información General</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_DebeSeleccionarDispositivo" xml:space="preserve">
+    <value>Debe seleccionar al menos un dispositivo disparador.</value>
+  </data>
+  <data name="ConfigIdentificacionVehicular_ParametrosAvanzados" xml:space="preserve">
+    <value>Parámetros Avanzados</value>
+  </data>
+  <data name="MonitorCIV_TituloConfiguracion" xml:space="preserve">
+    <value>Monitor de Identificación Vehicular</value>
+  </data>
+  <data name="MonitorCIV_Volver" xml:space="preserve">
+    <value>Volver</value>
+  </data>
+  <data name="MonitorCIV_Disparadores" xml:space="preserve">
+    <value>Disparadores</value>
+  </data>
+  <data name="MonitorCIV_PresenciaVehicular" xml:space="preserve">
+    <value>Presencia Vehicular</value>
+  </data>
+  <data name="MonitorCIV_Conectado" xml:space="preserve">
+    <value>CONECTADO</value>
+  </data>
+  <data name="MonitorCIV_Desconocido" xml:space="preserve">
+    <value>DESCONOCIDO</value>
+  </data>
+  <data name="MonitorCIV_SinDispositivoAsignado" xml:space="preserve">
+    <value>Sin dispositivo asignado</value>
+  </data>
+  <data name="MonitorCIV_Inactivo" xml:space="preserve">
+    <value>Inactivo</value>
+  </data>
+  <data name="MonitorCIV_CamaraALPR" xml:space="preserve">
+    <value>Cámara ALPR</value>
+  </data>
+  <data name="MonitorCIV_SinCaptura" xml:space="preserve">
+    <value>Sin captura</value>
+  </data>
+  <data name="MonitorCIV_NotificacionesEventos" xml:space="preserve">
+    <value>Notificaciones de Eventos</value>
+  </data>
+  <data name="MonitorCIV_CodigoEvento" xml:space="preserve">
+    <value>Código Evento</value>
+  </data>
+  <data name="MonitorCIV_CodigoDispositivo" xml:space="preserve">
+    <value>Código Dispositivo</value>
+  </data>
+  <data name="MonitorCIV_Valor" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="MonitorCIV_Providers" xml:space="preserve">
+    <value>Providers</value>
+  </data>
+  <data name="MonitorCIV_Intentos" xml:space="preserve">
+    <value>Intentos</value>
+  </data>
+  <data name="MonitorCIV_SinNotificaciones" xml:space="preserve">
+    <value>Sin notificaciones desde el último reinicio del servicio.</value>
+  </data>
+  <data name="MonitorCIV_UltimaNotificacion" xml:space="preserve">
+    <value>Notificación</value>
+  </data>
+  <data name="MonitorCIV_CopiarJSON" xml:space="preserve">
+    <value>Copiar JSON</value>
+  </data>
+  <data name="MonitorCIV_SinDatos" xml:space="preserve">
+    <value>(sin datos)</value>
+  </data>
+  <data name="MonitorCIV_ReescribirEventos" xml:space="preserve">
+    <value>Rescribir Eventos</value>
+  </data>
+  <data name="MonitorCIV_ServicioNoDisponible" xml:space="preserve">
+    <value>El servidor de orquestador no está disponible.</value>
+  </data>
 </root>

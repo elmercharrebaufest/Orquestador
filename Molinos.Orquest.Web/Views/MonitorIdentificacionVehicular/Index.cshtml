@@ -1,0 +1,1516 @@
+@using Molinos.Orquest.Dominio.Dtos
+@using Molinos.Orquest.Dominio.Entidades
+@using Molinos.Orquest.Dominio.Recursos
+@using System.Linq
+@model ConfigIdentificacionVehicular
+
+@{
+    ViewBag.Title = "Monitor " + Model.Nombre;
+
+    var estadoDispositivos = (IList<EstadoDispositivoCIVDto>)ViewBag.EstadoDispositivos;
+    var ultimasNotificaciones = (IList<NotificacionCIVDto>)ViewBag.UltimasNotificaciones;
+
+    Func<EstadoDispositivoCIVDto, string> pillCss = d => d != null && d.Conectado
+        ? "badge-civ badge-conectado"
+        : "badge-civ badge-desconocido";
+
+    Func<EstadoDispositivoCIVDto, string> pillTxt = d => d != null && d.Conectado
+        ? Textos.MonitorCIV_Conectado
+        : Textos.MonitorCIV_Desconocido;
+
+    var lector = estadoDispositivos != null ? estadoDispositivos.FirstOrDefault(d => d.TipoDispositivo == "LectorTarjetas") : null;
+    var sensor = estadoDispositivos != null ? estadoDispositivos.FirstOrDefault(d => d.TipoDispositivo == "SensorVehicular") : null;
+    var presencia = estadoDispositivos != null ? estadoDispositivos.FirstOrDefault(d => d.TipoDispositivo == "SensorPresencia") : null;
+    var camaras = estadoDispositivos != null ? estadoDispositivos.Where(d => d.TipoDispositivo == "Camara").ToList() : null;
+
+    var ultimaNotificacion = ultimasNotificaciones != null ? ultimasNotificaciones.FirstOrDefault() : null;
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+
+<style>
+    :root {
+        --civ-bg: #f6f7f9;
+        --civ-card: #ffffff;
+        --civ-border: #e5e7eb;
+        --civ-text: #0f172a;
+        --civ-muted: #64748b;
+        --civ-soft: #f3f4f6;
+        --civ-green: #078425;
+        --civ-green-soft: #dcfce7;
+        --civ-gray: #6b7280;
+        --civ-json: #0f172a;
+    }
+
+    body {
+        background: var(--civ-bg);
+    }
+
+    .civ-monitor {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 34px 32px 48px;
+        font-family: 'Inter', sans-serif;
+        color: var(--civ-text);
+    }
+
+    .civ-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 34px;
+    }
+
+    .civ-title {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.1;
+        font-weight: 800;
+        color: #111827;
+        letter-spacing: -0.04em;
+    }
+
+    .civ-subtitle {
+        margin-top: 8px;
+        font-size: 17px;
+        color: #475569;
+        font-weight: 500;
+    }
+
+    .civ-back {
+        color: #14532d;
+        font-weight: 500;
+        text-decoration: none;
+        margin-top: 8px;
+    }
+
+    .civ-section-title {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 20px;
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: #111827;
+    }
+
+    .civ-section-title .material-icons-round {
+        color: var(--civ-green);
+        font-size: 21px;
+    }
+
+    .civ-top-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 24px;
+        align-items: end;
+        margin-bottom: 24px;
+    }
+
+    .civ-card {
+        background: var(--civ-card);
+        border: 1px solid var(--civ-border);
+        border-radius: 16px;
+        padding: 26px;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, .06);
+    }
+
+    .device-card {
+        height: 200px;
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .civ-card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 22px;
+    }
+
+    .device-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #f1f5f3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .device-icon .material-icons-round {
+        color: var(--civ-green);
+        font-size: 27px;
+    }
+
+    .badge-civ {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        padding: 6px 10px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .04em;
+        line-height: 1;
+    }
+
+    .badge-conectado {
+        background: var(--civ-green-soft);
+        color: #166534;
+    }
+
+    .badge-desconocido {
+        background: #e5e7eb;
+        color: #334155;
+    }
+
+    .device-title {
+        margin: 0;
+        color: #334155;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .device-second-line {
+        min-height: 28px;
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+    .device-empty {
+        font-size: 20px;
+        font-weight: 800;
+        color: #9ca3af;
+    }
+
+    .device-value {
+        width: 100%;
+        min-height: 46px;
+        padding: 0 16px;
+        border-radius: 15px;
+        background: #f3f4f6;
+        color: #111827;
+        font-size: 15px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+    }
+
+    .presence-status {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 22px;
+        font-weight: 800;
+        color: #111827;
+    }
+
+    .presence-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+
+    .presence-dot-active {
+        background: var(--civ-green);
+    }
+
+    .presence-dot-inactive {
+        background: #d1d5db;
+    }
+
+    .camera-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 32px;
+    }
+
+    /* Carousel styles */
+    .camera-carousel-wrapper {
+        position: relative;
+        margin-bottom: 32px;
+    }
+
+    .camera-carousel-track-outer {
+        overflow: hidden;
+    }
+
+    .camera-carousel-track {
+        display: flex;
+        transition: transform 0.4s ease;
+    }
+
+    .carousel-slide {
+        display: none;
+        min-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .carousel-slide.carousel-slide-active {
+        display: block;
+    }
+
+    .carousel-slide .camera-grid {
+        margin-bottom: 0;
+    }
+
+    .carousel-slide-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        background: #fff;
+        border: 1px solid var(--civ-border);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        padding: 0;
+        color: #334155;
+    }
+
+    .carousel-btn:hover {
+        background: #f3f4f6;
+    }
+
+    .carousel-btn-prev {
+        left: -20px;
+    }
+
+    .carousel-btn-next {
+        right: -20px;
+    }
+
+    .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+    }
+
+    .carousel-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #cbd5e1;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .carousel-dot.carousel-dot-active {
+        background: #078425;
+    }
+
+    .camera-card {
+        padding: 26px;
+    }
+
+    .camera-title {
+        margin: 0;
+        color: #334155;
+        font-size: 17px;
+        font-weight: 800;
+    }
+
+    .camera-box {
+        position: relative;
+        width: 100%;
+        height: 205px;
+        margin-top: 20px;
+        overflow: hidden;
+        border-radius: 13px;
+        background: #111827;
+    }
+
+    .camera-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .camera-live-dot {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--civ-green);
+    }
+
+    .camera-maximize-btn {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(0,0,0,0.45);
+        border: none;
+        border-radius: 6px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #fff;
+        padding: 0;
+        transition: background 0.2s;
+        z-index: 5;
+    }
+
+    .camera-maximize-btn:hover {
+        background: rgba(0,0,0,0.7);
+    }
+
+    /* Camera modal */
+    .cam-modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.65);
+        z-index: 9000;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cam-modal-overlay.cam-modal-open {
+        display: flex;
+    }
+
+    .cam-modal {
+        background: #fff;
+        border-radius: 16px;
+        width: 80vw;
+        max-width: 80vw;
+        max-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.28);
+    }
+
+    .cam-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--civ-border);
+        flex-shrink: 0;
+    }
+
+    .cam-modal-title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: #334155;
+    }
+
+    .cam-modal-close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        padding: 4px;
+        border-radius: 6px;
+    }
+
+    .cam-modal-close:hover {
+        background: #f3f4f6;
+        color: #111827;
+    }
+
+    .cam-modal-body {
+        flex: 1;
+        overflow: hidden;
+        background: #111827;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 0;
+    }
+
+    .cam-modal-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    .plate-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 26px;
+        border-radius: 16px;
+        background: #f3f4f6;
+        padding: 11px 16px;
+    }
+
+    .plate-label {
+        font-size: 11px;
+        color: #475569;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+    }
+
+    .plate-value {
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: .08em;
+        color: #050505;
+    }
+
+    .bottom-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 24px;
+        align-items: stretch;
+    }
+
+    .notif-card {
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .notif-table-wrapper {
+        max-height: 370px;
+        overflow-y: auto;
+    }
+
+    .notif-table-wrapper::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .notif-table-wrapper::-webkit-scrollbar-track {
+        background: #f3f4f6;
+    }
+
+    .notif-table-wrapper::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+
+    .notif-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 26px 22px;
+        border-bottom: 1px solid #eef2f7;
+    }
+
+    .notif-title {
+        font-size: 18px;
+        font-weight: 800;
+        color: #111827;
+    }
+
+    .notif-filter {
+        border: 0;
+        background: transparent;
+        color: #334155;
+        cursor: pointer;
+    }
+
+    .notif-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+
+    .notif-table th {
+        padding: 18px 26px;
+        text-align: left;
+        color: #334155;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        border-bottom: 1px solid #eef2f7;
+    }
+
+    .notif-table td {
+        padding: 20px 26px;
+        color: #111827;
+        vertical-align: middle;
+    }
+
+    .notif-table tbody tr {
+        cursor: pointer;
+        transition: background .12s;
+    }
+
+    .notif-table tbody tr:hover {
+        background: #f3f4f6;
+    }
+
+    .notif-table tbody tr.selected {
+        background: #dcfce7;
+    }
+
+    .notif-event {
+        color: var(--civ-green);
+        font-weight: 800;
+    }
+
+    .notif-value {
+        font-weight: 900;
+    }
+
+    .provider-pill {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 6px;
+        background: #e8eef7;
+        color: #334155;
+        padding: 4px 9px;
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+    .empty-row {
+        text-align: center;
+        color: #94a3b8 !important;
+        padding: 36px !important;
+    }
+
+    .json-panel {
+        background: var(--civ-json);
+        color: #86efac;
+        border-radius: 16px;
+        padding: 24px;
+        font-family: Consolas, 'Courier New', monospace;
+        font-size: 12px;
+        overflow: auto;
+    }
+
+    .json-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .json-header .material-icons-round {
+        font-size: 16px;
+        color: #22c55e;
+    }
+
+    .json-title {
+        flex: 1;
+        color: #cbd5e1;
+        font-family: 'Inter', sans-serif;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .15em;
+    }
+
+    .btn-copy {
+        border: 1.5px solid #60a5fa;
+        border-radius: 6px;
+        background: transparent;
+        color: #60a5fa;
+        font-family: 'Inter', sans-serif;
+        font-size: 12px;
+        font-weight: 800;
+        cursor: pointer;
+        padding: 4px 10px;
+    }
+
+    .btn-copy:hover {
+        background: rgba(96, 165, 250, .12);
+    }
+
+    .json-content {
+        white-space: pre-wrap;
+        word-break: break-word;
+        margin: 0;
+        color: #86efac;
+    }
+
+    .log-id {
+        margin-top: 22px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(148, 163, 184, .18);
+        color: #64748b;
+        font-family: 'Inter', sans-serif;
+        font-size: 12px;
+    }
+
+    .civ-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 28px;
+    }
+
+    .btn-rescribir {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 250px;
+        justify-content: center;
+        border: 0;
+        border-radius: 15px;
+        background: #169536;
+        color: #ffffff;
+        padding: 17px 28px;
+        font-size: 17px;
+        font-weight: 800;
+        box-shadow: 0 8px 16px rgba(22, 149, 54, .28);
+        cursor: pointer;
+    }
+
+    .btn-rescribir:hover {
+        background: #087b27;
+    }
+
+    @@media (max-width: 1100px) {
+        .civ-top-grid,
+        .camera-grid,
+        .bottom-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .civ-monitor {
+            padding: 24px 16px;
+        }
+
+        .civ-header {
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .civ-title {
+            font-size: 24px;
+        }
+    }
+</style>
+
+<div class="civ-monitor">
+
+    @if (ViewBag.ServicioNoDisponible == true)
+    {
+        <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px 18px;margin-bottom:22px;display:flex;align-items:center;gap:10px;font-size:14px;color:#856404;">
+            <span class="material-icons-round" style="font-size:20px;color:#f59e0b;">warning_amber</span>
+            <span>@Textos.MonitorCIV_ServicioNoDisponible</span>
+        </div>
+    }
+
+    <div class="civ-header">
+        <div>
+            <h1 class="civ-title">@Textos.MonitorCIV_TituloConfiguracion</h1>
+            <div class="civ-subtitle">@Model.Nombre (@Model.Codigo)</div>
+        </div>
+
+        @Html.ActionLink(Textos.MonitorCIV_Volver, "Index", "ConfigIdentificacionVehicular", null, new { @class = "civ-back" })
+    </div>
+
+    <div class="civ-top-grid">
+        <div>
+            <div class="civ-section-title">
+                <span class="material-icons-round">bolt</span>
+                @Textos.MonitorCIV_Disparadores
+            </div>
+
+            @{
+                var svCodigo = Model.ConfigSensorVehicular != null && Model.ConfigSensorVehicular.Dispositivo != null ? Model.ConfigSensorVehicular.Dispositivo.Codigo : null;
+            }
+            <div class="civ-card device-card" id="card-@(sensor != null ? sensor.CodigoDispositivo : "sv")">
+                    <div class="civ-card-top">
+                        <div class="device-icon">
+                            <span class="material-icons-round">local_shipping</span>
+                        </div>
+                        <span class="@pillCss(sensor)" data-device="@(sensor != null ? sensor.CodigoDispositivo : null)" data-tipo="SensorVehicular">@pillTxt(sensor)</span>
+                    </div>
+
+                    <div class="device-title">
+                        @Textos.ConfigIdentificacionVehicular_SensorVehicular@(svCodigo != null ? " (" + svCodigo + ")" : "")
+                    </div>
+
+                    <div class="device-second-line">
+                        @if (Model.ConfigSensorVehicular == null || Model.ConfigSensorVehicular.Dispositivo == null)
+                        {
+                            <span class="device-empty">@Textos.MonitorCIV_SinDispositivoAsignado</span>
+                        }
+                        else
+                        {
+                            <span>&nbsp;</span>
+                        }
+                    </div>
+                </div>
+        </div>
+
+        <div>
+            <div class="civ-section-title" style="visibility:hidden;">
+                <span class="material-icons-round">bolt</span>
+                Disparadores
+            </div>
+
+            @{
+                var ltCodigo = Model.ConfigLectorTarjetas != null && Model.ConfigLectorTarjetas.Dispositivo != null ? Model.ConfigLectorTarjetas.Dispositivo.Codigo : null;
+            }
+            <div class="civ-card device-card" id="card-@(lector != null ? lector.CodigoDispositivo : "lt")">
+                    <div class="civ-card-top">
+                        <div class="device-icon">
+                            <span class="material-icons-round">badge</span>
+                        </div>
+                        <span class="@pillCss(lector)" data-device="@(lector != null ? lector.CodigoDispositivo : null)" data-tipo="LectorTarjetas">@pillTxt(lector)</span>
+                    </div>
+
+                    <div class="device-title">
+                        @Textos.ConfigIdentificacionVehicular_LectorTarjetas@(ltCodigo != null ? " (" + ltCodigo + ")" : "")
+                    </div>
+
+                    <div class="device-second-line">
+                        <div class="device-value" id="valor-@(lector != null ? lector.CodigoDispositivo : null)">
+                            @(lector != null && !string.IsNullOrEmpty(lector.UltimoValor) ? lector.UltimoValor : "")
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div>
+            <div class="civ-section-title">
+                <span class="material-icons-round">sensors</span>
+                @Textos.MonitorCIV_PresenciaVehicular
+            </div>
+
+            @{
+                var spCodigo = Model.ConfigSensorPresencia != null && Model.ConfigSensorPresencia.Dispositivo != null ? Model.ConfigSensorPresencia.Dispositivo.Codigo : null;
+                var activo = presencia != null && presencia.VehiculoPresente == true;
+            }
+            <div class="civ-card device-card" id="card-@(presencia != null ? presencia.CodigoDispositivo : "sp")">
+                    <div class="civ-card-top">
+                        <div class="device-icon">
+                            <span class="material-icons-round">directions_car</span>
+                        </div>
+                        <span class="@pillCss(presencia)" data-device="@(presencia != null ? presencia.CodigoDispositivo : null)" data-tipo="SensorPresencia">@pillTxt(presencia)</span>
+                    </div>
+
+                    <div class="device-title">@Textos.ConfigIdentificacionVehicular_SensorPresencia@(spCodigo != null ? " (" + spCodigo + ")" : "")</div>
+
+                    <div class="device-second-line">
+                        <div class="presence-status" id="presencia-@(presencia != null ? presencia.CodigoDispositivo : null)">
+                            <span class="presence-dot @(activo ? "presence-dot-active" : "presence-dot-inactive")"></span>
+                            <span>@(activo ? Textos.Activo : Textos.MonitorCIV_Inactivo)</span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+
+    @if (Model.Camaras != null && Model.Camaras.Any())
+    {
+        var totalCamaras = Model.Camaras.Count();
+        if (totalCamaras <= 2)
+        {
+        <div class="camera-grid">
+            @foreach (var camaraCIV in Model.Camaras)
+            {
+                var camCodigo = camaraCIV.ConfigCamara != null && camaraCIV.ConfigCamara.Dispositivo != null
+                    ? camaraCIV.ConfigCamara.Dispositivo.Codigo
+                    : null;
+
+                var camEstado = camaras != null
+                    ? camaras.FirstOrDefault(c => c.CodigoDispositivo == camCodigo)
+                    : null;
+
+                <div class="civ-card camera-card" id="card-cam-@camCodigo">
+                    <div class="civ-card-top">
+                        <h3 class="camera-title">@Textos.MonitorCIV_CamaraALPR (@camCodigo)</h3>
+                        <span class="@pillCss(camEstado)" data-device="@camCodigo" data-tipo="Camara">@pillTxt(camEstado)</span>
+                    </div>
+
+                    <div class="camera-box">
+                        <img id="img-@camCodigo"
+                             class="camera-image"
+                             src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                             alt="@Textos.MonitorCIV_SinCaptura" />
+                        <span class="camera-live-dot"></span>
+                        <button class="camera-maximize-btn" onclick="abrirCamModal('@camCodigo', '@(Textos.MonitorCIV_CamaraALPR) (@camCodigo)')" title="Ver imagen completa">
+                            <span class="material-icons-round" style="font-size:18px">fullscreen</span>
+                        </button>
+                    </div>
+
+                    <div class="plate-box">
+                        <span class="plate-label">@Textos.PruebaItc_Patente</span>
+                        <span class="plate-value" id="patente-@camCodigo">
+                            @(camEstado != null && !string.IsNullOrEmpty(camEstado.UltimaPatente) ? camEstado.UltimaPatente : "")
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+        }
+        else
+        {
+        <div class="camera-carousel-wrapper">
+            <div class="camera-carousel-track-outer">
+                <div class="camera-carousel-track" id="camera-carousel-track">
+                        @{ 
+                            int camIndex = 0;
+                            var camarasList = Model.Camaras.ToList();
+                            for (int slideIdx = 0; slideIdx < camarasList.Count; slideIdx += 2)
+                            {
+                                int pageIdx = slideIdx / 2;
+                        <div class="carousel-slide @(slideIdx == 0 ? "carousel-slide-active" : "")" data-slide-index="@pageIdx">
+                            <div class="carousel-slide-inner">
+                            @for (int ci = slideIdx; ci < slideIdx + 2 && ci < camarasList.Count; ci++)
+                            {
+                                var camaraCIV = camarasList[ci];
+                                var camCodigo = camaraCIV.ConfigCamara != null && camaraCIV.ConfigCamara.Dispositivo != null
+                                    ? camaraCIV.ConfigCamara.Dispositivo.Codigo
+                                    : null;
+
+                                var camEstado = camaras != null
+                                    ? camaras.FirstOrDefault(c => c.CodigoDispositivo == camCodigo)
+                                    : null;
+
+                                <div class="civ-card camera-card" id="card-cam-@camCodigo">
+                                    <div class="civ-card-top">
+                                        <h3 class="camera-title">@Textos.MonitorCIV_CamaraALPR (@camCodigo)</h3>
+                                        <span class="@pillCss(camEstado)" data-device="@camCodigo" data-tipo="Camara">@pillTxt(camEstado)</span>
+                                    </div>
+
+                                    <div class="camera-box">
+                                        <img id="img-@camCodigo"
+                                             class="camera-image"
+                                             src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                             alt="@Textos.MonitorCIV_SinCaptura" />
+                                        <span class="camera-live-dot"></span>
+                                        <button class="camera-maximize-btn" onclick="abrirCamModal('@camCodigo', '@(Textos.MonitorCIV_CamaraALPR) (@camCodigo)')" title="Ver imagen completa">
+                                            <span class="material-icons-round" style="font-size:18px">fullscreen</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="plate-box">
+                                        <span class="plate-label">@Textos.PruebaItc_Patente</span>
+                                        <span class="plate-value" id="patente-@camCodigo">
+                                            @(camEstado != null && !string.IsNullOrEmpty(camEstado.UltimaPatente) ? camEstado.UltimaPatente : "")
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                            </div>
+                        </div>
+                            }
+                        }
+                </div>
+            </div>
+            <div class="carousel-dots" id="carousel-dots">
+                @for (int d = 0; d < totalCamaras; d += 2)
+                {
+                    <span class="carousel-dot @(d == 0 ? "carousel-dot-active" : "")" data-dot="@(d / 2)" onclick="carouselGoTo(@(d / 2))"></span>
+                }
+            </div>
+        </div>
+        }
+    }
+
+    <div class="bottom-grid">
+
+        <div class="civ-card notif-card">
+            <div class="notif-header">
+                <div class="notif-title">@Textos.MonitorCIV_NotificacionesEventos</div>
+                <button type="button" class="notif-filter">
+                    <span class="material-icons-round">filter_list</span>
+                </button>
+            </div>
+
+            <div class="notif-table-wrapper">
+            <table class="notif-table" id="tabla-notificaciones">
+                <thead>
+                    <tr>
+                        <th>@Textos.MonitorCIV_CodigoEvento</th>
+                        <th>@Textos.MonitorCIV_CodigoDispositivo</th>
+                        <th>@Textos.MonitorCIV_Valor</th>
+                        <th>@Textos.MonitorCIV_Providers</th>
+                        <th>@Textos.MonitorCIV_Intentos</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-notificaciones">
+                    @if (ultimasNotificaciones != null && ultimasNotificaciones.Any())
+                    {
+                        bool primera = true;
+                        foreach (var n in ultimasNotificaciones)
+                        {
+                            var providers = n.Detalles != null
+                                ? string.Join(", ", n.Detalles.Select(d => d.ProveedorALPR).Where(p => p != null).Distinct())
+                                : "";
+
+                            var intentos = n.Detalles != null ? n.Detalles.Sum(d => d.Intentos) : 0;
+                            var jsonEscapado = System.Web.HttpUtility.HtmlAttributeEncode(n.JsonCompleto ?? "");
+
+                            <tr class="@(primera ? "selected" : "")" data-json="@jsonEscapado" onclick="seleccionarFila(this)">
+                                <td class="notif-event">@n.CodigoEvento</td>
+                                <td>@n.CodigoDispositivo</td>
+                                <td class="notif-value">@(string.IsNullOrEmpty(n.Patente) ? n.Valor : n.Patente)</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(providers))
+                                    {
+                                        <span class="provider-pill">@providers</span>
+                                    }
+                                </td>
+                                <td>@intentos</td>
+                            </tr>
+                            primera = false;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="empty-row">
+                                @Textos.MonitorCIV_SinNotificaciones
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <div class="json-panel">
+            <div class="json-header">
+                <span class="material-icons-round">receipt_long</span>
+                <span class="json-title">@Textos.MonitorCIV_UltimaNotificacion</span>
+                <button type="button" class="btn-copy" id="btn-copiar-json" onclick="copiarJson()">@Textos.MonitorCIV_CopiarJSON</button>
+            </div>
+
+            <pre class="json-content" id="json-ultima-notificacion">@(ultimaNotificacion != null && !string.IsNullOrEmpty(ultimaNotificacion.JsonCompleto) ? ultimaNotificacion.JsonCompleto : Textos.MonitorCIV_SinDatos)</pre>
+
+            <div class="log-id" id="log-id-notif">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="civ-actions">
+        <button type="button" class="btn-rescribir" id="btn-rescribir" onclick="reescribirEventos()">
+            <span class="material-icons-round">sync_alt</span>
+            @Textos.MonitorCIV_ReescribirEventos
+        </button>
+    </div>
+
+</div>
+
+<!-- Camera maximize modal -->
+<div class="cam-modal-overlay" id="cam-modal-overlay" onclick="cerrarCamModal(event)">
+    <div class="cam-modal">
+        <div class="cam-modal-header">
+            <h3 class="cam-modal-title" id="cam-modal-title"></h3>
+            <button class="cam-modal-close" onclick="cerrarCamModal()">
+                <span class="material-icons-round">close</span>
+            </button>
+        </div>
+        <div class="cam-modal-body">
+            <img class="cam-modal-img" id="cam-modal-img" src="" alt="" />
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+<script src="~/signalr/js"></script>
+
+<script type="text/javascript">
+    var codigoCIV = '@Model.Codigo';
+    var urlEstado = '@Url.Action("ObtenerEstadoDispositivos", "MonitorIdentificacionVehicular")';
+    var urlFoto = '@Url.Action("ObtenerFoto", "MonitorIdentificacionVehicular")';
+
+    // Textos de recursos para usar en JavaScript
+    var txtConectado = '@Textos.MonitorCIV_Conectado';
+    var txtDesconocido = '@Textos.MonitorCIV_Desconocido';
+    var txtActivo = '@Textos.Activo';
+    var txtInactivo = '@Textos.MonitorCIV_Inactivo';
+    var txtSinDatos = '@Textos.MonitorCIV_SinDatos';
+
+    var hub = $.connection.notificarLectura;
+
+    function actualizarBadgeEstado(estado) {
+        var badge = $('[data-device="' + estado.CodigoDispositivo + '"]');
+        if (badge.length) {
+            var conectado = estado.Conectado && !estado.Error;
+            badge.text(conectado ? txtConectado : txtDesconocido)
+                .removeClass('badge-conectado badge-desconocido')
+                .addClass(conectado ? 'badge-conectado' : 'badge-desconocido');
+        }
+    }
+
+    hub.client.actualizarEstadoDispositivo = function (estado) {
+        actualizarBadgeEstado(estado);
+    };
+
+    hub.client.actualizarEventoCIV = function (notif) {
+        // Limpiar datos del vehículo anterior antes de mostrar el nuevo evento
+        var pixelVacio = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        $('[id^="patente-"]').text('');
+        $('[id^="img-"]').attr('src', pixelVacio);
+        $('[data-tipo="LectorTarjetas"]').each(function () {
+            var cod = $(this).data('device');
+            var el = document.getElementById('valor-' + cod);
+            if (el) { el.innerHTML = ''; }
+        });
+
+        prependNotificacion(notif);
+        actualizarPanelJson(notif.JsonCompleto);
+        var notifNorm = normalizarNotif(notif);
+        actualizarThumbnails(notifNorm);
+        actualizarValorLector(notifNorm);
+        actualizarPresencia(notifNorm);
+    };
+
+    $.connection.hub.start().done(function () {
+        hub.server.escucharCIV(codigoCIV);
+    });
+
+    function pollEstadoDispositivos() {
+        $.ajax({
+            url: urlEstado,
+            data: { codigoCIV: codigoCIV },
+            type: 'GET',
+            dataType: 'json',
+            success: function (estados) {
+                if (!estados) { return; }
+                estados.forEach(function (estado) {
+                    actualizarBadgeEstado(estado);
+                });
+            }
+        });
+    }
+
+    pollEstadoDispositivos();
+    setInterval(pollEstadoDispositivos, 5000);
+
+    // Limpiar datos del vehículo anterior al ingresar al monitor y formatear JSON histórico
+    (function () {
+        var pixelVacio = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        $('[id^="patente-"]').text('');
+        $('[id^="img-"]').attr('src', pixelVacio);
+        $('[data-tipo="LectorTarjetas"]').each(function () {
+            var cod = $(this).data('device');
+            var el = document.getElementById('valor-' + cod);
+            if (el) { el.innerHTML = ''; }
+        });
+
+        var pre = document.getElementById('json-ultima-notificacion');
+        if (pre && pre.textContent && pre.textContent !== txtSinDatos) {
+            pre.textContent = prettyJson(pre.textContent);
+        }
+    })();
+
+    function prependNotificacion(notif) {
+        var tbody = $('#tbody-notificaciones');
+        var vacio = tbody.find('[colspan]');
+
+        if (vacio.length) {
+            vacio.closest('tr').remove();
+        }
+
+        var providers = '';
+        var intentos = 0;
+
+        if (notif.Detalles) {
+            var provSet = {};
+
+            notif.Detalles.forEach(function (d) {
+                if (d.ProveedorALPR) {
+                    provSet[d.ProveedorALPR] = true;
+                }
+
+                intentos += (d.Intentos || 0);
+            });
+
+            providers = Object.keys(provSet).join(', ');
+        }
+
+        var valor = notif.Patente || notif.Valor || '';
+
+        var providerHtml = providers
+            ? '<span class="provider-pill">' + escHtml(providers) + '</span>'
+            : '';
+
+        var jsonAttr = notif.JsonCompleto ? notif.JsonCompleto.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/\r/g, '&#13;').replace(/\n/g, '&#10;').replace(/\t/g, '&#9;') : '';
+
+        var tr = '<tr class="selected" data-json="' + jsonAttr + '" onclick="seleccionarFila(this)">' +
+            '<td class="notif-event">' + escHtml(notif.CodigoEvento) + '</td>' +
+            '<td>' + escHtml(notif.CodigoDispositivo) + '</td>' +
+            '<td class="notif-value">' + escHtml(valor) + '</td>' +
+            '<td>' + providerHtml + '</td>' +
+            '<td>' + intentos + '</td>' +
+            '</tr>';
+
+        tbody.find('tr.selected').removeClass('selected');
+        tbody.prepend(tr);
+
+        var filas = tbody.find('tr');
+
+        if (filas.length > 50) {
+            filas.last().remove();
+        }
+    }
+
+    function prettyJson(json) {
+        if (!json) {
+            return txtSinDatos;
+        }
+
+        try {
+            var obj = JSON.parse(json);
+            parsarStringsAnidados(obj);
+            return JSON.stringify(obj, null, 2);
+        } catch (e) {
+            return json;
+        }
+    }
+
+    function parsarStringsAnidados(obj) {
+        if (!obj || typeof obj !== 'object') {
+            return;
+        }
+
+        Object.keys(obj).forEach(function (k) {
+            var v = obj[k];
+
+            if (typeof v === 'string') {
+                var trimmed = v.trim();
+
+                if ((trimmed.startsWith('[') || trimmed.startsWith('{')) ) {
+                    try {
+                        var parsed = JSON.parse(trimmed);
+                        obj[k] = parsed;
+                        parsarStringsAnidados(parsed);
+                    } catch (e) { /* no es JSON */ }
+                }
+            } else if (typeof v === 'object') {
+                parsarStringsAnidados(v);
+            }
+        });
+    }
+
+    function actualizarPanelJson(json) {
+        var pre = document.getElementById('json-ultima-notificacion');
+
+        if (pre) {
+            pre.textContent = prettyJson(json);
+        }
+    }
+
+    function normalizarNotif(notif) {
+        // El JSON almacenado puede tener los datos en una sub-propiedad "Datos"
+        // Construimos un objeto normalizado que las funciones de actualización puedan consumir
+        var datos = notif.Datos || notif.datos || {};
+
+        // Expandir strings JSON anidados dentro de Datos (ej: Detalle)
+        parsarStringsAnidados(datos);
+
+        var detalles = notif.Detalles || notif.Detalle || datos.Detalles || datos.Detalle;
+        if (detalles && !Array.isArray(detalles)) detalles = [detalles];
+
+        return {
+            Valor: notif.Valor || datos.Tarjeta || datos.Valor || null,
+            Patente: notif.Patente || datos.Patente || null,
+            VehiculoPresente: notif.VehiculoPresente != null
+                ? notif.VehiculoPresente
+                : (datos.VehiculoPresente === true || datos.VehiculoPresente === 'true'),
+            Detalles: detalles || []
+        };
+    }
+
+    function seleccionarFila(tr) {
+        $('#tbody-notificaciones tr.selected').removeClass('selected');
+        $(tr).addClass('selected');
+        var json = tr.getAttribute('data-json') || txtSinDatos;
+        var jsonReal = json === txtSinDatos ? null : json;
+        actualizarPanelJson(jsonReal);
+
+        // Limpiar patentes e imágenes de todas las cámaras antes de setear los nuevos valores
+        $('[id^="patente-"]').text('');
+        $('[id^="img-"]').attr('src', 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+
+        if (jsonReal) {
+            try {
+                var notif = JSON.parse(jsonReal);
+                parsarStringsAnidados(notif);
+                var notifNorm = normalizarNotif(notif);
+                actualizarValorLector(notifNorm);
+                actualizarPresencia(notifNorm);
+                actualizarThumbnails(notifNorm);
+            } catch (e) { /* JSON inválido */ }
+        }
+    }
+
+    function normalizarRuta(ruta) {
+        if (!ruta) return ruta;
+        // Normaliza paths UNC: al inicio exactamente \\ y entre partes exactamente \
+        return ruta.replace(/\\+/g, function (m, offset) {
+            return offset === 0 ? '\\\\' : '\\';
+        });
+    }
+
+    function actualizarThumbnails(notif) {
+        if (!notif.Detalles || notif.Detalles.length === 0) {
+            // Sin detalles de cámara: usar Patente del nivel superior si existe
+            if (notif.Patente) {
+                $('[id^="patente-"]').text(notif.Patente);
+            }
+            return;
+        }
+
+        notif.Detalles.forEach(function (d) {
+            if (d.CodigoCamara && d.RutaImagen) {
+                var img = document.getElementById('img-' + d.CodigoCamara);
+
+                if (img) {
+                    var rutaNorm = normalizarRuta(d.RutaImagen);
+                    var urlCompleta = urlFoto + '?ruta=' + encodeURIComponent(rutaNorm);
+                    console.log('[ObtenerFoto] RutaImagen original:', d.RutaImagen);
+                    console.log('[ObtenerFoto] Ruta normalizada:', rutaNorm);
+                    console.log('[ObtenerFoto] URL final:', urlCompleta);
+                    img.src = urlCompleta;
+                }
+            }
+
+            var patente = d.Patente || notif.Patente;
+            if (d.CodigoCamara && patente) {
+                var span = document.getElementById('patente-' + d.CodigoCamara);
+
+                if (span) {
+                    span.textContent = patente;
+                }
+            }
+        });
+    }
+
+    function actualizarCamarasDesdeJson(json) {
+        if (!json) return;
+
+        var obj;
+        try {
+            obj = JSON.parse(json);
+        } catch (e) {
+            return;
+        }
+
+        // Expandir strings JSON anidados para acceder a Detalle/Detalles
+        parsarStringsAnidados(obj);
+
+        // El JSON completo puede tener Detalle (singular) o Detalles (plural), como array u objeto
+        // También pueden estar dentro de una propiedad "Datos"
+        var datos = obj.Datos || obj.datos || {};
+        parsarStringsAnidados(datos);
+        var detalles = obj.Detalles || obj.Detalle || datos.Detalles || datos.Detalle;
+        if (!detalles) return;
+        if (!Array.isArray(detalles)) detalles = [detalles];
+
+        detalles.forEach(function (d) {
+            if (d.CodigoCamara && d.RutaImagen) {
+                var img = document.getElementById('img-' + d.CodigoCamara);
+
+                if (img) {
+                    var rutaNorm2 = normalizarRuta(d.RutaImagen);
+                    var urlCompleta2 = urlFoto + '?ruta=' + encodeURIComponent(rutaNorm2);
+                    console.log('[ObtenerFoto/detalles] RutaImagen original:', d.RutaImagen);
+                    console.log('[ObtenerFoto/detalles] Ruta normalizada:', rutaNorm2);
+                    console.log('[ObtenerFoto/detalles] URL final:', urlCompleta2);
+                    img.src = urlCompleta2;
+                }
+            }
+
+            if (d.CodigoCamara && d.Patente) {
+                var span = document.getElementById('patente-' + d.CodigoCamara);
+
+                if (span) {
+                    span.textContent = d.Patente;
+                }
+            }
+        });
+    }
+
+    function actualizarValorLector(notif) {
+        if (!notif.Valor) {
+            return;
+        }
+
+        $('[data-tipo="LectorTarjetas"]').each(function () {
+            var cod = $(this).data('device');
+            var el = document.getElementById('valor-' + cod);
+
+            if (el) {
+                el.innerHTML = escHtml(notif.Valor);
+            }
+        });
+    }
+
+    function actualizarPresencia(notif) {
+        $('[data-tipo="SensorPresencia"]').each(function () {
+            var cod = $(this).data('device');
+            var ind = document.getElementById('presencia-' + cod);
+
+            if (!ind) {
+                return;
+            }
+
+            var dot = ind.querySelector('.presence-dot');
+            var lbl = ind.querySelector('span:last-child');
+
+            if (notif.VehiculoPresente) {
+                if (dot) {
+                    dot.className = 'presence-dot presence-dot-active';
+                }
+
+                if (lbl) {
+                    lbl.textContent = txtActivo;
+                }
+            } else {
+                if (dot) {
+                    dot.className = 'presence-dot presence-dot-inactive';
+                }
+
+                if (lbl) {
+                    lbl.textContent = txtInactivo;
+                }
+            }
+        });
+    }
+
+    function reescribirEventos() {
+        // Limpiar tabla de notificaciones
+        var tbody = document.getElementById('tbody-notificaciones');
+        if (tbody) {
+            tbody.innerHTML = '<tr><td colspan="5" class="empty-row">' + escHtml(txtSinDatos) + '</td></tr>';
+        }
+
+        // Limpiar panel JSON
+        var pre = document.getElementById('json-ultima-notificacion');
+        if (pre) {
+            pre.textContent = txtSinDatos;
+        }
+
+        // Limpiar log-id
+        var logId = document.getElementById('log-id-notif');
+        if (logId) {
+            logId.textContent = '';
+        }
+
+        // Limpiar patentes e imágenes de todas las cámaras
+        var pixelVacio = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        $('[id^="patente-"]').text('');
+        $('[id^="img-"]').attr('src', pixelVacio);
+
+        // Limpiar valor lector de tarjetas
+        $('[data-tipo="LectorTarjetas"]').each(function () {
+            var cod = $(this).data('device');
+            var el = document.getElementById('valor-' + cod);
+            if (el) { el.innerHTML = ''; }
+        });
+
+        // Resetear indicador de presencia a inactivo
+        $('[data-tipo="SensorPresencia"]').each(function () {
+            var cod = $(this).data('device');
+            var ind = document.getElementById('presencia-' + cod);
+            if (!ind) { return; }
+            var dot = ind.querySelector('.presence-dot');
+            var lbl = ind.querySelector('span:last-child');
+            if (dot) { dot.className = 'presence-dot presence-dot-inactive'; }
+            if (lbl) { lbl.textContent = txtInactivo; }
+        });
+    }
+
+    function copiarJson() {
+        var pre = document.getElementById('json-ultima-notificacion');
+
+        if (!pre) {
+            return;
+        }
+
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(pre.textContent);
+        } else {
+            var ta = document.createElement('textarea');
+            ta.value = pre.textContent;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+        }
+    }
+
+    function escHtml(str) {
+        if (!str) {
+            return '';
+        }
+
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    // Carousel
+    var carouselCurrentPage = 0;
+    var carouselTotalPages = document.querySelectorAll('.carousel-dot').length;
+
+    function carouselGoTo(page) {
+        var slides = document.querySelectorAll('.carousel-slide');
+        var dots = document.querySelectorAll('.carousel-dot');
+        if (page < 0 || page >= carouselTotalPages) return;
+        // Each page shows 2 slides
+        slides.forEach(function(s, i) {
+            s.classList.toggle('carousel-slide-active', i === page);
+        });
+        dots.forEach(function(d, i) {
+            d.classList.toggle('carousel-dot-active', i === page);
+        });
+        carouselCurrentPage = page;
+    }
+
+    function carouselPrev() {
+        carouselGoTo(carouselCurrentPage - 1);
+    }
+
+    function carouselNext() {
+        carouselGoTo(carouselCurrentPage + 1);
+    }
+
+    // Camera modal
+    function abrirCamModal(codigo, titulo) {
+        var srcImg = document.getElementById('img-' + codigo);
+        var modalImg = document.getElementById('cam-modal-img');
+        var modalTitle = document.getElementById('cam-modal-title');
+        if (srcImg) modalImg.src = srcImg.src;
+        modalTitle.textContent = titulo;
+        document.getElementById('cam-modal-overlay').classList.add('cam-modal-open');
+    }
+
+    function cerrarCamModal(e) {
+        if (e && e.target !== document.getElementById('cam-modal-overlay')) return;
+        document.getElementById('cam-modal-overlay').classList.remove('cam-modal-open');
+        document.getElementById('cam-modal-img').src = '';
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') cerrarCamModal();
+    });
+</script>

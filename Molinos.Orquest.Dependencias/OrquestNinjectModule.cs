@@ -40,6 +40,8 @@ namespace Molinos.Orquest.Dependencias
             Bind<DbContext>().To<OrquestadorDbContext>().InTransientScope();
             Bind<IRepositorio>().To<RepositorioEF>().InTransientScope();
 
+            Bind<IAdministradorIdentificacionVehicular>().To<AdministradorIdentificacionVehicular>().InSingletonScope();
+
             Bind<IServicioOrquestadorSAP, ServicioOrquestadorSAP>().To<ServicioOrquestadorSAP>().InSingletonScope();
             Bind<IServicioOrquestador, ServicioOrquestador>().To<ServicioOrquestador>().InSingletonScope();
             Bind<IDriverFactory>().To<DriverFactory>().InSingletonScope();

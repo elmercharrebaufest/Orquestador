@@ -96,6 +96,7 @@
     <Compile Include="Comandos\EjecutarAperturaBarrera.cs" />
     <Compile Include="Comandos\EjecutarVerificacionDispositivo.cs" />
     <Compile Include="ActualizarEstadoEventArgs.cs" />
+    <Compile Include="Dtos\EstadoDispositivoCIVDto.cs" />
     <Compile Include="Dtos\GrupoBarreraDto.cs" />
     <Compile Include="Dtos\HumedimetroResultadoDto.cs" />
     <Compile Include="Dtos\CamaraDto.cs" />
@@ -111,6 +112,9 @@
     <Compile Include="Dtos\MensajeIntervaloDto.cs" />
     <Compile Include="Dtos\MeteorologicaDto.cs" />
     <Compile Include="Dtos\MonitoreoOrquestadorDto.cs" />
+    <Compile Include="Dtos\ConfigIdentificacionVehicularDto.cs" />
+    <Compile Include="Dtos\NotificacionCIVDto.cs" />
+    <Compile Include="Dtos\TransitosOfflineDto.cs" />
     <Compile Include="Entidades\ConfigGrupoBarrera.cs" />
     <Compile Include="Entidades\ConfigJsonFromIotBox.cs" />
     <Compile Include="Entidades\ConfigJsonToIotBox.cs" />
@@ -141,13 +145,17 @@
     <Compile Include="Entidades\ConfigCamara.cs" />
     <Compile Include="Entidades\ConfigPantallaPuestoDeVianda.cs" />
     <Compile Include="Entidades\ConfigSensor.cs" />
+    <Compile Include="Entidades\ConfigIdentificacionVehicular.cs" />
+    <Compile Include="Entidades\ConfigIdentificacionVehicularCamara.cs" />
     <Compile Include="Entidades\Estado.cs" />
     <Compile Include="Entidades\Firma.cs" />
     <Compile Include="Entidades\FormatosJson.cs" />
     <Compile Include="Entidades\RolPermisoOrquestador.cs" />
     <Compile Include="Entidades\Rol.cs" />
     <Compile Include="Entidades\Suscripcion.cs" />
+    <Compile Include="Entidades\SuscripcionIdentificacionVehicular.cs" />
     <Compile Include="Entidades\Usuario.cs" />
+    <Compile Include="Enums\ProveedorALPR.cs" />
     <Compile Include="Enums\TipoAlerta.cs" />
     <Compile Include="Enums\TipoAccionSensor.cs" />
     <Compile Include="Enums\TipoComunicador.cs" />
@@ -160,6 +168,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Textos.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resultados\DetalleCamaraCIV.cs" />
     <Compile Include="Resultados\ResultadoBorrarBalanzadasPorRango.cs" />
     <Compile Include="Resultados\ResultadoConsultaBalanzadaPorRango.cs" />
     <Compile Include="Resultados\ResultadoConsultaBalanzada.cs" />

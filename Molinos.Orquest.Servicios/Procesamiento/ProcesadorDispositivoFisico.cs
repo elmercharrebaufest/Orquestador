@@ -1,21 +1,19 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Threading;
-using System.Threading.Tasks;
-using Molinos.Orquest.Dominio;
 using Molinos.Orquest.Dominio.Comandos;
 using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Resultados;
-using Molinos.Orquest.Drivers;
 using Ninject.Extensions.Logging;
 
 namespace Molinos.Orquest.Servicios.Procesamiento
 {
     public sealed class ProcesadorDispositivoFisico : ProcesadorDispositivo
     {
-        public ProcesadorDispositivoFisico(Dispositivo dispositivo, IProcesadorFactory procesadorFactory, IDriverFactory driverFactory, IAdministradorSuscripciones adminSuscripciones, Action<IProcesadorDispositivo> callBackFinProcesamiento, ILogger log) 
+        private readonly IAdministradorIdentificacionVehicular adminIdentificacion;
+
+        public ProcesadorDispositivoFisico(Dispositivo dispositivo, IProcesadorFactory procesadorFactory, IDriverFactory driverFactory, IAdministradorSuscripciones adminSuscripciones, IAdministradorIdentificacionVehicular adminIdentificacion, Action<IProcesadorDispositivo> callBackFinProcesamiento, ILogger log) 
             : base(dispositivo, procesadorFactory, driverFactory, adminSuscripciones, callBackFinProcesamiento, log)
         {
+            this.adminIdentificacion = adminIdentificacion;
 
             // Nos suscribimos a eventos del driver
             Driver.EventoDriver += (sender, args) =>
@@ -23,6 +21,8 @@ namespace Molinos.Orquest.Servicios.Procesamiento
                 adminSuscripciones.Notificar(args.Notificacion);
                 log.Debug($"Suscripcion Notificacion: Dispositivos: {args.Notificacion.CodigoDispositivo } Evento: {args.Notificacion.CodigoEvento}");
             };
+
+            adminIdentificacion?.ConectarDriver(dispositivo.Codigo, Driver);
             
         }
 
@@ -44,6 +44,15 @@ namespace Molinos.Orquest.Servicios.Procesamiento
         protected override bool PuedeLiberarProcesador()
         {
             return !Driver.MantenerConectado() && !AdminSuscripciones.ExistenSuscripcionesPara(Dispositivo.Id);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            if (disposing)
+            {
+                adminIdentificacion?.DesconectarDriver(Dispositivo.Codigo);
+            }
         }
     }
 }

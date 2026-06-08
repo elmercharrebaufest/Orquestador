@@ -5,10 +5,10 @@ using Molinos.Orquest.Dominio.Dtos;
 using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Recursos;
 using Molinos.Orquest.Dominio.Resultados;
+using Molinos.Orquest.Drivers;
 using Molinos.Orquest.Repositorio;
 using Molinos.Orquest.Servicios.Procesamiento;
 using Ninject.Extensions.Logging;
-using Ninject.Parameters;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -28,6 +28,8 @@ namespace Molinos.Orquest.Servicios.Impl
         private readonly IProgramadorTareas programador;
         private readonly ILogger log;
         private readonly TelemetryClient aiClient;
+        private readonly IAdministradorIdentificacionVehicular adminIdentificacionVehicular;
+        private readonly IAdministradorSuscripciones adminSuscripciones;
 
         private readonly IDictionary<string, IProcesadorDispositivo> procesadores;
         private readonly IDictionary<string, bool> estadoDispositivo;
@@ -36,13 +38,15 @@ namespace Molinos.Orquest.Servicios.Impl
         public string NombreMaquina { get; private set; }
         public int IdOrquestador { get; private set; }
 
-        public ServicioOrquestador(IRepositorioFactory factoryRepositorio, IServicioRemotoFactory factoryOrqRemoto, IProcesadorFactory factoryProcesador, INamedLocker locker, IProgramadorTareas programador, ILogger log)
+        public ServicioOrquestador(IRepositorioFactory factoryRepositorio, IServicioRemotoFactory factoryOrqRemoto, IProcesadorFactory factoryProcesador, INamedLocker locker, IProgramadorTareas programador, IAdministradorIdentificacionVehicular adminIdentificacionVehicular, IAdministradorSuscripciones adminSuscripciones, ILogger log)
         {
             this.factoryRepositorio = factoryRepositorio;
             this.factoryOrqRemoto = factoryOrqRemoto;
             this.factoryProcesador = factoryProcesador;
             this.locker = locker;
             this.programador = programador;
+            this.adminIdentificacionVehicular = adminIdentificacionVehicular;
+            this.adminSuscripciones = adminSuscripciones;
             this.log = log;
             this.aiClient = new TelemetryClient();
 
@@ -61,6 +65,8 @@ namespace Molinos.Orquest.Servicios.Impl
             programador.DepurarSuscripciones += (sender, args) => DepurarSuscripriones(args.Vencimiento);
             programador.ActualizarEstado += (sender, args) => VerificarDispositivos();
             programador.Iniciar();
+
+            adminIdentificacionVehicular.Iniciar(IdOrquestador);
         }
 
         private void RegistrarOrquestador(string urlServicio, string nombreMaquina)
@@ -145,15 +151,25 @@ namespace Molinos.Orquest.Servicios.Impl
 
         private void ActualizarEstadoDispositivo(string codigo, bool estado)
         {
+            var cambioEstado = false;
+
             if (!estadoDispositivo.ContainsKey(codigo))
             {
                 estadoDispositivo.Add(codigo, estado);
                 GuardarEstadoDispositivo(codigo, estado);
+                cambioEstado = true;
             }
-            if (estadoDispositivo[codigo] != estado)
+            else if (estadoDispositivo[codigo] != estado)
             {
                 estadoDispositivo[codigo] = estado;
                 GuardarEstadoDispositivo(codigo, estado);
+                cambioEstado = true;
+            }
+
+            // Notificar cambio de estado vía SignalR siguiendo el patrón ITC
+            if (cambioEstado)
+            {
+                NotificarEstadoDispositivo(codigo, estado);
             }
         }
 
@@ -164,6 +180,32 @@ namespace Molinos.Orquest.Servicios.Impl
                 var dispositivo = repositorio.Obtener<Dispositivo>(disp => disp.Codigo == codigo);
                 dispositivo.EstadoCorrecto = estado;
                 repositorio.GuardarCambios();
+            }
+        }
+
+        private void NotificarEstadoDispositivo(string codigoDispositivo, bool estadoCorrecto)
+        {
+            try
+            {
+                var codigoEvento = estadoCorrecto 
+                    ? CodigosEventos.ConexionDispositivoCorrecta 
+                    : CodigosEventos.ErrorConexionDispositivo;
+
+                var notificacion = new NotificacionEvento
+                {
+                    CodigoDispositivo = codigoDispositivo,
+                    CodigoEvento = codigoEvento,
+                    Datos = estadoCorrecto 
+                        ? new Dictionary<string, string>() 
+                        : new Dictionary<string, string> { { "Error", "Dispositivo no responde a verificación" } }
+                };
+
+                log.Debug("Notificando cambio de estado: Dispositivo={0} Estado={1}", codigoDispositivo, estadoCorrecto ? "Correcto" : "Error");
+                adminSuscripciones.Notificar(notificacion);
+            }
+            catch (Exception ex)
+            {
+                log.Warn(ex, "No se pudo notificar el cambio de estado del dispositivo {0}", codigoDispositivo);
             }
         }
 
@@ -191,6 +233,8 @@ namespace Molinos.Orquest.Servicios.Impl
 
         public void Detener()
         {
+            adminIdentificacionVehicular.Detener();
+            
             using (var repositorio = factoryRepositorio.Repositorio())
             {
                 log.Debug("Deteniendo orquestador. Servidor: {0} Url: {1}", NombreMaquina, UrlServicio);
@@ -233,6 +277,75 @@ namespace Molinos.Orquest.Servicios.Impl
         public ResultadoCancelarSuscripcion CancelarSuscripcion(ComandoCancelarSuscripcion comando)
         {
             return Procesar(comando, (servicio, cmd) => servicio.CancelarSuscripcion(cmd));
+        }
+
+        public ResultadoComando RecargarConfigIdentificacionVehicular(string codigoCIV)
+        {
+            log.Debug("RecargarConfigIdentificacionVehicular: {0}", codigoCIV);
+            try
+            {
+                adminIdentificacionVehicular.RecargarConfig(codigoCIV);
+                return new ResultadoComando { Mensaje = Mensaje.ResultadoOK() };
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "Error al recargar ConfigIdentificacionVehicular {0}", codigoCIV);
+                return new ResultadoComando { Mensaje = new Mensaje(Codigos.Error, e.Message) };
+            }
+        }
+
+        public IList<EstadoDispositivoCIVDto> ObtenerEstadoDispositivosCIV(string codigoCIV)
+        {
+            var estados = adminIdentificacionVehicular.ObtenerEstadoDispositivosCIV(codigoCIV);
+
+            foreach (var estado in estados)
+            {
+                if (string.IsNullOrEmpty(estado.CodigoDispositivo))
+                    continue;
+
+                var resultado = Ejecutar(new EjecutarVerificacionDispositivo { CodigoDispositivo = estado.CodigoDispositivo });
+                estado.Conectado = resultado.Mensaje.Codigo == Codigos.OK;
+            }
+
+            return estados;
+        }
+
+        public IList<NotificacionCIVDto> ObtenerUltimasNotificacionesCIV(string codigoCIV)
+        {
+            return adminIdentificacionVehicular.ObtenerUltimasNotificacionesCIV(codigoCIV);
+        }
+
+        public void RegistrarNotificacionCIVExterna(string codigoCIV, NotificacionCIVDto notificacion)
+        {
+            adminIdentificacionVehicular.RegistrarNotificacionExterna(codigoCIV, notificacion);
+        }
+
+        public ResultadoSuscribir SuscribirIdentificacionVehicular(string codigoCIV, string codigoEvento, string rutaAccesoSuscriptor)
+        {
+            log.Debug("SuscribirIdentificacionVehicular: {0} evento:{1}", codigoCIV, codigoEvento);
+            try
+            {
+                return adminIdentificacionVehicular.Suscribir(codigoCIV, codigoEvento, rutaAccesoSuscriptor);
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "Error al suscribir CIV {0}", codigoCIV);
+                return new ResultadoSuscribir { Mensaje = new Mensaje(Codigos.Error, e.Message) };
+            }
+        }
+
+        public ResultadoComando CancelarSuscripcionIdentificacionVehicular(string codigoCIV, string codigoEvento, string rutaAccesoSuscriptor)
+        {
+            log.Debug("CancelarSuscripcionIdentificacionVehicular: civ:{0} evento:{1}", codigoCIV, codigoEvento);
+            try
+            {
+                return adminIdentificacionVehicular.CancelarSuscripcion(codigoCIV, codigoEvento, rutaAccesoSuscriptor);
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "Error al cancelar suscripcion CIV {0}", codigoCIV);
+                return new ResultadoComando { Mensaje = new Mensaje(Codigos.Error, e.Message) };
+            }
         }
 
         public ResultadoComando RecargarConfiguracion(string codigoDispositivo)
@@ -426,6 +539,16 @@ namespace Molinos.Orquest.Servicios.Impl
                               !sensor.Dispositivo.EsConcentrador && 
                               sensor.ClaseDriver == Constantes.Drivers.DriverSensorVehicular,
                     sensor => new DispositivoDto { Codigo = sensor.Dispositivo.Codigo, Descripcion = sensor.Dispositivo.Descripcion });
+            }
+        }
+
+        public IList<ConfigIdentificacionVehicularDto> ListarConfigIdentificacionVehicular()
+        {
+            using (var repositorio = factoryRepositorio.Repositorio())
+            {
+                return repositorio.Listar<ConfigIdentificacionVehicular, ConfigIdentificacionVehicularDto>(
+                    config => config.Activo,
+                    config => new ConfigIdentificacionVehicularDto { Id = config.Id, Nombre = config.Nombre, Codigo = config.Codigo });
             }
         }
 

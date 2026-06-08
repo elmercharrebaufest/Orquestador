@@ -243,10 +243,12 @@
     <Compile Include="Atributos\CharValidationAttribute.cs" />
     <Compile Include="Atributos\FileSizeAttribute.cs" />
     <Compile Include="Atributos\FileTypesAttribute.cs" />
+    <Compile Include="Controllers\ConfigIdentificacionVehicularController.cs" />
     <Compile Include="Controllers\GrupoBarreraController.cs" />
     <Compile Include="Controllers\JsonToIotBoxController.cs" />
     <Compile Include="Controllers\IntercomunicadorController.cs" />
     <Compile Include="Controllers\JsonFromIotBoxController.cs" />
+    <Compile Include="Controllers\MonitorIdentificacionVehicularController.cs" />
     <Compile Include="Controllers\PruebaSensorController.cs" />
     <Compile Include="Controllers\TagsHistorianController.cs" />
     <Compile Include="Controllers\CartelLedController.cs" />
@@ -292,6 +294,7 @@
     <Compile Include="Conversiones\Impl\Perfiles\ConfigItcMappingProfile.cs" />
     <Compile Include="Conversiones\Impl\Perfiles\FirmaMappingProfile.cs" />
     <Compile Include="Conversiones\Impl\Perfiles\RolMappingProfile.cs" />
+    <Compile Include="Conversiones\Impl\Perfiles\ConfigIdentificacionVehicularMappingProfile.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -314,6 +317,7 @@
     <Compile Include="Models\ConfigHumedimetroModel.cs" />
     <Compile Include="Models\ConfigItcModel.cs" />
     <Compile Include="Models\ConfigPantallaPuestoDeViandaModel.cs" />
+    <Compile Include="Models\ConfigIdentificacionVehicularModel.cs" />
     <Compile Include="Models\CookieUsuario.cs" />
     <Compile Include="Models\FirmaModel.cs" />
     <Compile Include="Models\PermisoModel.cs" />
@@ -338,6 +342,7 @@
     <Compile Include="ServicioHub\IServicioSuscriptor.cs" />
     <Compile Include="ServicioHub\LecturaTarjeta.cs" />
     <Compile Include="ServicioHub\LecturaTarjetaMolinete.cs" />
+    <Compile Include="ServicioHub\NotificacionCIV.cs" />
     <Compile Include="ServicioHub\NotificarLectura.cs" />
     <Compile Include="ServicioHub\ServicioSuscriptor.svc.cs">
       <DependentUpon>ServicioSuscriptor.svc</DependentUpon>
@@ -1617,6 +1622,7 @@
     <Content Include="Scripts\crear_modificar.common.js" />
     <Content Include="Scripts\configuracion_sensor.js" />
     <Content Include="scatoqa.DeployParameters.xml" />
+    <Content Include="scatoqa2.DeployParameters.xml" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="log4net.config" />
@@ -1627,7 +1633,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_menu.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Scripts\configIdentificacionVehicular.js" />
     <Content Include="Styles\pruebaitc.css" />
+    <Content Include="Styles\variables.css" />
+    <Content Include="Styles\configIdentificacionVehicular.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1655,6 +1664,11 @@
     <Content Include="Views\Camara\Index.cshtml" />
     <Content Include="Views\Camara\Listar.cshtml" />
     <Content Include="Views\Camara\Modificar.cshtml" />
+    <Content Include="Views\ConfigIdentificacionVehicular\_CrearModificar.cshtml" />
+    <Content Include="Views\ConfigIdentificacionVehicular\Crear.cshtml" />
+    <Content Include="Views\ConfigIdentificacionVehicular\Index.cshtml" />
+    <Content Include="Views\ConfigIdentificacionVehicular\Listar.cshtml" />
+    <Content Include="Views\ConfigIdentificacionVehicular\Modificar.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Humedimetro\_CrearModificar.cshtml" />
     <Content Include="Views\Humedimetro\Crear.cshtml" />
@@ -1817,6 +1831,7 @@
     <Content Include="Views\GrupoBarrera\Crear.cshtml" />
     <Content Include="Views\Sensor\_ConfiguracionSensor.cshtml" />
     <Content Include="Views\PruebaConexion\_TestConexion.cshtml" />
+    <Content Include="Views\MonitorIdentificacionVehicular\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1907,7 +1922,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59670</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Molinos.Orquest.Web</IISUrl>
+          <IISUrl>http://localhost/Orquest.Web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

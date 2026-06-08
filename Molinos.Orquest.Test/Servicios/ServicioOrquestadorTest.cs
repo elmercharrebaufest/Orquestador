@@ -29,6 +29,8 @@ namespace Molinos.Orquest.Test.Servicios
         private Mock<IServicioOrquestador> orquestadorRemotoMock;
         private INamedLocker namedLocker;
         private Mock<IProgramadorTareas> programadorMock;
+        private Mock<IAdministradorIdentificacionVehicular> adminIdentificacionMock;
+        private Mock<IAdministradorSuscripciones> adminSuscripcionesMock;
 
         private Mock<IRepositorio> repositorioMock;
         private Mock<IProcesadorDispositivo> procesadorDispMock;
@@ -43,6 +45,8 @@ namespace Molinos.Orquest.Test.Servicios
             orquestadorFactoryMock = new Mock<IServicioRemotoFactory>();
             namedLocker = new NamedLocker();
             programadorMock = new Mock<IProgramadorTareas>();
+            adminIdentificacionMock = new Mock<IAdministradorIdentificacionVehicular>();
+            adminSuscripcionesMock = new Mock<IAdministradorSuscripciones>();
 
             target = new ServicioOrquestador(
                 repositorioFactoryMock.Object,
@@ -50,6 +54,8 @@ namespace Molinos.Orquest.Test.Servicios
                 procesadorFactoryMock.Object,
                 namedLocker,
                 programadorMock.Object,
+                adminIdentificacionMock.Object,
+                adminSuscripcionesMock.Object,
                 new NullLogger());
 
             procesadorDispMock = new Mock<IProcesadorDispositivo>();
@@ -2538,6 +2544,89 @@ namespace Molinos.Orquest.Test.Servicios
 
             Assert.That(resultado, Is.Not.Null);
             Assert.That(resultado.Count, Is.EqualTo(0));
+        }
+
+        // ------------------------------------------------------------------ RecargarConfigIdentificacionVehicular
+
+        [Test]
+        public void RecargarConfigIdentificacionVehicular_DelegaEnAdminIdentificacion()
+        {
+            var resultado = target.RecargarConfigIdentificacionVehicular("CIV01");
+
+            adminIdentificacionMock.Verify(a => a.RecargarConfig("CIV01"), Times.Once());
+            Assert.That(resultado.Mensaje, Is.Not.Null);
+            Assert.That(resultado.Mensaje.Codigo, Is.EqualTo(Codigos.OK));
+        }
+
+        [Test]
+        public void RecargarConfigIdentificacionVehicular_ExcepcionEnAdmin_DevuelveError()
+        {
+            adminIdentificacionMock
+                .Setup(a => a.RecargarConfig("CIV01"))
+                .Throws(new Exception("Error simulado"));
+
+            var resultado = target.RecargarConfigIdentificacionVehicular("CIV01");
+
+            Assert.That(resultado.Mensaje, Is.Not.Null);
+            Assert.That(resultado.Mensaje.Codigo, Is.EqualTo(Codigos.Error));
+            StringAssert.Contains("Error simulado", resultado.Mensaje.Descripcion);
+        }
+
+        // ------------------------------------------------------------------ SuscribirIdentificacionVehicular
+
+        [Test]
+        public void SuscribirIdentificacionVehicular_Exitoso_RetornaResultadoDelAdministrador()
+        {
+            var esperado = new ResultadoSuscribir { IdSuscripcion = 55, Mensaje = Mensaje.ResultadoOK() };
+            adminIdentificacionMock
+                .Setup(a => a.Suscribir("CIV01", "IdentificacionVehicular", "http://test/suscriptor"))
+                .Returns(esperado);
+
+            var resultado = target.SuscribirIdentificacionVehicular("CIV01", "IdentificacionVehicular", "http://test/suscriptor");
+
+            Assert.That(resultado.Mensaje.Codigo, Is.EqualTo(Codigos.OK));
+            Assert.That(resultado.IdSuscripcion, Is.EqualTo(55));
+            adminIdentificacionMock.Verify(a => a.Suscribir("CIV01", "IdentificacionVehicular", "http://test/suscriptor"), Times.Once());
+        }
+
+        [Test]
+        public void SuscribirIdentificacionVehicular_AdministradorLanzaExcepcion_RetornaError()
+        {
+            adminIdentificacionMock
+                .Setup(a => a.Suscribir(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Throws(new Exception("error interno"));
+
+            var resultado = target.SuscribirIdentificacionVehicular("CIV01", "IdentificacionVehicular", "http://test/suscriptor");
+
+            Assert.That(resultado.Mensaje.Codigo, Is.EqualTo(Codigos.Error));
+        }
+
+        // ------------------------------------------------------------------ CancelarSuscripcionIdentificacionVehicular
+
+        [Test]
+        public void CancelarSuscripcionIdentificacionVehicular_Exitoso_RetornaResultadoDelAdministrador()
+        {
+            var esperado = new ResultadoComando { Mensaje = Mensaje.ResultadoOK() };
+            adminIdentificacionMock
+                .Setup(a => a.CancelarSuscripcion("CIV01", "IdentificacionVehicular", "http://test/suscriptor"))
+                .Returns(esperado);
+
+            var resultado = target.CancelarSuscripcionIdentificacionVehicular("CIV01", "IdentificacionVehicular", "http://test/suscriptor");
+
+            Assert.That(resultado.Mensaje.Codigo, Is.EqualTo(Codigos.OK));
+            adminIdentificacionMock.Verify(a => a.CancelarSuscripcion("CIV01", "IdentificacionVehicular", "http://test/suscriptor"), Times.Once());
+        }
+
+        [Test]
+        public void CancelarSuscripcionIdentificacionVehicular_AdministradorLanzaExcepcion_RetornaError()
+        {
+            adminIdentificacionMock
+                .Setup(a => a.CancelarSuscripcion(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Throws(new Exception("error interno"));
+
+            var resultado = target.CancelarSuscripcionIdentificacionVehicular("CIV01", "IdentificacionVehicular", "http://test/suscriptor");
+
+            Assert.That(resultado.Mensaje.Codigo, Is.EqualTo(Codigos.Error));
         }
     }
 }
