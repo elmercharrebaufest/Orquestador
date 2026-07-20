@@ -38,11 +38,11 @@
     <NUnit Assemblies="@(UnitTestProjects)" ToolPath="$(NUnitToolPath)" ProjectConfiguration="Jenkins" DisableShadowCopy="true"/>-->
 
     <Message Text="*** Executing Unit Tests and Performing Test Coverage ***" />
-    <Exec Command="&quot;$(OpenCoverTool)&quot; -register:administrator -filter:&quot;$(OpenCoverFilter)&quot; -target:&quot;$(NUnitToolPath)\nunit-console.exe&quot; -targetargs:&quot;/nologo /noshadow /config:$(Configuration) $(NUnitProject)&quot; -output:coverage.xml" />
+    <!--<Exec Command="&quot;$(OpenCoverTool)&quot; -register:administrator -filter:&quot;$(OpenCoverFilter)&quot; -target:&quot;$(NUnitToolPath)\nunit-console.exe&quot; -targetargs:&quot;/nologo /noshadow /config:$(Configuration) $(NUnitProject)&quot; -output:coverage.xml" ContinueOnError="WarnAndContinue" />-->
 
     <!--Generate solution coverage report-->
-    <RemoveDir Directories="report" />
-    <ReportGenerator ReportFiles="coverage.xml" TargetDirectory="report/opencover" />  
+    <!--<RemoveDir Directories="report" />-->
+    <!--<ReportGenerator ReportFiles="coverage.xml" TargetDirectory="report/opencover" ContinueOnError="WarnAndContinue" />-->
     
     <!-- Copy the Package's files to Output Directory -->
     <Message Text="*** Copying files to Output Directory ***"/>

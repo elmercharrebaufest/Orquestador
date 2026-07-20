@@ -173,6 +173,26 @@ namespace Molinos.Orquest.Web.ServicioHub
                         var hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificaLectura>();
                         hubContext.Clients.Group("civ-" + notificacionCIV.CodigoCIV).actualizarEventoCIV(notificacionCIV);
                         log.Debug("NotificarEventoCIV despachado al grupo 'civ-{0}'.", notificacionCIV.CodigoCIV);
+
+                        DateTime.TryParse(fechaEvento, null, System.Globalization.DateTimeStyles.RoundtripKind, out var fechaEventoDt);
+                        try
+                        {
+                            servicioOrquestador.RegistrarNotificacionCIVExterna(notificacionCIV.CodigoCIV, new NotificacionCIVDto
+                            {
+                                CodigoEvento      = notificacionCIV.CodigoEvento,
+                                CodigoDispositivo = notificacionCIV.CodigoDispositivo,
+                                Valor             = valor,
+                                VehiculoPresente  = vehiculoPresente,
+                                Patente           = patenteCIV,
+                                FechaEvento       = fechaEventoDt == default ? DateTime.Now : fechaEventoDt,
+                                Detalles          = detalles,
+                                JsonCompleto      = notificacionCIV.JsonCompleto
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Warn(ex, "RegistrarNotificacionCIVExterna fallida para CIV '{0}'. El monitor seguirá funcionando en tiempo real.", notificacionCIV.CodigoCIV);
+                        }
                     }
                 }
             }

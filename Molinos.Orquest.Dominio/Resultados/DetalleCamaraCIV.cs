@@ -1,4 +1,3 @@
-using Molinos.Orquest.Dominio.Enums;
 using System.Runtime.Serialization;
 
 namespace Molinos.Orquest.Dominio.Resultados

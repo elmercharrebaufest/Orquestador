@@ -21,7 +21,7 @@ namespace Molinos.Orquest.Web.Models
         [Display(ResourceType = typeof(Textos), Name = "ConfigIdentificacionVehicular_LectorTarjetas")]
         public int? ConfigLectorTarjetasId { get; set; }
 
-        [Display(ResourceType = typeof(Textos), Name = "ConfigIdentificacionVehicular_SensorVehicular")]
+        [Display(ResourceType = typeof(Textos), Name = "ConfigIdentificacionVehicular_SensorPresencia")]
         public int? ConfigSensorVehicularId { get; set; }
 
         [Display(ResourceType = typeof(Textos), Name = "ConfigIdentificacionVehicular_SensorPresencia")]

@@ -17,6 +17,7 @@
         {
             public const string DriverSensorIntercomunicador = "Molinos.Orquest.DriversImpl.DriverSensorIntercomunicador, Molinos.Orquest.DriversImpl";
             public const string DriverSensorVehicular = "Molinos.Orquest.DriversImpl.DriverSensorVehicular, Molinos.Orquest.DriversImpl";
+            public const string DriverLectorPatente = "Molinos.Orquest.DriversImpl.DriverLectorPatente, Molinos.Orquest.DriversImpl";
         }
 
         public struct TiposDrivers

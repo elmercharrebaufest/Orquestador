@@ -163,6 +163,7 @@
     <Compile Include="Helpers\Encriptador.cs" />
     <Compile Include="Helpers\ExtensionesEnum.cs" />
     <Compile Include="Helpers\ExtensionesSerializacion.cs" />
+    <Compile Include="Helpers\ImagenHelper.cs" />
     <Compile Include="Recursos\Textos.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

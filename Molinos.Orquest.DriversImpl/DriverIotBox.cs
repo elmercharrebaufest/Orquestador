@@ -13,8 +13,9 @@ using System.Threading.Tasks;
 
 namespace Molinos.Orquest.DriversImpl
 {
-    public class DriverIotBox : DriverBase, IDriverItc
+    public class DriverIotBox : DriverBase, IDriverItc, IDriverConDireccionIp
     {
+        public string DireccionIp => config.DireccionIp;
         private readonly object lockComandoLectura = new object();
         private readonly object lockComandoEscritura = new object();
 

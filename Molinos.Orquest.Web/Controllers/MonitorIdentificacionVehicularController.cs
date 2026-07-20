@@ -25,59 +25,40 @@ namespace Molinos.Orquest.Web.Controllers
 
         public ActionResult Index(string codigoCIV)
         {
-            ConfigIdentificacionVehicular config;
             try
             {
-                config = repositorio.Obtener<ConfigIdentificacionVehicular>(c => c.Codigo == codigoCIV);
+                var config = repositorio.Obtener<ConfigIdentificacionVehicular>(c => c.Codigo == codigoCIV);
+
+                if (config == null)
+                    return HttpNotFound();
+
+                try
+                {
+                    ViewBag.EstadoDispositivos = servicio.ObtenerEstadoDispositivosCIV(codigoCIV);
+                }
+                catch (Exception ex)
+                {
+                    log.Warn(ex, "No se pudo obtener estado de dispositivos CIV (servicio no disponible): {0}", codigoCIV);
+                    ViewBag.EstadoDispositivos = new System.Collections.Generic.List<Molinos.Orquest.Dominio.Dtos.EstadoDispositivoCIVDto>();
+                    ViewBag.ServicioNoDisponible = true;
+                }
+
+                return View(config);
             }
             catch (Exception ex)
             {
-                log.Error(ex, "Error al cargar Monitor CIV desde repositorio: {0}", codigoCIV);
+                log.Error(ex, "Error al cargar Monitor CIV: {0}", codigoCIV);
                 ViewBag.Mensaje = $"Error al comunicarse con el servicio: {ex.Message}";
                 ViewBag.DetalleError = ex.ToString();
                 return View("Error");
             }
-
-            if (config == null)
-                return HttpNotFound();
-
-            try
-            {
-                ViewBag.EstadoDispositivos = servicio.ObtenerEstadoDispositivosCIV(codigoCIV);
-            }
-            catch (Exception ex)
-            {
-                log.Warn(ex, "No se pudo obtener estado de dispositivos CIV (servicio no disponible): {0}", codigoCIV);
-                ViewBag.EstadoDispositivos = new System.Collections.Generic.List<Molinos.Orquest.Dominio.Dtos.EstadoDispositivoCIVDto>();
-                ViewBag.ServicioNoDisponible = true;
-            }
-
-            try
-            {
-                ViewBag.UltimasNotificaciones = servicio.ObtenerUltimasNotificacionesCIV(codigoCIV);
-            }
-            catch (Exception ex)
-            {
-                log.Warn(ex, "No se pudo obtener notificaciones CIV (servicio no disponible): {0}", codigoCIV);
-                ViewBag.UltimasNotificaciones = new System.Collections.Generic.List<Molinos.Orquest.Dominio.Dtos.NotificacionCIVDto>();
-            }
-
-            return View(config);
         }
 
         [HttpGet]
         public ActionResult ObtenerEstadoDispositivos(string codigoCIV)
         {
-            try
-            {
-                var estado = servicio.ObtenerEstadoDispositivosCIV(codigoCIV);
-                return Json(estado, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                log.Warn(ex, "ObtenerEstadoDispositivos: servicio no disponible para CIV: {0}", codigoCIV);
-                return Json(new System.Collections.Generic.List<Molinos.Orquest.Dominio.Dtos.EstadoDispositivoCIVDto>(), JsonRequestBehavior.AllowGet);
-            }
+            var estado = servicio.ObtenerEstadoDispositivosCIV(codigoCIV);
+            return Json(estado, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

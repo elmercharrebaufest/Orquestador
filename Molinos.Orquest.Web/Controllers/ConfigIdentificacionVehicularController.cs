@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using Molinos.Orquest.Dominio;
 using Molinos.Orquest.Dominio.Consultas;
 using Molinos.Orquest.Dominio.Entidades;
 using Molinos.Orquest.Dominio.Recursos;
@@ -162,16 +163,16 @@ namespace Molinos.Orquest.Web.Controllers
                 }).ToList();
             lectores.Insert(0, new SelectListItem { Text = "— Seleccione un lector —", Value = "" });
 
-            var sensores = repositorio.Listar<ConfigSensor>()
+            var sensoresVehiculares = repositorio.Listar<ConfigSensor>(x => x.ClaseDriver == Constantes.Drivers.DriverLectorPatente)
                 .Select(x => new SelectListItem
                 {
                     Text = x.Dispositivo.Descripcion + " (" + x.Dispositivo.Codigo + ")",
                     Value = x.Id.ToString(CultureInfo.InvariantCulture)
                 }).ToList();
-            sensores.Insert(0, new SelectListItem { Text = "— Seleccione un sensor —", Value = "" });
+            sensoresVehiculares.Insert(0, new SelectListItem { Text = "— Seleccione un sensor —", Value = "" });
 
             ViewBag.Lectores = lectores;
-            ViewBag.Sensores = sensores;
+            ViewBag.SensoresVehiculares = sensoresVehiculares;
             ViewBag.AvailableCameras = repositorio.Listar<ConfigCamara>()
                 .Select(x => new ConfigIdentificacionVehicularModel.CamaraItemModel
                 {

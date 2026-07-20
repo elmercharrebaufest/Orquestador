@@ -9,14 +9,19 @@
 
     var estadoDispositivos = (IList<EstadoDispositivoCIVDto>)ViewBag.EstadoDispositivos;
     var ultimasNotificaciones = (IList<NotificacionCIVDto>)ViewBag.UltimasNotificaciones;
+    var servicioNoDisponible = ViewBag.ServicioNoDisponible == true;
 
-    Func<EstadoDispositivoCIVDto, string> pillCss = d => d != null && d.Conectado
-        ? "badge-civ badge-conectado"
-        : "badge-civ badge-desconocido";
+    Func<EstadoDispositivoCIVDto, bool, string> pillCss = (d, hasConfig) => {
+        if (d != null && d.Conectado) return "badge-civ badge-conectado";
+        if (!hasConfig) return "badge-civ badge-desconocido";
+        return "badge-civ badge-desconectado";
+    };
 
-    Func<EstadoDispositivoCIVDto, string> pillTxt = d => d != null && d.Conectado
-        ? Textos.MonitorCIV_Conectado
-        : Textos.MonitorCIV_Desconocido;
+    Func<EstadoDispositivoCIVDto, bool, string> pillTxt = (d, hasConfig) => {
+        if (d != null && d.Conectado) return Textos.MonitorCIV_Conectado;
+        if (!hasConfig) return Textos.MonitorCIV_Desconocido;
+        return Textos.MonitorCIV_Desconectado;
+    };
 
     var lector = estadoDispositivos != null ? estadoDispositivos.FirstOrDefault(d => d.TipoDispositivo == "LectorTarjetas") : null;
     var sensor = estadoDispositivos != null ? estadoDispositivos.FirstOrDefault(d => d.TipoDispositivo == "SensorVehicular") : null;
@@ -163,6 +168,11 @@
     .badge-conectado {
         background: var(--civ-green-soft);
         color: #166534;
+    }
+
+    .badge-desconectado {
+        background: #fee2e2;
+        color: #991b1b;
     }
 
     .badge-desconocido {
@@ -378,13 +388,13 @@
         background: rgba(0,0,0,0.7);
     }
 
-    /* Camera modal */
+    /* Camera modal (lightbox) — aparece sobre el modal HikVision */
     .cam-modal-overlay {
         display: none;
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.65);
-        z-index: 9000;
+        background: rgba(0,0,0,0.82);
+        z-index: 9200;
         align-items: center;
         justify-content: center;
     }
@@ -456,12 +466,15 @@
 
     .plate-box {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
-        margin-top: 26px;
         border-radius: 16px;
         background: #f3f4f6;
         padding: 11px 16px;
+    }
+
+    .camera-card .plate-box {
+        margin-top: 26px;
     }
 
     .plate-label {
@@ -477,6 +490,197 @@
         font-weight: 900;
         letter-spacing: .08em;
         color: #050505;
+    }
+
+    .plate-value-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-hkv-img {
+        background: none;
+        border: none;
+        padding: 2px;
+        cursor: pointer;
+        color: #475569;
+        display: inline-flex;
+        align-items: center;
+        border-radius: 6px;
+        transition: color .15s, background .15s;
+    }
+
+    .btn-hkv-img:hover {
+        color: #0f172a;
+        background: #e2e8f0;
+    }
+
+    /* HikVision images modal */
+    .hkv-modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.65);
+        z-index: 9100;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hkv-modal-overlay.hkv-modal-open {
+        display: flex;
+    }
+
+    .hkv-modal {
+        background: #fff;
+        border-radius: 18px;
+        width: 92%;
+        max-width: 1100px;
+        max-height: 88vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+    }
+
+    .hkv-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 24px;
+        border-bottom: 1px solid #e5e7eb;
+        flex-shrink: 0;
+    }
+
+    .hkv-modal-title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+    .hkv-modal-close {
+        background: #f3f4f6;
+        border: none;
+        cursor: pointer;
+        color: #475569;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        font-size: 20px;
+        transition: background 0.15s;
+    }
+
+    .hkv-modal-close:hover { background: #e5e7eb; }
+
+    .hkv-modal-body {
+        padding: 24px;
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    .hkv-grid-inner {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+    }
+
+    .hkv-card {
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: zoom-in;
+        transition: box-shadow 0.15s, transform 0.15s;
+    }
+
+    .hkv-card:hover {
+        box-shadow: 0 4px 16px rgba(0,0,0,.14);
+        transform: translateY(-2px);
+    }
+
+    .hkv-card-img-wrap {
+        background: #e5e7eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 160px;
+        overflow: hidden;
+    }
+
+    .hkv-card-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .hkv-card-footer {
+        padding: 6px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #64748b;
+        text-align: center;
+        background: #fff;
+        border-top: 1px solid #e5e7eb;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .hkv-pagination {
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+    }
+
+    .hkv-pagination button {
+        min-width: 34px;
+        height: 34px;
+        padding: 0 8px;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        background: #fff;
+        color: #0f172a;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s;
+    }
+
+    .hkv-pagination button:hover:not(:disabled):not(.active) {
+        background: #f1f5f9;
+    }
+
+    .hkv-pagination button.active {
+        background: #078425;
+        color: #fff;
+        border-color: #078425;
+    }
+
+    .hkv-pagination button:disabled {
+        opacity: 0.4;
+        cursor: default;
+    }
+
+    .hkv-sin-datos {
+        font-size: 13px;
+        color: #64748b;
+        text-align: center;
+        padding: 32px 0;
+        display: none;
+    }
+
+    @@media (max-width: 700px) {
+        .hkv-grid-inner {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 
     .bottom-grid {
@@ -735,28 +939,27 @@
 
             @{
                 var svCodigo = Model.ConfigSensorVehicular != null && Model.ConfigSensorVehicular.Dispositivo != null ? Model.ConfigSensorVehicular.Dispositivo.Codigo : null;
+                var svConfigured = svCodigo != null;
             }
             <div class="civ-card device-card" id="card-@(sensor != null ? sensor.CodigoDispositivo : "sv")">
                     <div class="civ-card-top">
                         <div class="device-icon">
                             <span class="material-icons-round">local_shipping</span>
                         </div>
-                        <span class="@pillCss(sensor)" data-device="@(sensor != null ? sensor.CodigoDispositivo : null)" data-tipo="SensorVehicular">@pillTxt(sensor)</span>
+                        <span class="@pillCss(sensor, svConfigured)" data-device="@(sensor != null ? sensor.CodigoDispositivo : null)" data-tipo="SensorVehicular">@pillTxt(sensor, svConfigured)</span>
                     </div>
 
                     <div class="device-title">
-                        @Textos.ConfigIdentificacionVehicular_SensorVehicular@(svCodigo != null ? " (" + svCodigo + ")" : "")
+                        @Textos.ConfigIdentificacionVehicular_SensorPresencia@(svCodigo != null ? " (" + svCodigo + ")" : "")
                     </div>
 
                     <div class="device-second-line">
-                        @if (Model.ConfigSensorVehicular == null || Model.ConfigSensorVehicular.Dispositivo == null)
-                        {
-                            <span class="device-empty">@Textos.MonitorCIV_SinDispositivoAsignado</span>
-                        }
-                        else
-                        {
-                            <span>&nbsp;</span>
-                        }
+                        <div class="device-value" style="justify-content:space-between">
+                            <span id="patente-sv"></span>
+                            <button class="btn-hkv-img" id="btn-hkv-sv" style="display:none" onclick="abrirHkvModal('sv')" title="@Textos.MonitorCIV_VerImagenes">
+                                <span class="material-icons-round" style="font-size:18px">image</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
         </div>
@@ -764,18 +967,19 @@
         <div>
             <div class="civ-section-title" style="visibility:hidden;">
                 <span class="material-icons-round">bolt</span>
-                Disparadores
+                @Textos.MonitorCIV_Disparadores
             </div>
 
             @{
                 var ltCodigo = Model.ConfigLectorTarjetas != null && Model.ConfigLectorTarjetas.Dispositivo != null ? Model.ConfigLectorTarjetas.Dispositivo.Codigo : null;
+                var ltConfigured = ltCodigo != null;
             }
             <div class="civ-card device-card" id="card-@(lector != null ? lector.CodigoDispositivo : "lt")">
                     <div class="civ-card-top">
                         <div class="device-icon">
                             <span class="material-icons-round">badge</span>
                         </div>
-                        <span class="@pillCss(lector)" data-device="@(lector != null ? lector.CodigoDispositivo : null)" data-tipo="LectorTarjetas">@pillTxt(lector)</span>
+                        <span class="@pillCss(lector, ltConfigured)" data-device="@(lector != null ? lector.CodigoDispositivo : null)" data-tipo="LectorTarjetas">@pillTxt(lector, ltConfigured)</span>
                     </div>
 
                     <div class="device-title">
@@ -798,6 +1002,7 @@
 
             @{
                 var spCodigo = Model.ConfigSensorPresencia != null && Model.ConfigSensorPresencia.Dispositivo != null ? Model.ConfigSensorPresencia.Dispositivo.Codigo : null;
+                var spConfigured = spCodigo != null;
                 var activo = presencia != null && presencia.VehiculoPresente == true;
             }
             <div class="civ-card device-card" id="card-@(presencia != null ? presencia.CodigoDispositivo : "sp")">
@@ -805,16 +1010,23 @@
                         <div class="device-icon">
                             <span class="material-icons-round">directions_car</span>
                         </div>
-                        <span class="@pillCss(presencia)" data-device="@(presencia != null ? presencia.CodigoDispositivo : null)" data-tipo="SensorPresencia">@pillTxt(presencia)</span>
+                        <span class="@pillCss(presencia, spConfigured)" data-device="@(presencia != null ? presencia.CodigoDispositivo : null)" data-tipo="SensorPresencia">@pillTxt(presencia, spConfigured)</span>
                     </div>
 
                     <div class="device-title">@Textos.ConfigIdentificacionVehicular_SensorPresencia@(spCodigo != null ? " (" + spCodigo + ")" : "")</div>
 
                     <div class="device-second-line">
-                        <div class="presence-status" id="presencia-@(presencia != null ? presencia.CodigoDispositivo : null)">
-                            <span class="presence-dot @(activo ? "presence-dot-active" : "presence-dot-inactive")"></span>
-                            <span>@(activo ? Textos.Activo : Textos.MonitorCIV_Inactivo)</span>
-                        </div>
+                        @if (!spConfigured)
+                        {
+                            <span class="device-empty">@Textos.MonitorCIV_SinDispositivoAsignado</span>
+                        }
+                        else
+                        {
+                            <div class="presence-status" id="presencia-@(presencia != null ? presencia.CodigoDispositivo : null)">
+                                <span class="presence-dot @(activo ? "presence-dot-active" : "presence-dot-inactive")"></span>
+                                <span>@(activo ? Textos.Activo : Textos.MonitorCIV_Inactivo)</span>
+                            </div>
+                        }
                     </div>
                 </div>
         </div>
@@ -840,7 +1052,7 @@
                 <div class="civ-card camera-card" id="card-cam-@camCodigo">
                     <div class="civ-card-top">
                         <h3 class="camera-title">@Textos.MonitorCIV_CamaraALPR (@camCodigo)</h3>
-                        <span class="@pillCss(camEstado)" data-device="@camCodigo" data-tipo="Camara">@pillTxt(camEstado)</span>
+                        <span class="@pillCss(camEstado, camCodigo != null)" data-device="@camCodigo" data-tipo="Camara">@pillTxt(camEstado, camCodigo != null)</span>
                     </div>
 
                     <div class="camera-box">
@@ -849,16 +1061,20 @@
                              src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                              alt="@Textos.MonitorCIV_SinCaptura" />
                         <span class="camera-live-dot"></span>
-                        <button class="camera-maximize-btn" onclick="abrirCamModal('@camCodigo', '@(Textos.MonitorCIV_CamaraALPR) (@camCodigo)')" title="Ver imagen completa">
+                        <button class="camera-maximize-btn" onclick="abrirCamModal('@camCodigo', '@(Textos.MonitorCIV_CamaraALPR) (@camCodigo)')" title="@Textos.MonitorCIV_VerImagenCompleta">
                             <span class="material-icons-round" style="font-size:18px">fullscreen</span>
                         </button>
                     </div>
 
                     <div class="plate-box">
-                        <span class="plate-label">@Textos.PruebaItc_Patente</span>
-                        <span class="plate-value" id="patente-@camCodigo">
-                            @(camEstado != null && !string.IsNullOrEmpty(camEstado.UltimaPatente) ? camEstado.UltimaPatente : "")
-                        </span>
+                        <div class="plate-value-group">
+                            <span class="plate-value" id="patente-@camCodigo">
+                                @(camEstado != null && !string.IsNullOrEmpty(camEstado.UltimaPatente) ? camEstado.UltimaPatente : "")
+                            </span>
+                            <button class="btn-hkv-img" id="btn-hkv-@camCodigo" style="display:none" onclick="abrirHkvModal('@camCodigo')" title="@Textos.MonitorCIV_VerImagenesHikVision">
+                                <span class="material-icons-round" style="font-size:18px">image</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             }
@@ -891,7 +1107,7 @@
                                 <div class="civ-card camera-card" id="card-cam-@camCodigo">
                                     <div class="civ-card-top">
                                         <h3 class="camera-title">@Textos.MonitorCIV_CamaraALPR (@camCodigo)</h3>
-                                        <span class="@pillCss(camEstado)" data-device="@camCodigo" data-tipo="Camara">@pillTxt(camEstado)</span>
+                                        <span class="@pillCss(camEstado, camCodigo != null)" data-device="@camCodigo" data-tipo="Camara">@pillTxt(camEstado, camCodigo != null)</span>
                                     </div>
 
                                     <div class="camera-box">
@@ -900,16 +1116,20 @@
                                              src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                                              alt="@Textos.MonitorCIV_SinCaptura" />
                                         <span class="camera-live-dot"></span>
-                                        <button class="camera-maximize-btn" onclick="abrirCamModal('@camCodigo', '@(Textos.MonitorCIV_CamaraALPR) (@camCodigo)')" title="Ver imagen completa">
+                                        <button class="camera-maximize-btn" onclick="abrirCamModal('@camCodigo', '@(Textos.MonitorCIV_CamaraALPR) (@camCodigo)')" title="@Textos.MonitorCIV_VerImagenCompleta">
                                             <span class="material-icons-round" style="font-size:18px">fullscreen</span>
                                         </button>
                                     </div>
 
                                     <div class="plate-box">
-                                        <span class="plate-label">@Textos.PruebaItc_Patente</span>
-                                        <span class="plate-value" id="patente-@camCodigo">
-                                            @(camEstado != null && !string.IsNullOrEmpty(camEstado.UltimaPatente) ? camEstado.UltimaPatente : "")
-                                        </span>
+                                        <div class="plate-value-group">
+                                            <span class="plate-value" id="patente-@camCodigo">
+                                                @(camEstado != null && !string.IsNullOrEmpty(camEstado.UltimaPatente) ? camEstado.UltimaPatente : "")
+                                            </span>
+                                            <button class="btn-hkv-img" id="btn-hkv-@camCodigo" style="display:none" onclick="abrirHkvModal('@camCodigo')" title="@Textos.MonitorCIV_VerImagenesHikVision">
+                                                <span class="material-icons-round" style="font-size:18px">image</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             }
@@ -927,11 +1147,16 @@
             </div>
         </div>
         }
-    }
+        }
 
-    <div class="bottom-grid">
+        <div id="alerta-sin-detalles" style="display:none;background:#fee2e2;border:1px solid #fca5a5;border-radius:8px;padding:12px 18px;margin-bottom:22px;align-items:center;gap:10px;font-size:14px;color:#991b1b;">
+            <span class="material-icons-round" style="font-size:20px;color:#ef4444;">error_outline</span>
+            <span>@Textos.MonitorCIV_SinInformacionDispositivos</span>
+        </div>
 
-        <div class="civ-card notif-card">
+        <div class="bottom-grid">
+
+            <div class="civ-card notif-card">
             <div class="notif-header">
                 <div class="notif-title">@Textos.MonitorCIV_NotificacionesEventos</div>
                 <button type="button" class="notif-filter">
@@ -1030,6 +1255,23 @@
     </div>
 </div>
 
+<!-- HikVision images modal -->
+<div class="hkv-modal-overlay" id="hkv-modal-overlay" onclick="cerrarHkvModal(event)">
+    <div class="hkv-modal">
+        <div class="hkv-modal-header">
+            <h3 class="hkv-modal-title" id="hkv-modal-title">@Textos.MonitorCIV_ImagenesHikVision</h3>
+            <button class="hkv-modal-close" onclick="cerrarHkvModal()">
+                <span class="material-icons-round">close</span>
+            </button>
+        </div>
+        <div class="hkv-modal-body">
+            <div class="hkv-sin-datos" id="hkv-sin-datos">@Textos.MonitorCIV_SinCaptura</div>
+            <div class="hkv-grid-inner" id="hkv-grid-inner"></div>
+            <div id="hkv-paginacion"></div>
+        </div>
+    </div>
+</div>
+
 <script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
 <script src="~/signalr/js"></script>
 
@@ -1040,6 +1282,7 @@
 
     // Textos de recursos para usar en JavaScript
     var txtConectado = '@Textos.MonitorCIV_Conectado';
+    var txtDesconectado = '@Textos.MonitorCIV_Desconectado';
     var txtDesconocido = '@Textos.MonitorCIV_Desconocido';
     var txtActivo = '@Textos.Activo';
     var txtInactivo = '@Textos.MonitorCIV_Inactivo';
@@ -1047,13 +1290,16 @@
 
     var hub = $.connection.notificarLectura;
 
+    // Almacena las imágenes HikVision por CodigoCamara para el evento más reciente
+    var hikvisionImages = {};
+
     function actualizarBadgeEstado(estado) {
         var badge = $('[data-device="' + estado.CodigoDispositivo + '"]');
         if (badge.length) {
             var conectado = estado.Conectado && !estado.Error;
-            badge.text(conectado ? txtConectado : txtDesconocido)
-                .removeClass('badge-conectado badge-desconocido')
-                .addClass(conectado ? 'badge-conectado' : 'badge-desconocido');
+            badge.text(conectado ? txtConectado : txtDesconectado)
+                .removeClass('badge-conectado badge-desconectado badge-desconocido')
+                .addClass(conectado ? 'badge-conectado' : 'badge-desconectado');
         }
     }
 
@@ -1061,9 +1307,9 @@
         actualizarBadgeEstado(estado);
     };
 
-    hub.client.actualizarEventoCIV = function (notif) {
-        // Limpiar datos del vehículo anterior antes de mostrar el nuevo evento
+    function limpiarCamposEvento() {
         var pixelVacio = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+        hikvisionImages = {};
         $('[id^="patente-"]').text('');
         $('[id^="img-"]').attr('src', pixelVacio);
         $('[data-tipo="LectorTarjetas"]').each(function () {
@@ -1071,7 +1317,12 @@
             var el = document.getElementById('valor-' + cod);
             if (el) { el.innerHTML = ''; }
         });
+        var alertaSinDetalles = document.getElementById('alerta-sin-detalles');
+        if (alertaSinDetalles) { alertaSinDetalles.style.display = 'none'; }
+    }
 
+    hub.client.actualizarEventoCIV = function (notif) {
+        limpiarCamposEvento();
         prependNotificacion(notif);
         actualizarPanelJson(notif.JsonCompleto);
         var notifNorm = normalizarNotif(notif);
@@ -1093,7 +1344,13 @@
             success: function (estados) {
                 if (!estados) { return; }
                 estados.forEach(function (estado) {
-                    actualizarBadgeEstado(estado);
+                    var badge = $('[data-device="' + estado.CodigoDispositivo + '"]');
+                    if (badge.length) {
+                        var conectado = estado.Conectado;
+                        badge.text(conectado ? txtConectado : txtDesconectado)
+                            .removeClass('badge-conectado badge-desconectado badge-desconocido')
+                            .addClass(conectado ? 'badge-conectado' : 'badge-desconectado');
+                    }
                 });
             }
         });
@@ -1102,20 +1359,14 @@
     pollEstadoDispositivos();
     setInterval(pollEstadoDispositivos, 5000);
 
-    // Limpiar datos del vehículo anterior al ingresar al monitor y formatear JSON histórico
+    // Formatear el JSON inicial cargado desde el servidor
     (function () {
-        var pixelVacio = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-        $('[id^="patente-"]').text('');
-        $('[id^="img-"]').attr('src', pixelVacio);
-        $('[data-tipo="LectorTarjetas"]').each(function () {
-            var cod = $(this).data('device');
-            var el = document.getElementById('valor-' + cod);
-            if (el) { el.innerHTML = ''; }
-        });
-
         var pre = document.getElementById('json-ultima-notificacion');
+
         if (pre && pre.textContent && pre.textContent !== txtSinDatos) {
-            pre.textContent = prettyJson(pre.textContent);
+            var rawJson = pre.textContent;
+            pre.textContent = prettyJson(rawJson);
+            actualizarCamarasDesdeJson(rawJson);
         }
     })();
 
@@ -1269,13 +1520,23 @@
     }
 
     function actualizarThumbnails(notif) {
+        var alertaSinDetalles = document.getElementById('alerta-sin-detalles');
         if (!notif.Detalles || notif.Detalles.length === 0) {
+            if (alertaSinDetalles) { alertaSinDetalles.style.display = 'flex'; }
             // Sin detalles de cámara: usar Patente del nivel superior si existe
             if (notif.Patente) {
                 $('[id^="patente-"]').text(notif.Patente);
             }
             return;
         }
+        if (alertaSinDetalles) { alertaSinDetalles.style.display = 'none'; }
+
+        // Limpiar imágenes HikVision previas para las cámaras de este evento
+        notif.Detalles.forEach(function (d) {
+            if (d.CodigoCamara) {
+                hikvisionImages[d.CodigoCamara] = [];
+            }
+        });
 
         notif.Detalles.forEach(function (d) {
             if (d.CodigoCamara && d.RutaImagen) {
@@ -1291,6 +1552,14 @@
                 }
             }
 
+            // Registrar imágenes HikVision y mostrar/ocultar el botón de galería
+            if (d.CodigoCamara && d.ProveedorALPR === 'HikVision' && d.RutaImagen) {
+                if (!hikvisionImages[d.CodigoCamara]) {
+                    hikvisionImages[d.CodigoCamara] = [];
+                }
+                hikvisionImages[d.CodigoCamara].push(d.RutaImagen);
+            }
+
             var patente = d.Patente || notif.Patente;
             if (d.CodigoCamara && patente) {
                 var span = document.getElementById('patente-' + d.CodigoCamara);
@@ -1300,6 +1569,32 @@
                 }
             }
         });
+
+        // Actualizar visibilidad del botón HikVision para cada cámara del evento
+        notif.Detalles.forEach(function (d) {
+            if (!d.CodigoCamara) return;
+            var btn = document.getElementById('btn-hkv-' + d.CodigoCamara);
+            if (btn) {
+                btn.style.display = (hikvisionImages[d.CodigoCamara] && hikvisionImages[d.CodigoCamara].length > 0)
+                    ? 'inline-flex'
+                    : 'none';
+            }
+        });
+
+        // Actualizar el card Sensor Vehicular (plate-box global) con la patente e imágenes HikVision agregadas
+        var hkvEntradas = notif.Detalles.filter(function (d) { return d.ProveedorALPR === 'HikVision' && d.RutaImagen; });
+        var spanSv = document.getElementById('patente-sv');
+        var btnSv = document.getElementById('btn-hkv-sv');
+        if (hkvEntradas.length > 0) {
+            var patenteHkv = hkvEntradas[0].Patente || '';
+            if (spanSv) spanSv.textContent = patenteHkv;
+            hikvisionImages['sv'] = hkvEntradas.map(function (d) { return d.RutaImagen; });
+            if (btnSv) btnSv.style.display = 'inline-flex';
+        } else {
+            if (spanSv) spanSv.textContent = '';
+            hikvisionImages['sv'] = [];
+            if (btnSv) btnSv.style.display = 'none';
+        }
     }
 
     function actualizarCamarasDesdeJson(json) {
@@ -1435,6 +1730,10 @@
             if (dot) { dot.className = 'presence-dot presence-dot-inactive'; }
             if (lbl) { lbl.textContent = txtInactivo; }
         });
+
+        // Ocultar alerta de sin detalles
+        var alertaSinDetalles = document.getElementById('alerta-sin-detalles');
+        if (alertaSinDetalles) { alertaSinDetalles.style.display = 'none'; }
     }
 
     function copiarJson() {
@@ -1510,7 +1809,134 @@
         document.getElementById('cam-modal-img').src = '';
     }
 
+    // Abre el cam-modal (lightbox) con una URL — mantiene la galería HikVision visible de fondo
+    function abrirCamModalPorUrl(url, titulo) {
+        var modalImg = document.getElementById('cam-modal-img');
+        var modalTitle = document.getElementById('cam-modal-title');
+        modalImg.src = url;
+        modalTitle.textContent = titulo;
+        document.getElementById('cam-modal-overlay').classList.add('cam-modal-open');
+    }
+
+    // ── Galería HikVision ──────────────────────────────────────────────────────
+    var hkvImagenesActuales = [];
+    var hkvPaginaActual = 1;
+    var HKV_PAGE_SIZE = 15;
+
+    function abrirHkvModal(codigoCamara) {
+        var imagenes = hikvisionImages[codigoCamara];
+        if (!imagenes || imagenes.length === 0) return;
+
+        hkvImagenesActuales = imagenes;
+        hkvPaginaActual = 1;
+
+        var titulo = '@Html.Raw(Textos.MonitorCIV_ImagenesHikVision)';
+        document.getElementById('hkv-modal-title').textContent = titulo;
+
+        renderHkvGaleria(1);
+        document.getElementById('hkv-modal-overlay').classList.add('hkv-modal-open');
+    }
+
+    function renderHkvGaleria(pagina) {
+        hkvPaginaActual = pagina;
+        var inner = document.getElementById('hkv-grid-inner');
+        var sinDatos = document.getElementById('hkv-sin-datos');
+        var paginacion = document.getElementById('hkv-paginacion');
+
+        inner.innerHTML = '';
+        paginacion.innerHTML = '';
+
+        if (!hkvImagenesActuales || hkvImagenesActuales.length === 0) {
+            sinDatos.style.display = 'block';
+            return;
+        }
+        sinDatos.style.display = 'none';
+
+        var start = (pagina - 1) * HKV_PAGE_SIZE;
+        var end = Math.min(start + HKV_PAGE_SIZE, hkvImagenesActuales.length);
+        var pageItems = hkvImagenesActuales.slice(start, end);
+
+        pageItems.forEach(function (ruta, i) {
+            var srcUrl = urlFoto + '?ruta=' + encodeURIComponent(normalizarRuta(ruta));
+            var caption = 'Imagen ' + (start + i + 1);
+
+            var card = document.createElement('div');
+            card.className = 'hkv-card';
+
+            var wrap = document.createElement('div');
+            wrap.className = 'hkv-card-img-wrap';
+
+            var img = document.createElement('img');
+            img.src = srcUrl;
+            img.alt = caption;
+
+            var footer = document.createElement('div');
+            footer.className = 'hkv-card-footer';
+            footer.textContent = caption;
+
+            card.addEventListener('click', function () {
+                abrirCamModalPorUrl(srcUrl, caption);
+            });
+
+            wrap.appendChild(img);
+            card.appendChild(wrap);
+            card.appendChild(footer);
+            inner.appendChild(card);
+        });
+
+        var totalPaginas = Math.ceil(hkvImagenesActuales.length / HKV_PAGE_SIZE);
+        renderHkvPaginacion(totalPaginas, pagina);
+    }
+
+    function renderHkvPaginacion(totalPaginas, paginaActual) {
+        var $pag = document.getElementById('hkv-paginacion');
+        $pag.innerHTML = '';
+        if (totalPaginas <= 1) return;
+
+        var wrap = document.createElement('div');
+        wrap.className = 'hkv-pagination';
+
+        var prev = document.createElement('button');
+        prev.innerHTML = '&laquo;';
+        prev.disabled = paginaActual === 1;
+        prev.addEventListener('click', function () { if (paginaActual > 1) renderHkvGaleria(paginaActual - 1); });
+        wrap.appendChild(prev);
+
+        var start = Math.max(1, paginaActual - 3);
+        var end = Math.min(totalPaginas, start + 6);
+        start = Math.max(1, end - 6);
+
+        for (var p = start; p <= end; p++) {
+            (function (pg) {
+                var btn = document.createElement('button');
+                btn.textContent = pg;
+                if (pg === paginaActual) btn.classList.add('active');
+                btn.addEventListener('click', function () { renderHkvGaleria(pg); });
+                wrap.appendChild(btn);
+            })(p);
+        }
+
+        var next = document.createElement('button');
+        next.innerHTML = '&raquo;';
+        next.disabled = paginaActual === totalPaginas;
+        next.addEventListener('click', function () { if (paginaActual < totalPaginas) renderHkvGaleria(paginaActual + 1); });
+        wrap.appendChild(next);
+
+        $pag.appendChild(wrap);
+    }
+
+    function cerrarHkvModal(e) {
+        if (e && e.target !== document.getElementById('hkv-modal-overlay')) return;
+        document.getElementById('hkv-modal-overlay').classList.remove('hkv-modal-open');
+        document.getElementById('hkv-grid-inner').innerHTML = '';
+        document.getElementById('hkv-paginacion').innerHTML = '';
+        hkvImagenesActuales = [];
+    }
+
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') cerrarCamModal();
+        if (e.key === 'Escape') {
+            cerrarCamModal();
+            cerrarHkvModal();
+        }
     });
 </script>

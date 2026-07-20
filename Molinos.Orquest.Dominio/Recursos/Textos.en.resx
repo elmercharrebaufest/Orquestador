@@ -777,14 +777,11 @@
   <data name="Camara_Titulo_Modificar_Crear" xml:space="preserve">
     <value>Cámara</value>
   </data>
-  <data name="Cartel_Led_Administrador" xml:space="preserve">
-    <value>Led Poster</value>
+  <data name="ConfigIdentificacionVehicular_Administrar" xml:space="preserve">
+    <value>Vehicle Identification</value>
   </data>
   <data name="MonitorIdentificacionVehicular_Diagnostico" xml:space="preserve">
     <value>Vehicle Identification Monitor</value>
-  </data>
-  <data name="ConfigIdentificacionVehicular_Administrar" xml:space="preserve">
-    <value>Vehicle Identification</value>
   </data>
   <data name="ConfigIdentificacionVehicular_Administracion" xml:space="preserve">
     <value>Vehicle Identification Configuration</value>
@@ -803,9 +800,6 @@
   </data>
   <data name="ConfigIdentificacionVehicular_LectorTarjetas" xml:space="preserve">
     <value>Card Reader</value>
-  </data>
-  <data name="ConfigIdentificacionVehicular_SensorVehicular" xml:space="preserve">
-    <value>Vehicle Sensor</value>
   </data>
   <data name="ConfigIdentificacionVehicular_SensorPresencia" xml:space="preserve">
     <value>Presence Sensor</value>
@@ -836,5 +830,8 @@
   </data>
   <data name="ConfigIdentificacionVehicular_ParametrosAvanzados" xml:space="preserve">
     <value>Advanced Parameters</value>
+  </data>
+  <data name="Cartel_Led_Administrador" xml:space="preserve">
+    <value>Led Poster</value>
   </data>
 </root>

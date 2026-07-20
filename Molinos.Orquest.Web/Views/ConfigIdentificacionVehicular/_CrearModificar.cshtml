@@ -4,7 +4,7 @@
 
 @{
     var lectores = ViewBag.Lectores as IEnumerable<SelectListItem>;
-    var sensores = ViewBag.Sensores as IEnumerable<SelectListItem>;
+    var sensoresVehiculares = ViewBag.SensoresVehiculares as IEnumerable<SelectListItem>;
 
     var jsonSettings = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
 
@@ -66,7 +66,7 @@
                 </div>
                 <div class="civ-form-group">
                     @Html.LabelFor(m => m.ConfigSensorVehicularId, new { @class = "civ-form-group__label" })
-                    @Html.DropDownListFor(m => m.ConfigSensorVehicularId, sensores, new { @class = "civ-form-group__select" })
+                    @Html.DropDownListFor(m => m.ConfigSensorVehicularId, sensoresVehiculares, new { @class = "civ-form-group__select" })
                 </div>
             </div>
         </div>
@@ -92,7 +92,7 @@
             <div class="civ-card__body">
                 <div class="civ-form-group">
                     @Html.LabelFor(m => m.ConfigSensorPresenciaId, new { @class = "civ-form-group__label" })
-                    @Html.DropDownListFor(m => m.ConfigSensorPresenciaId, sensores, new { @class = "civ-form-group__select" })
+                    @Html.DropDownListFor(m => m.ConfigSensorPresenciaId, sensoresVehiculares, new { @class = "civ-form-group__select" })
                 </div>
             </div>
         </div>

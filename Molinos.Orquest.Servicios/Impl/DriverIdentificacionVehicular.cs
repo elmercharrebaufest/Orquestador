@@ -8,8 +8,6 @@ using Molinos.Orquest.DriversImpl.Helpers;
 using Ninject.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -89,76 +87,46 @@ namespace Molinos.Orquest.Servicios.Impl
             log.Debug("[CIV:{0}] Sensor de presencia {1}.", config.Codigo, driver != null ? "conectado" : "desconectado");
         }
 
-        private void OnEventoTriggerLecturaTarjeta(object sender, EventoDriverEventArgs args)
+        private async void OnEventoTriggerLecturaTarjeta(object sender, EventoDriverEventArgs args)
         {
             var notificacion = args.Notificacion;
             if (notificacion.CodigoEvento != CodigosEventos.LecturaTarjetaRecibida)
                 return;
 
-            string valorTarjeta = null;
-            notificacion.Datos?.TryGetValue("Tarjeta", out valorTarjeta);
+            string valorTarjeta = string.Empty;
+            notificacion.Datos?.TryGetValue(DatosNotificacion.Tarjeta, out valorTarjeta);
             log.Debug("[CIV:{0}] Trigger lector recibido - tarjeta:{1}.", config.Codigo, valorTarjeta);
 
-            Task.Run(() => ProcesarTrigger(valorTarjeta, "Tarjeta"));
+            await ProcesarTrigger(valorTarjeta, "Tarjeta", new List<DetalleCamaraCIV>());
         }
 
-        private void OnEventoTriggerSensorVehicular(object sender, EventoDriverEventArgs args)
+        private async void OnEventoTriggerSensorVehicular(object sender, EventoDriverEventArgs args)
         {
             if (args.Notificacion.CodigoEvento != CodigosEventos.EntradaActivada)
                 return;
 
-            log.Debug("[CIV:{0}] Trigger sensor vehicular recibido.", config.Codigo);
-            Task.Run(() => ProcesarTrigger(null, "Sensor"));
+            var detalles = ExtraerDetallesCamaras(args.Notificacion.Datos);
+            await ProcesarTrigger(string.Empty, "Sensor", detalles);
         }
 
-        private void ProcesarTrigger(string valorTarjeta, string trigger)
+        private async Task ProcesarTrigger(string tarjeta, string trigger, List<DetalleCamaraCIV> detallesDelSensor)
         {
-            procesamientoSemaphore.Wait();
+            await procesamientoSemaphore.WaitAsync();
             try
             {
                 var fechaEvento = DateTime.Now;
-                var camaras = config.Camaras;
-                var tareasCaptura = new List<Task<DetalleCamaraCIV>>();
-
-                if (camaras != null)
-                {
-                    foreach (var camaraCIV in camaras)
-                    {
-                        var camara = camaraCIV.ConfigCamara;
-                        tareasCaptura.Add(Task.Run(() => CapturarPatente(camara)));
-                    }
-                }
-
-                var tareaPresencia = Task.Run(() => ConsultarPresencia());
-
-                Task.WaitAll(tareasCaptura.ToArray());
-                var estadoPresencia = tareaPresencia.Result;
-
-                string patente = null;
-                string error = null;
-                var detalles = new List<DetalleCamaraCIV>();
-
-                foreach (var t in tareasCaptura)
-                {
-                    var detalle = t.Result;
-                    detalles.Add(detalle);
-                    if (patente == null && !string.IsNullOrEmpty(detalle.Patente))
-                        patente = detalle.Patente;
-                    if (error == null && detalle.Error != null)
-                        error = detalle.Error;
-                }
-
-                log.Debug("[CIV:{0}] Procesamiento completo — patente:{1} presencia:{2}", config.Codigo, patente, estadoPresencia);
+                var estadoSensorPresencia = ConsultarPresencia();
+                var resultadoCamaras = await ObtenerDetallesCamaras(detallesDelSensor);
 
                 var datos = new Dictionary<string, string>
                 {
-                    ["Tarjeta"] = valorTarjeta ?? string.Empty,
-                    ["Patente"] = patente ?? string.Empty,
-                    ["FechaEvento"] = fechaEvento.ToString("o"),
-                    ["VehiculoPresente"] = estadoPresencia.ToString(),
-                    ["Error"] = error ?? string.Empty,
-                    ["Detalle"] = detalles.ToJson(),
-                    ["Trigger"] = trigger
+                    [DatosNotificacion.Trigger] = trigger,
+                    [DatosNotificacion.Tarjeta] = tarjeta,
+                    [DatosNotificacion.FechaEvento] = fechaEvento.ToString("o"),
+                    [DatosNotificacion.VehiculoPresente] = estadoSensorPresencia.ToString(),
+                    [DatosNotificacion.Patente] = resultadoCamaras.Select(x => x.Patente).FirstOrDefault(patenteReconocida => !string.IsNullOrEmpty(patenteReconocida)),
+                    [DatosNotificacion.Error] = resultadoCamaras.Select(x => x.Error).FirstOrDefault(error => !string.IsNullOrEmpty(error)),
+                    [DatosNotificacion.Detalle] = resultadoCamaras.ToJson(),
                 };
 
                 notificar(new NotificacionEvento
@@ -169,31 +137,12 @@ namespace Molinos.Orquest.Servicios.Impl
                 });
 
                 // Actualizar snapshot
-                ultimoValorTarjeta = valorTarjeta;
-                ultimaPresencia = estadoPresencia;
+                ultimoValorTarjeta = tarjeta;
+                ultimaPresencia = estadoSensorPresencia;
                 lock (detalleLock)
                 {
-                    foreach (var d in detalles)
+                    foreach (var d in resultadoCamaras)
                         ultimoDetallePorCamara[d.CodigoCamara] = d;
-                }
-
-                // Agregar al buffer circular (máx. 50)
-                var dtoBuffer = new NotificacionCIVDto
-                {
-                    CodigoEvento      = CodigosEventos.IdentificacionVehicular,
-                    CodigoDispositivo = config.Codigo,
-                    Valor             = valorTarjeta ?? string.Empty,
-                    VehiculoPresente  = estadoPresencia,
-                    Patente           = patente,
-                    FechaEvento       = fechaEvento,
-                    Detalles          = detalles,
-                    JsonCompleto      = datos.ToJson()
-                };
-                lock (bufferLock)
-                {
-                    if (bufferNotificaciones.Count >= 50)
-                        bufferNotificaciones.Dequeue();
-                    bufferNotificaciones.Enqueue(dtoBuffer);
                 }
             }
             catch (Exception ex)
@@ -206,7 +155,49 @@ namespace Molinos.Orquest.Servicios.Impl
             }
         }
 
-        private DetalleCamaraCIV CapturarPatente(ConfigCamara camara)
+        private async Task<List<DetalleCamaraCIV>> ObtenerDetallesCamaras(List<DetalleCamaraCIV> detallesDelSensor)
+        {
+            foreach (var detalle in detallesDelSensor.Where(x => !string.IsNullOrEmpty(x.RutaImagen)))
+                GuardarImageHikVision(detalle);
+
+            if (detallesDelSensor.Any(d => !string.IsNullOrEmpty(d.Patente)))
+                return detallesDelSensor;
+
+            log.Debug("[CIV:{0}] Tomando fotos con ALPR (sin patente previa).", config.Codigo);
+            var resultadoCamaras = await TomarFotosTodas();
+            return detallesDelSensor.Concat(resultadoCamaras).ToList();
+        }
+
+        private async Task<List<DetalleCamaraCIV>> TomarFotosTodas()
+        {
+            var camaras = config.Camaras;
+            if (camaras == null || !camaras.Any())
+                return new List<DetalleCamaraCIV>();
+
+            var tareas = camaras
+                .Select(camaraCIV => Task.Run(() => CapturarPatente(camaraCIV.ConfigCamara)))
+                .ToArray();
+
+            return (await Task.WhenAll(tareas)).ToList();
+        }
+
+        private List<DetalleCamaraCIV> ExtraerDetallesCamaras(Dictionary<string, string> datos)
+        {
+            if (datos == null || !datos.TryGetValue(DatosNotificacion.Detalle, out var json) || string.IsNullOrEmpty(json))
+                return new List<DetalleCamaraCIV>();
+
+            try
+            {
+                return json.FromJson<List<DetalleCamaraCIV>>();
+            }
+            catch (Exception ex)
+            {
+                log.Warn(ex, "[CIV:{0}] No se pudo deserializar Detalle del evento del sensor.", config.Codigo);
+                return new List<DetalleCamaraCIV>();
+            }
+        }
+
+        private async Task<DetalleCamaraCIV> CapturarPatente(ConfigCamara camara)
         {
             int maxReintentos = config.MaxReintentosFoto > 0 ? config.MaxReintentosFoto : 0;
             int delayMs = config.DelayEntreReintentosMs;
@@ -231,7 +222,8 @@ namespace Molinos.Orquest.Servicios.Impl
                     else
                     {
                         var (patente, certeza) = LlamarALPR(imagen, camara);
-                        var rutaImagen = GuardarImagen(imagen, contentType, codigoCamara, !string.IsNullOrEmpty(patente) ? "exitosas" : "fallidas");
+                        var estado = !string.IsNullOrEmpty(patente) ? "exitosas" : "fallidas";
+                        var rutaImagen = IdentificacionVehicularHelper.GuardarImagen(log, imagen, contentType, config.Codigo, codigoCamara, estado);
                         if (!string.IsNullOrEmpty(patente))
                         {
                             log.Debug("[CIV:{0}] Cámara {1} — intento {2}: patente={3}", config.Codigo, codigoCamara, intento, patente);
@@ -252,39 +244,46 @@ namespace Molinos.Orquest.Servicios.Impl
                 }
 
                 if (intento < maxReintentos && delayMs > 0)
-                    Thread.Sleep(delayMs);
+                    await Task.Delay(delayMs);
             }
 
             return detalle;
         }
 
-        private (byte[] imagen, string contentType) ObtenerImagen(ConfigCamara camara)
+        private void GuardarImageHikVision(DetalleCamaraCIV detalle)
         {
-            var request = (HttpWebRequest)WebRequest.Create(camara.Uri);
-            request.Timeout = camara.TimeoutLectura;
-
-            if (!string.IsNullOrEmpty(camara.NombreUsuario) && !string.IsNullOrEmpty(camara.Contrasenia))
-                request.Credentials = new NetworkCredential(camara.NombreUsuario, Encriptador.Decrypt(camara.Contrasenia));
-
-            using (var response = (HttpWebResponse)request.GetResponse())
+            try
             {
-                if ((response.StatusCode == HttpStatusCode.OK
-                     || response.StatusCode == HttpStatusCode.Moved
-                     || response.StatusCode == HttpStatusCode.Redirect)
-                    && response.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+                var (imagen, contentType) = ImagenHelper.ConvertirUrlAByte(detalle.RutaImagen, 5000);
+                if (imagen == null)
                 {
-                    using (var stream = response.GetResponseStream())
-                    using (var ms = new MemoryStream())
-                    {
-                        stream.CopyTo(ms);
-                        return (ms.ToArray(), response.ContentType);
-                    }
+                    log.Warn("[CIV:{0}] Cámara {1} — no se pudo descargar imagen desde URL temporal.", config.Codigo, detalle.CodigoCamara);
+                    return;
                 }
 
-                log.Warn("[CIV:{0}] Cámara {1} respondió con ContentType={2} StatusCode={3}.",
-                    config.Codigo, camara.Dispositivo?.Codigo, response.ContentType, response.StatusCode);
-                return (null, null);
+                var estado = !string.IsNullOrEmpty(detalle.Patente) ? "exitosas" : "fallidas";
+                var ruta = IdentificacionVehicularHelper.GuardarImagen(log, imagen, contentType, config.Codigo, detalle.CodigoCamara, estado);
+                if (ruta != null)
+                    detalle.RutaImagen = ruta;
             }
+            catch (Exception ex)
+            {
+                log.Error(ex, "[CIV:{0}] Error al persistir imagen de URL temporal para cámara {1}.", config.Codigo, detalle.CodigoCamara);
+            }
+        }
+
+        private (byte[] imagen, string contentType) ObtenerImagen(ConfigCamara camara)
+        {
+            NetworkCredential credentials = null;
+            if (!string.IsNullOrEmpty(camara.NombreUsuario) && !string.IsNullOrEmpty(camara.Contrasenia))
+                credentials = new NetworkCredential(camara.NombreUsuario, Encriptador.Decrypt(camara.Contrasenia));
+
+            var (imagen, contentType) = ImagenHelper.ConvertirUrlAByte(camara.Uri, camara.TimeoutLectura, credentials);
+            if (imagen == null)
+                log.Warn("[CIV:{0}] Cámara {1} no devolvió una imagen válida.",
+                    config.Codigo, camara.Dispositivo?.Codigo);
+
+            return (imagen, contentType);
         }
 
         private (string patente, float? certeza) LlamarALPR(byte[] imagen, ConfigCamara camara)
@@ -302,37 +301,6 @@ namespace Molinos.Orquest.Servicios.Impl
                 return (null, null);
 
             return (resultado.Patente, resultado.Confianza);
-        }
-
-        private string GuardarImagen(byte[] imagen, string contentType, string codigoCamara, string estado)
-        {
-            var rutaFotos = ConfigurationManager.AppSettings["IdentificacionVehicular.RutaFotos"];
-            if (string.IsNullOrEmpty(rutaFotos))
-            {
-                log.Warn("[CIV:{0}] No se configuró IdentificacionVehicular.RutaFotos. No se guardará la imagen.", config.Codigo);
-                return null;
-            }
-
-            try
-            {
-                var fecha = DateTime.Now.ToString("yyyyMMdd");
-                var fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss_fff");
-                var extension = contentType.Substring(contentType.IndexOf("/", StringComparison.Ordinal) + 1);
-
-                var fullPath = Path.Combine(rutaFotos, fecha, config.Codigo, codigoCamara ?? "desconocida", estado);
-                if (!Directory.Exists(fullPath))
-                    Directory.CreateDirectory(fullPath);
-
-                var filePath = Path.Combine(fullPath, $"{fileName}.{extension}");
-                File.WriteAllBytes(filePath, imagen);
-                log.Debug("[CIV:{0}] Imagen guardada en {1}", config.Codigo, filePath);
-                return filePath;
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex, "[CIV:{0}] Error al guardar imagen de cámara {1}.", config.Codigo, codigoCamara);
-                return null;
-            }
         }
 
         private bool ConsultarPresencia()

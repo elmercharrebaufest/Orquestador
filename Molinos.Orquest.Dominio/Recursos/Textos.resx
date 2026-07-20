@@ -1533,9 +1533,6 @@
   <data name="ConfigIdentificacionVehicular_LectorTarjetas" xml:space="preserve">
     <value>Lector de Tarjetas</value>
   </data>
-  <data name="ConfigIdentificacionVehicular_SensorVehicular" xml:space="preserve">
-    <value>Sensor Vehicular</value>
-  </data>
   <data name="ConfigIdentificacionVehicular_SensorPresencia" xml:space="preserve">
     <value>Sensor de Presencia</value>
   </data>
@@ -1584,6 +1581,9 @@
   <data name="MonitorCIV_Desconocido" xml:space="preserve">
     <value>DESCONOCIDO</value>
   </data>
+  <data name="MonitorCIV_Desconectado" xml:space="preserve">
+    <value>DESCONECTADO</value>
+  </data>
   <data name="MonitorCIV_SinDispositivoAsignado" xml:space="preserve">
     <value>Sin dispositivo asignado</value>
   </data>
@@ -1631,5 +1631,20 @@
   </data>
   <data name="MonitorCIV_ServicioNoDisponible" xml:space="preserve">
     <value>El servidor de orquestador no está disponible.</value>
+  </data>
+  <data name="MonitorCIV_VerImagenCompleta" xml:space="preserve">
+    <value>Ver imagen completa</value>
+  </data>
+  <data name="MonitorCIV_VerImagenesHikVision" xml:space="preserve">
+    <value>Ver imágenes HikVision</value>
+  </data>
+  <data name="MonitorCIV_ImagenesHikVision" xml:space="preserve">
+    <value>Imágenes HikVision</value>
+  </data>
+  <data name="MonitorCIV_VerImagenes" xml:space="preserve">
+    <value>Ver Imágenes</value>
+  </data>
+  <data name="MonitorCIV_SinInformacionDispositivos" xml:space="preserve">
+    <value>No se obtuvo información de los dispositivos</value>
   </data>
 </root>

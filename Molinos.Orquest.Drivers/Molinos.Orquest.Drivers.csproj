@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="ConexionDispositivoDriverException.cs" />
     <Compile Include="ComandoDriverException.cs" />
+    <Compile Include="DatosNotificacion.cs" />
     <Compile Include="IConfiguracionGeneral.cs" />
     <Compile Include="IDriverGrupoBarrera.cs" />
     <Compile Include="IDriverBalanzaPuerto.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="DriverConMensajeException.cs" />
     <Compile Include="IDriverNirs.cs" />
     <Compile Include="IDriverPantallaPuestoDeVianda.cs" />
+    <Compile Include="IDriverConDireccionIp.cs" />
     <Compile Include="IDriverSensor.cs" />
     <Compile Include="IDriverCamara.cs" />
     <Compile Include="DriverException.cs" />

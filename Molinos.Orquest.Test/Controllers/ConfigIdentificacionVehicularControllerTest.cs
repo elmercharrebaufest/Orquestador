@@ -81,7 +81,7 @@ namespace Molinos.Orquest.Test.Controllers
             // Stub generic Listar<T>() used by PopularLectoresYSensores
             repositorioMock.Setup(r => r.Listar<ConfigLectorTarjetas>(null))
                 .Returns(lectores);
-            repositorioMock.Setup(r => r.Listar<ConfigSensor>(null))
+            repositorioMock.Setup(r => r.Listar<ConfigSensor>(It.IsAny<Expression<Func<ConfigSensor, bool>>>()))
                 .Returns(sensores);
             repositorioMock.Setup(r => r.Listar<ConfigCamara>(null))
                 .Returns(camaras);
@@ -136,7 +136,7 @@ namespace Molinos.Orquest.Test.Controllers
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.ViewBag.Lectores, Is.Not.Null);
-            Assert.That(result.ViewBag.Sensores, Is.Not.Null);
+            Assert.That(result.ViewBag.SensoresVehiculares, Is.Not.Null);
         }
 
         [Test]
@@ -228,7 +228,7 @@ namespace Molinos.Orquest.Test.Controllers
             var result = target.Modificar(1) as ViewResult;
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.ViewBag.Sensores, Is.Not.Null);
+            Assert.That(result.ViewBag.SensoresVehiculares, Is.Not.Null);
             conversorMock.Verify(x => x.Convertir<ConfigIdentificacionVehicular, ConfigIdentificacionVehicularModel>(It.IsAny<ConfigIdentificacionVehicular>()), Times.Once());
         }
 

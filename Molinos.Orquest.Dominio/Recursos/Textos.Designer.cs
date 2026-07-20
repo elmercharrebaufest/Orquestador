@@ -1447,15 +1447,6 @@ namespace Molinos.Orquest.Dominio.Recursos {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sensor Vehicular.
-        /// </summary>
-        public static string ConfigIdentificacionVehicular_SensorVehicular {
-            get {
-                return ResourceManager.GetString("ConfigIdentificacionVehicular_SensorVehicular", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Configuración del Dispositivo.
         /// </summary>
         public static string ConfiguracionDispositivo {
@@ -2932,6 +2923,15 @@ namespace Molinos.Orquest.Dominio.Recursos {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DESCONECTADO.
+        /// </summary>
+        public static string MonitorCIV_Desconectado {
+            get {
+                return ResourceManager.GetString("MonitorCIV_Desconectado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DESCONOCIDO.
         /// </summary>
         public static string MonitorCIV_Desconocido {
@@ -2946,6 +2946,15 @@ namespace Molinos.Orquest.Dominio.Recursos {
         public static string MonitorCIV_Disparadores {
             get {
                 return ResourceManager.GetString("MonitorCIV_Disparadores", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imágenes HikVision.
+        /// </summary>
+        public static string MonitorCIV_ImagenesHikVision {
+            get {
+                return ResourceManager.GetString("MonitorCIV_ImagenesHikVision", resourceCulture);
             }
         }
         
@@ -3040,6 +3049,15 @@ namespace Molinos.Orquest.Dominio.Recursos {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No se obtuvo información de los dispositivos.
+        /// </summary>
+        public static string MonitorCIV_SinInformacionDispositivos {
+            get {
+                return ResourceManager.GetString("MonitorCIV_SinInformacionDispositivos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sin notificaciones desde el último reinicio del servicio..
         /// </summary>
         public static string MonitorCIV_SinNotificaciones {
@@ -3072,6 +3090,33 @@ namespace Molinos.Orquest.Dominio.Recursos {
         public static string MonitorCIV_Valor {
             get {
                 return ResourceManager.GetString("MonitorCIV_Valor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ver imagen completa.
+        /// </summary>
+        public static string MonitorCIV_VerImagenCompleta {
+            get {
+                return ResourceManager.GetString("MonitorCIV_VerImagenCompleta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ver Imágenes.
+        /// </summary>
+        public static string MonitorCIV_VerImagenes {
+            get {
+                return ResourceManager.GetString("MonitorCIV_VerImagenes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ver imágenes HikVision.
+        /// </summary>
+        public static string MonitorCIV_VerImagenesHikVision {
+            get {
+                return ResourceManager.GetString("MonitorCIV_VerImagenesHikVision", resourceCulture);
             }
         }
         
