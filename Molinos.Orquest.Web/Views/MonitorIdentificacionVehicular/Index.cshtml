@@ -988,7 +988,6 @@
 
                     <div class="device-second-line">
                         <div class="device-value" id="valor-@(lector != null ? lector.CodigoDispositivo : null)">
-                            @(lector != null && !string.IsNullOrEmpty(lector.UltimoValor) ? lector.UltimoValor : "")
                         </div>
                     </div>
                 </div>
@@ -1069,7 +1068,6 @@
                     <div class="plate-box">
                         <div class="plate-value-group">
                             <span class="plate-value" id="patente-@camCodigo">
-                                @(camEstado != null && !string.IsNullOrEmpty(camEstado.UltimaPatente) ? camEstado.UltimaPatente : "")
                             </span>
                             <button class="btn-hkv-img" id="btn-hkv-@camCodigo" style="display:none" onclick="abrirHkvModal('@camCodigo')" title="@Textos.MonitorCIV_VerImagenesHikVision">
                                 <span class="material-icons-round" style="font-size:18px">image</span>
@@ -1124,7 +1122,6 @@
                                     <div class="plate-box">
                                         <div class="plate-value-group">
                                             <span class="plate-value" id="patente-@camCodigo">
-                                                @(camEstado != null && !string.IsNullOrEmpty(camEstado.UltimaPatente) ? camEstado.UltimaPatente : "")
                                             </span>
                                             <button class="btn-hkv-img" id="btn-hkv-@camCodigo" style="display:none" onclick="abrirHkvModal('@camCodigo')" title="@Textos.MonitorCIV_VerImagenesHikVision">
                                                 <span class="material-icons-round" style="font-size:18px">image</span>

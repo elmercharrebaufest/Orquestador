@@ -1519,10 +1519,10 @@
     <value>Configuración Identificación Vehicular</value>
   </data>
   <data name="ConfigIdentificacionVehicular_Crear" xml:space="preserve">
-    <value>Nueva configuración</value>
+    <value>Nueva configuración de Identificador Vehicular</value>
   </data>
   <data name="ConfigIdentificacionVehicular_Modificar" xml:space="preserve">
-    <value>Editar configuración</value>
+    <value>Editar configuración de Identificador Vehicular</value>
   </data>
   <data name="ConfigIdentificacionVehicular_Nombre" xml:space="preserve">
     <value>Nombre</value>

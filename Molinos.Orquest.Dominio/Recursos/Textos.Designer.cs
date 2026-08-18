@@ -1339,7 +1339,7 @@ namespace Molinos.Orquest.Dominio.Recursos {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nueva configuración.
+        ///   Looks up a localized string similar to Nueva configuración de Identificador Vehicular.
         /// </summary>
         public static string ConfigIdentificacionVehicular_Crear {
             get {
@@ -1411,7 +1411,7 @@ namespace Molinos.Orquest.Dominio.Recursos {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Editar configuración.
+        ///   Looks up a localized string similar to Editar configuración de Identificador Vehicular.
         /// </summary>
         public static string ConfigIdentificacionVehicular_Modificar {
             get {

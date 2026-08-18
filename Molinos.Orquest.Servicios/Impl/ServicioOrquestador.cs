@@ -972,6 +972,22 @@ namespace Molinos.Orquest.Servicios.Impl
             }
         }
 
+        public IList<CamaraDto> ObtenerCamarasPorCodigoIdentificacionVehicular(string codigoIdentificacionVehicular)
+        {
+            using (var repositorio = factoryRepositorio.Repositorio())
+            {
+                return repositorio.Listar<ConfigIdentificacionVehicularCamara, CamaraDto>(
+                    c => c.ConfigIdentificacionVehicular.Codigo == codigoIdentificacionVehicular
+                         && c.ConfigIdentificacionVehicular.Activo
+                         && c.ConfigCamara.Dispositivo.Activo,
+                    c => new CamaraDto
+                    {
+                        Codigo = c.ConfigCamara.Dispositivo.Codigo,
+                        Url = c.ConfigCamara.UrlStreaming
+                    });
+            }
+        }
+
         public IList<DispositivoDto> ListarIntercomunicadores()
         {
             using (var repositorio = factoryRepositorio.Repositorio())

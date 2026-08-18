@@ -134,6 +134,9 @@ namespace Molinos.Orquest.Servicios
         IList<CamaraDto> ObtenerCamaras(string[] codigo);
 
         [OperationContract]
+        IList<CamaraDto> ObtenerCamarasPorCodigoIdentificacionVehicular(string codigoIdentificacionVehicular);
+
+        [OperationContract]
         IList<DispositivoDto> ListarIntercomunicadores();
 
         [OperationContract]
